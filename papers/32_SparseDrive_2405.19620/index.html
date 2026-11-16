@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>SparseDrive 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="SparseDrive: End-to-End Autonomous Driving via Sparse Scene Representation" />
+  <meta name="short-name" content="SparseDrive" />
+  <meta name="authors" content="Wenchao Sun, Xuewu Lin, Yining Shi, Chuang Zhang, Haoran Wu, Sifa Zheng（Tsinghua University, Horizon）" />
+  <meta name="source-pdf" content="32_SparseDrive_2405.19620.pdf" />
+  <meta name="source-pages" content="16" />
+  <meta name="pdf-href" content="32_SparseDrive_2405.19620.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="高コストな BEV 特徴を使わず、検出・追跡・オンラインマッピングを対称なスパース知覚で統一し、動き予測と計画を並列に行う動作プランナと衝突考慮の階層的計画選択を組み合わせたエンドツーエンド自動運転手法。nuScenes で UniAD を大きく上回る性能と学習・推論効率を達成した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">SparseDrive 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="32_SparseDrive_2405.19620.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+    <div class="page" data-page="13" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">13</div></div>
+    <div class="page" data-page="14" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">14</div></div>
+    <div class="page" data-page="15" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">15</div></div>
+    <div class="page" data-page="16" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">16</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#sparsedrive-end-to-end-autonomous-driving-via-sparse-scene-representation" id="toc-sparsedrive-end-to-end-autonomous-driving-via-sparse-scene-representation">SparseDrive: End-to-End Autonomous Driving via Sparse Scene Representation</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a><ul>
+<li><a href="#2.1-マルチビュー-3d-検出" id="toc-2.1-マルチビュー-3d-検出">2.1　マルチビュー 3D 検出</a></li>
+<li><a href="#2.2-エンドツーエンド追跡" id="toc-2.2-エンドツーエンド追跡">2.2　エンドツーエンド追跡</a></li>
+<li><a href="#2.3-オンラインマッピング" id="toc-2.3-オンラインマッピング">2.3　オンラインマッピング</a></li>
+<li><a href="#2.4-エンドツーエンド動き予測" id="toc-2.4-エンドツーエンド動き予測">2.4　エンドツーエンド動き予測</a></li>
+<li><a href="#2.5-エンドツーエンド計画" id="toc-2.5-エンドツーエンド計画">2.5　エンドツーエンド計画</a></li>
+</ul></li>
+<li><a href="#3-手法" id="toc-3-手法">3　手法</a><ul>
+<li><a href="#3.1-概要" id="toc-3.1-概要">3.1　概要</a></li>
+<li><a href="#3.2-対称スパース知覚" id="toc-3.2-対称スパース知覚">3.2　対称スパース知覚</a></li>
+<li><a href="#3.3-並列動作プランナ" id="toc-3.3-並列動作プランナ">3.3　並列動作プランナ</a></li>
+<li><a href="#3.4-エンドツーエンド学習" id="toc-3.4-エンドツーエンド学習">3.4　エンドツーエンド学習</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a><ul>
+<li><a href="#4.1-主要な結果" id="toc-4.1-主要な結果">4.1　主要な結果</a></li>
+<li><a href="#4.2-アブレーション研究" id="toc-4.2-アブレーション研究">4.2　アブレーション研究</a></li>
+</ul></li>
+<li><a href="#5-結論と今後の課題" id="toc-5-結論と今後の課題">5　結論と今後の課題</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#a-評価指標" id="toc-a-評価指標">A　評価指標</a></li>
+<li><a href="#b-実装の詳細" id="toc-b-実装の詳細">B　実装の詳細</a><ul>
+<li><a href="#b.1-知覚" id="toc-b.1-知覚">B.1　知覚</a></li>
+<li><a href="#b.2-動作プランナ" id="toc-b.2-動作プランナ">B.2　動作プランナ</a></li>
+<li><a href="#b.3-損失関数" id="toc-b.3-損失関数">B.3　損失関数</a></li>
+<li><a href="#b.4-学習の詳細" id="toc-b.4-学習の詳細">B.4　学習の詳細</a></li>
+</ul></li>
+<li><a href="#c-可視化" id="toc-c-可視化">C　可視化</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="sparsedrive-end-to-end-autonomous-driving-via-sparse-scene-representation">SparseDrive: End-to-End Autonomous Driving via Sparse Scene Representation</h1>
+<p>Wenchao Sun<sup>1,2</sup>、Xuewu Lin<sup>2</sup>、Yining Shi<sup>1</sup>、Chuang Zhang<sup>1</sup>、Haoran Wu<sup>1</sup>、Sifa Zheng<sup>1</sup><br />
+<sup>1</sup> Tsinghua University　<sup>2</sup> Horizon<br />
+arXiv:2405.19620v2 [cs.CV]、2024年5月31日（プレプリント、査読中）</p>
+<blockquote><p>翻訳について：原文 PDF は <code>32_SparseDrive_2405.19620.pdf</code>（全 16 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p>確立されたモジュール型の自動運転システムは、知覚・予測・計画といった独立したタスクに分離されており、モジュール間での情報損失と誤差の蓄積に悩まされている。これに対し、エンドツーエンドのパラダイムは複数のタスクを完全に微分可能な 1 つのフレームワークに統合し、計画を重視した方針での最適化を可能にする。エンドツーエンドのパラダイムには大きな可能性があるものの、既存手法の性能と効率はいずれも満足のいくものではなく、とりわけ計画の安全性の面で不十分である。我々はその原因を、計算コストの高い BEV（鳥瞰図、bird's eye view）特徴と、予測および計画の素朴な設計にあると考える。そこで我々は、エンドツーエンド自動運転のためのスパース表現を探究し、タスク設計を見直して、SparseDrive と名付けた新しいパラダイムを提案する。具体的には、SparseDrive は対称スパース知覚モジュールと並列動作プランナから構成される。スパース知覚モジュールは、検出・追跡・オンラインマッピングを対称なモデル構造で統一し、運転シーンの完全にスパースな表現を学習する。動き予測と計画については、これら 2 つのタスクの間に大きな類似性があることを再検討し、動作プランナの並列設計を導く。計画をマルチモーダルな問題としてモデル化するこの並列設計に基づき、衝突考慮型のリスコアモジュールを組み込んだ階層的計画選択戦略を提案し、合理的かつ安全な軌道を最終的な計画出力として選択する。こうした効果的な設計により、SparseDrive はすべてのタスクの性能で従来の最先端手法を大差で上回り、同時に学習と推論の効率もはるかに高い。今後の研究を促進するため、コードは <a href="https://github.com/swc-17/SparseDrive">https://github.com/swc-17/SparseDrive</a> で公開予定である。</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>従来の自動運転システムは、逐次的に並んだモジュール型のタスクとして構成されるのが特徴である。解釈性や誤差の追跡の面では有利であるが、連続するモジュール間での情報損失と誤差の蓄積が避けられず、システムが本来達成し得る最適な性能を制限してしまう。</p>
+<p>近年、有望な研究方向としてエンドツーエンドの運転パラダイムが登場した。このパラダイムはすべてのタスクを 1 つの全体的なモデルに統合し、最終的な目的である計画に向けて最適化できる。しかし、既存手法［15, 20］は性能と効率の面で満足のいくものではない。一方では、従来手法は計算コストの高い BEV 特徴に依存している。他方では、予測と計画の素朴な設計がモデルの性能を制限している。我々は従来手法を BEV 中心（BEV-Centric）パラダイムとして図 1a にまとめた。</p>
+<a class="pg" data-page="2"></a>
+<p>エンドツーエンドのパラダイムの可能性を最大限に引き出すため、我々は既存手法のタスク設計を見直し、動き予測と計画が共有する 3 つの主要な共通点が見過ごされていると主張する。それは次のとおりである。(1) 周囲のエージェントと自車両の将来軌道を予測することを目的とする以上、動き予測と計画はいずれも道路上のエージェント間の高次かつ双方向の相互作用を考慮すべきである。しかし、従来手法は通常、動き予測と計画に逐次的な設計を採用しており、自車両が周囲のエージェントに与える影響を無視している。(2) 将来軌道を正確に予測するには、シーン理解のための意味情報と、エージェントの将来の動きを予測するための幾何情報が必要であり、これは動き予測と計画の両方に当てはまる。これらの情報は周囲のエージェントについては上流の知覚タスクで抽出されるが、自車両については見落とされている。(3) 動き予測と計画はいずれも本質的な不確実性を伴うマルチモーダルな問題であるが、従来手法は計画について決定論的な軌道しか予測しない。</p>
+
+<figure><img src="figs/fig1.png" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：</strong>各種エンドツーエンドパラダイムの比較。(a) BEV 中心パラダイム。(b) 提案するスパース中心パラダイム。(c) (a) と (b) の性能および効率の比較（小図 (c) の題：本手法と従来の SOTA［15］との比較）。</p>
+<p class="yakuchu">図中ラベル：Multi-view Camera Input＝マルチビューカメラ入力、Dense BEV Features＝密な BEV 特徴、Detection &amp;Tracking＝検出・追跡、Online Mapping＝オンラインマッピング、Motion＝動き予測、Planning＝計画、Motion Planning＝動き予測・計画、Backbone＝バックボーン、Perception＝知覚、Motion &amp; Planning＝動き予測と計画、Performance＝性能、Efficiency＝効率、BEV-Centric paradigm＝BEV 中心パラダイム、Sparse-Centric paradigm＝スパース中心パラダイム。棒グラフの凡例は UniAD、SparseDrive-S、SparseDrive-B。</p>
+
+<p>そこで我々は、図 1b に示すスパース中心（Sparse-Centric）パラダイムである SparseDrive を提案する。具体的には、SparseDrive は対称スパース知覚モジュールと並列動作プランナから構成される。分離されたインスタンス特徴と幾何アンカーを 1 つのインスタンス（動的な道路エージェントまたは静的な地図要素）の完全な表現とし、<strong>対称スパース知覚（Symmetric Sparse Perception）</strong>は検出・追跡・オンラインマッピングの各タスクを対称なモデル構造で統一して、完全にスパースなシーン表現を学習する。<strong>並列動作プランナ（Parallel Motion Planner）</strong>では、まず自車インスタンス初期化モジュールによって、意味と幾何の両方を考慮した自車インスタンスを得る。自車インスタンスとスパース知覚から得た周囲エージェントのインスタンスを用いて、動き予測と計画を同時に行い、すべての道路エージェントについてマルチモーダルな軌道を得る。計画の合理性と安全性を確保するため、衝突考慮型のリスコアモジュールを組み込んだ階層的計画選択戦略を適用し、マルチモーダルな軌道候補の中から最終的な計画軌道を選択する。</p>
+<p>上述の効果的な設計により、SparseDrive は図 1c に示すとおり、エンドツーエンド自動運転の大きな可能性を引き出す。余計な工夫なしに、我々のベースモデル SparseDrive-B は平均 L2 誤差を 19.4%（0.58m 対 0.72m）、衝突率を 71.4%（0.06% 対 0.21%）大きく削減する。従来の SOTA（最先端、state-of-the-art）手法である UniAD［15］と比較して、我々の小型モデル SparseDrive-S はすべてのタスクで優れた性能を達成しつつ、学習は 7.2 倍（20 h 対 144 h）、推論は 5.0 倍（9.0 FPS 対 1.8 FPS）高速に動作する。</p>
+<p>本研究の主な貢献は次のようにまとめられる。</p>
+<ul>
+<li>エンドツーエンド自動運転のためのスパースなシーン表現を探究し、スパースなインスタンス表現によって複数のタスクを統一する、SparseDrive と名付けたスパース中心パラダイムを提案する。</li>
+<li>動き予測と計画が共有する大きな類似性を再検討し、それに応じて動作プランナの並列設計を導く。さらに、計画性能を高めるために、衝突考慮型のリスコアモジュールを組み込んだ階層的計画選択戦略を提案する。</li>
+<li>難度の高い nuScenes［1］ベンチマークにおいて、SparseDrive はすべての指標、特に安全性に直結する指標である衝突率で従来の SOTA 手法を上回り、かつはるかに高い学習・推論効率を保つ。</li>
+</ul>
+<a class="pg" data-page="3"></a>
+<h2 id="2-関連研究">2　関連研究</h2>
+<h3 id="2.1-マルチビュー-3d-検出">2.1　マルチビュー 3D 検出</h3>
+<p>マルチビュー 3D 検出は、自動運転システムの安全性の前提条件である。LSS［42］は深度推定を用いて画像特徴を 3D 空間へ持ち上げ（lift）、特徴を BEV 平面に投げ落とす（splat）。後続の研究は lift-splat 操作を 3D 検出の分野に適用し、精度［18, 16, 25, 24］と効率［37, 17］の両面で大きな改善を達成した。一部の研究［26, 48, 21, 5］は、BEV クエリの集合をあらかじめ定義し、それらを透視ビューへ投影して特徴をサンプリングする。別の系統の研究は、密な BEV 特徴への依存をなくしている。PETR シリーズ［35, 36, 47］は 3D 位置エンコーディングと大域的な注意機構を導入し、ビュー変換を暗黙的に学習する。Sparse4D シリーズ［31, 32, 33］は 3D 空間に明示的なアンカーを設定し、それらを画像ビューに投影して局所特徴を集約し、反復的にアンカーを洗練する。</p>
+
+<h3 id="2.2-エンドツーエンド追跡">2.2　エンドツーエンド追跡</h3>
+<p>多くのマルチオブジェクト追跡（MOT）手法は、データアソシエーションのような後処理に依存する、検出による追跡（tracking-by-detection）方式を採用している。このようなパイプラインはニューラルネットワークの能力を十分に活用できない。［2］のオブジェクトクエリに触発され、一部の研究［52, 55, 50, 41, 46, 54］は追跡中のインスタンスをストリーミング方式でモデル化するためにトラッククエリを導入している。MOTR［52］はトラックレットを考慮したラベル割り当てを提案しており、これはトラッククエリに同一の対象を継続的に検出させるもので、検出とアソシエーションの間の競合に悩まされる［55, 50］。Sparse4Dv3 は、時間方向に伝播されたインスタンスがすでに同一性の一貫性を持つことを示し、単純な ID 割り当て処理で SOTA の追跡性能を達成している。</p>
+
+<h3 id="2.3-オンラインマッピング">2.3　オンラインマッピング</h3>
+<p>HD マップの構築には高いコストと膨大な人的労力がかかるため、HD マップの代替としてオンラインマッピングが提案されている。HDMapNet［23］は BEV セマンティックセグメンテーションと後処理を組み合わせて、ベクトル化された地図インスタンスを得る。VectorMapNet［34］は 2 段階の自己回帰型 Transformer を用いてオンラインで地図を構築する。MapTR［29］は地図要素を等価な置換を持つ点集合としてモデル化し、地図要素の定義の曖昧さを回避する。BeMapNet は区分的ベジェ曲線を採用して地図要素の詳細を記述する。StreamMapNet［51］は時間方向のモデル化のために BEV 融合とクエリ伝播を導入している。</p>
+
+<h3 id="2.4-エンドツーエンド動き予測">2.4　エンドツーエンド動き予測</h3>
+<p>エンドツーエンドの動き予測は、従来のパイプラインにおける連鎖的な誤差を避けるために提案された。FaF［40］は単一の畳み込みネットワークを用いて、現在と将来のバウンディングボックスを両方予測する。IntentNet［3］はさらに一歩進めて、高レベルの行動と長期的な軌道の両方を推論する。PnPNet［28］はオンライン追跡モジュールを導入し、動き予測のために軌道レベルの特徴を集約する。ViP3D［10］は画像と HD マップを入力とし、エージェントクエリを用いて追跡と予測を行う。PIP［19］は人手でアノテーションされた HD マップを局所的なベクトル化地図で置き換える。</p>
+
+<h3 id="2.5-エンドツーエンド計画">2.5　エンドツーエンド計画</h3>
+<p>エンドツーエンド計画の研究は前世紀から続けられている［43］。初期の研究［6, 7, 44］は知覚や動き予測といった中間タスクを省略しており、解釈性に欠け、最適化も難しい。一部の研究［14, 4, 45, 8］は知覚や予測の結果から明示的なコストマップを構築して解釈性を高めているが、コスト最小の最良軌道を選択するのに人手で設計したルールに依存している。最近では、UniAD［15］が統一的なクエリ設計を提案して様々なタスクを目標指向のモデルに統合し、知覚・予測・計画において顕著な性能を達成した。VAD［20］はシーン学習と計画の制約にベクトル化表現を用いる。GraphAD［56］は交通シーンにおける複雑な相互作用のためにグラフモデルを利用する。FusionAD［49］はエンドツーエンド運転をマルチセンサ入力へ拡張する。しかし、従来手法は主にシーン学習に焦点を当てており、予測と計画には素朴な設計を採用していて、これら 2 つのタスクの類似性を十分に考慮しておらず、性能を大きく制限している。</p>
+
+<a class="pg" data-page="4"></a>
+<figure><img src="figs/fig2.png" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：</strong>SparseDrive の概要。SparseDrive はまずマルチビュー画像を特徴マップへエンコードし、次に対称スパース知覚によってスパースなシーン表現を学習し、最後に動き予測と計画を並列に行う。時間方向のモデル化のためにインスタンスメモリキューを考案している。</p>
+<p class="yakuchu">図中ラベル：Image Encoder＝画像エンコーダ、Backbone＝バックボーン、Neck＝ネック、Symmetric Sparse Perception＝対称スパース知覚、Temporal Fusion＝時間融合、Update＝更新、Detection &amp; Tracking &amp; Online Mapping＝検出・追跡・オンラインマッピング、Instance Memory Queue＝インスタンスメモリキュー、Initialize＝初期化、Driving Command＝運転コマンド、Parallel Motion Planner＝並列動作プランナ、Motion Prediction &amp; Planning＝動き予測・計画、Temporal＝時間方向（過去）、Current＝現在、Instance Feature &amp; Anchor Box＝インスタンス特徴とアンカーボックス、Ego Instance Feature &amp; Anchor Box＝自車インスタンス特徴とアンカーボックス、Map Instance Feature &amp; Anchor Polyline＝地図インスタンス特徴とアンカーポリライン</p>
+
+<h2 id="3-手法">3　手法</h2>
+<h3 id="3.1-概要">3.1　概要</h3>
+<p>SparseDrive の全体フレームワークを図 2 に示す。具体的には、SparseDrive は画像エンコーダ、対称スパース知覚、並列動作プランナの 3 つの部分から構成される。マルチビュー画像が与えられると、バックボーンネットワークとネックからなる画像エンコーダが、まず画像をマルチビュー・マルチスケールの特徴マップ \( I = \left\{ I_s \in \mathbb{R}^{N \times C \times H_s \times W_s} \,|\, 1 \le s \le S \right\} \) にエンコードする。ここで \( S \) はスケール数、\( N \) はカメラビュー数である。対称スパース知覚モジュールでは、特徴マップ \( I \) を 2 つのインスタンス群に集約し、運転シーンのスパース表現を学習する。それぞれ周囲のエージェントと地図要素を表すこれら 2 つのインスタンス群は、並列動作プランナに入力され、初期化された自車インスタンスと相互作用する。動作プランナは周囲のエージェントと自車両のマルチモーダルな軌道を同時に予測し、階層的計画選択戦略によって安全な軌道を最終的な計画結果として選択する。</p>
+
+<h3 id="3.2-対称スパース知覚">3.2　対称スパース知覚</h3>
+<p>図 3 に示すように、スパース知覚モジュールのモデル構造は構造的な対称性を示しており、検出・追跡・オンラインマッピングを 1 つに統一している。</p>
+<p><strong>スパース検出。</strong>周囲のエージェントは、インスタンス特徴の集合 \( F_d \in \mathbb{R}^{N_d \times C} \) とアンカーボックス \( B_d \in \mathbb{R}^{N_d \times 11} \) で表現される。ここで \( N_d \) はアンカー数、\( C \) は特徴チャネル次元である。各アンカーボックスは位置、寸法、ヨー角、速度で構成される。</p>
+<p>\[ \left\{ x, y, z, \ln w, \ln h, \ln l, \sin yaw, \cos yaw, vx, vy, vz \right\}. \]</p>
+<a class="pg" data-page="5"></a>
+<p>スパース検出ブランチは \( N_{dec} \) 個のデコーダから構成され、1 つの非時間デコーダと \( N_{dec} - 1 \) 個の時間デコーダを含む。各デコーダは特徴マップ \( I \)、インスタンス特徴 \( F_d \)、アンカーボックス \( B_d \) を入力とし、更新されたインスタンス特徴と洗練されたアンカーボックスを出力する。非時間デコーダはランダムに初期化されたインスタンスを入力とし、時間デコーダの入力は現在フレームと過去フレームの両方から得られる。具体的には、非時間デコーダは 3 つのサブモジュール、すなわち変形可能集約（deformable aggregation）、フィードフォワードネットワーク（FFN）、および洗練と分類のための出力層を含む。変形可能集約モジュールは、アンカーボックス \( B_d \) の周囲に固定または学習可能なキーポイントを生成し、それらを特徴マップ \( I \) に投影して特徴をサンプリングする。インスタンス特徴 \( F_d \) はサンプリングされた特徴との加算によって更新され、出力層において分類スコアとアンカーボックスのオフセットを予測する役割を担う。時間デコーダには 2 つの追加のマルチヘッド注意層がある。前フレームからの時間インスタンスと現在のインスタンスとの間の時間クロス注意と、現在のインスタンス間の自己注意である。マルチヘッド注意層では、アンカーボックスは高次元のアンカー埋め込み \( E_d \in \mathbb{R}^{N_d \times C} \) に変換され、位置エンコーディングとして用いられる。</p>
+
+<figure><img src="figs/fig3.png" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：</strong>対称スパース知覚のモデル構造。検出・追跡・オンラインマッピングを対称な構造で統一する。</p>
+<p class="yakuchu">図中ラベル：Output Map Instances＝出力地図インスタンス、Output Detection Instances＝出力検出インスタンス、Refinement &amp; Classification＝洗練と分類、Feedforward Network＝フィードフォワードネットワーク、Deformable Aggregation＝変形可能集約、Self Attention＝自己注意、Cross Attention＝クロス注意、Key/Value＝キー／バリュー、Topk＝上位 k 個の選択、Update＝更新、Instance Memory Queue＝インスタンスメモリキュー、Identity＝恒等写像、Ego Motion Projection＝自車運動による投影、Temporal Propagation＝時間伝播、Feature Maps＝特徴マップ、Initialized Map Instances＝初期化された地図インスタンス、Initialized Detection Instances＝初期化された検出インスタンス</p>
+
+<p><strong>スパースオンラインマッピング。</strong>オンラインマッピングブランチは、インスタンスの定義が異なる点を除き、検出ブランチと同じモデル構造を共有する。静的な地図要素については、アンカーを \( N_p \) 個の点からなるポリラインとして定式化する。</p>
+<p>\[ \left\{ x_0, y_0, x_1, y_1, \ldots, x_{N_p - 1}, y_{N_p - 1} \right\}. \]</p>
+<p>これにより、すべての地図要素は地図インスタンス特徴 \( F_m \in \mathbb{R}^{N_m \times C} \) とアンカーポリライン \( L_m \in \mathbb{R}^{N_m \times N_p \times 2} \) で表現できる。ここで \( N_m \) はアンカーポリラインの数である。</p>
+<p><strong>スパース追跡。</strong>追跡については、Sparse4Dv3［33］の ID 割り当て処理に従う。すなわち、あるインスタンスの検出信頼度がしきい値 \( T_{thresh} \) を超えると、そのインスタンスは対象に固定されて ID が割り当てられ、この ID は時間伝播を通じて変化しない。この追跡戦略は追跡のための制約を一切必要とせず、スパース知覚モジュールの洗練された単純な対称設計をもたらす。</p>
+
+<h3 id="3.3-並列動作プランナ">3.3　並列動作プランナ</h3>
+<p>図 4 に示すように、並列動作プランナは 3 つの部分、すなわち自車インスタンス初期化、時空間相互作用、階層的計画選択から構成される。</p>
+<p><strong>自車インスタンス初期化。</strong>周囲のエージェントと同様に、自車両は自車インスタンス特徴 \( F_e \in \mathbb{R}^{1 \times C} \) と自車アンカーボックス \( B_e \in \mathbb{R}^{1 \times 11} \) で表現される。従来手法では自車特徴は通常ランダムに初期化されるが、我々は、動き予測と同様に、計画のためには自車特徴にも豊富な意味情報と幾何情報が必要であると主張する。しかし、周囲のエージェントのインスタンス特徴は画像特徴マップ \( I \) から集約されるのに対し、自車両はカメラの死角にあるため、自車両についてはこれが実行できない。そこで、前方カメラの最も小さい特徴マップを用いて自車インスタンス特徴を初期化する。</p>
+<p>\[ F_e = \mathrm{AveragePool}(I_{front,S}) \tag{1} \]</p>
+<a class="pg" data-page="6"></a>
+<p>このようにすることには 2 つの利点がある。最も小さい特徴マップはすでに運転シーンの意味的文脈をエンコードしていること、そして、スパース知覚では検出できないブラックリスト障害物が存在する場合に備えて、密な特徴マップがスパースなシーン表現を補完する役割を果たすことである。</p>
+<p>自車アンカー \( B_e \) については、自車両の位置・寸法・ヨー角は既知であるため、これらは自然に設定できる。速度については、真値の速度から直接初期化すると、［27］で示されているように自車状態のリーク（ego status leakage）を招く。そこで、速度、加速度、角速度、操舵角を含む現在の自車状態 \( ES_T \) をデコードする補助タスクを追加する。各フレームでは、前フレームで予測された速度を自車アンカーの速度の初期値として用いる。</p>
+
+<figure><img src="figs/fig4.png" loading="lazy" alt="図4" /></figure>
+<p><strong>図4：</strong>並列動作プランナのモデル構造。動き予測と計画を同時に行い、安全な計画軌道を出力する。</p>
+<p class="yakuchu">図中ラベル：Multi-modal trajectories and scores＝マルチモーダルな軌道とスコア、Motion prediction＝動き予測、Planning＝計画、Turn left＝左折、Turn right＝右折、Go straight＝直進、Hierarchical Planning Selection＝階層的計画選択、"Turning Right"＝「右折」、1. Driving Command Selection＝1. 運転コマンドによる選択、2. Collision-Aware Rescore＝2. 衝突考慮リスコア、3. Max Score Selection＝3. 最大スコアの選択、Instance Memory Queue＝インスタンスメモリキュー、Update＝更新、Agent-Map Cross Attention＝エージェント－地図クロス注意、Agent-Agent Self Attention＝エージェント－エージェント自己注意、Agent-Temporal Cross Attention＝エージェント－時間クロス注意、Front Feature Map＝前方特徴マップ、Ego Status from T-1＝時刻 T-1 からの自車状態、Symmetric Sparse Perception＝対称スパース知覚、Ego Instance Initialization＝自車インスタンス初期化</p>
+
+<p><strong>時空間相互作用。</strong>すべての道路エージェント間の高レベルな相互作用を考慮するため、自車インスタンスを周囲のエージェントと連結し、エージェントレベルのインスタンスを得る。</p>
+<p>\[ F_a = \mathrm{Concat}(F_d, F_e),\; B_a = \mathrm{Concat}(B_d, B_e) \tag{2} \]</p>
+<p>自車インスタンスは、計画にとって重要な時間的手がかりなしに初期化されるため、時間方向のモデル化のために大きさ \( (N_d + 1) \times H \) のインスタンスメモリキューを考案する。\( H \) は保存するフレーム数である。続いて、時空間的文脈を集約するために 3 種類の相互作用、すなわちエージェント－時間クロス注意、エージェント－エージェント自己注意、エージェント－地図クロス注意を行う。なお、スパース知覚モジュールの時間クロス注意では、現在フレームのインスタンスがすべての時間インスタンスと相互作用し、これをシーンレベルの相互作用と呼ぶ。一方、ここでのエージェント－時間クロス注意では、各インスタンスが自身の履歴情報に注目するよう、インスタンスレベルの相互作用を採用する。</p>
+<p>次に、周囲のエージェントと自車両の両方について、マルチモーダルな軌道 \( \tau_m \in \mathbb{R}^{N_d \times \mathcal{K}_m \times T_m \times 2} \)、\( \tau_p \in \mathbb{R}^{N_c \times \mathcal{K}_p \times T_p \times 2} \) とスコア \( s_m \in \mathbb{R}^{N_d \times \mathcal{K}_m} \)、\( s_p \in \mathbb{R}^{N_{cmd} \times \mathcal{K}_p} \) を予測する。\( \mathcal{K}_m \) と \( \mathcal{K}_p \) は動き予測と計画のモード数、\( T_m \) と \( T_p \) は動き予測と計画の将来タイムスタンプ数、\( N_{cmd} \) は計画のための運転コマンドの数である<span class="yakuchu">（訳注：\( \tau_p \) の次元にある \( N_c \) は、\( s_p \) と同じ \( N_{cmd} \) を指すと考えられる）</span>。一般的な慣行［15, 20］に従い、左折・右折・直進の 3 種類の運転コマンドを用いる。計画については、自車インスタンス特徴から現在の自車状態も追加で予測する。</p>
+<p><strong>階層的計画選択。</strong>マルチモーダルな計画軌道の候補が得られたところで、追従すべき 1 本の安全な軌道 \( \tau_p^* \) を選択するために、階層的計画選択戦略を設計する。まず、高レベルのコマンド \( cmd \) に対応する軌道候補の部分集合 \( \tau_{p,cmd} \in \mathcal{K}_p \times T_p \times 2 \) を選択する。次に、安全性を確保するため、新しい衝突考慮型のリスコアモジュールを採用する。動き予測の結果を用いて各計画軌道候補の衝突リスクを評価でき、衝突確率の高い軌道についてはその軌道のスコアを下げる。実際には、衝突する軌道のスコアを単純に 0 に設定する。最後に、スコアが最も高い軌道を最終的な計画出力として選択する。</p>
+
+<h3 id="3.4-エンドツーエンド学習">3.4　エンドツーエンド学習</h3>
+<a class="pg" data-page="7"></a>
+<p><strong>多段階学習。</strong>SparseDrive の学習は 2 つの段階に分けられる。段階 1 では、スパースなシーン表現を学習するために、対称スパース知覚モジュールをスクラッチから学習する。段階 2 では、スパース知覚モジュールと並列動作プランナを、モデルの重みを一切固定せずに一緒に学習し、エンドツーエンド最適化の利点を十分に享受する。学習の詳細は付録 B.4 に示す。</p>
+
+<p><strong>表1：</strong>nuScenes val データセットにおける知覚結果。SparseDrive はエンドツーエンド手法の中で、すべての知覚タスクにおいて最良の性能を達成する。†：公式チェックポイントで再現。</p>
+<table><thead><tr><th>手法</th><th>バックボーン</th><th>mAP↑</th><th>mATE↓</th><th>mASE↓</th><th>mAOE↓</th><th>mAVE↓</th><th>mAAE↓</th><th>NDS↑</th></tr></thead>
+<tbody>
+<tr><td>UniAD<sup>†</sup> ［15］</td><td>ResNet101</td><td style="text-align:right">0.380</td><td style="text-align:right">0.684</td><td style="text-align:right">0.277</td><td style="text-align:right">0.383</td><td style="text-align:right">0.381</td><td style="text-align:right">0.192</td><td style="text-align:right">0.498</td></tr>
+<tr><td>SparseDrive-S</td><td>ResNet50</td><td style="text-align:right">0.418</td><td style="text-align:right">0.566</td><td style="text-align:right">0.275</td><td style="text-align:right">0.552</td><td style="text-align:right">0.261</td><td style="text-align:right">0.190</td><td style="text-align:right">0.525</td></tr>
+<tr><td>SparseDrive-B</td><td>ResNet101</td><td style="text-align:right"><strong>0.496</strong></td><td style="text-align:right"><strong>0.543</strong></td><td style="text-align:right"><strong>0.269</strong></td><td style="text-align:right"><strong>0.376</strong></td><td style="text-align:right"><strong>0.229</strong></td><td style="text-align:right"><strong>0.179</strong></td><td style="text-align:right"><strong>0.588</strong></td></tr>
+</tbody></table>
+<p><strong>表1(a)：</strong>3D 検出の結果。</p>
+
+<table><thead><tr><th>手法</th><th>AMOTA↑</th><th>AMOTP↓</th><th>Recall↑</th><th>IDS↓</th></tr></thead>
+<tbody>
+<tr><td>ViP3D ［10］</td><td style="text-align:right">0.217</td><td style="text-align:right">1.625</td><td style="text-align:right">0.363</td><td style="text-align:right">-</td></tr>
+<tr><td>QD3DT ［12］</td><td style="text-align:right">0.242</td><td style="text-align:right">1.518</td><td style="text-align:right">0.399</td><td style="text-align:right">-</td></tr>
+<tr><td>MUTR3D ［54］</td><td style="text-align:right">0.294</td><td style="text-align:right">1.498</td><td style="text-align:right">0.427</td><td style="text-align:right">3822</td></tr>
+<tr><td>UniAD ［15］</td><td style="text-align:right">0.359</td><td style="text-align:right">1.320</td><td style="text-align:right">0.467</td><td style="text-align:right">906</td></tr>
+<tr><td>SparseDrive-S</td><td style="text-align:right">0.386</td><td style="text-align:right">1.254</td><td style="text-align:right">0.499</td><td style="text-align:right">886</td></tr>
+<tr><td>SparseDrive-B</td><td style="text-align:right"><strong>0.501</strong></td><td style="text-align:right"><strong>1.085</strong></td><td style="text-align:right"><strong>0.601</strong></td><td style="text-align:right"><strong>632</strong></td></tr>
+</tbody></table>
+<p><strong>表1(b)：</strong>マルチオブジェクト追跡の結果。</p>
+
+<table><thead><tr><th>手法</th><th>\( AP_{ped} \) ↑</th><th>\( AP_{divider} \) ↑</th><th>\( AP_{boundry} \) ↑</th><th>mAP↑</th></tr></thead>
+<tbody>
+<tr><td>HDMapNet ［23］</td><td style="text-align:right">14.4</td><td style="text-align:right">21.7</td><td style="text-align:right">33.0</td><td style="text-align:right">23.0</td></tr>
+<tr><td>VectorMapNet ［34］</td><td style="text-align:right">36.1</td><td style="text-align:right">47.3</td><td style="text-align:right">39.3</td><td style="text-align:right">40.9</td></tr>
+<tr><td>MapTR ［29］</td><td style="text-align:right"><strong>56.2</strong></td><td style="text-align:right"><strong>59.8</strong></td><td style="text-align:right"><strong>60.1</strong></td><td style="text-align:right"><strong>58.7</strong></td></tr>
+<tr><td>VAD<sup>†</sup> ［20］</td><td style="text-align:right">40.6</td><td style="text-align:right">51.5</td><td style="text-align:right">50.6</td><td style="text-align:right">47.6</td></tr>
+<tr><td>SparseDrive-S</td><td style="text-align:right">49.9</td><td style="text-align:right"><strong>57.0</strong></td><td style="text-align:right">58.4</td><td style="text-align:right">55.1</td></tr>
+<tr><td>SparseDrive-B</td><td style="text-align:right"><strong>53.2</strong></td><td style="text-align:right">56.3</td><td style="text-align:right"><strong>59.1</strong></td><td style="text-align:right"><strong>56.2</strong></td></tr>
+</tbody></table>
+<p><strong>表1(c)：</strong>オンラインマッピングの結果。<span class="yakuchu">（訳注：原表では各表の主要指標の列（NDS、AMOTA、mAP）が灰色背景で示され、HDMapNet〜MapTR はモジュール型手法、VAD 以下はエンドツーエンド手法として線で区切られている。太字はそれぞれの群内での最良値。列見出しの boundry は原文のまま（boundary の誤記と思われる））</span></p>
+
+<p><strong>損失関数。</strong>損失関数は 4 つのタスクの損失を含み、各タスクの損失はさらに分類損失と回帰損失に分けられる。マルチモーダルな動き予測と計画のタスクについては、勝者総取り（winner-takes-all）戦略を採用する。計画については、自車状態に対する追加の回帰損失がある。また、知覚モジュールの学習の安定性を高めるため、深度推定を補助タスクとして導入する。エンドツーエンド学習の全体の損失関数は次のとおりである。</p>
+<p>\[ \mathcal{L} = \mathcal{L}_{det} + \mathcal{L}_{map} + \mathcal{L}_{motion} + \mathcal{L}_{plan} + \mathcal{L}_{depth}. \tag{3} \]</p>
+<p>損失関数の詳細は付録 B.3 に示す。</p>
+
+<h2 id="4-実験">4　実験</h2>
+<p>実験は難度の高い nuScenes［1］データセットで行う。このデータセットは 1000 個の複雑な運転シーンを含み、各シーンの長さは約 20 秒である。各タスクの評価指標は付録 A で説明する。モデルには 2 つのバリアントがあり、両者はバックボーンネットワークと入力画像の解像度のみが異なる。小型モデル SparseDrive-S では、バックボーンネットワークとして ResNet50［11］を用い、入力画像サイズは 256×704 である。ベースモデル SparseDrive-B では、バックボーンネットワークを ResNet101 に、入力画像サイズを 512×1408 に変更する。すべての実験は 8 台の NVIDIA RTX 4090 24GB GPU で行う。構成の詳細は付録 B に示す。</p>
+
+<h3 id="4.1-主要な結果">4.1　主要な結果</h3>
+<p>モジュール型手法とエンドツーエンド手法の両方を含む、従来の最先端手法と比較する。エンドツーエンド手法の中で、軽量モデル SparseDrive-S はすべてのタスクで従来の SOTA を上回り、ベースモデル SparseDrive-B は性能の限界をさらに一歩押し上げる。各タスクの主要指標は表中で灰色背景により示している。</p>
+<p><strong>知覚。</strong>表 1a の 3D 検出では、SparseDrive は <strong>49.6%</strong> の mAP と <strong>58.8%</strong> の NDS を達成し、UniAD［15］と比較して mAP で <strong>+11.6%</strong>、NDS で <strong>+9.0%</strong> の大幅な改善をもたらす。表 1b のマルチオブジェクト追跡では、SparseDrive は <strong>50.1%</strong> の AMOTA と最小の ID 切り替え数 <strong>632</strong> を達成し、AMOTA で UniAD［15］を <strong>+14.2%</strong> 上回り、ID 切り替えを <strong>30.2%</strong> 削減しており、追跡トラックレットの時間的一貫性を示している。表 1c のオンラインマッピングでは、SparseDrive は <strong>56.2%</strong> の mAP を得ており、従来のエンドツーエンド手法 VAD［20］も <strong>+8.6%</strong> 上回る。</p>
+
+<a class="pg" data-page="8"></a>
+<p><strong>表2：</strong>nuScenes val データセットにおける動き予測と計画の結果。SparseDrive は従来手法を大差で上回る。†：公式チェックポイントで再現。*：LiDAR ベースの手法。</p>
+<table><thead><tr><th>手法</th><th>minADE(\(m\))↓</th><th>minFDE(\(m\))↓</th><th>MR↓</th><th>EPA↑</th></tr></thead>
+<tbody>
+<tr><td>Cons Pos. ［15］</td><td style="text-align:right">5.80</td><td style="text-align:right">10.27</td><td style="text-align:right">0.347</td><td style="text-align:right">-</td></tr>
+<tr><td>Cons Vel. ［15］</td><td style="text-align:right">2.13</td><td style="text-align:right">4.01</td><td style="text-align:right">0.318</td><td style="text-align:right">-</td></tr>
+<tr><td>Traditional ［10］</td><td style="text-align:right">2.06</td><td style="text-align:right">3.02</td><td style="text-align:right">0.277</td><td style="text-align:right">0.209</td></tr>
+<tr><td>PnPNet ［28］</td><td style="text-align:right">1.15</td><td style="text-align:right">1.95</td><td style="text-align:right">0.226</td><td style="text-align:right">0.222</td></tr>
+<tr><td>ViP3D ［10］</td><td style="text-align:right">2.05</td><td style="text-align:right">2.84</td><td style="text-align:right">0.246</td><td style="text-align:right">0.226</td></tr>
+<tr><td>UniAD ［15］</td><td style="text-align:right">0.71</td><td style="text-align:right">1.02</td><td style="text-align:right">0.151</td><td style="text-align:right">0.456</td></tr>
+<tr><td>SparseDrive-S</td><td style="text-align:right">0.62</td><td style="text-align:right">0.99</td><td style="text-align:right">0.136</td><td style="text-align:right">0.482</td></tr>
+<tr><td>SparseDrive-B</td><td style="text-align:right"><strong>0.60</strong></td><td style="text-align:right"><strong>0.96</strong></td><td style="text-align:right"><strong>0.132</strong></td><td style="text-align:right"><strong>0.555</strong></td></tr>
+</tbody></table>
+<p><strong>表2(a)：</strong>予測の結果。</p>
+
+<table><thead>
+<tr><th rowspan="2">手法</th><th colspan="4">L2(\(m\))↓</th><th colspan="4">衝突率（Col. Rate）(%)↓</th></tr>
+<tr><th>1\(s\)</th><th>2\(s\)</th><th>3\(s\)</th><th>平均</th><th>1\(s\)</th><th>2\(s\)</th><th>3\(s\)</th><th>平均</th></tr>
+</thead><tbody>
+<tr><td>FF<sup>*</sup> ［13］</td><td style="text-align:right">0.55</td><td style="text-align:right">1.20</td><td style="text-align:right">2.54</td><td style="text-align:right">1.43</td><td style="text-align:right">0.06</td><td style="text-align:right">0.17</td><td style="text-align:right">1.07</td><td style="text-align:right">0.43</td></tr>
+<tr><td>EO<sup>*</sup> ［22］</td><td style="text-align:right">0.67</td><td style="text-align:right">1.36</td><td style="text-align:right">2.78</td><td style="text-align:right">1.60</td><td style="text-align:right">0.04</td><td style="text-align:right">0.09</td><td style="text-align:right">0.88</td><td style="text-align:right">0.33</td></tr>
+<tr><td>ST-P3 ［14］</td><td style="text-align:right">1.33</td><td style="text-align:right">2.11</td><td style="text-align:right">2.90</td><td style="text-align:right">2.11</td><td style="text-align:right">0.23</td><td style="text-align:right">0.62</td><td style="text-align:right">1.27</td><td style="text-align:right">0.71</td></tr>
+<tr><td>UniAD<sup>†</sup> ［15］</td><td style="text-align:right">0.45</td><td style="text-align:right">0.70</td><td style="text-align:right">1.04</td><td style="text-align:right">0.73</td><td style="text-align:right">0.62</td><td style="text-align:right">0.58</td><td style="text-align:right">0.63</td><td style="text-align:right">0.61</td></tr>
+<tr><td>VAD<sup>†</sup> ［20］</td><td style="text-align:right">0.41</td><td style="text-align:right">0.70</td><td style="text-align:right">1.05</td><td style="text-align:right">0.72</td><td style="text-align:right">0.03</td><td style="text-align:right">0.19</td><td style="text-align:right">0.43</td><td style="text-align:right">0.21</td></tr>
+<tr><td>SparseDrive-S</td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right">0.58</td><td style="text-align:right">0.96</td><td style="text-align:right">0.61</td><td style="text-align:right"><strong>0.01</strong></td><td style="text-align:right">0.05</td><td style="text-align:right">0.18</td><td style="text-align:right">0.08</td></tr>
+<tr><td>SparseDrive-B</td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right"><strong>0.55</strong></td><td style="text-align:right"><strong>0.91</strong></td><td style="text-align:right"><strong>0.58</strong></td><td style="text-align:right"><strong>0.01</strong></td><td style="text-align:right"><strong>0.02</strong></td><td style="text-align:right"><strong>0.13</strong></td><td style="text-align:right"><strong>0.06</strong></td></tr>
+</tbody></table>
+<p><strong>表2(b)：</strong>計画の結果。<span class="yakuchu">（訳注：原表では主要指標（minADE、L2 平均、衝突率平均）が灰色背景で示されている）</span></p>
+
+<p><strong>予測。</strong>表 2a の動き予測では、SparseDrive は minADE <strong>0.60m</strong>、minFDE <strong>0.96m</strong>、ミス率（MissRate）<strong>13.2%</strong>、EPA <strong>0.555</strong> で最良の性能を達成する。UniAD［15］と比較して、SparseDrive は minADE と minFDE の誤差をそれぞれ <strong>15.5%</strong>、<strong>5.9%</strong> 削減する。</p>
+<p><strong>計画。</strong>表 2b の計画では、すべての手法の中で SparseDrive が顕著な計画性能を達成し、L2 誤差は最小の <strong>0.58m</strong>、衝突率は <strong>0.06%</strong> である。従来の SOTA である VAD［20］と比較して、SparseDrive は L2 誤差を <strong>19.4%</strong>、衝突率を <strong>71.4%</strong> 削減しており、本手法の有効性と安全性を示している。</p>
+<p><strong>効率。</strong>表 3 に示すように、SparseDrive は優れた性能に加えて、学習と推論の両方ではるかに高い効率も達成する。同じバックボーンネットワークを用いた場合、我々のベースモデルは UniAD［15］と比較して学習で <strong>4.8</strong> 倍、推論で <strong>4.1</strong> 倍高速である。軽量モデルでは、学習と推論でそれぞれ <strong>7.2</strong> 倍と <strong>5.0</strong> 倍の高速化を達成できる。</p>
+
+<table><thead>
+<tr><th rowspan="2">手法</th><th colspan="3">学習効率</th><th colspan="4">推論効率</th></tr>
+<tr><th>GPU メモリ (G)</th><th>バッチサイズ</th><th>時間 (h)</th><th>GPU メモリ (M)</th><th>FLOPs (G)</th><th>パラメータ数 (M)</th><th>FPS</th></tr>
+</thead><tbody>
+<tr><td>UniAD ［15］</td><td style="text-align:right">50.0</td><td style="text-align:right">1</td><td style="text-align:right">48 + 96</td><td style="text-align:right">2451</td><td style="text-align:right">1709</td><td style="text-align:right">125.0</td><td style="text-align:right">1.8</td></tr>
+<tr><td>SparseDrive-S</td><td style="text-align:right">15.2</td><td style="text-align:right">6</td><td style="text-align:right">18 + 2</td><td style="text-align:right">1294</td><td style="text-align:right">192</td><td style="text-align:right">85.9</td><td style="text-align:right">9.0</td></tr>
+<tr><td>SparseDrive-B</td><td style="text-align:right">17.6</td><td style="text-align:right">4</td><td style="text-align:right">26 + 4</td><td style="text-align:right">1437</td><td style="text-align:right">787</td><td style="text-align:right">104.7</td><td style="text-align:right">7.3</td></tr>
+</tbody></table>
+<p><strong>表3：</strong>効率の比較結果。SparseDrive は学習と推論の両方で高い効率を達成する。UniAD の学習時間と FPS は、それぞれ 8 台と 1 台の NVIDIA Tesla A100 GPU で測定した。SparseDrive の学習時間と FPS は、それぞれ 8 台と 1 台の NVIDIA Geforce RTX 4090 GPU で測定した。</p>
+
+<h3 id="4.2-アブレーション研究">4.2　アブレーション研究</h3>
+<p>設計上の選択の有効性を示すため、広範なアブレーション研究を行う。アブレーション実験では SparseDrive-S をデフォルトのモデルとして用いる。</p>
+<p><strong>動作プランナにおける設計の効果。</strong>予測と計画の類似性を考慮することの重要性を強調するため、表 4 に示すようにいくつかの具体的な実験を考案した。ID-2 は、予測と計画の並列設計を逐次的な順序に変更することで自車両が周囲のエージェントに与える影響を無視しており、動き予測と衝突率の性能が悪化する。ID-3 は、自車インスタンス特徴をランダムに初期化し、自車アンカーのすべてのパラメータを 0 に設定する。自車インスタンスの意味情報と幾何情報を取り除くと、L2 誤差と衝突率の両方で性能が劣化する。ID-4 は計画を決定論的な問題として扱い、確定した軌道を 1 本だけ出力するもので、衝突率が最も高くなる。さらに、ID-5 はインスタンスレベルのエージェント－時間クロス注意を取り除いたもので、L2 誤差が 0.77m まで大きく悪化する。衝突考慮リスコアについては、次の段落で詳しく議論する。</p>
+<a class="pg" data-page="9"></a>
+<p><strong>衝突考慮リスコア。</strong>従来手法［15, 56］では、知覚結果に基づいて安全性を確保するために事後最適化戦略が採用されている。しかし我々は、この戦略がエンドツーエンドのパラダイムを壊し、表 5 に示すように L2 誤差の深刻な劣化をもたらすと主張する。さらに、我々が再実装した衝突率指標のもとでは、事後最適化は計画をより安全にするどころか、むしろより危険にしている。これに対し、我々の衝突考慮リスコアモジュールは、L2 誤差の増加をごくわずかに抑えつつ衝突率を 0.12% から 0.08% に低減しており、本手法の優位性を示している。</p>
+<p><strong>マルチモーダル計画。</strong>計画のモード数に関する実験を行う。表 6 に示すように、計画のモード数が増えるにつれて計画性能は継続的に向上し、6 モードで飽和する。これは改めてマルチモーダル計画の重要性を証明している。</p>
+
+<table><thead>
+<tr><th rowspan="2">ID</th><th rowspan="2">PAL</th><th rowspan="2">EII</th><th rowspan="2">MTM</th><th rowspan="2">ATA</th><th rowspan="2">CAR</th><th colspan="3">予測</th><th colspan="4">計画 L2(\(m\))</th><th colspan="4">計画 衝突率 (%)</th></tr>
+<tr><th>minADE</th><th>minFDE</th><th>MR</th><th>1\(s\)</th><th>2\(s\)</th><th>3\(s\)</th><th>平均</th><th>1\(s\)</th><th>2\(s\)</th><th>3\(s\)</th><th>平均</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">0.623</td><td style="text-align:right"><strong>0.987</strong></td><td style="text-align:right">0.136</td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right"><strong>0.58</strong></td><td style="text-align:right">0.96</td><td style="text-align:right"><strong>0.61</strong></td><td style="text-align:right"><strong>0.01</strong></td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right"><strong>0.18</strong></td><td style="text-align:right"><strong>0.08</strong></td></tr>
+<tr><td>2</td><td></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">0.641</td><td style="text-align:right">1.008</td><td style="text-align:right">0.138</td><td style="text-align:right">0.30</td><td style="text-align:right">0.58</td><td style="text-align:right">0.95</td><td style="text-align:right">0.61</td><td style="text-align:right">0.02</td><td style="text-align:right">0.06</td><td style="text-align:right">0.23</td><td style="text-align:right">0.10</td></tr>
+<tr><td>3</td><td>✓</td><td></td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right"><strong>0.621</strong></td><td style="text-align:right">0.988</td><td style="text-align:right"><strong>0.135</strong></td><td style="text-align:right">0.31</td><td style="text-align:right">0.60</td><td style="text-align:right">0.98</td><td style="text-align:right">0.63</td><td style="text-align:right">0.03</td><td style="text-align:right">0.07</td><td style="text-align:right">0.21</td><td style="text-align:right">0.11</td></tr>
+<tr><td>4</td><td>✓</td><td>✓</td><td></td><td>✓</td><td>✓</td><td style="text-align:right">0.626</td><td style="text-align:right">1.002</td><td style="text-align:right">0.136</td><td style="text-align:right">0.33</td><td style="text-align:right">0.66</td><td style="text-align:right">1.08</td><td style="text-align:right">0.69</td><td style="text-align:right">0.03</td><td style="text-align:right">0.11</td><td style="text-align:right">0.60</td><td style="text-align:right">0.25</td></tr>
+<tr><td>5</td><td>✓</td><td>✓</td><td>✓</td><td></td><td>✓</td><td style="text-align:right">0.634</td><td style="text-align:right">1.003</td><td style="text-align:right">0.138</td><td style="text-align:right">0.40</td><td style="text-align:right">0.74</td><td style="text-align:right">1.16</td><td style="text-align:right">0.77</td><td style="text-align:right">0.02</td><td style="text-align:right">0.13</td><td style="text-align:right">0.32</td><td style="text-align:right">0.16</td></tr>
+<tr><td>6</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td></td><td style="text-align:right">0.623</td><td style="text-align:right"><strong>0.987</strong></td><td style="text-align:right">0.136</td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right"><strong>0.58</strong></td><td style="text-align:right"><strong>0.95</strong></td><td style="text-align:right"><strong>0.61</strong></td><td style="text-align:right"><strong>0.01</strong></td><td style="text-align:right">0.06</td><td style="text-align:right">0.30</td><td style="text-align:right">0.12</td></tr>
+</tbody></table>
+<p><strong>表4：</strong>並列動作プランナにおける設計のアブレーション。「PAL」は動き予測と計画タスクの並列設計、「EII」は自車インスタンス初期化、「MTM」は計画の複数モード、「ATA」はエージェント－時間クロス注意、「CAR」は衝突考慮リスコアを意味する。</p>
+
+<table><thead>
+<tr><th rowspan="2">手法</th><th rowspan="2">CAR</th><th rowspan="2">事後最適化（Post-optim.）</th><th colspan="4">計画 L2(\(m\))</th><th colspan="4">計画 衝突率 (%)</th></tr>
+<tr><th>1\(s\)</th><th>2\(s\)</th><th>3\(s\)</th><th>平均</th><th>1\(s\)</th><th>2\(s\)</th><th>3\(s\)</th><th>平均</th></tr>
+</thead><tbody>
+<tr><td>UniAD［15］</td><td></td><td></td><td style="text-align:right">0.32</td><td style="text-align:right">0.58</td><td style="text-align:right">0.94</td><td style="text-align:right">0.61</td><td style="text-align:right">0.15</td><td style="text-align:right">0.24</td><td style="text-align:right">0.36</td><td style="text-align:right">0.25</td></tr>
+<tr><td>UniAD［15］</td><td></td><td>✓</td><td style="text-align:right">0.45</td><td style="text-align:right">0.70</td><td style="text-align:right">1.04</td><td style="text-align:right">0.73</td><td style="text-align:right">0.62</td><td style="text-align:right">0.58</td><td style="text-align:right">0.63</td><td style="text-align:right">0.61</td></tr>
+<tr><td>SparseDrive</td><td></td><td></td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right"><strong>0.58</strong></td><td style="text-align:right"><strong>0.95</strong></td><td style="text-align:right"><strong>0.61</strong></td><td style="text-align:right"><strong>0.01</strong></td><td style="text-align:right">0.06</td><td style="text-align:right">0.30</td><td style="text-align:right">0.12</td></tr>
+<tr><td>SparseDrive</td><td>✓</td><td></td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right"><strong>0.58</strong></td><td style="text-align:right">0.96</td><td style="text-align:right"><strong>0.61</strong></td><td style="text-align:right"><strong>0.01</strong></td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right"><strong>0.18</strong></td><td style="text-align:right"><strong>0.08</strong></td></tr>
+<tr><td>SparseDrive</td><td></td><td>✓</td><td style="text-align:right">0.44</td><td style="text-align:right">0.73</td><td style="text-align:right">1.11</td><td style="text-align:right">0.76</td><td style="text-align:right">0.29</td><td style="text-align:right">0.21</td><td style="text-align:right">0.38</td><td style="text-align:right">0.30</td></tr>
+</tbody></table>
+<p><strong>表5：</strong>衝突考慮リスコアと［15］の事後最適化のアブレーション。</p>
+
+<table><thead>
+<tr><th rowspan="2">モード数</th><th colspan="4">計画 L2(\(m\))</th><th colspan="4">計画 衝突率 (%)</th></tr>
+<tr><th>1\(s\)</th><th>2\(s\)</th><th>3\(s\)</th><th>平均</th><th>1\(s\)</th><th>2\(s\)</th><th>3\(s\)</th><th>平均</th></tr>
+</thead><tbody>
+<tr><td>1</td><td style="text-align:right">0.33</td><td style="text-align:right">0.66</td><td style="text-align:right">1.08</td><td style="text-align:right">0.69</td><td style="text-align:right">0.03</td><td style="text-align:right">0.11</td><td style="text-align:right">0.60</td><td style="text-align:right">0.25</td></tr>
+<tr><td>2</td><td style="text-align:right">0.33</td><td style="text-align:right">0.65</td><td style="text-align:right">1.08</td><td style="text-align:right">0.69</td><td style="text-align:right">0.01</td><td style="text-align:right">0.12</td><td style="text-align:right">0.42</td><td style="text-align:right">0.18</td></tr>
+<tr><td>3</td><td style="text-align:right">0.30</td><td style="text-align:right">0.59</td><td style="text-align:right">0.97</td><td style="text-align:right">0.62</td><td style="text-align:right"><strong>0.00</strong></td><td style="text-align:right">0.08</td><td style="text-align:right">0.43</td><td style="text-align:right">0.17</td></tr>
+<tr><td>6</td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right"><strong>0.57</strong></td><td style="text-align:right"><strong>0.95</strong></td><td style="text-align:right"><strong>0.61</strong></td><td style="text-align:right">0.01</td><td style="text-align:right"><strong>0.03</strong></td><td style="text-align:right"><strong>0.17</strong></td><td style="text-align:right"><strong>0.07</strong></td></tr>
+<tr><td>9</td><td style="text-align:right">0.33</td><td style="text-align:right">0.63</td><td style="text-align:right">1.04</td><td style="text-align:right">0.66</td><td style="text-align:right">0.01</td><td style="text-align:right">0.09</td><td style="text-align:right">0.36</td><td style="text-align:right">0.15</td></tr>
+</tbody></table>
+<p><strong>表6：</strong>計画モード数のアブレーション。<span class="yakuchu">（訳注：原表 4〜6 では平均値と minADE の列が灰色背景で示されている。なお、表 6 の 6 モードの行（L2 平均 0.61、衝突率平均 0.07）は、同じ既定構成と思われる表 4 の ID-1／表 5 の CAR 行（衝突率平均 0.08）と値がわずかに異なる。原文のまま掲載した）</span></p>
+
+<h2 id="5-結論と今後の課題">5　結論と今後の課題</h2>
+<p><strong>結論。</strong>本研究では、エンドツーエンド自動運転の領域において、スパースなシーン表現を探究し、タスク設計を見直した。その結果得られたエンドツーエンドのパラダイム SparseDrive は、顕著な性能と高い効率の両方を達成する。SparseDrive の印象的な性能が、エンドツーエンド自動運転のタスク設計を再考するよう研究コミュニティを刺激し、この分野の技術進歩を促進することを期待する。</p>
+<p><strong>今後の課題。</strong>本研究にはまだいくつかの限界がある。第一に、我々のエンドツーエンドモデルの性能は、例えばオンラインマッピングタスクのように、依然として単一タスクの手法に及ばない。第二に、データセットの規模はエンドツーエンド自動運転の可能性を最大限に引き出すには十分に大きくなく、またオープンループ評価ではモデルの性能を包括的に表すことができない。これらの問題は今後の探究に残す。</p>
+
+<a class="pg" data-page="10"></a>
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>Holger Caesar, Varun Bankiti, Alex H Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 11621–11631, 2020.</li>
+<li>Nicolas Carion, Francisco Massa, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, and Sergey Zagoruyko. End-to-end object detection with transformers. In <em>European conference on computer vision</em>, pages 213–229. Springer, 2020.</li>
+<li>Sergio Casas, Wenjie Luo, and Raquel Urtasun. Intentnet: Learning to predict intention from raw sensor data. In <em>Conference on Robot Learning</em>, pages 947–956. PMLR, 2018.</li>
+<li>Sergio Casas, Abbas Sadat, and Raquel Urtasun. Mp3: A unified model to map, perceive, predict and plan. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 14403–14412, 2021.</li>
+<li>Shaoyu Chen, Tianheng Cheng, Xinggang Wang, Wenming Meng, Qian Zhang, and Wenyu Liu. Efficient and robust 2d-to-bev representation learning via geometry-guided kernel transformer. <em>arXiv preprint arXiv:2206.04584</em>, 2022.</li>
+<li>Felipe Codevilla, Matthias Müller, Antonio López, Vladlen Koltun, and Alexey Dosovitskiy. End-to-end driving via conditional imitation learning. In <em>2018 IEEE international conference on robotics and automation (ICRA)</em>, pages 4693–4700. IEEE, 2018.</li>
+<li>Felipe Codevilla, Eder Santana, Antonio M López, and Adrien Gaidon. Exploring the limitations of behavior cloning for autonomous driving. In <em>Proceedings of the IEEE/CVF international conference on computer vision</em>, pages 9329–9338, 2019.</li>
+<li>Alexander Cui, Sergio Casas, Abbas Sadat, Renjie Liao, and Raquel Urtasun. Lookout: Diverse multi-future prediction and planning for self-driving. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pages 16107–16116, 2021.</li>
+<li>Tri Dao, Dan Fu, Stefano Ermon, Atri Rudra, and Christopher Ré. Flashattention: Fast and memory-efficient exact attention with io-awareness. <em>Advances in Neural Information Processing Systems</em>, 35:16344–16359, 2022.</li>
+<li>Junru Gu, Chenxu Hu, Tianyuan Zhang, Xuanyao Chen, Yilun Wang, Yue Wang, and Hang Zhao. Vip3d: End-to-end visual trajectory prediction via 3d agent queries. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 5496–5506, 2023.</li>
+<li>Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pages 770–778, 2016.</li>
+<li>Hou-Ning Hu, Yung-Hsu Yang, Tobias Fischer, Trevor Darrell, Fisher Yu, and Min Sun. Monocular quasi-dense 3d object tracking. <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em>, 45(2):1992–2008, 2022.</li>
+<li>Peiyun Hu, Aaron Huang, John Dolan, David Held, and Deva Ramanan. Safe local motion planning with self-supervised freespace forecasting. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 12732–12741, 2021.</li>
+<li>Shengchao Hu, Li Chen, Penghao Wu, Hongyang Li, Junchi Yan, and Dacheng Tao. St-p3: End-to-end vision-based autonomous driving via spatial-temporal feature learning. In <em>European Conference on Computer Vision</em>, pages 533–549. Springer, 2022.</li>
+<li>Yihan Hu, Jiazhi Yang, Li Chen, Keyu Li, Chonghao Sima, Xizhou Zhu, Siqi Chai, Senyao Du, Tianwei Lin, Wenhai Wang, et al. Planning-oriented autonomous driving. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 17853–17862, 2023.</li>
+<li>Junjie Huang and Guan Huang. Bevdet4d: Exploit temporal cues in multi-camera 3d object detection. <em>arXiv preprint arXiv:2203.17054</em>, 2022.</li>
+<li>Junjie Huang and Guan Huang. Bevpoolv2: A cutting-edge implementation of bevdet toward deployment. <em>arXiv preprint arXiv:2211.17111</em>, 2022.</li>
+<li>Junjie Huang, Guan Huang, Zheng Zhu, Yun Ye, and Dalong Du. Bevdet: High-performance multi-camera 3d object detection in bird-eye-view. <em>arXiv preprint arXiv:2112.11790</em>, 2021.</li>
+<li>Bo Jiang, Shaoyu Chen, Xinggang Wang, Bencheng Liao, Tianheng Cheng, Jiajie Chen, Helong Zhou, Qian Zhang, Wenyu Liu, and Chang Huang. Perceive, interact, predict: Learning dynamic and static clues for end-to-end motion prediction. <em>arXiv preprint arXiv:2212.02181</em>, 2022.</li>
+<li>Bo Jiang, Shaoyu Chen, Qing Xu, Bencheng Liao, Jiajie Chen, Helong Zhou, Qian Zhang, Wenyu Liu, Chang Huang, and Xinggang Wang. Vad: Vectorized scene representation for efficient autonomous driving. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pages 8340–8350, 2023.</li>
+</ol>
+<a class="pg" data-page="11"></a>
+<ol class="refs" start="21">
+<li>Yanqin Jiang, Li Zhang, Zhenwei Miao, Xiatian Zhu, Jin Gao, Weiming Hu, and Yu-Gang Jiang. Polarformer: Multi-camera 3d object detection with polar transformer. In <em>Proceedings of the AAAI conference on Artificial Intelligence</em>, volume 37, pages 1042–1050, 2023.</li>
+<li>Tarasha Khurana, Peiyun Hu, Achal Dave, Jason Ziglar, David Held, and Deva Ramanan. Differentiable raycasting for self-supervised occupancy forecasting. In <em>European Conference on Computer Vision</em>, pages 353–369. Springer, 2022.</li>
+<li>Qi Li, Yue Wang, Yilun Wang, and Hang Zhao. Hdmapnet: An online hd map construction and evaluation framework. In <em>2022 International Conference on Robotics and Automation (ICRA)</em>, pages 4628–4634. IEEE, 2022.</li>
+<li>Yinhao Li, Han Bao, Zheng Ge, Jinrong Yang, Jianjian Sun, and Zeming Li. Bevstereo: Enhancing depth estimation in multi-view 3d object detection with temporal stereo. In <em>Proceedings of the AAAI Conference on Artificial Intelligence</em>, volume 37, pages 1486–1494, 2023.</li>
+<li>Yinhao Li, Zheng Ge, Guanyi Yu, Jinrong Yang, Zengran Wang, Yukang Shi, Jianjian Sun, and Zeming Li. Bevdepth: Acquisition of reliable depth for multi-view 3d object detection. In <em>Proceedings of the AAAI Conference on Artificial Intelligence</em>, volume 37, pages 1477–1485, 2023.</li>
+<li>Zhiqi Li, Wenhai Wang, Hongyang Li, Enze Xie, Chonghao Sima, Tong Lu, Yu Qiao, and Jifeng Dai. Bevformer: Learning bird's-eye-view representation from multi-camera images via spatiotemporal transformers. In <em>European conference on computer vision</em>, pages 1–18. Springer, 2022.</li>
+<li>Zhiqi Li, Zhiding Yu, Shiyi Lan, Jiahan Li, Jan Kautz, Tong Lu, and Jose M Alvarez. Is ego status all you need for open-loop end-to-end autonomous driving? <em>arXiv preprint arXiv:2312.03031</em>, 2023.</li>
+<li>Ming Liang, Bin Yang, Wenyuan Zeng, Yun Chen, Rui Hu, Sergio Casas, and Raquel Urtasun. Pnpnet: End-to-end perception and prediction with tracking in the loop. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 11553–11562, 2020.</li>
+<li>Bencheng Liao, Shaoyu Chen, Xinggang Wang, Tianheng Cheng, Qian Zhang, Wenyu Liu, and Chang Huang. Maptr: Structured modeling and learning for online vectorized hd map construction. In <em>The Eleventh International Conference on Learning Representations</em>, 2022.</li>
+<li>Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, and Piotr Dollár. Focal loss for dense object detection. In <em>Proceedings of the IEEE international conference on computer vision</em>, pages 2980–2988, 2017.</li>
+<li>Xuewu Lin, Tianwei Lin, Zixiang Pei, Lichao Huang, and Zhizhong Su. Sparse4d: Multi-view 3d object detection with sparse spatial-temporal fusion. <em>arXiv preprint arXiv:2211.10581</em>, 2022.</li>
+<li>Xuewu Lin, Tianwei Lin, Zixiang Pei, Lichao Huang, and Zhizhong Su. Sparse4d v2: Recurrent temporal fusion with sparse model. <em>arXiv preprint arXiv:2305.14018</em>, 2023.</li>
+<li>Xuewu Lin, Zixiang Pei, Tianwei Lin, Lichao Huang, and Zhizhong Su. Sparse4d v3: Advancing end-to-end 3d detection and tracking. <em>arXiv preprint arXiv:2311.11722</em>, 2023.</li>
+<li>Yicheng Liu, Tianyuan Yuan, Yue Wang, Yilun Wang, and Hang Zhao. Vectormapnet: End-to-end vectorized hd map learning. In <em>International Conference on Machine Learning</em>, pages 22352–22369. PMLR, 2023.</li>
+<li>Yingfei Liu, Tiancai Wang, Xiangyu Zhang, and Jian Sun. Petr: Position embedding transformation for multi-view 3d object detection. In <em>European Conference on Computer Vision</em>, pages 531–548. Springer, 2022.</li>
+<li>Yingfei Liu, Junjie Yan, Fan Jia, Shuailin Li, Aqi Gao, Tiancai Wang, and Xiangyu Zhang. Petrv2: A unified framework for 3d perception from multi-camera images. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pages 3262–3272, 2023.</li>
+<li>Zhijian Liu, Haotian Tang, Alexander Amini, Xinyu Yang, Huizi Mao, Daniela L Rus, and Song Han. Bevfusion: Multi-task multi-sensor fusion with unified bird's-eye view representation. In <em>2023 IEEE international conference on robotics and automation (ICRA)</em>, pages 2774–2781. IEEE, 2023.</li>
+<li>Ilya Loshchilov and Frank Hutter. Sgdr: Stochastic gradient descent with warm restarts. <em>arXiv preprint arXiv:1608.03983</em>, 2016.</li>
+<li>Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. <em>arXiv preprint arXiv:1711.05101</em>, 2017.</li>
+<li>Wenjie Luo, Bin Yang, and Raquel Urtasun. Fast and furious: Real time end-to-end 3d detection, tracking and motion forecasting with a single convolutional net. In <em>Proceedings of the IEEE conference on Computer Vision and Pattern Recognition</em>, pages 3569–3577, 2018.</li>
+<li>Tim Meinhardt, Alexander Kirillov, Laura Leal-Taixe, and Christoph Feichtenhofer. Trackformer: Multi-object tracking with transformers. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 8844–8854, 2022.</li>
+</ol>
+<a class="pg" data-page="12"></a>
+<ol class="refs" start="42">
+<li>Jonah Philion and Sanja Fidler. Lift, splat, shoot: Encoding images from arbitrary camera rigs by implicitly unprojecting to 3d. In <em>Computer Vision–ECCV 2020: 16th European Conference, Glasgow, UK, August 23–28, 2020, Proceedings, Part XIV 16</em>, pages 194–210. Springer, 2020.</li>
+<li>Dean A Pomerleau. Alvinn: An autonomous land vehicle in a neural network. <em>Advances in neural information processing systems</em>, 1, 1988.</li>
+<li>Aditya Prakash, Kashyap Chitta, and Andreas Geiger. Multi-modal fusion transformer for end-to-end autonomous driving. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 7077–7087, 2021.</li>
+<li>Abbas Sadat, Sergio Casas, Mengye Ren, Xinyu Wu, Pranaab Dhawan, and Raquel Urtasun. Perceive, predict, and plan: Safe motion planning through interpretable semantic representations. In <em>Computer Vision–ECCV 2020: 16th European Conference, Glasgow, UK, August 23–28, 2020, Proceedings, Part XXIII 16</em>, pages 414–430. Springer, 2020.</li>
+<li>Peize Sun, Jinkun Cao, Yi Jiang, Rufeng Zhang, Enze Xie, Zehuan Yuan, Changhu Wang, and Ping Luo. Transtrack: Multiple object tracking with transformer. <em>arXiv preprint arXiv:2012.15460</em>, 2020.</li>
+<li>Shihao Wang, Yingfei Liu, Tiancai Wang, Ying Li, and Xiangyu Zhang. Exploring object-centric temporal modeling for efficient multi-view 3d object detection. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pages 3621–3631, 2023.</li>
+<li>Chenyu Yang, Yuntao Chen, Hao Tian, Chenxin Tao, Xizhou Zhu, Zhaoxiang Zhang, Gao Huang, Hongyang Li, Yu Qiao, Lewei Lu, et al. Bevformer v2: Adapting modern image backbones to bird's-eye-view recognition via perspective supervision. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 17830–17839, 2023.</li>
+<li>Tengju Ye, Wei Jing, Chunyong Hu, Shikun Huang, Lingping Gao, Fangzhen Li, Jingke Wang, Ke Guo, Wencong Xiao, Weibo Mao, et al. Fusionad: Multi-modality fusion for prediction and planning tasks of autonomous driving. <em>arXiv preprint arXiv:2308.01006</em>, 2023.</li>
+<li>En Yu, Tiancai Wang, Zhuoling Li, Yuang Zhang, Xiangyu Zhang, and Wenbing Tao. Motrv3: Release-fetch supervision for end-to-end multi-object tracking. <em>arXiv preprint arXiv:2305.14298</em>, 2023.</li>
+<li>Tianyuan Yuan, Yicheng Liu, Yue Wang, Yilun Wang, and Hang Zhao. Streammapnet: Streaming mapping network for vectorized online hd map construction. In <em>Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision</em>, pages 7356–7365, 2024.</li>
+<li>Fangao Zeng, Bin Dong, Yuang Zhang, Tiancai Wang, Xiangyu Zhang, and Yichen Wei. Motr: End-to-end multiple-object tracking with transformer. In <em>European Conference on Computer Vision</em>, pages 659–675. Springer, 2022.</li>
+<li>Jiang-Tian Zhai, Ze Feng, Jinhao Du, Yongqiang Mao, Jiang-Jiang Liu, Zichang Tan, Yifu Zhang, Xiaoqing Ye, and Jingdong Wang. Rethinking the open-loop evaluation of end-to-end autonomous driving in nuscenes. <em>arXiv preprint arXiv:2305.10430</em>, 2023.</li>
+<li>Tianyuan Zhang, Xuanyao Chen, Yue Wang, Yilun Wang, and Hang Zhao. Mutr3d: A multi-camera tracking framework via 3d-to-2d queries. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 4537–4546, 2022.</li>
+<li>Yuang Zhang, Tiancai Wang, and Xiangyu Zhang. Motrv2: Bootstrapping end-to-end multi-object tracking by pretrained object detectors. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 22056–22065, 2023.</li>
+<li>Yunpeng Zhang, Deheng Qian, Ding Li, Yifeng Pan, Yong Chen, Zhenbao Liang, Zhiyao Zhang, Shurui Zhang, Hongxu Li, Maolei Fu, et al. Graphad: Interaction scene graph for end-to-end autonomous driving. <em>arXiv preprint arXiv:2403.19098</em>, 2024.</li>
+</ol>
+<a class="pg" data-page="13"></a>
+<h2 id="a-評価指標">A　評価指標</h2>
+<p>検出と追跡の評価は標準的な評価プロトコル［1］に従う。検出については、平均適合率の平均（mean Average Precision、<strong>mAP</strong>）、並進の平均誤差（mean Average Error of Translation、<strong>mATE</strong>）、スケールの平均誤差（<strong>mASE</strong>）、向きの平均誤差（<strong>mAOE</strong>）、速度の平均誤差（<strong>mAVE</strong>）、属性の平均誤差（<strong>mAAE</strong>）、および nuScenes 検出スコア（nuScenes Detection Score、<strong>NDS</strong>）を用いてモデルの性能を評価する。追跡については、平均マルチオブジェクト追跡精度（Average Multi-object Tracking Accuracy、<strong>AMOTA</strong>）、平均マルチオブジェクト追跡適合度（Average Multi-object Tracking Precision、<strong>AMOTP</strong>）、再現率（<strong>RECALL</strong>）、ID 切り替え数（Identity Switches、<strong>IDS</strong>）を指標として用いる。オンラインマッピングについては、車線区分線・横断歩道・道路境界の 3 つの地図クラスについて平均適合率（<strong>AP</strong>）を計算し、すべてのクラスで平均して平均適合率の平均（<strong>mAP</strong>）を得る。動き予測については、最小平均変位誤差（minimum Average Displacement Error、<strong>minADE</strong>）、最小最終変位誤差（minimum Final Displacement Error、<strong>minFDE</strong>）、ミス率（Miss Rate、<strong>MR</strong>）、および［10］で提案されたエンドツーエンド予測精度（End-to-end Prediction Accuracy、<strong>EPA</strong>）などの指標を用いる。動き予測のベンチマークは UniAD［15］に揃えている。</p>
+<p>計画については、計画性能を評価するために一般的に用いられる L2 誤差と衝突率を採用する。L2 誤差の評価は VAD［20］に揃えている。衝突率については、従来［15, 20］の実装には 2 つの欠点があり、計画性能の評価が不正確になっている。第一に、従来のベンチマークは障害物のバウンディングボックスをグリッドサイズ 0.5m の占有マップに変換しており、例えば自車両が占有マップの 1 ピクセルより小さい障害物に接近する場合など、特定のケースで誤った衝突判定が生じる［53］。(2) 自車両の進行方向（heading）は考慮されず、変化しないものと仮定されている［27］。計画性能を正確に評価するため、我々は軌道点からヨー角を推定することで自車の進行方向の変化を考慮し、自車両と障害物のバウンディングボックスの重なりを調べることで衝突の有無を判定する。公平な比較のため、公式チェックポイント［15, 20］を用いて我々のベンチマーク上で計画結果を再現する。</p>
+
+<h2 id="b-実装の詳細">B　実装の詳細</h2>
+<h3 id="b.1-知覚">B.1　知覚</h3>
+<p>スパース知覚モジュールでは、デコーダ層の数 \( N_{dec} \) を 6 とし、1 つの非時間デコーダと 5 つの時間デコーダで構成する。アンカーボックス \( B_d \) とアンカーポリライン \( L_m \) の位置は学習セット上での K-Means クラスタリングによって得て、アンカーボックスのその他のパラメータは \( \{1, 1, 1, 0, 1, 0, 0, 0\} \) で初期化する。各地図要素は 20 点で表現する。アンカーボックス数 \( N_d \) とポリライン数 \( N_m \) はそれぞれ 900 と 100 とし、検出とオンラインマッピングの時間インスタンス数はそれぞれ 600 と 33 である。追跡のしきい値 \( T_{thresh} \) は 0.2 とする。検出の知覚範囲は半径 55m の円である。オンラインマッピングの知覚範囲は縦方向・横方向に 60m × 30m である。マルチヘッド注意には、GPU メモリを節約するために Flash Attention［9］を採用する。</p>
+
+<h3 id="b.2-動作プランナ">B.2　動作プランナ</h3>
+<p>インスタンスメモリキューに保存するフレーム数 \( H \) は 3 である。動き予測のモード数 \( \mathcal{K}_m \) と計画のモード数 \( \mathcal{K}_p \) はいずれも 6 とする。動き予測の将来タイムスタンプ数 \( \mathcal{T}_m \) と計画の将来タイムスタンプ数 \( \mathcal{T}_p \) はそれぞれ 12 と 6 とする。動作プランナにおける時空間相互作用の後、多層パーセプトロン（MLP）を用いて自車特徴 \( F_e \) から現在フレームの自車状態をデコードする。</p>
+<p>\[ ES_T = MLP(F_e) \tag{4} \]</p>
+<p>マルチモーダルな軌道とスコアについては、K-Means クラスタリングを用いて事前の意図点（intention points）を求め、正弦波位置エンコーディング PE(·) によってそれらを動きモードクエリ \( MQ_m \in \mathbb{R}^{\mathcal{K}_m \times C} \) と計画モードクエリ \( MQ_p \in \mathbb{R}^{N_{cmd} \times \mathcal{K}_p \times C} \) に変換する。次に、モードクエリをエージェントのインスタンス特徴に加算し、MLP で軌道とスコアをデコードする。</p>
+<p>\[ \tau_m = MLP(F_d + MQ_m), \tag{5} \]</p>
+<p>\[ s_m = MLP(F_d + MQ_m), \tag{6} \]</p>
+<p>\[ \tau_p = MLP(F_e + MQ_p), \tag{7} \]</p>
+<p>\[ s_p = MLP(F_e + MQ_p) \tag{8} \]</p>
+<p>衝突考慮リスコアモジュールでは、動き予測において信頼度が最も高い 2 本の軌道を用いて、自車両が周囲の障害物と衝突するかどうかを判定する。</p>
+
+<h3 id="b.3-損失関数">B.3　損失関数</h3>
+<p>知覚では、各真値を 1 つの予測値と対応付けるために<em>ハンガリアンアルゴリズム</em>を採用する。検出損失は、分類のための Focal 損失［30］とボックス回帰のための L1 損失の線形結合である。</p>
+<p>\[ L_{det} = \lambda_{det\_cls} L_{det\_cls} + \lambda_{det\_reg} L_{det\_reg}. \tag{9} \]</p>
+<a class="pg" data-page="14"></a>
+<p>ID 割り当て処理には追跡のための制約がないため、追跡損失は持たない。オンラインマッピングの損失は検出損失と同様である。</p>
+<p>\[ L_{map} = \lambda_{map\_cls} L_{map\_cls} + \lambda_{map\_reg} L_{map\_reg}. \tag{10} \]</p>
+<p>深度推定については、回帰に L1 損失を用いる。</p>
+<p>\[ L_{depth} = \lambda_{depth} L_{depth}. \tag{11} \]</p>
+<p>損失の重みは次のように設定する：\( \lambda_{det\_cls} = 2 \)、\( \lambda_{det\_reg} = 0.25 \)、\( \lambda_{map\_cls} = 1 \)、\( \lambda_{map\_reg} = 10 \)、\( \lambda_{depth} = 0.2 \)。</p>
+<p>動き予測と計画については、マルチモーダル出力と真値軌道との間の平均変位誤差（ADE）を計算し、ADE が最小の軌道を正例、残りを負例とみなす。計画では、自車状態を追加で予測する。分類には同じく Focal 損失を、回帰には L1 損失を用いる。</p>
+<p>\[ \begin{aligned} L_{motion\_planning} = {} &amp; \lambda_{motion\_cls} L_{motion\_cls} + \lambda_{motion\_reg} L_{motion\_reg} \\ &amp; + \lambda_{plan\_cls} L_{plan\_cls} + \lambda_{plan\_reg} L_{plan\_reg} + \lambda_{plan\_status} L_{plan\_status}, \end{aligned} \tag{12} \]</p>
+<p>ここで \( \lambda_{motion\_cls} = 0.2 \)、\( \lambda_{motion\_reg} = 0.2 \)、\( \lambda_{plan\_cls} = 0.5 \)、\( \lambda_{plan\_reg} = 1.0 \)、\( \lambda_{plan\_status} = 1.0 \) である。</p>
+
+<h3 id="b.4-学習の詳細">B.4　学習の詳細</h3>
+<p>モデルの学習には AdamW オプティマイザ［39］と Cosine Annealing［38］スケジューラを用いる。学習のハイパーパラメータを表 7 に示す。</p>
+<table><thead><tr><th>モデル</th><th>学習段階</th><th>バッチサイズ</th><th>エポック数</th><th>Lr</th><th>バックボーンの lr 倍率</th><th>重み減衰</th></tr></thead>
+<tbody>
+<tr><td>SparseDrive-S</td><td>stage-1</td><td style="text-align:right">8</td><td style="text-align:right">100</td><td style="text-align:right">\( 4 \times 10^{-4} \)</td><td style="text-align:right">0.5</td><td style="text-align:right">\( 1 \times 10^{-3} \)</td></tr>
+<tr><td>SparseDrive-S</td><td>stage-2</td><td style="text-align:right">6</td><td style="text-align:right">10</td><td style="text-align:right">\( 3 \times 10^{-4} \)</td><td style="text-align:right">0.1</td><td style="text-align:right">\( 1 \times 10^{-3} \)</td></tr>
+<tr><td>SparseDrive-B</td><td>stage-1</td><td style="text-align:right">4</td><td style="text-align:right">80</td><td style="text-align:right">\( 3 \times 10^{-4} \)</td><td style="text-align:right">0.1</td><td style="text-align:right">\( 1 \times 10^{-3} \)</td></tr>
+<tr><td>SparseDrive-B</td><td>stage-2</td><td style="text-align:right">4</td><td style="text-align:right">10</td><td style="text-align:right">\( 3 \times 10^{-4} \)</td><td style="text-align:right">0.1</td><td style="text-align:right">\( 1 \times 10^{-3} \)</td></tr>
+</tbody></table>
+<p><strong>表7：</strong>学習のハイパーパラメータ。</p>
+
+<h2 id="c-可視化">C　可視化</h2>
+<a class="pg" data-page="15"></a>
+<figure><img src="figs/fig5.jpg" loading="lazy" alt="図5" /></figure>
+<p><strong>図5：</strong>可視化結果。SparseDrive は交差点における異なる旋回モードを学習している。</p>
+<p class="yakuchu">図中ラベル：CAM_FRONT_LEFT／CAM_FRONT／CAM_FRONT_RIGHT＝左前方／前方／右前方カメラ、CAM_BACK_RIGHT／CAM_BACK／CAM_BACK_LEFT＝右後方／後方／左後方カメラ、Turn Left＝左折（運転コマンド）、Turn Right＝右折（運転コマンド）。右側は BEV 上の検出結果・地図要素・予測軌道・計画軌道の可視化（凡例の文字は原図でも判読困難なため省略）。</p>
+
+<a class="pg" data-page="16"></a>
+<figure><img src="figs/fig6.jpg" loading="lazy" alt="図6" /></figure>
+<p><strong>図6：</strong>可視化結果。SparseDrive は動いているエージェントに道を譲ること、あるいは障害物との衝突を回避することを学習している。</p>
+<p class="yakuchu">図中ラベル：CAM_FRONT_LEFT 等＝各カメラ視点（図5と同じ）、Go Straight＝直進（運転コマンド）</p>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>

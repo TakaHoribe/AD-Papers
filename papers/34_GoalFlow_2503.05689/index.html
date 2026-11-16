@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>GoalFlow 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="GoalFlow: Goal-Driven Flow Matching for Multimodal Trajectories Generation in End-to-End Autonomous Driving" />
+  <meta name="short-name" content="GoalFlow" />
+  <meta name="authors" content="Zebin Xing, Xingyu Zhang, Yang Hu, Bo Jiang, Tong He, Qian Zhang, Xiaoxiao Long, Wei Yin（UCAS、Horizon Robotics、南京大学、華中科技大学、Shanghai AI Laboratory）" />
+  <meta name="source-pdf" content="34_GoalFlow_2503.05689.pdf" />
+  <meta name="source-pages" content="12" />
+  <meta name="pdf-href" content="34_GoalFlow_2503.05689.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="ゴール点の語彙からシーン情報に基づくスコアで最適なゴール点を選び、それを条件としたフローマッチングで高品質なマルチモーダル軌道を生成する、エンドツーエンド自動運転手法。Navsim で PDMS 90.3 を達成し、1 ステップのデノイズでも高性能を保つ。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">GoalFlow 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="34_GoalFlow_2503.05689.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#goalflow-goal-driven-flow-matching-for-multimodal-trajectories-generation-in-end-to-end-autonomous-driving" id="toc-goalflow-goal-driven-flow-matching-for-multimodal-trajectories-generation-in-end-to-end-autonomous-driving">GoalFlow: Goal-Driven Flow Matching for Multimodal Trajectories Generation in End-to-End Autonomous Driving</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a><ul>
+<li><a href="#2.1-エンドツーエンド自動運転" id="toc-2.1-エンドツーエンド自動運転">2.1　エンドツーエンド自動運転</a></li>
+<li><a href="#2.2-拡散モデルとフローマッチング" id="toc-2.2-拡散モデルとフローマッチング">2.2　拡散モデルとフローマッチング</a></li>
+<li><a href="#2.3-マルチモーダル軌道生成" id="toc-2.3-マルチモーダル軌道生成">2.3　マルチモーダル軌道生成</a></li>
+</ul></li>
+<li><a href="#3-手法" id="toc-3-手法">3　手法</a><ul>
+<li><a href="#3.1-準備" id="toc-3.1-準備">3.1　準備</a></li>
+<li><a href="#3.2-goalflow" id="toc-3.2-goalflow">3.2　GoalFlow</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a><ul>
+<li><a href="#4.1-データセット" id="toc-4.1-データセット">4.1　データセット</a></li>
+<li><a href="#4.2-評価指標" id="toc-4.2-評価指標">4.2　評価指標</a></li>
+<li><a href="#4.3-ベースライン" id="toc-4.3-ベースライン">4.3　ベースライン</a></li>
+<li><a href="#4.4-モデル設定とパラメータ" id="toc-4.4-モデル設定とパラメータ">4.4　モデル設定とパラメータ</a></li>
+<li><a href="#4.5-結果と分析" id="toc-4.5-結果と分析">4.5　結果と分析</a></li>
+</ul></li>
+<li><a href="#5-結論" id="toc-5-結論">5　結論</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="goalflow-goal-driven-flow-matching-for-multimodal-trajectories-generation-in-end-to-end-autonomous-driving">GoalFlow: Goal-Driven Flow Matching for Multimodal Trajectories Generation in End-to-End Autonomous Driving</h1>
+<p>Zebin Xing<sup>1,2*</sup>、Xingyu Zhang<sup>2*</sup>、Yang Hu<sup>2</sup>、Bo Jiang<sup>4,2</sup>、Tong He<sup>5</sup>、Qian Zhang<sup>2</sup>、Xiaoxiao Long<sup>3</sup>、Wei Yin<sup>2†</sup><br />
+<sup>1</sup>School of Artificial Intelligence, University of Chinese Academy of Sciences　<sup>2</sup>Horizon Robotics　<sup>3</sup>Nanjing University　<sup>4</sup>Huazhong University of Science &amp; Technology　<sup>5</sup>Shanghai AI Laboratory<br />
+arXiv:2503.05689v6 [cs.CV]、2025年10月1日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>34_GoalFlow_2503.05689.pdf</code>（全 12 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+<blockquote><p>脚注*：同等の貢献。</p><p>脚注†：責任著者、プロジェクトリーダー。Email: yvanwy@outlook.com</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p>本論文では、高品質なマルチモーダル軌道を生成するエンドツーエンド自動運転手法 GoalFlow を提案する。自動運転のシナリオにおいて、適切な軌道がただ 1 本に定まることはまれである。近年の手法は、マルチモーダルな軌道分布のモデル化にますます注力している。しかしそれらの手法は、軌道の発散が大きいことや、ガイダンスとシーン情報との不整合により、軌道選択の複雑化と軌道品質の低下に悩まされている。これらの問題に対処するため、生成過程を効果的に制約して高品質なマルチモーダル軌道を生成する新しい手法 GoalFlow を導入する。拡散ベースの手法に固有の軌道発散の問題を解決するため、GoalFlow はゴール点を導入して生成される軌道を制約する。GoalFlow は、シーン情報に基づいて候補点の中から最も適切なゴール点を選択する新しいスコアリング機構を確立する。さらに GoalFlow は、効率的な生成手法であるフローマッチング（Flow Matching）を用いてマルチモーダル軌道を生成し、改良したスコアリング機構を組み込んで候補の中から最適な軌道を選択する。Navsim［7］で検証した実験結果は、GoalFlow が最先端の性能を達成し、自動運転のための頑健なマルチモーダル軌道を提供することを示している。GoalFlow は <strong>PDMS 90.3</strong> を達成し、他の手法を大きく上回った。他の拡散ポリシー（diffusion policy）ベースの手法と比較して、本手法は<strong>ただ 1 回のデノイズステップ</strong>で優れた性能を得られる。コードは <a href="https://github.com/YvanYin/GoalFlow">https://github.com/YvanYin/GoalFlow</a> で公開している。</p>
+
+<figure><img src="figs/fig1.jpg" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：近年の異なるマルチモーダル軌道生成パラダイムの比較。</strong>単独の生成モデルは、異なるモード間に明確な境界のない、非常に多様な軌道を生成しがちである。これに対しゴール駆動型生成モデルは、ゴール点の強いガイダンスを活用し、異なるゴール点を用いることで複数のモードを効果的に区別する。</p>
+<p class="yakuchu">図中ラベル：Generation Model＝生成モデル、Goal-Driven Generation Model＝ゴール駆動型生成モデル、BEV Feature＝BEV 特徴、Goal Point Construction＝ゴール点構築</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<a class="pg" data-page="2"></a>
+<p>UniAD［15］以来、自動運転ではエンドツーエンドシステムがますます好まれるようになっており、そこではマッピングや検出といったタスクは最終的にプランニングタスクに奉仕する。システムの信頼性を高めるため、一部のエンドツーエンドアルゴリズム［16, 17, 27］は、アルゴリズムの軌道候補としてマルチモーダル軌道を生成する方法の探求を始めている。自動運転においてコマンドは通常、左折・右折・直進の各行動を示す指示子を含む。VAD［17］はこのコマンド情報を用いてマルチモーダル軌道を生成する。今後数秒間の車両の位置情報を与えるゴール点は、SparseDrive［27］など他の手法でガイド情報としてよく用いられる。これらの手法はゴール点の集合をあらかじめ定義し、異なる軌道モードを生成する。どちらのアプローチも自動運転で成功を収めており、衝突率を大幅に低減する候補軌道を提供している。しかし、これらの手法のガイド情報は正確さを追求するものではなく、軌道に対する候補値の集合を与えるものであるため、ガイド情報と正解との差が大きい場合には低品質な軌道を生成しやすい。</p>
+<p>近年の軌道予測の研究では、一部の手法［18, 28, 32］が拡散によってマルチモーダル軌道を生成することを目指しており、シーン情報や運動情報を条件としてマルチモーダル軌道を生成する。他の手法［12］は拡散を利用して世界モデルを構築する。制約がない場合、Diffusion-ES［32］のような手法は図1の 2 行目に示すように発散した軌道を生成する傾向があり、実世界の道路網に整合させるために HD マップに基づくスコアリング機構を必要とするが、HD マップはエンドツーエンド環境では入手が難しい。MotionDiffuser［18］は正解の終点を制約として用いることで軌道の発散に対処しているが、これは過度に強い事前情報を導入することになる。GoalGAN［8］はまずゴール点を予測し、次にそれを用いて GAN ネットワークを誘導して軌道を生成する。しかし GoalGAN はグリッドセルを用いてゴール点をサンプリングしており、ゴール点の分布を考慮していない。</p>
+<p>先行研究を振り返り、我々は見過ごされてきたいくつかの問題を特定した。(1) 既存のエンドツーエンド自動運転システムは衝突と L2 の指標に重点を置きがちで、衝突を減らすために特定の損失を追加したり後処理を適用したりすることが多い一方、車両が走行可能領域内にとどまるかどうかを見落としている。(2) ほとんどのエンドツーエンド手法は回帰モデルに基づいており、異なるガイド情報を用いることでマルチモダリティを実現しようとする。しかしガイド情報が正解から大きく外れると、低品質な軌道の生成につながりうる。</p>
+<p>GoalFlow は 3 つの部分、すなわち知覚モジュール、ゴール点構築モジュール、軌道プランニングモジュールに分けられる。第 1 のモジュールでは、Transfuser［3］に倣い、画像と LiDAR を 2 つの別々のバックボーンに入力し、最終的に BEV 特徴に融合する。第 2 のモジュールでは、GoalFlow はゴール点の密な語彙（vocabulary）を構築し、新しいスコアリング機構を用いて、正解のゴール点に最も近く、かつ走行可能領域内にある最適なゴール点を選択する。第 3 のモジュールでは、GoalFlow はフローマッチングを用いてマルチモーダル軌道を効率的にモデル化する。シーン情報を条件とし、選択したゴール点によるより強いガイダンスを組み込む。最後に、GoalFlow はスコアリング機構を用いて最適な軌道を選択する。図1の 1 行目のように拡散で軌道を直接生成するのと比べ、本手法は軌道に強い制約を与え、より信頼性の高い結果をもたらす。</p>
+<p>我々は Navsim で実験的検証を行い、本手法が総合スコアで他の手法を上回ることを確認した。特に、ゴール点選択機構により DAC スコアで大幅な改善を達成した。さらに、このフローマッチングベースの手法は推論時のデノイズステップ数に対して頑健であることを確認した。デノイズステップがわずか 1 回でも、スコアは最良の場合と比べて 1.6% しか低下せず、自動運転における生成モデルの実世界展開の可能性を高めている。</p>
+<p>本論文の貢献は次のようにまとめられる。</p>
+<ul>
+<li>ゴール点を確立する新しいアプローチを設計し、軌道生成のために生成モデルを誘導する上での有効性を示した。</li>
+<li>フローマッチングをエンドツーエンド自動運転に導入し、ゴール点ガイダンスとシームレスに統合した。</li>
+<li>シャドウ軌道（shadow trajectory）を用いて潜在的なゴール点の誤りにさらに対処する、革新的な軌道選択機構を開発した。</li>
+<li>本手法は Navsim において最先端の結果を達成した。</li>
+</ul>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<h3 id="2.1-エンドツーエンド自動運転">2.1　エンドツーエンド自動運転</h3>
+<p>初期のエンドツーエンド自動運転手法［5］［4］は模倣学習の手法を用い、入力画像から直接特徴を抽出して軌道を生成していた。その後 Transfuser［3］は、知覚の際に LiDAR と画像の情報を融合し、マッピングや検出などの補助タスクを用いて知覚に教師信号を与えることで前進した。FusionAD［33］は Transfuser をさらに一歩進め、融合した知覚特徴を予測モジュールとプランニングモジュールに直接伝播させた。他の手法［19, 20］は交通シーンを自然言語と整合させる。UniAD［15］は統一的なクエリ設計を導入し、フレームワークを最終的にプランニング指向のものとした。同様に VAD［17］は、知覚タスクを簡略化しシーン表現をベクトル化形式に変換することでプランニング指向のアプローチに注力し、プランニング能力と効率の両方を大幅に高めた。これを基に、一部の手法［1, 22］は軌道空間を離散化して軌道語彙を構築し、回帰タスクを分類タスクに変換した。PARA-Drive［30］はマッピング、プランニング、動き予測、占有予測のタスクを並列に実行する。GenAD［35］は時間的な軌道再構成に VAE と GRU を用い、SparseDrive［27］はベクトル化シーン表現をさらに推し進め、より密な BEV 表現を省いた。回帰モデルを用いて正解軌道によりよく適合させることに注力する従来手法と比べ、我々はエンドツーエンドの設定において高品質なマルチモーダル軌道を生成することに集中する。</p>
+<h3 id="2.2-拡散モデルとフローマッチング">2.2　拡散モデルとフローマッチング</h3>
+<a class="pg" data-page="3"></a>
+<p>初期の生成モデルは、画像生成において常に VAE［21］と GAN［10］を用いていた。近年では、ノイズの付加と除去を反復して画像を生成する拡散モデルが主流となっている。DDPM［14］は学習時に画像へノイズを加えて時間ステップにわたって状態を変換し、その後テスト時にデノイズして画像を再構成する。より最近の手法［26］はサンプリング効率をさらに最適化している。また CFG［13］は生成出力の頑健性を高めた。フローマッチング（Flow Matching）［23］は、ある分布から別の分布へ遷移するためのベクトル場を確立する。フローマッチングの特定の形式である Rectified flow［24］は、分布間の直接的で線形な遷移経路を可能にする。拡散モデルと比較して、Rectified flow は良好な結果を得るのに 1 回の推論ステップしか必要としないことが多い。</p>
+
+<figure><img src="figs/fig2.png" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：GoalFlow のアーキテクチャの概要。</strong>GoalFlow は 3 つのモジュールから成る。知覚モジュールはシーン情報を BEV 特徴 \(F_{bev}\) に統合する役割を担い、ゴール点構築モジュールはゴール点語彙 \(\mathbb{V}\) から最適なゴール点をガイド情報として選択し、軌道プランニングモジュールはガウス分布から目標分布へとデノイズすることで軌道を生成する。最後に、軌道スコアラー（Trajectory Scorer）が候補の中から最適な軌道を選択する。</p>
+<p class="yakuchu">図中ラベル：Goal Point Vocabulary＝ゴール点語彙、Ego Status＝自車状態、BEV feature＝BEV 特徴、Scorer Decoder＝スコアラーデコーダ、Dis. Score＝距離スコア、DAC Score＝DAC スコア（走行可能領域遵守スコア）、Fusion &amp; Select＝融合と選択、Goal Point＝ゴール点、Trajectory Decoder＝軌道デコーダ、Trajectory Scorer＝軌道スコアラー、Perception Module＝知覚モジュール、Goal Point Construction Module＝ゴール点構築モジュール、Trajectory Planning Module＝軌道プランニングモジュール</p>
+
+<h3 id="2.3-マルチモーダル軌道生成">2.3　マルチモーダル軌道生成</h3>
+<p>マニピュレーションや自動運転などのプランニングタスクでは、ある状況に対して複数の行動の選択肢が存在することが多く、効果的なマルチモーダルモデリングが必要となる。マニピュレーションにおける最近の研究［2, 31］は、拡散モデルを適用することでこれを探求し、顕著な成功を収めている。自動運転では主に 2 つのマルチモーダル戦略が採用されてきた。第 1 は離散的なコマンドを用いて軌道生成を誘導するもので、3 つの異なる軌道モードを生成する VAD［17］や、データセットから固定のナビゲーション点をクラスタリングして軌道のガイダンスとする SparseDrive［27］および［16］がこれにあたる。第 2 のアプローチは拡散モデルを直接導入してマルチモーダル軌道を生成するもの［18, 29, 32］であり、軌道予測では成功を収めているが、エンドツーエンドの応用では課題に直面している。我々は拡散モデルを基盤としつつ、フローマッチングを取り入れることで精度と効率の限界に対処し、マルチモーダルな多様性のみに注力するのではなく、ゴール点を用いて軌道を正確に誘導する。</p>
+
+<h2 id="3-手法">3　手法</h2>
+<h3 id="3.1-準備">3.1　準備</h3>
+<p>時間とともに徐々にノイズを加える過程を逆転させてデータを復元することの学習に注力する拡散とは異なり、フローマッチング［23］はデータ分布間を写像する可逆変換の学習に注力する。\(\pi_0\) を単純な分布、典型的には標準正規分布 \(p(x) = \mathcal{N}(x|0, I)\) とし、\(\pi_1\) を目標分布とする。この枠組みのもとで、Rectified flow［24］は最適輸送（optimal transport）［25］の変位によって経路を構築する単純かつ効果的な方法を用いており、我々はこれをフローマッチングの手法として採用する。</p>
+<p>\(\pi_0\) からサンプリングした \(x_0\)、\(\pi_1\) からサンプリングした \(x_1\)、および \(t \in [0, 1]\) が与えられたとき、\(x_0\) から \(x_1\) への経路は直線として定義される。すなわち中間状態 \(x_t\) は \((1-t)x_0 + tx_1\) で与えられ、中間状態の方向は常に \(x_1 - x_0\) に従う。現在の状態 \(x_t\) と時間ステップ \(t\) に基づいて方向 \(x_1 - x_0\) を予測するニューラルネットワーク \(v_\theta\) を構築し、\(v_\theta(x_t, t)\) と \(x_1 - x_0\) の間の損失を最適化することで、初期分布 \(\pi_0\) から目標分布 \(\pi_1\) への経路を得ることができる。これは次のように定式化できる。</p>
+<p>\[ v_\theta(x_t, t) \approx \mathbf{E}_{x_0 \sim \pi_0, x_1 \sim \pi_1}[v_t | x_t] \tag{1} \]</p>
+<p>\[ \mathcal{L}(\theta) = \mathbf{E}_{x_0 \sim \pi_0, x_1 \sim \pi_1}[\| v_\theta(x_t, t) - (x_1 - x_0) \|_2] \tag{2} \]</p>
+
+<h3 id="3.2-goalflow">3.2　GoalFlow</h3>
+<h4>3.2.1　概要</h4>
+<a class="pg" data-page="4"></a>
+<p>GoalFlow は、高品質なマルチモーダル軌道を生成できるゴール駆動型のエンドツーエンド自動運転手法である。GoalFlow の全体アーキテクチャを図2に示す。これは 3 つの主要な構成要素から成る。知覚モジュールでは、カメラ画像 \(I\) と LiDAR データ \(L\) を融合することで、環境情報を内包する BEV 特徴 \(F_{\text{bev}}\) を得る。ゴール点構築モジュールは、軌道生成のための正確なガイド情報を生成することに注力する。これは、ゴール点語彙 \(\mathbb{V} = \{g_i\}^N\) を構築し、スコアリング機構を用いて最も適切なゴール点 \(g\) を選択することで実現される。軌道プランニングモジュールでは、マルチモーダル軌道の集合 \(\mathbb{T} = \{\hat{\tau}_i\}^M\) を生成し、軌道スコアリング機構によって最適な軌道 \(\tau\) を特定する。</p>
+
+<h4>3.2.2　知覚モジュール</h4>
+<p>最初のステップでは、画像と LiDAR データを融合し、豊富な道路状況情報を捉えた BEV 特徴 \(F_{\text{bev}}\) を作成する。単一のモダリティでは重要な詳細が欠けることが多い。たとえば LiDAR は信号機の情報を捉えられず、画像は物体の位置を正確に特定できない。異なるセンサモダリティを融合することで、道路状況のより完全で正確な表現を得ることができる。</p>
+<p>モダリティ融合には Transfuser アーキテクチャ［3］を採用する。前方・左・右のカメラ画像を連結して単一の画像 \(I \in \mathbb{R}^{3 \times H_1 \times W_1}\) とし、LiDAR データはテンソル \(L \in \mathbb{R}^{K \times 3}\) として構成する。これらの入力は別々のバックボーンに通され、それらの特徴は複数の Transformer ブロックを用いて異なる層で融合される。その結果がシーンを包括的に表現する BEV 特徴 \(F_{\text{bev}}\) である。自車と周囲の物体、および地図情報との間の効果的な相互作用を確保するため、HD マップとバウンディングボックスから導かれる損失によって BEV 特徴に補助的な教師信号を与える。</p>
+
+<h4>3.2.3　ゴール点構築モジュール</h4>
+<p>このモジュールでは、軌道生成過程を誘導するための正確なゴール点を構築する。制約のない拡散ベースのアプローチ［18, 32］は過度な軌道の発散を招くことが多く、軌道選択を複雑にする。我々の重要な観察は、ゴール点が短期的な将来位置の正確な記述を含んでおり、生成モデルに強い制約を課すということである。その結果、従来のプランニングモジュールを 2 つのステップに分割する。第 1 に正確なゴール点を構築し、第 2 にプランニングによって軌道を生成する。</p>
+<p><strong>ゴール点語彙。</strong>最適なゴール点の候補を提供するゴール点集合を構築することを目指す。従来のゴールベースの手法［11, 34］は、軌道予測のためのゴール点集合を生成するのに HD マップの車線レベル情報に依存している。しかし HD マップは高価であり、エンドツーエンド運転では車線情報が利用できないことが多い。VADv2［1］に着想を得て、軌道の終点空間を離散化して候補ゴール点を生成し、HD マップに依存しない解決策を実現する。学習データ中の軌道終点 \(\mathbf{p}_i = (x_i, y_i, \theta_i)\) をクラスタリングして \(N\) 個のクラスタ中心を作成し、これがゴール点語彙 \(\mathbb{V}\) を形成する。各終点 \(p_i\) は位置 \((x_i, y_i)\) と方位 \(\theta_i\) を表す。語彙がより細かな位置を表現できるよう、通常 \(N\) を大きな値、一般に 4096 または 8192 に設定する。</p>
+<p><strong>ゴール点スコアラー。</strong>高品質な軌道は通常、次の特性を示す。すなわち、正解との距離が小さく、かつ走行可能領域内にあることである。これを達成するため、語彙 \(\mathbb{V}\) 中の各ゴール点 \(g_i\) を 2 つの異なるスコア、すなわち<em>距離スコア（Distance Score）</em>\(\hat{\delta}^{\text{dis}}\) と<em>走行可能領域遵守スコア（Drivable Area Compliance Score）</em>\(\hat{\delta}^{\text{dac}}\) を用いて評価する。距離スコアはゴール点 \(g_i\) と正解軌道の終点 \(g^{\text{gt}}\) との近さを測るもので、範囲 \(\hat{\delta}^{\text{dis}} \in [0, 1]\) の連続値をとり、値が大きいほど \(g^{\text{gt}}\) によく一致することを示す。走行可能領域遵守スコアは、2 値 \(\hat{\delta}^{\text{dac}} \in \{0, 1\}\) を用いてゴール点が走行可能領域内にあることを保証するもので、1 はゴール点が走行可能領域内で有効であることを、0 はそうでないことを示す。</p>
+<p>目標距離スコア \(\delta_i^{\text{dis}}\) を構成するため、softmax 関数を用いてゴール点 \(g_i\) と正解ゴール点 \(g^{\text{gt}}\) の間のユークリッド距離を区間 \([0, 1]\) に写像する。これは次のように定義される。</p>
+<p>\[ \delta_i^{\text{dis}} = \frac{\exp(-\|g_i - g^{\text{gt}}\|_2)}{\sum_j \exp(-\|g_j - g^{\text{gt}}\|_2)} \tag{3} \]</p>
+<p>目標走行可能領域遵守スコア \(\delta_i^{\text{dac}}\) については、シャドウ車両（shadow vehicle）を導入する。そのバウンディングボックスは、\(g_i\) における位置と方位 \((x_i, y_i, \theta_i)\) および自車の形状に基づいて決定される。\(\{p^j\}^4\) をシャドウ車両の 4 隅の位置の集合とし、\(\mathbb{D}\) を走行可能領域を表す多角形とする。走行可能領域遵守スコア \(\delta_i^{\text{dac}}\) は次のように定義される。</p>
+<p>\[ \delta_i^{\text{dac}} = \begin{cases} 1, & \text{if } \forall j,\ p^j \in \mathbb{D}^\circ \\ 0, & \text{otherwise} \end{cases} \]</p>
+<p>\(\hat{\delta}_i^{\text{dis}}\) と \(\hat{\delta}_i^{\text{dac}}\) を集約して最終スコア \(\hat{\delta}_i^{\text{final}}\) を計算する。最終スコアが最も高いゴール点が軌道生成のために選択される。</p>
+<p>\[ \hat{\delta}_i^{\text{final}} = w_1 \log \hat{\delta}_i^{\text{dis}} + w_2 \log \hat{\delta}_i^{\text{dac}} \]</p>
+<p>図3(a) に示すように、Transformer ベースのスコアラーデコーダは \(F_v\) と \(F_{\text{ego}}\) を加算した結果をクエリとし、\(F_{\text{bev}}\) をキーおよびバリューとして用いる。出力は 2 つの別々の MLP に通され、\(\mathbb{V}\) 中の各点に対するスコア \(\hat{\delta}^{dis}\) と \(\hat{\delta}^{dac}\) が生成される。図3(b) はこれら 2 つのスコアの分布を示す。暖色の点ほどスコアが高いことを表しており、スコア \(\hat{\delta}^{dis}\) は望ましい将来位置を効果的に示し、\(\hat{\delta}^{dac}\) はゴール点が走行可能領域内にあるかどうかを識別していることがわかる。</p>
+<a class="pg" data-page="5"></a>
+<figure><img src="figs/fig3.jpg" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：ゴール点スコアラー。</strong>(a) はゴール点構築モジュールの詳細な構造を示し、(b) は \(\{\hat{\delta}_i^{dis}\}^N\)、\(\{\hat{\delta}_i^{dac}\}^N\)、\(\{\hat{\delta}_i^{final}\}^N\) のスコア分布を示す。スコアの高い点ほど暖色で強調されている。<span class="yakuchu">（訳注：図 (b) に描かれているのは \(\hat{\delta}^{dis}\)、\(\delta^{dis}\)、\(\hat{\delta}^{dac}\)、\(\delta^{dac}\) の分布であり、\(\hat{\delta}^{final}\) の分布は図中に見当たらない。）</span></p>
+<p class="yakuchu">図中ラベル：Vocab. Encoder＝語彙エンコーダ、Ego Status＝自車状態、Ego Encoder＝自車エンコーダ、Transformer Decoder＝Transformer デコーダ、distance＝距離</p>
+
+<figure><img src="figs/fig4.png" loading="lazy" alt="図4" /></figure>
+<p><strong>図4：Rectified Flow で用いるネットワークアーキテクチャ。</strong></p>
+<p class="yakuchu">図中ラベル：Time Step Encoder＝時間ステップエンコーダ、Trajectory Encoder＝軌道エンコーダ、Environment Encoder＝環境エンコーダ、Condition＝条件、Transformer Layer＝Transformer 層、Positional Encoding＝位置エンコーディング</p>
+
+<h4>3.2.4　軌道プランニングモジュール</h4>
+<p>このモジュールでは、生成モデルを用いて制約された高品質な軌道候補を生成し、その後スコアリング機構によって最適な軌道を選択する。DDPM［14］や DDIM［26］のような拡散手法に基づく生成モデルは、通常複雑なデノイズ経路を必要とし、推論時に大きな時間的オーバーヘッドを生じるため、自動運転のようなリアルタイムシステムには適さない。これに対し、フローマッチングにおける最適輸送経路に基づく Rectified Flow［24］は、良好な結果を得るのにはるかに少ない推論ステップしか必要としない。我々は生成モデルとして Rectified Flow を採用し、BEV 特徴とゴール点を条件としてマルチモーダル軌道を生成する。</p>
+<p><strong>マルチモーダル軌道の生成。</strong>ノイズ分布から目標軌道分布へのシフトをモデル化することで、マルチモーダル軌道を生成する。この分布移送の過程において、現在の状態 \(x_t\) と時間ステップ \(t\) が与えられたとき、シフト \(\mathbf{v_t}\) を予測する。</p>
+<p>\[ \mathbf{v_t} = \tau^{norm} - x_0 \tag{4} \]</p>
+<p>\[ x_t = (1-t)x_0 + t\tau^{norm} \tag{5} \]</p>
+<p>\[ \tau^{norm} = \mathcal{H}(\tau^{gt}) \tag{6} \]</p>
+<p>ここで \(\tau^{gt}\) は正解軌道であり、\(\tau^{norm}\) はその正規化形式である。\(\mathcal{H}(\cdot)\) を軌道に適用する正規化操作と定義する。変数 \(x_0\) はノイズ分布を表し、\(x_0 \sim \mathcal{N}(0, \sigma^2 I)\) に従う。変数 \(x_t\) は \(x_0\) と \(\tau^{norm}\) の線形補間によって得られる。</p>
+<p>図4に示すように、一連のエンコーダによって異なる特徴を抽出する。具体的には、\(x_t\) を線形層でエンコードし、\(t\) とゴール点は正弦波エンコーディングによって特徴ベクトルに変換する。特徴 \(F_{\text{env}}\) は、\(F_{\text{bev}}\) と \(F_{\text{ego}}\) の情報を環境エンコーダに通すことで得られる。</p>
+<p>\[ F_{\text{env}} = E_{\text{env}}(Q, (F_{\text{BEV}} + F_{\text{ego}}), (F_{\text{BEV}} + F_{\text{ego}})) \tag{7} \]</p>
+<p>ここで \(E_{\text{env}}\) は Transformer ベースのエンコーダ、\(Q\) は学習可能な埋め込みを表し、\(F_{\text{ego}}\) は自車の運動学的情報をエンコードした自車状態特徴を表す。</p>
+<p>特徴 \(F_{\text{env}}\)、\(F_{\text{goal}}\)、\(F_{\text{traj}}\)、\(F_t\) を連結して全体特徴 \(F_{\text{all}}\) を形成する。これは現在の状態、時間ステップ、シーン情報を内包する。この結合特徴をいくつかの注意層に通し、分布シフト \(\mathbf{v_t}\) を予測する。</p>
+<p>\[ \hat{\mathbf{v}}_{\mathbf{t}} = \mathcal{G}(F_{\text{all}}, F_{\text{all}}, F_{\text{all}}) \tag{8} \]</p>
+<a class="pg" data-page="6"></a>
+<p>\[ F_{\text{all}} = \text{Concat}(F_{\text{env}}, F_{\text{goal}}, F_{\text{traj}}, F_t) \tag{9} \]</p>
+<p>ここで \(\mathcal{G}\) は N 個の注意層から成るネットワークである。</p>
+<p>\(x_0\) と \(\hat{\mathbf{v}}_{\mathbf{t}}\) を用いて軌道分布を再構成する。通常これは、Rectified Flow を通じて複数の推論ステップを実行し、ノイズ分布 \(x_0\) を目標分布 \(\tau^{\text{norm}}\) へ徐々に変換することで実現される。最後に \(\tau^{\text{norm}}\) に逆正規化を適用して最終的な軌道 \(\hat{\tau}\) を得る。</p>
+<p>\[ \hat{\tau} = \mathcal{H}^{-1}(\hat{\tau}^{norm}) \tag{10} \]</p>
+<p>\[ \hat{\tau}^{norm} = x_0 + \frac{1}{n} \sum_{i}^{n} \hat{v}_{t_i} \tag{11} \]</p>
+<p>ここで \(n\) は推論ステップの総数、\(t_i\) は \(i\) 番目のステップでサンプリングされた時間ステップであり、\(t_i \in [0, 1]\) を満たす。\(\mathcal{H}^{-1}(\cdot)\) は逆正規化操作である。</p>
+<p><strong>軌道の選択。</strong>軌道選択において、SparseDrive［27］や Diffusion-ES［32］のような手法は、生成された軌道の運動学的シミュレーションに依存して周囲のエージェントとの潜在的な衝突を予測し、それによって最適な軌道を選択する。この処理は推論時間を大幅に増加させる。我々はゴール点を軌道選択の参照として用いることでこの手順を簡略化する。具体的には、ゴール点までの軌道の距離と自車の進行度（ego progress）とをトレードオフし、軌道スコアラーによって最適な軌道を選択する。</p>
+<p>\[ f(\hat{\tau}_i) = -\lambda_1 \Phi(f_{dis}(\hat{\tau}_i)) + \lambda_2 \Phi(f_{pg}(\hat{\tau}_i)) \tag{12} \]</p>
+<p>ここで \(\Phi(\cdot)\) は min-max 操作である。\(f_{dis}(\hat{\tau}_i)\) は \(\hat{\tau}_i\) と \(g\) の間の \(\mathcal{L}_2\) 距離を表し、\(f_{pg}(\hat{\tau}_i)\) は \(\hat{\tau}_i\) が進んだ進行量の \(\mathcal{L}_2\) 距離を表す。</p>
+<p>さらに、予測されたゴール点は誤りを含むことがあり、それが軌道を誤誘導しうる。これを緩和するため、生成時にゴール点をマスクしてシャドウ軌道を作成する。シャドウ軌道が主軌道から大きく逸脱する場合、そのゴール点は信頼できないとみなし、シャドウ軌道を出力として用いる。</p>
+
+<h4>3.2.5　学習損失</h4>
+<p>まず知覚抽出器のみを最適化し、教師信号として複数の知覚損失を課す。これには HD マップに対する交差エントロピー損失（\(L_{HD}\)）、3D バウンディングボックスの分類に対する交差エントロピー損失（\(L_{bbox}\)）、および 3D バウンディングボックスの位置に対する \(L_1\) 損失（\(L_{loc}\)）が含まれる。この段階は、さまざまな知覚の情報で BEV 特徴を豊かにすることを目的とする。損失は次のとおりである。</p>
+<p>\[ L_{perception} = w_1 * L_{HD} + w_2 * L_{bbox} + w_3 * L_{loc} \tag{13} \]</p>
+<p>ここで \(w_1, w_2, w_3\) は学習時に 10.0、1.0、10.0 に設定する。ゴール構築器には、距離スコア（\(L_{dis}\)）と DAC スコア（\(L_{dac}\)）に対する交差エントロピー損失を用いる。\(w_4, w_5\) は 1.0 と 0.005 に設定する。</p>
+<p>\[ L_{goal} = w_4 * L_{dis} + w_5 * L_{dac} \tag{14} \]</p>
+<p>\[ L_{dis} = -\sum_{i=1}^{N} \delta_i^{dis} log(\hat{\delta}_i^{dis}) \tag{15} \]</p>
+<p>\[ L_{dac} = -\delta^{dac} log \hat{\delta}^{dac} - (1 - \delta^{dac}) log(1 - \hat{\delta}^{dac}) \tag{16} \]</p>
+<p>マルチモーダルプランナーには \(L_1\) 損失を用いる。</p>
+<p>\[ L_{planner} = |\mathbf{v_t} - \hat{\mathbf{v}}_{\mathbf{t}}| \tag{17} \]</p>
+
+<h2 id="4-実験">4　実験</h2>
+<h3 id="4.1-データセット">4.1　データセット</h3>
+<p>実験は Openscene［6］データセットで検証する。Openscene は 120 時間分の自動運転データを含む。そのエンドツーエンド環境である Navsim［7］は、trainval とテストにそれぞれ 1192 と 136 のシナリオを用いており、2Hz で合計 10w 以上のサンプルとなる<span class="yakuchu">（訳注：「10w」は 10 万（w は中国語の「万」）を意味すると考えられる。）</span>。各サンプルには 8 視点のカメラ画像、5 つのセンサから融合した LiDAR データ、自車状態、地図と物体のアノテーションが含まれる。</p>
+
+<h3 id="4.2-評価指標">4.2　評価指標</h3>
+<p>Navsim 環境では、生成された 2Hz・4 秒の軌道を LQR コントローラで補間して 10Hz・4 秒の軌道を得る。これらの軌道は閉ループ指標を用いてスコア付けされる。指標には、過失のない衝突なし（No at-fault Collisions）\(S_{NC}\)、走行可能領域遵守（Drivable Area Compliance）\(S_{DAC}\)、境界付きの衝突までの時間（Time to Collision）\(S_{TTC}\)、自車の進行度（Ego Progress）\(S_{EP}\)、快適性（Comfort）\(S_{CF}\)、走行方向遵守（Driving Direction Compliance）\(S_{DDC}\) が含まれる。最終スコアはこれらの指標を集約して導出される。実用上の制約により、\(S_{DDC}\) は計算から除外される<sup>1</sup>。</p>
+<blockquote><p>脚注1：<a href="https://github.com/autonomousvision/navsim/issues/14">https://github.com/autonomousvision/navsim/issues/14</a></p></blockquote>
+<p>\[ S_{PDM} = S_{NC} \times S_{DAC} \times s_{TTC} \times \left( \frac{5 \times S_{EP} + 5 \times S_{CF} + 2 \times S_{DDC}}{12} \right) \tag{18} \]</p>
+<p><span class="yakuchu">（訳注：式 (18) の \(s_{TTC}\) は原文どおり小文字だが、\(S_{TTC}\) の誤植と思われる。また本文では \(S_{DDC}\) を計算から除外するとしているが、式には \(S_{DDC}\) の項が残っている。）</span></p>
+<h3 id="4.3-ベースライン">4.3　ベースライン</h3>
+<a class="pg" data-page="7"></a>
+<p>Navsim において、以下のベースラインと比較する。<strong>Constant Velocity</strong>：現在のタイムスタンプからの速度が一定であると仮定して前進する。<strong>Ego Status MLP</strong>：現在の状態のみを入力とし、MLP を用いて軌道を生成する。<strong>PDM-Closed</strong>：正解の知覚を入力として用い、ルールベースの IDM 手法によっていくつかの軌道を生成する。その後 PDM スコアラーがそれらの中から最適な軌道を選択して出力とする。<strong>Transfuser</strong>：画像と LiDAR の両方を入力とし、Transformer によってそれらを BEV 特徴に融合し、それを軌道生成に用いる。<strong>LTF</strong>：Transfuser の簡素化版で、LiDAR バックボーンを学習可能な埋め込みに置き換えたものである。NavSim において Transfuser と同程度の結果を達成する。<strong>UniAD</strong>：複数の Transformer アーキテクチャを用いて情報を異なる方法で処理し、クエリを用いてプランニングのために特化した情報伝達を行う。<strong>PARA-Drive</strong>：UniAD と異なり、BEV 特徴に基づいてマッピング、プランニング、動き予測、占有予測のタスクを並列に実行する。</p>
+
+<table><thead><tr><th>Method</th><th>Ego Stat.</th><th>Image</th><th>LiDAR</th><th>Video</th><th>S<sub>NC</sub> ↑</th><th>S<sub>DAC</sub> ↑</th><th>S<sub>TTC</sub> ↑</th><th>S<sub>CF</sub> ↑</th><th>S<sub>EP</sub> ↑</th><th>S<sub>PDM</sub> ↑</th></tr></thead>
+<tbody>
+<tr><td>Constant Velocity</td><td>✓</td><td></td><td></td><td></td><td style="text-align:right">68.0</td><td style="text-align:right">57.8</td><td style="text-align:right">50.0</td><td style="text-align:right">100</td><td style="text-align:right">19.4</td><td style="text-align:right">20.6</td></tr>
+<tr><td>Ego Status MLP</td><td>✓</td><td></td><td></td><td></td><td style="text-align:right">93.0</td><td style="text-align:right">77.3</td><td style="text-align:right">83.6</td><td style="text-align:right">100</td><td style="text-align:right">62.8</td><td style="text-align:right">65.6</td></tr>
+<tr><td>LTF ［3］</td><td>✓</td><td>✓</td><td></td><td></td><td style="text-align:right">97.4</td><td style="text-align:right">92.8</td><td style="text-align:right">92.4</td><td style="text-align:right">100</td><td style="text-align:right">79.0</td><td style="text-align:right">83.8</td></tr>
+<tr><td>TransFuser ［3］</td><td>✓</td><td>✓</td><td>✓</td><td></td><td style="text-align:right">97.7</td><td style="text-align:right">92.8</td><td style="text-align:right">92.8</td><td style="text-align:right">100</td><td style="text-align:right">79.2</td><td style="text-align:right">84.0</td></tr>
+<tr><td>UniAD ［15］</td><td>✓</td><td>✓</td><td>✓</td><td></td><td style="text-align:right">97.8</td><td style="text-align:right">91.9</td><td style="text-align:right">92.9</td><td style="text-align:right">100</td><td style="text-align:right">78.8</td><td style="text-align:right">83.4</td></tr>
+<tr><td>PARA-Drive ［30］</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">97.9</td><td style="text-align:right">92.4</td><td style="text-align:right">93.0</td><td style="text-align:right">99.8</td><td style="text-align:right">79.3</td><td style="text-align:right">84.0</td></tr>
+<tr><td><strong>GoalFlow (Ours)</strong></td><td>✓</td><td>✓</td><td>✓</td><td></td><td style="text-align:right"><strong>98.4</strong></td><td style="text-align:right"><strong>98.3</strong></td><td style="text-align:right"><strong>94.6</strong></td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right"><strong>85.0</strong></td><td style="text-align:right"><strong>90.3</strong></td></tr>
+<tr><td>GoalFlow<sup>†</sup></td><td>✓</td><td>✓</td><td>✓</td><td></td><td style="text-align:right">99.8</td><td style="text-align:right">97.9</td><td style="text-align:right">98.6</td><td style="text-align:right">100</td><td style="text-align:right">85.4</td><td style="text-align:right">92.1</td></tr>
+<tr><td>Human<sup>‡</sup></td><td></td><td></td><td></td><td></td><td style="text-align:right">100</td><td style="text-align:right">100</td><td style="text-align:right">100</td><td style="text-align:right">99.9</td><td style="text-align:right">87.5</td><td style="text-align:right">94.8</td></tr>
+</tbody></table>
+<p><strong>表1：Navsim［7］Test における PDM スコア指標での SOTA 手法との比較。</strong>本手法はすべての評価指標で他のアプローチを上回る。† は正解軌道の終点をゴール点として用いる。‡ は正解軌道を用いて評価する。</p>
+
+<table><thead><tr><th>Model</th><th>Description</th><th>S<sub>NC</sub> ↑</th><th>S<sub>DAC</sub> ↑</th><th>S<sub>TTC</sub> ↑</th><th>S<sub>CF</sub></th><th>S<sub>EP</sub> ↑</th><th>S<sub>PDM</sub> ↑</th></tr></thead>
+<tbody>
+<tr><td>–</td><td>Transfuser［3］</td><td style="text-align:right">97.7</td><td style="text-align:right">92.8</td><td style="text-align:right">92.8</td><td style="text-align:right">100</td><td style="text-align:right">79.0</td><td style="text-align:right">84.0</td></tr>
+<tr><td>\(\mathcal{M}_0\)</td><td>Base Model（ベースモデル）</td><td style="text-align:right">97.9</td><td style="text-align:right">94.2</td><td style="text-align:right">94.2</td><td style="text-align:right">100</td><td style="text-align:right">79.9</td><td style="text-align:right">85.6</td></tr>
+<tr><td>\(\mathcal{M}_1\)</td><td>\(\mathcal{M}_0\) + Distance Score Map（距離スコアマップ）</td><td style="text-align:right">98.5</td><td style="text-align:right">96.4</td><td style="text-align:right">94.9</td><td style="text-align:right">100</td><td style="text-align:right">83.0</td><td style="text-align:right">88.5</td></tr>
+<tr><td>\(\mathcal{M}_2\)</td><td>\(\mathcal{M}_1\) + DAC Score Map（DAC スコアマップ）</td><td style="text-align:right"><strong>98.6</strong></td><td style="text-align:right">97.5</td><td style="text-align:right"><strong>94.7</strong></td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right">83.8</td><td style="text-align:right">89.4</td></tr>
+<tr><td>\(\mathcal{M}_3\)</td><td>\(\mathcal{M}_2\) + Trajectory Scorer（軌道スコアラー）</td><td style="text-align:right">98.4</td><td style="text-align:right"><strong>98.3</strong></td><td style="text-align:right">94.6</td><td style="text-align:right">100</td><td style="text-align:right"><strong>85.0</strong></td><td style="text-align:right"><strong>90.3</strong></td></tr>
+</tbody></table>
+<p><strong>表2：各構成要素の影響に関するアブレーション研究。</strong>\(\mathcal{M}_0\) はベースモデルであり、ゴール点ガイダンスなしで Rectified Flow を用い、生成されたすべての軌道を平均して最終出力とする。\(\mathcal{M}_1\) と \(\mathcal{M}_2\) はそれぞれ距離スコアマップと DAC スコアマップを導入して Rectified Flow を誘導する。\(\mathcal{M}_3\) は \(\mathcal{M}_1\) に軌道スコアラーを組み込んだものである。<span class="yakuchu">（訳注：表中では \(\mathcal{M}_3\) は \(\mathcal{M}_2\) + Trajectory Scorer とされており、キャプションの「\(\mathcal{M}_1\)」は「\(\mathcal{M}_2\)」の誤りと思われる。）</span></p>
+
+<table><thead><tr><th>\(T\)</th><th>Inf.Time</th><th>S<sub>NC</sub> ↑</th><th>S<sub>DAC</sub> ↑</th><th>S<sub>TTC</sub> ↑</th><th>S<sub>CF</sub> ↑</th><th>S<sub>EP</sub> ↑</th><th>S<sub>PDM</sub> ↑</th></tr></thead>
+<tbody>
+<tr><td style="text-align:right">20</td><td style="text-align:right">177.8ms</td><td style="text-align:right">98.3</td><td style="text-align:right">98.1</td><td style="text-align:right">94.3</td><td style="text-align:right">100</td><td style="text-align:right">84.7</td><td style="text-align:right">89.9</td></tr>
+<tr><td style="text-align:right">10</td><td style="text-align:right">92.4ms</td><td style="text-align:right">98.3</td><td style="text-align:right">98.2</td><td style="text-align:right">94.4</td><td style="text-align:right">100</td><td style="text-align:right"><strong>84.9</strong></td><td style="text-align:right">90.1</td></tr>
+<tr><td style="text-align:right">5</td><td style="text-align:right">49.0ms</td><td style="text-align:right">98.4</td><td style="text-align:right"><strong>98.3</strong></td><td style="text-align:right"><strong>94.6</strong></td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right">84.4</td><td style="text-align:right"><strong>90.3</strong></td></tr>
+<tr><td style="text-align:right">1</td><td style="text-align:right">10.4ms</td><td style="text-align:right"><strong>98.4</strong></td><td style="text-align:right">97.8</td><td style="text-align:right">94.1</td><td style="text-align:right">100</td><td style="text-align:right">84.5</td><td style="text-align:right">88.9</td></tr>
+</tbody></table>
+<p><strong>表3：推論における異なる時間ステップ数の影響。</strong>\(T\) は推論時のデノイズステップ数を表す。結果は、モデルの性能がデノイズステップ数の変化に対して頑健であることを示している。</p>
+
+<table><thead><tr><th>\(\sigma\)</th><th>S<sub>NC</sub> ↑</th><th>S<sub>DAC</sub> ↑</th><th>S<sub>TTC</sub> ↑</th><th>S<sub>CF</sub> ↑</th><th>S<sub>EP</sub> ↑</th><th>S<sub>PDM</sub> ↑</th></tr></thead>
+<tbody>
+<tr><td style="text-align:right">0.05</td><td style="text-align:right">98.3</td><td style="text-align:right">98.2</td><td style="text-align:right">94.4</td><td style="text-align:right">100</td><td style="text-align:right"><strong>85.0</strong></td><td style="text-align:right">90.1</td></tr>
+<tr><td style="text-align:right">0.1</td><td style="text-align:right"><strong>98.4</strong></td><td style="text-align:right"><strong>98.3</strong></td><td style="text-align:right"><strong>94.6</strong></td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right">85.0</td><td style="text-align:right"><strong>90.3</strong></td></tr>
+<tr><td style="text-align:right">0.2</td><td style="text-align:right">87.4</td><td style="text-align:right">76.0</td><td style="text-align:right">69.4</td><td style="text-align:right">32.0</td><td style="text-align:right">56.2</td><td style="text-align:right">49.0</td></tr>
+<tr><td style="text-align:right">0.3</td><td style="text-align:right">68.3</td><td style="text-align:right">48.1</td><td style="text-align:right">44.8</td><td style="text-align:right">2.23</td><td style="text-align:right">23.6</td><td style="text-align:right">18.8</td></tr>
+</tbody></table>
+<p><strong>表4：初期ノイズ分布における \(\sigma\) の値の違いの影響。</strong>\(\sigma\) は \(x_0\) の標準偏差である。結果は、\(\sigma\) が 0.1 を超えると性能が大きく低下するが、0.1 以下の値では安定していることを示している。</p>
+
+<h3 id="4.4-モデル設定とパラメータ">4.4　モデル設定とパラメータ</h3>
+<p>Rectified Flow［24］の学習は classifier-free guidance［13］に従い、条件集合内の特徴をランダムにマスクしてモデルの頑健性を高める。学習時には、正解軌道の最後の点を用いて軌道生成におけるフローマッチングを誘導する。テスト時には、ゴール点語彙から最もスコアの高い点を選択することで軌道生成のためのゴール点を設定する。サンプリング過程では、一様な間隔を用いる代わりに、時間ステップを非線形に再スケールする［9］の平滑化手法を用いる。128/256 本の軌道を生成し、その中から軌道スコアラーが最適なものを特定する。すべての学習は、それぞれ 8 基の RTX 4090 または RTX 3090 GPU を搭載した 4 ノードで行った。</p>
+
+<h3 id="4.5-結果と分析">4.5　結果と分析</h3>
+<a class="pg" data-page="8"></a>
+<p><strong>SOTA 手法との比較。</strong>表1では、本手法をエンドツーエンド自動運転におけるいくつかの最先端アルゴリズムと比較し、最高スコアを太字で示した。Navsim 環境でのテストにより、GoalFlow が総合スコアで一貫して他の手法を上回ることが明らかになった。特に本手法は、DAC スコアで 2 番目に良い手法を 5.5 ポイント、EP スコアで 5.7 ポイント上回っており、GoalFlow が車両を走行可能領域内に保つためのより強い制約を与え、自動運転システムの安全性を高めることを示している。さらに GoalFlow は、安全性を確保しつつより速い走行速度を可能にする。予測したゴール点を正解軌道の終点に置き換えた追加実験では 92.1 のスコアとなり、人間の軌道のスコア 94.8 に非常に近い。これは自動運転におけるゴール点の強い誘導能力を示している。</p>
+<p><strong>各構成要素の影響に関するアブレーション研究。</strong>表2で各構成要素の影響に関するアブレーション研究を行う。\(\mathcal{M}_0\) は Rectified Flow のみを用いて軌道を生成するモデルを表す。実験結果では、ベースの \(\mathcal{M}_0\) は Navsim においてベースライン手法を一貫して上回り、特に DAC と TTC で優れている。これは、フローマッチングに基づくベースモデルが地図情報および周囲のエージェントとの相互作用を効果的に学習していることを示しており、フローモデル単体でも強いモデリング能力を備えていることを実証している。</p>
+<p>\(\mathcal{M}_1\) モデルは、\(\mathcal{M}_0\) を基に距離スコア分布をモデル化し、最もスコアの高い点を選択して Rectified Flow を誘導する。これにより最も大きな改善が得られることがわかり、軌道プランニングタスクを分解することの有効性が示された。具体的には、複雑なタスクを 2 つのより単純なサブタスク、すなわちゴール点予測と、ゴール点に誘導された軌道生成とに分解している。</p>
+<p>\(\mathcal{M}_2\) モデルは、\(\mathcal{M}_1\) に DAC スコア分布の予測を組み込んだものである。主な改善は DAC スコアに見られる。異なる観点からの複数の評価器を導入することで、モデルはより頑健な評価の恩恵を受け、性能が向上する。</p>
+<p>軌道選択とゴール点チェック機構を含む軌道スコアラーを組み込むことで、\(\mathcal{M}_3\) は GoalFlow の信頼性をさらに高める。</p>
+<p><strong>推論における異なるステップ数の影響。</strong>表3に示すように、推論過程で異なるデノイズステップ数を用いて実験を行った。これらの実験で、推論ステップ数を 20 から 1 に減らしてもスコアは安定したままであることがわかった。具体的には、推論ステップがわずか 1 回でも優れた性能が得られた。これは拡散ベースのフレームワークに対するフローマッチングの利点を浮き彫りにしている。フローマッチングは直接的でまっすぐな経路をとるため、推論時にノイズ分布から目標分布へ移送するのに必要なステップ数が少ない。さらに、推論ステップを 20 から 1 に減らすと、1 サンプルの推論におけるデノイズ時間は元の 6% にまで減少する。この効率的な推論過程は、リアルタイム性能が不可欠な自動運転システムにとって特に重要である。</p>
+<p><strong>学習における異なる初期ノイズの影響。</strong>実験では、初期ノイズはガウス分布 \(\mathcal{N}(0, \sigma^2 I)\) に従う。表4で、ノイズ分散が生成される軌道に与える影響を調べた。結果は、ノイズ設定がスコアに大きな影響を与えることを明らかにしている。ノイズを高く設定しすぎると、生成される軌道は過度に不規則になる。特に \(\sigma\) が 0.3 のとき、快適性スコアはわずか 2.23 にまで低下し、軌道が一貫した形状を欠いていることを示している。逆にノイズ分散が低すぎると、フローマッチングは回帰モデルに退化する傾向があり、スコアリングに利用できる軌道の多様性が減少する。この多様性の欠如は総合スコアを低下させる。</p>
+
+<table><thead><tr><th>Dim</th><th>Backbone</th><th>S<sub>NC</sub> ↑</th><th>S<sub>DAC</sub> ↑</th><th>S<sub>TTC</sub> ↑</th><th>S<sub>EP</sub> ↑</th><th>S<sub>PDM</sub> ↑</th></tr></thead>
+<tbody>
+<tr><td>256/256</td><td>V2-99/V2-99</td><td style="text-align:right">97.1</td><td style="text-align:right">96.2</td><td style="text-align:right">91.8</td><td style="text-align:right">81.8</td><td style="text-align:right">86.5</td></tr>
+<tr><td>512/512</td><td>V2-99/V2-99</td><td style="text-align:right">97.3</td><td style="text-align:right"><strong>97.6</strong></td><td style="text-align:right">92.5</td><td style="text-align:right">83.0</td><td style="text-align:right">88.1</td></tr>
+<tr><td>1024/1024</td><td>V2-99/V2-99</td><td style="text-align:right"><strong>98.6</strong></td><td style="text-align:right">97.5</td><td style="text-align:right"><strong>94.7</strong></td><td style="text-align:right"><strong>85.0</strong></td><td style="text-align:right"><strong>89.4</strong></td></tr>
+<tr><td>256/256</td><td>resnet34/resnet34</td><td style="text-align:right">98.3</td><td style="text-align:right">93.8</td><td style="text-align:right"><strong>94.3</strong></td><td style="text-align:right">79.8</td><td style="text-align:right">85.7</td></tr>
+<tr><td>1024/256</td><td>V2-99/resnet34</td><td style="text-align:right">98.2</td><td style="text-align:right"><strong>96.4</strong></td><td style="text-align:right">93.8</td><td style="text-align:right"><strong>82.6</strong></td><td style="text-align:right"><strong>87.9</strong></td></tr>
+</tbody></table>
+<p><strong>表5：モデルのスケーリングの影響。</strong><em>ゴール点構築モジュール</em>（左）と<em>軌道プランニングモジュール</em>（右）において、Transformer の隠れ次元をスケーリングし、画像バックボーンを変更することの影響を調べる。隠れ次元を増やすことと、より強力な画像バックボーンを用いることは、どちらもエンドツーエンド性能の向上につながる。公平な比較のため、後処理はベースラインの \(\mathcal{M}_2\) に揃えている。</p>
+
+<p><strong>モデルのスケーリングの影響。</strong>［36］に着想を得て、表5で \(\mathcal{M}_2\) を基にモデルをスケーリングする実験を示す。同じ V2-99 バックボーンのもとでは、隠れ次元を増やすと一貫して性能が向上し、次元 1024 で最良の結果が得られた。さらに、ゴール点構築モジュールの異なる構成を比較する実験も行った。このモジュールをスケーリングすると総合性能が大幅に向上することがわかり、軌道プランニングにおけるゴール点ガイダンスの決定的な役割が浮き彫りになった。</p>
+
+<h2 id="5-結論">5　結論</h2>
+<p>本論文では、正確かつ効率的なマルチモーダル軌道の生成に注力した。自動運転におけるマルチモーダル軌道生成に関する最近の研究を概観し、正確なゴール点を生成し、それによって生成モデルを効果的に制約することで、最終的に高品質なマルチモーダル軌道を生成するフレームワークを提案した。Navsim 環境で実験を行い、GoalFlow が最先端の性能を達成することを示した。今後は、異なるガイド情報がマルチモーダル軌道生成に与える影響をさらに調査することを目指す。</p>
+<a class="pg" data-page="9"></a>
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した（原文末尾の被引用ページへのリンク番号は省略）。</p>
+<ol class="refs">
+<li>Shaoyu Chen, Bo Jiang, Hao Gao, Bencheng Liao, Qing Xu, Qian Zhang, Chang Huang, Wenyu Liu, and Xinggang Wang. Vadv2: End-to-end vectorized autonomous driving via probabilistic planning. <em>arXiv preprint arXiv:2402.13243</em>, 2024.</li>
+<li>Cheng Chi, Siyuan Feng, Yilun Du, Zhenjia Xu, Eric Cousineau, Benjamin Burchfiel, and Shuran Song. Diffusion policy: Visuomotor policy learning via action diffusion. In <em>Proceedings of Robotics: Science and Systems (RSS)</em>, 2023.</li>
+<li>Kashyap Chitta, Aditya Prakash, Bernhard Jaeger, Zehao Yu, Katrin Renz, and Andreas Geiger. Transfuser: Imitation with transformer-based sensor fusion for autonomous driving. <em>Pattern Analysis and Machine Intelligence (PAMI)</em>, 2023.</li>
+<li>Felipe Codevilla, Matthias Miiller, Antonio López, Vladlen Koltun, and Alexey Dosovitskiy. End-to-end driving via conditional imitation learning. In <em>2018 IEEE International Conference on Robotics and Automation (ICRA)</em>, page 1–9. IEEE Press, 2018.</li>
+<li>Felipe Codevilla, Eder Santana, Antonio Lopez, and Adrien Gaidon. Exploring the limitations of behavior cloning for autonomous driving. In <em>2019 IEEE/CVF International Conference on Computer Vision (ICCV)</em>, pages 9328–9337, 2019.</li>
+<li>OpenScene Contributors. Openscene: The largest up-to-date 3d occupancy prediction benchmark in autonomous driving. <a href="https://github.com/OpenDriveLab/OpenScene">https://github.com/OpenDriveLab/OpenScene</a>, 2023.</li>
+<li>Daniel Dauner, Marcel Hallgarten, Tianyu Li, Xinshuo Weng, Zhiyu Huang, Zetong Yang, Hongyang Li, Igor Gilitschenski, Boris Ivanovic, Marco Pavone, Andreas Geiger, and Kashyap Chitta. Navsim: Data-driven non-reactive autonomous vehicle simulation and benchmarking. <em>arXiv</em>, 2406.15349, 2024.</li>
+<li>Patrick Dendorfer, Aljoša Ošep, and Laura Leal-Taixé. Goal-gan: Multimodal trajectory prediction based on goal position estimation. In <em>Asian Conference on Computer Vision</em>, 2020.</li>
+<li>Patrick Esser, Sumith Kulal, Andreas Blattmann, Rahim Entezari, Jonas Müller, Harry Saini, Yam Levi, Dominik Lorenz, Axel Sauer, Frederic Boesel, Dustin Podell, Tim Dockhorn, Zion English, and Robin Rombach. Scaling rectified flow transformers for high-resolution image synthesis. In <em>Proceedings of the 41st International Conference on Machine Learning</em>, pages 12606–12633. PMLR, 2024.</li>
+<li>Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio. Generative adversarial nets. In <em>Proceedings of the 27th International Conference on Neural Information Processing Systems - Volume 2</em>, page 2672–2680, Cambridge, MA, USA, 2014. MIT Press.</li>
+<li>Junru Gu, Chen Sun, and Hang Zhao. Densetnt: End-to-end trajectory prediction from dense goal sets. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pages 15303–15312, 2021.</li>
+<li>Songen Gu, Wei Yin, Bu Jin, Xiaoyang Guo, Junming Wang, Haodong Li, Qian Zhang, and Xiaoxiao Long. Dome: Taming diffusion model into high-fidelity controllable occupancy world model. <em>arXiv preprint arXiv:2410.10429</em>, 2024.</li>
+<li>Jonathan Ho. Classifier-free diffusion guidance. <em>ArXiv</em>, abs/2207.12598, 2022.</li>
+<li>Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. In <em>Advances in Neural Information Processing Systems</em>, pages 6840–6851. Curran Associates, Inc., 2020.</li>
+<li>Yihan Hu, Jiazhi Yang, Li Chen, Keyu Li, Chonghao Sima, Xizhou Zhu, Siqi Chai, Senyao Du, Tianwei Lin, Wenhai Wang, Lewei Lu, Xiaosong Jia, Qiang Liu, Jifeng Dai, Yu Qiao, and Hongyang Li. Planning-oriented autonomous driving. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, 2023.</li>
+<li>Zhiyu Huang, Xinshuo Weng, Maximilian Igl, Yuxiao Chen, Yulong Cao, Boris Ivanovic, Marco Pavone, and Chen Lv. Gen-drive: Enhancing diffusion generative driving policies with reward modeling and reinforcement learning finetuning. <em>arXiv preprint arXiv:2410.05582</em>, 2024.</li>
+<li>Bo Jiang, Shaoyu Chen, Qing Xu, Bencheng Liao, Jiajie Chen, Helong Zhou, Qian Zhang, Wenyu Liu, Chang Huang, and Xinggang Wang. Vad: Vectorized scene representation for efficient autonomous driving. <em>ICCV</em>, 2023.</li>
+<li>Chiyu "Max" Jiang, Andre Cornman, Cheolho Park, Benjamin Sapp, Yin Zhou, and Dragomir Anguelov. Motiondiffuser: Controllable multi-agent motion prediction using diffusion. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, pages 9644–9653, 2023.</li>
+<li>Bu Jin, Xinyu Liu, Yupeng Zheng, Pengfei Li, Hao Zhao, Tong Zhang, Yuhang Zheng, Guyue Zhou, and Jingjing Liu. Adapt: Action-aware driving caption transformer. In <em>2023 IEEE International Conference on Robotics and Automation (ICRA)</em>, pages 7554–7561, 2023.</li>
+<li>Bu Jin, Yupeng Zheng, Pengfei Li, Weize Li, Yuhang Zheng, Sujie Hu, Xinyu Liu, Jinwei Zhu, Zhijie Yan, Haiyang Sun, Kun Zhan, Peng Jia, Xiaoxiao Long, Yilun Chen, and Hao Zhao. Tod3cap: Towards 3d dense captioning in outdoor scenes. In <em>Computer Vision – ECCV 2024: 18th European Conference, Milan, Italy, September 29 – October 4, 2024, Proceedings, Part XVIII</em>, page 367–384, Berlin, Heidelberg, 2024. Springer-Verlag.</li>
+<li>Diederik P Kingma. Auto-encoding variational bayes. <em>arXiv preprint arXiv:1312.6114</em>, 2013.</li>
+<li>Zhenxin Li, Kailin Li, Shihao Wang, Shiyi Lan, Zhiding Yu, Yishen Ji, Zhiqi Li, Ziyue Zhu, Jan Kautz, Zuxuan Wu, et al. Hydra-mdp: End-to-end multimodal planning with multi-target hydra-distillation. <em>arXiv preprint arXiv:2406.06978</em>, 2024.</li>
+<li>Yaron Lipman, Ricky T. Q. Chen, Heli Ben-Hamu, Maximilian Nickel, and Matthew Le. Flow matching for generative modeling. In <em>The Eleventh International Conference on Learning Representations, ICLR 2023, Kigali, Rwanda, May 1-5, 2023</em>. OpenReview.net, 2023.</li>
+<li>Xingchao Liu, Chengyue Gong, and Qiang Liu. Flow straight and fast: Learning to generate and transfer data with rectified flow. In <em>The Eleventh International Conference on Learning Representations, ICLR 2023, Kigali, Rwanda, May 1-5, 2023</em>. OpenReview.net, 2023.</li>
+</ol>
+<a class="pg" data-page="10"></a>
+<ol class="refs" start="25">
+<li>Robert J. McCann. A convexity principle for interacting gases. <em>Advances in Mathematics</em>, 128(1):153–179, 1997.</li>
+<li>Jiaming Song, Chenlin Meng, and Stefano Ermon. Denoising diffusion implicit models. <em>arXiv:2010.02502</em>, 2020.</li>
+<li>Wenchao Sun, Xuewu Lin, Yining Shi, Chuang Zhang, Haoran Wu, and Sifa Zheng. Sparsedrive: End-to-end autonomous driving via sparse scene representation. <em>arXiv preprint arXiv:2405.19620</em>, 2024.</li>
+<li>Junming Wang, Xingyu Zhang, Zebin Xing, Songen Gu, Xiaoyang Guo, Yang Hu, Ziying Song, Qian Zhang, Xiaoxiao Long, and Wei Yin. He-drive: Human-like end-to-end driving with vision language models. <em>arXiv preprint arXiv:2410.05051</em>, 2024.</li>
+<li>Junming Wang, Xingyu Zhang, Zebin Xing, Songen Gu, Xiaoyang Guo, Yang Hu, Ziying Song, Qian Zhang, Xiaoxiao Long, and Wei Yin. He-drive: Human-like end-to-end driving with vision language models. <em>arXiv preprint arXiv:2410.05051</em>, 2024.</li>
+<li>Xinshuo Weng, Boris Ivanovic, Yan Wang, Yue Wang, and Marco Pavone. Para-drive: Parallelized architecture for real-time autonomous driving. In <em>2024 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, pages 15449–15458, 2024.</li>
+<li>Zhou Xian, Nikolaos Gkanatsios, Theophile Gervet, Tsung-Wei Ke, and Katerina Fragkiadaki. Chaineddiffuser: Unifying trajectory diffusion and keypose prediction for robotic manipulation. In <em>Proceedings of The 7th Conference on Robot Learning</em>, pages 2323–2339. PMLR, 2023.</li>
+<li>Brian Yang, Huangyuan Su, Nikolaos Gkanatsios, Tsung-Wei Ke, Ayush Jain, Jeff Schneider, and Katerina Fragkiadaki. Diffusion-es: Gradient-free planning with diffusion for autonomous driving and zero-shot instruction following. <em>arXiv preprint arXiv:2402.06559</em>, 2024.</li>
+<li>Tengju* Ye, Wei* Jing, Chunyong Hu, Shikun Huang, Lingping Gao, Fangzhen Li, Jingke Wang, Ke Guo, Wencong Xiao, Weibo Mao, Hang Zheng, Kun Li, Junbo Chen, and Kaicheng Yu. Fusionad: Multi-modality fusion for prediction and planning tasks of autonomous driving. 2023. *Equal Contribution.</li>
+<li>Hang Zhao, Jiyang Gao, Tian Lan, Chen Sun, Ben Sapp, Balakrishnan Varadarajan, Yue Shen, Yi Shen, Yuning Chai, Cordelia Schmid, Congcong Li, and Dragomir Anguelov. Tnt: Target-driven trajectory prediction. In <em>Proceedings of the 2020 Conference on Robot Learning</em>, pages 895–904. PMLR, 2021.</li>
+<li>Wenzhao Zheng, Ruiqi Song, Xianda Guo, Chenming Zhang, and Long Chen. Genad: Generative end-to-end autonomous driving. <em>arXiv preprint arXiv: 2402.11502</em>, 2024.</li>
+<li>Yupeng Zheng, Zhongpu Xia, Qichao Zhang, Teng Zhang, Ben Lu, Xiaochuang Huo, Chao Han, Yixian Li, Mengjie Yu, Bu Jin, Pengxuan Yang, Yuhang Zheng, Haifeng Yuan, Ke Jiang, Peng Jia, Xianpeng Lang, and Dongbin Zhao. Preliminary investigation into data scaling laws for imitation learning-based end-to-end autonomous driving, 2024.</li>
+</ol>
+<a class="pg" data-page="11"></a>
+<p><span class="yakuchu">（訳注：原文では参考文献の後に、見出しのないまま図5〜図7が掲載されている。）</span></p>
+<figure><img src="figs/fig5.jpg" loading="lazy" alt="図5" /></figure>
+<p><strong>図5：軌道の可視化。</strong>× はその軌道が衝突を起こすか走行可能領域を逸脱することを示し、✓ は安全な軌道を表す。<span style="color:#e67e00">オレンジ</span>の点はゴール構築器によって生成されたものであり、<span style="color:#5fa8d3">青</span>と<span style="color:#c9b400">黄</span>の点は語彙からのサンプルに対応する。結果は、GoalFlow が他の 2 手法と比べてより高品質な軌道を生成することを浮き彫りにしている。</p>
+<p class="yakuchu">図中ラベル：Naïve Rectified Flow＝素朴な Rectified Flow</p>
+
+<figure><img src="figs/fig6.jpg" loading="lazy" alt="図6" /></figure>
+<p><strong>図6：ゴール点分布の可視化。</strong>\(\hat{\delta}_i^{dac}\) スコアは点が走行可能領域内にあるかどうかを示し、\(\hat{\delta}_i^{dis}\) スコアは点とゴールとの距離関係を反映する。最終スコア \(\hat{\delta}_i^{final}\) は \(\hat{\delta}_i^{dac}\) と \(\hat{\delta}_i^{dis}\) のスコアを融合したものであり、明るい点ほど高いスコアを表す。</p>
+<p class="yakuchu">図中ラベル：scene＝シーン</p>
+
+<a class="pg" data-page="12"></a>
+<figure><img src="figs/fig7.jpg" loading="lazy" alt="図7" /></figure>
+<p><strong>図7：軌道の可視化。</strong>直進、左折、右折、譲り（yielding）の 4 つのシナリオを可視化した。各シナリオについて、GoalFlow を用いて 128 本の軌道を生成した。</p>
+<p class="yakuchu">図中ラベル：ego＝自車、vehicle＝車両、barrier＝バリア、pedestrian＝歩行者、walkway＝歩道、crosswalk＝横断歩道、carpark area＝駐車場エリア、lane＝車線、goal point＝ゴール点、trajectory＝軌道</p>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>

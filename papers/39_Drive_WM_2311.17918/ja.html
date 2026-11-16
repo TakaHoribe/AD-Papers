@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill)" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Drive-WM 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="Driving into the Future: Multiview Visual Forecasting and Planning with World Model for Autonomous Driving" />
+  <meta name="short-name" content="Drive-WM" />
+  <meta name="authors" content="Yuqi Wang, Jiawei He, Lue Fan, Hongxin Li, Yuntao Chen, Zhaoxiang Zhang（CASIA、CAIR, HKISI, CAS）" />
+  <meta name="source-pdf" content="39_Drive_WM_2311.17918.pdf" />
+  <meta name="source-pages" content="20" />
+  <meta name="pdf-href" content="39_Drive_WM_2311.17918.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="潜在ビデオ拡散モデルに基づき、ビュー分解による時空間の同時モデリングで高品質かつ一貫したマルチビュー運転映像を生成する世界モデル Drive-WM を提案し、複数の未来を想像して画像ベースの報酬で最適な軌道を選ぶ安全な計画への応用を初めて示した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; }
+body{font-family:'Noto Sans JP','Noto Sans CJK JP','Yu Gothic','Meiryo',sans-serif;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1;color:#182634;max-width:1020px;margin:0 auto;padding:48px 38px;background:#fff;font-size:16px}
+h1{font-size:30px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:18px}
+h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:24px}
+h3{margin-top:2em;font-size:20px;color:#244b64}
+h4{margin-top:1.6em;font-size:17px;color:#244b64}
+p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+figure{margin:20px 0}
+figcaption{display:none}
+table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0}
+th,td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+th{background:#eaf1f5}
+td:first-child{white-space:nowrap}
+blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+code{font-family:Consolas,'Courier New',monospace;white-space:pre-wrap}
+pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+a{color:#215c80;overflow-wrap:anywhere}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+.src-meta{color:#5b6b78;font-size:13px;margin-top:-10px}
+ol.refs li{margin-bottom:6px;font-size:14px}
+@media (max-width: 700px){
+ body{padding:20px 16px;font-size:15px}
+ h1{font-size:22px}h2{font-size:19px}h3{font-size:17px}
+ table{display:block;overflow-x:auto}
+ #TOC{padding:14px 16px}
+}
+@media print{
+ body{font-size:10pt;padding:0;max-width:none}
+ h1{font-size:23pt}h2{font-size:17pt;break-after:avoid}h3{font-size:13pt;break-after:avoid}
+ p{orphans:3;widows:3}table{font-size:7pt;break-inside:avoid}img{max-height:180mm;break-inside:avoid}
+ pre{font-size:7pt;white-space:pre-wrap}a{color:inherit}#TOC{break-after:page}
+ @page{size:A4;margin:18mm 15mm}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Drive-WM 全文日本語訳</h1>
+<p class="src-meta">原文PDF: <a href="39_Drive_WM_2311.17918.pdf">39_Drive_WM_2311.17918.pdf</a>（20ページ）　／　<a href="index.html">原文と並べて読む</a>　／　翻訳生成日: 2026-11-16</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#driving-into-the-future-multiview-visual-forecasting-and-planning-with-world-model-for-autonomous-driving" id="toc-driving-into-the-future-multiview-visual-forecasting-and-planning-with-world-model-for-autonomous-driving">Driving into the Future: Multiview Visual Forecasting and Planning with World Model for Autonomous Driving</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a><ul>
+<li><a href="#2.1-映像生成と映像予測" id="toc-2.1-映像生成と映像予測">2.1　映像生成と映像予測</a></li>
+<li><a href="#2.2-計画のための世界モデル" id="toc-2.2-計画のための世界モデル">2.2　計画のための世界モデル</a></li>
+</ul></li>
+<li><a href="#3-マルチビュー映像生成" id="toc-3-マルチビュー映像生成">3　マルチビュー映像生成</a><ul>
+<li><a href="#3.1-マルチビュー映像の同時モデリング" id="toc-3.1-マルチビュー映像の同時モデリング">3.1　マルチビュー映像の同時モデリング</a></li>
+<li><a href="#3.2-マルチビュー同時モデリングの分解" id="toc-3.2-マルチビュー同時モデリングの分解">3.2　マルチビュー同時モデリングの分解</a></li>
+<li><a href="#3.3-統一条件付き生成" id="toc-3.3-統一条件付き生成">3.3　統一条件付き生成</a></li>
+</ul></li>
+<li><a href="#4-エンドツーエンド計画のための世界モデル" id="toc-4-エンドツーエンド計画のための世界モデル">4　エンドツーエンド計画のための世界モデル</a><ul>
+<li><a href="#4.1-行動による木ベースのロールアウト" id="toc-4.1-行動による木ベースのロールアウト">4.1　行動による木ベースのロールアウト</a></li>
+<li><a href="#4.2-画像ベースの報酬関数" id="toc-4.2-画像ベースの報酬関数">4.2　画像ベースの報酬関数</a></li>
+</ul></li>
+<li><a href="#5-実験" id="toc-5-実験">5　実験</a><ul>
+<li><a href="#5.1-設定" id="toc-5.1-設定">5.1　設定</a></li>
+<li><a href="#5.2-マルチビュー映像生成の主要結果" id="toc-5.2-マルチビュー映像生成の主要結果">5.2　マルチビュー映像生成の主要結果</a></li>
+<li><a href="#5.3-マルチビュー映像生成のアブレーション研究" id="toc-5.3-マルチビュー映像生成のアブレーション研究">5.3　マルチビュー映像生成のアブレーション研究</a></li>
+<li><a href="#5.4-世界モデルを用いた計画の探求" id="toc-5.4-世界モデルを用いた計画の探求">5.4　世界モデルを用いた計画の探求</a></li>
+<li><a href="#5.5-反実仮想イベント" id="toc-5.5-反実仮想イベント">5.5　反実仮想イベント</a></li>
+</ul></li>
+<li><a href="#6-結論" id="toc-6-結論">6　結論</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#a-定性的結果" id="toc-a-定性的結果">A　定性的結果</a><ul>
+<li><a href="#a.1-複数のもっともらしい未来の生成" id="toc-a.1-複数のもっともらしい未来の生成">A.1　複数のもっともらしい未来の生成</a></li>
+<li><a href="#a.2-多様なマルチビュー映像の生成" id="toc-a.2-多様なマルチビュー映像の生成">A.2　多様なマルチビュー映像の生成</a></li>
+<li><a href="#a.3-視覚要素の制御" id="toc-a.3-視覚要素の制御">A.3　視覚要素の制御</a></li>
+<li><a href="#a.4-領域外シナリオにおけるエンドツーエンド計画の結果" id="toc-a.4-領域外シナリオにおけるエンドツーエンド計画の結果">A.4　領域外シナリオにおけるエンドツーエンド計画の結果</a></li>
+<li><a href="#a.5-gpt-4v-を報酬関数として用いる" id="toc-a.5-gpt-4v-を報酬関数として用いる">A.5　GPT-4V を報酬関数として用いる</a></li>
+<li><a href="#a.6-他のデータセットでの映像生成" id="toc-a.6-他のデータセットでの映像生成">A.6　他のデータセットでの映像生成</a></li>
+</ul></li>
+<li><a href="#b-実装の詳細" id="toc-b-実装の詳細">B　実装の詳細</a><ul>
+<li><a href="#b.1-マルチビュー同時映像モデル" id="toc-b.1-マルチビュー同時映像モデル">B.1　マルチビュー同時映像モデル</a></li>
+<li><a href="#b.2-分解モデル" id="toc-b.2-分解モデル">B.2　分解モデル</a></li>
+</ul></li>
+<li><a href="#c-データ" id="toc-c-データ">C　データ</a><ul>
+<li><a href="#c.1-データの準備" id="toc-c.1-データの準備">C.1　データの準備</a></li>
+<li><a href="#c.2-データのキュレーション" id="toc-c.2-データのキュレーション">C.2　データのキュレーション</a></li>
+</ul></li>
+<li><a href="#d-評価指標の詳細" id="toc-d-評価指標の詳細">D　評価指標の詳細</a><ul>
+<li><a href="#d.1-映像品質" id="toc-d.1-映像品質">D.1　映像品質</a></li>
+<li><a href="#d.2-kpm-の説明" id="toc-d.2-kpm-の説明">D.2　KPM の説明</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<a class="pg" data-page="1"></a>
+<h1 id="driving-into-the-future-multiview-visual-forecasting-and-planning-with-world-model-for-autonomous-driving">Driving into the Future: Multiview Visual Forecasting and Planning with World Model for Autonomous Driving</h1>
+<p>Yuqi Wang<sup>1*</sup>、Jiawei He<sup>1*</sup>、Lue Fan<sup>1*</sup>、Hongxin Li<sup>1*</sup>、Yuntao Chen<sup>2✉</sup>、Zhaoxiang Zhang<sup>1,2✉</sup><br />
+<sup>1</sup>CASIA　<sup>2</sup>CAIR, HKISI, CAS<br />
+プロジェクトページ：<a href="https://drive-wm.github.io">https://drive-wm.github.io</a><br />
+コード：<a href="https://github.com/BraveGroup/Drive-WM">https://github.com/BraveGroup/Drive-WM</a><br />
+arXiv:2311.17918v1 [cs.CV]、2023年11月29日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>39_Drive_WM_2311.17918.pdf</code>（全 20 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<figure><img src="figs/fig1.jpg" alt="図1" /></figure>
+<p><strong>図1：世界モデルによるマルチビュー視覚予測と計画。</strong>時刻ステップ \(T\) において、世界モデルは \(T+K\) における複数の未来を想像し、\(T\) では直進を続けるのが安全であると判断する。次にモデルは、時刻ステップ \(T+2K\) の想像に基づき自車が前方車両に近づきすぎることに気づき、安全に追い越すために左車線へ変更することを決定する。</p>
+<p class="yakuchu">図中ラベル：Time step T (real)＝時刻ステップ T（実際）、Imagine with diverse maneuvers＝多様な運転操作で想像、Accepted Option＝採用された選択肢、Option 1: Go to the right lane＝選択肢1：右車線へ、Option 2: Go straight＝選択肢2：直進、Option 3: Go to the left lane＝選択肢3：左車線へ、Reward &amp; Decision＝報酬と決定、Decision: Option 2＝決定：選択肢2、Decision: Option 3 (safe to overtake)＝決定：選択肢3（追い越しても安全）、Continue rollout …＝ロールアウトを継続…、Time step T + K (imagination)＝時刻ステップ T + K（想像）、Time step T + 2K (imagination)＝時刻ステップ T + 2K（想像）</p>
+
+<h2 id="要旨">要旨</h2>
+<p><em>自動運転において、将来の事象を事前に予測し、予見可能なリスクを評価することは、自律走行車が自らの行動をよりよく計画し、道路上の安全性と効率を高めることを可能にする。この目的のために、我々は既存のエンドツーエンド計画モデルと互換性を持つ初の運転世界モデルである <strong>Drive-WM</strong> を提案する。ビュー分解によって実現される空間・時間の同時モデリングにより、本モデルは運転シーンにおける高忠実度のマルチビュー映像を生成する。その強力な生成能力に基づき、我々は世界モデルを安全な運転計画に応用する可能性を初めて示す。特に、<strong>Drive-WM</strong> は異なる運転操作に基づいて複数の未来へと運転を進め、画像ベースの報酬に従って最適な軌道を決定することを可能にする。実世界の運転データセットでの評価により、本手法が高品質で一貫性があり制御可能なマルチビュー映像を生成できることが確認され、実世界シミュレーションと安全な計画への可能性が開かれる。</em></p>
+<blockquote><p>脚注*：同等の貢献。</p></blockquote>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<a class="pg" data-page="2"></a>
+<p>エンドツーエンド自動運転［29, 30, 54］の登場は、近年ますます注目を集めている。これらの手法はマルチセンサデータを入力とし、単一の統合モデルで計画結果を直接出力するため、すべてのモジュールの同時最適化が可能である。しかし、エキスパートの運転軌道のみで学習されたエンドツーエンドのプランナーが、分布外（OOD）のケースに直面したときに十分な汎化能力を持つかどうかは疑問である。図2に示すように、自車の位置が中心線から横方向にずれると、エンドツーエンドのプランナーは妥当な軌道を生成するのに苦労する。この問題を緩和するために、我々は意思決定の前にプランナーの性能劣化を予見できる予測モデルを開発することで、自動運転の安全性を向上させることを提案する。世界モデル［19, 20, 35］として知られるこのモデルは、現在の状態と自車の行動に基づいて将来の状態を予測するよう設計されている。実際の意思決定の前に未来を視覚的に思い描き、異なる未来からフィードバックを得ることで、より合理的な計画を提供でき、エンドツーエンド自動運転の汎化性と安全性を高めることができる。</p>
+
+<figure><img src="figs/fig2.jpg" alt="図2" /></figure>
+<p>（a）自車が中心線上にある場合の計画　（b）自車が中心線から外れた場合の計画</p>
+<p><strong>図2：自車が中心線からわずかにずれるだけで、モーションプランナーは妥当な軌道の生成に苦労する。</strong>自車の位置を右に 0.5m ずらして領域外のケースを作成した。（a）は通常のデータにおける VAD［30］手法の妥当な軌道予測を示し、（b）は分布外のケースに遭遇したときの不合理な軌道を示す。</p>
+
+<p>しかし、ゲームシミュレーション［19–21, 46］や実験室のロボット環境［12, 20］での成功例があるにもかかわらず、既存のエンドツーエンド自動運転モデルと互換性のある高品質な世界モデルを学習することは困難である。具体的には、主に 3 つの課題がある。（1）運転世界モデルは高解像度のピクセル空間でのモデリングを必要とする。従来の低解像度画像［20］やベクトル化された状態空間［4］の手法では、実世界における多数の細粒度の事象やベクトル化できない事象を効果的に表現できない。さらに、ベクトル空間の世界モデルは追加のベクトルアノテーションを必要とし、知覚モデルの状態推定ノイズの影響を受ける。（2）マルチビューで一貫した映像を生成することは難しい。先行研究および同時期の研究は単一視点の映像［28, 31, 63］あるいはマルチビュー画像の生成［17, 53, 69］に限られており、自動運転に必要な包括的な環境観測のためのマルチビュー映像生成は未解決の問題として残されている。（3）天候や照明の変化、自車の行動、道路・障害物・車両のレイアウトといった多様な異種の条件に柔軟に対応することは困難である。</p>
+<p>これらの課題に対処するため、我々は Drive-WM を提案する。潜在ビデオ拡散モデル［2, 13, 48, 73］に着想を得て、複数のビューとフレームを同時に生成するためのマルチビューモデリングと時間モデリングを導入する。マルチビューの一貫性をさらに高めるために、同時モデリングを分解し、隣接するビューを条件として中間のビューを予測することを提案する。これによりビュー間の一貫性が大幅に向上する。また、画像、テキスト、3D レイアウト、行動などの異種の条件を柔軟に利用できる、シンプルかつ効果的な統一条件インターフェースを導入し、条件付き生成を大幅に簡素化する。最後に、マルチビュー世界モデルを基盤として、図1に示すように、自動運転の安全性を高めるエンドツーエンド計画への応用を探る。本研究の主な貢献は次のようにまとめられる。</p>
+<ul>
+<li>自動運転シーンにおいて、高品質で制御可能かつ一貫性のある<em>マルチビュー映像</em>を生成できるマルチビュー世界モデル Drive-WM を提案する。</li>
+<li>nuScenes データセットでの大規模な実験により、トップクラスの映像品質と制御性を示す。Drive-WM はまた、キーポイントマッチングに基づく新たな指標で評価した優れたマルチビュー一貫性も達成する。</li>
+<li>我々は、自動運転のエンドツーエンド計画における世界モデルの応用可能性を初めて探求する。本手法が計画の全体的な健全性と分布外状況における頑健性を向上させ得ることを実験的に示す。</li>
+</ul>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<h3 id="2.1-映像生成と映像予測">2.1　映像生成と映像予測</h3>
+<p>映像生成は、現実的な映像サンプルを生成することを目的とする。これまでに、VAE ベース（変分オートエンコーダ）［16, 33, 58, 61］、GAN ベース（敵対的生成ネットワーク）［3, 15, 31, 49, 56, 70］、フローベース［10, 34］、自己回帰モデル［18, 64, 68］など、さまざまな生成手法が提案されてきた。特に、画像生成の分野における拡散ベースモデル［40, 44, 45］の近年の成功により、拡散モデルを映像生成の分野に応用することへの関心が高まっている［23, 26］。拡散ベースの手法は、写実性、制御性、時間的一貫性の面で大幅な向上をもたらした。テキスト条件付き映像生成は、その制御可能な生成のためにより多くの注目を集めており、多数の手法が登場している［2, 25, 48, 66, 73］。</p>
+<p>映像予測は生成の特殊な形態とみなすことができ、過去の観測を利用して将来のフレームを予測する［1, 9, 22, 26, 41, 59, 60, 65］。特に自動運転では、DriveGAN［31］が車両の制御信号を入力として運転シナリオをシミュレートすることを学習する。GAIA-1［28］と DriveDreamer［63］はさらに行動条件付き拡散モデルへと拡張し、生成映像の制御性と写実性を高めている。しかし、これらの先行研究は単眼映像に限られており、3D の周囲環境全体を把握することはできない。我々はマルチビュー映像の生成を先駆けて行い、現在の BEV 知覚モデルや計画モデルとのより良い統合を可能にした。</p>
+<a class="pg" data-page="3"></a>
+<h3 id="2.2-計画のための世界モデル">2.2　計画のための世界モデル</h3>
+<p>世界モデル［35］は、世界の汎用的な表現を学習し、一連の行動の結果として生じる将来の世界の状態を予測する。ゲーム［19–21, 43, 47］または実験室環境［12, 14, 67］のいずれかにおける世界モデルの学習は広く研究されてきた。Dreamer［20］は、過去の経験から潜在ダイナミクスモデルを学習し、潜在空間において状態価値と行動を予測する。これは DeepMind Control Suite［55］における困難な視覚制御タスクを扱うことができる。DreamerV2［21］は Dreamer を改良し、Atari ゲームにおいて人間レベルの性能を達成した。DreamerV3［22］はより大きなネットワークを用い、スパースな報酬のもとで Minecraft においてゼロからダイヤモンドを獲得することを学習した。これは長年の課題とみなされていたものである。DayDreamer［67］は Dreamer［20］を実世界の 4 台のロボットのオンライン学習に適用し、ハイパーパラメータを変更することなく移動タスクと操作タスクを解いた。近年、運転シーンにおける世界モデルの学習が注目を集めている。MILE［27］はモデルベースの模倣学習手法を用いて、CARLA［11］においてダイナミクスモデルと運転挙動を同時に学習する。前述の研究は、シミュレータか、よく管理された実験室環境のいずれかに限られている。これに対し、我々の世界モデルは既存のエンドツーエンド運転プランナーと統合でき、実世界のシーンにおける計画性能を向上させることができる。</p>
+
+<h2 id="3-マルチビュー映像生成">3　マルチビュー映像生成</h2>
+<p>本節では、まず 3.1 節で複数のビューとフレームを同時にモデリングする方法を示す。次に 3.2 節で同時モデリングを分解することによりマルチビューの一貫性を高める。最後に 3.3 節で、複数の異種の条件を統合するための統一条件インターフェースをどのように構築するかを詳述する。</p>
+
+<h3 id="3.1-マルチビュー映像の同時モデリング">3.1　マルチビュー映像の同時モデリング</h3>
+<p>マルチビューの時系列データを同時にモデリングするため、我々は十分に研究されている画像拡散モデルから出発し、追加の時間層とマルチビュー層を導入することでマルチビュー・時間のシナリオに適応させる。本項では、まず同時モデリングの全体的な定式化を示し、時間層とマルチビュー層について詳述する。</p>
+<p><strong>定式化。</strong>マルチビュー映像のデータセット \(p_{\text{data}}\) にアクセスできると仮定する。すなわち \(\mathbf{x} \in \mathbb{R}^{T \times K \times 3 \times H \times W}\)、\(\mathbf{x} \sim p_{\text{data}}\) は、高さ \(H\)、幅 \(W\) の \(K\) ビューからなる \(T\) 枚の画像の系列である。エンコードされた映像の潜在表現 \(\mathcal{E}(\mathbf{x}) = \mathbf{z} \in \mathbb{R}^{T \cdot K \times C \times \hat{H} \times \hat{W}}\) が与えられたとき、拡散された入力は \(\mathbf{z}_\tau = \alpha_\tau \mathbf{z} + \sigma_\tau \boldsymbol{\epsilon}\)、\(\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \boldsymbol{I})\) であり、ここで \(\alpha_\tau\) と \(\sigma_\tau\) は拡散時刻ステップ \(\tau\) でパラメータ化されたノイズスケジュールを定める。ノイズ除去モデル \(\mathbf{f}_{\theta,\phi,\psi}\)（空間パラメータ \(\theta\)、時間パラメータ \(\phi\)、マルチビューパラメータ \(\psi\) でパラメータ化される）は、拡散された \(\mathbf{z}_\tau\) を入力として受け取り、次のノイズ除去スコアマッチングの目的関数を最小化することで最適化される。</p>
+<p>\[ \mathbb{E}_{\mathbf{z} \sim p_{\text{data}}, \tau \sim p_\tau, \boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \boldsymbol{I})} [\| \mathbf{y} - \mathbf{f}_{\theta,\phi,\psi}(\mathbf{z}_\tau; \mathbf{c}, \tau) \|_2^2], \tag{1} \]</p>
+<p>ここで \(\mathbf{c}\) は条件であり、ターゲット \(\mathbf{y}\) はランダムノイズ \(\boldsymbol{\epsilon}\) である。\(p_\tau\) は拡散時刻 \(\tau\) 上の一様分布である。</p>
+<p><strong>時間エンコーディング層。</strong>まず、事前学習済みの画像拡散モデルを時間モデルへと拡張するために<em>時間層</em>を導入する。VideoLDM［2］における確立された手法に従い、時間エンコーディング層は各ブロックの 2D 空間層の後に付加される。空間層は潜在変数 \(\mathbf{z} \in \mathbb{R}^{T \cdot K \times C \times \hat{H} \times \hat{W}}\) をフレームごと・ビューごとにエンコードする。その後、時間次元を取り出すために潜在変数を並べ替え（\(\texttt{(TK)CHW} \rightarrow \texttt{KCTHW}\) と表記）、時空間次元 \(\texttt{THW}\) に 3D 畳み込みを適用する。続いて潜在変数を \(\texttt{(KHW)TC}\) に並べ替え、時間次元に標準的なマルチヘッド自己注意を適用して時間的依存性を強化する。式1の記号 \(\phi\) はこの部分のパラメータを表す。</p>
+<p><strong>マルチビューエンコーディング層。</strong>複数のビューを同時にモデリングするには、異なるビュー間で情報交換が行われなければならない。そこで、<em>マルチビューエンコーディング層</em>を導入することで、単一ビューの時間モデルをマルチビューの時間モデルへと拡張する。具体的には、ビュー次元を取り出すために潜在変数を \(\texttt{(KHW)TC} \rightarrow \texttt{(THW)KC}\) と並べ替える。次に、式1の \(\psi\) でパラメータ化された自己注意層をビュー次元にわたって適用する。このようなマルチビュー注意機構により、すべてのビューが類似したスタイルと一貫した全体構造を持つことが可能になる。</p>
+<p><strong>マルチビュー時間チューニング。</strong>強力な画像拡散モデルがあることを踏まえ、時間・マルチビューネットワークをゼロから学習することはしない。代わりに、まず単一ビューの画像データと条件で標準的な画像拡散モデルを学習する。これは式1のパラメータ \(\theta\) に対応する。次にパラメータ \(\theta\) を凍結し、追加の時間層（\(\phi\)）とマルチビュー層（\(\psi\)）を映像データでファインチューニングする。</p>
+
+<h3 id="3.2-マルチビュー同時モデリングの分解">3.2　マルチビュー同時モデリングの分解</h3>
+<p>3.1 節の同時分布によって異なるビュー間で類似したスタイルを得ることはできるが、それらの重なり領域における厳密な一貫性を保証することは難しい。本項では、マルチビューの一貫性を高めるために分布の分解を導入する。まず分解の定式化を示し、次にそれが前述の同時モデリングとどのように連携するかを説明する。</p>
+<p><strong>定式化。</strong>\(\mathbf{x}_i\) を \(i\) 番目のビューのサンプルとすると、3.1 節は本質的に同時分布 \(p(\mathbf{x}_{1,\ldots,K})\) をモデリングしており、これは次のように分解できる。</p>
+<p>\[ p(\mathbf{x}_{1,\ldots,K}) = p(\mathbf{x}_1) p(\mathbf{x}_2 | \mathbf{x}_1) \ldots p(\mathbf{x}_K | \mathbf{x}_1, \ldots, \mathbf{x}_{K-1}). \tag{2} \]</p>
+
+<a class="pg" data-page="4"></a>
+<figure><img src="figs/fig3.png" alt="図3" /></figure>
+<p><strong>図3：提案フレームワークの概要。</strong><strong>（a）</strong>は提案手法の学習および推論のパイプラインを示す。<strong>（b）</strong>はマルチビュー映像の生成を制御するために利用される統一条件を可視化したものである。<strong>（c）</strong>は分解されたマルチビュー生成の確率的グラフを表す。これは（a）の 3 ビューの出力を入力として他のビューを生成し、マルチビューの一貫性を高める。</p>
+<p class="yakuchu">図中ラベル：CA / Cross Attention＝CA／クロス注意、Training＝学習、Inference＝推論、Diffusion＝拡散、UNet-block＝UNet ブロック、Spatial Conv＝空間畳み込み、Temp Conv＝時間畳み込み、Frame-wise CA＝フレームごとのクロス注意、View Attn.＝ビュー注意、Temp Attn.＝時間注意、Denoising 3D UNet＝ノイズ除去 3D UNet、Placeholder for masked out view＝マスクされたビューのプレースホルダ、Factorized Generation＝分解生成、Multiview Video＝マルチビュー映像、(a) Overall Training/Inference Pipeline＝（a）学習／推論パイプライン全体、"Sunny. Day."＝「晴れ。昼。」、Initial context image＝初期コンテキスト画像、Initial Box/Map＝初期ボックス／マップ、Repeat N frames＝N フレーム分繰り返す、Action sequence of N frames＝N フレームの行動系列、(b) Unified Conditions＝（b）統一条件、Video clip of view v at time t＝時刻 t におけるビュー v の映像クリップ、Reference view＝参照ビュー、Stitched view＝ステッチビュー、(c) Probabilistic Graph of Factorized Multiview Generation＝（c）分解マルチビュー生成の確率的グラフ</p>
+
+<p>式2は、異なるビューが自己回帰的に生成されること、すなわち新しいビューが既存のビューを条件として生成されることを示している。これらの条件付き分布は、新しいビューが既存のビューの内容を把握しているため、より良いビュー一貫性を保証できる。しかし、このような自己回帰的生成は非効率であり、こうした完全な分解は実際には実行不可能である。</p>
+<p>式2のモデリングを簡素化するため、すべてのビューを 2 種類に分割する。すなわち<em>参照ビュー</em> \(\mathbf{x}_r\) と<em>ステッチビュー</em> \(\mathbf{x}_s\) である。例えば nuScenes では、参照ビューを \(\{\texttt{F, BL, BR}\}\)<sup>2</sup>、ステッチビューを \(\{\texttt{FL, B, FR}\}\) とすることができる。「ステッチ（つなぎ合わせ）」という用語を使うのは、ステッチビューが隣接する 2 つの参照ビューから「つなぎ合わされた」ように見えるためである。同じ種類に属するビューは互いに重ならないが、異なる種類のビュー同士は重なり得る。このことから、まず参照ビューの同時分布をモデリングするという着想を得た。ここで、重ならない参照ビューは厳密な一貫性を必要としないため、同時モデリングが有効である。次に、\(\mathbf{x}_s\) の分布を \(\mathbf{x}_r\) を条件とする条件付き分布としてモデリングする。図4は nuScenes におけるマルチビュー分解の基本概念を示している。この意味で、式2を次のように簡略化する。</p>
+<blockquote><p>脚注2：F：前（front）、B：後（back）、L：左（left）、R：右（right）。</p></blockquote>
+<p>\[ p(\mathbf{x}) = p(\mathbf{x}_s, \mathbf{x}_r) = p(\mathbf{x}_r) p(\mathbf{x}_s | \mathbf{x}_r). \tag{3} \]</p>
+<p>時間的な首尾一貫性を考慮し、過去のフレームを追加の条件として組み込む。式3は次のように書き直せる。</p>
+<p>\[ p(\mathbf{x}) = p(\mathbf{x}_s, \mathbf{x}_r | \mathbf{x}_{pre}) = p(\mathbf{x}_r | \mathbf{x}_{pre}) p(\mathbf{x}_s | \mathbf{x}_r, \mathbf{x}_{pre}), \tag{4} \]</p>
+<p>ここで \(\mathbf{x}_{pre}\) は、以前に生成された映像クリップからのコンテキストフレーム（例えば最後の 2 フレーム）である。参照ビューの分布 \(p(\mathbf{x}_r | \mathbf{x}_{pre})\) は 3.1 節のパイプラインによって実装される。\(p(\mathbf{x}_s | \mathbf{x}_r, \mathbf{x}_{pre})\) については、同様のパイプラインを採用するが、図4に示すように、隣接する参照ビューを追加の条件として組み込む。条件の使い方については次項で説明する。</p>
+
+<h3 id="3.3-統一条件付き生成">3.3　統一条件付き生成</h3>
+<a class="pg" data-page="5"></a>
+<p>実世界は非常に複雑であるため、世界モデルは複数の異種の条件を活用する必要がある。本研究では、初期コンテキストフレーム、テキスト記述、自車の行動、3D ボックス、BEV マップ、参照ビューを利用する。制御性をさらに高めるために、より多くの条件を追加で含めることもできる。条件ごとに専用のインターフェースを開発するのは時間がかかり、より多くの条件を取り込むには柔軟性に欠ける。この問題に対処するため、我々は複数の異種の条件を統合するうえでシンプルかつ効果的な統一条件インターフェースを導入する。以下では、まず各条件をどのようにエンコードするかを紹介し、次に統一条件インターフェースについて説明する。</p>
+
+<figure><img src="figs/fig4.jpg" alt="図4" /></figure>
+<p><strong>図4：分解マルチビュー生成の説明図。</strong>nuScenes のセンサ配置を例としている。</p>
+<p class="yakuchu">図中ラベル：Stitched view (x_s)＝ステッチビュー（x_s）、Reference view (x_r)＝参照ビュー（x_r）、As condition＝条件として、Denoise＝ノイズ除去</p>
+
+<p><strong>画像条件。</strong>初期コンテキストフレーム（すなわちクリップの最初のフレーム）と参照ビューを画像条件として扱う。与えられた画像条件 \(\mathbf{I} \in \mathbb{R}^{3 \times H \times W}\) は、ConvNeXt をエンコーダ［39］として用いてエンコードされ、\(d\) 次元の埋め込みの系列 \(\mathbf{i} = (i_1, i_2, ..., i_n) \in \mathbb{R}^{n \times d}\) へと平坦化される。異なる画像からの埋め込みは、\(n\) の次元（第 1 次元）で連結される。</p>
+<p><strong>レイアウト条件。</strong>レイアウト条件とは、3D ボックス、HD マップ、BEV セグメンテーションを指す。簡単のため、3D ボックスと HD マップを 2D の透視ビューに投影する。こうすることで、画像条件のエンコーディングと同じ戦略を用いてレイアウト条件をエンコードでき、埋め込みの系列 \(\mathbf{l} = (l_1, l_2, ..., l_k) \in \mathbb{R}^{k \times d}\) が得られる。\(k\) は投影されたレイアウトと BEV セグメンテーションから得られる埋め込みの総数である。</p>
+<p><strong>テキスト条件。</strong>拡散モデルの慣例に従い、事前学習済みの CLIP［42］をテキストエンコーダとして採用する。具体的には、ビュー情報、天候、明るさを組み合わせてテキスト記述を得る。その埋め込みを \(\mathbf{e} = (e_1, e_2, ..., e_m) \in \mathbb{R}^{m \times d}\) と表す。</p>
+<p><strong>行動条件。</strong>行動条件は、世界モデルが未来を生成するために不可欠である。既存の計画手法［30］と互換性を持たせるため、ある時刻ステップにおける行動を \((\Delta x, \Delta y)\) と定義する。これは次の時刻ステップへの自車位置の移動量を表す。MLP を用いて行動を \(d\) 次元の埋め込み \(\mathbf{a} \in \mathbb{R}^{2 \times d}\) に写像する。</p>
+<p><strong>統一条件インターフェース。</strong>ここまでで、すべての条件は \(d\) 次元の特徴空間に写像される。必要な埋め込みを連結したものをノイズ除去 UNet の入力とする。行動に基づく同時映像生成を例にとると、これにより初期コンテキスト画像、初期レイアウト、テキスト記述、フレームごとの行動系列を利用できる。したがって、ある時刻 \(t\) における統一条件埋め込みは次のようになる。</p>
+
+<figure><img src="figs/fig5.png" alt="図5" /></figure>
+<p><strong>図5：我々の世界モデルを用いたエンドツーエンド計画パイプライン。</strong>上部に計画パイプラインの構成要素を示し、下部に画像ベースの報酬を用いた計画木における意思決定プロセスを図示する。</p>
+<p class="yakuchu">図中ラベル：Planner＝プランナー、Actions＝行動、World Model＝世界モデル、Imagined Futures＝想像された未来、Reward Functions＝報酬関数、Reward＝報酬、Making Decision＝意思決定、Accepted action＝採用された行動、World Model Based Planning＝世界モデルに基づく計画、Planning Tree＝計画木、Object reward＝物体報酬、Map reward＝マップ報酬、Other vehicles＝他車両、Ego vehicle＝自車、Planned path＝計画経路</p>
+
+<p>\[ \mathbf{c}_t = [\mathbf{i}_0, \mathbf{l}_0, \mathbf{e}_0, \mathbf{a}_t] \in \mathbb{R}^{(n+k+m+2) \times d}, \tag{5} \]</p>
+<p>ここで添え字 \(t\) は \(t\) 番目の<em>生成</em>フレームを表し、添え字 0 は現在の<em>実</em>フレームを表す。このような異なる条件の組み合わせは統一されたインターフェースを提供し、要求に応じて調整できることを強調しておく。最後に、\(\mathbf{c_t}\) は 3D UNet において、フレームごとのクロス注意によって潜在変数 \(\mathbf{z_t}\) と相互作用する（図3（a））。</p>
+
+<h2 id="4-エンドツーエンド計画のための世界モデル">4　エンドツーエンド計画のための世界モデル</h2>
+<p>結果を予測せずに盲目的に行動を計画することは危険である。我々の世界モデルを活用することで、起こり得る未来を包括的に評価でき、より安全な計画が可能になる。本節では、未開拓の領域である、自動運転のための世界モデルを用いたエンドツーエンド計画を探求する。</p>
+
+<h3 id="4.1-行動による木ベースのロールアウト">4.1　行動による木ベースのロールアウト</h3>
+<p>本節では世界モデルを用いた計画について述べる。各時刻ステップにおいて、世界モデルを利用して、プランナーからサンプリングされた軌道候補に対する将来シナリオの予測を生成し、画像ベースの報酬関数を用いてその未来を評価し、最適な軌道を選択して計画木を拡張する。</p>
+<a class="pg" data-page="6"></a>
+<p>図5に示すように、計画木を時間とともに発展する予測された自車軌道の系列として定義する。各時刻において、カメラによって実際のマルチビュー画像を取得できる。事前学習済みのプランナーは実際のマルチビュー画像を入力として受け取り、起こり得る軌道候補をサンプリングする。主流のプランナーの入力と互換性を持たせるため、各軌道について時刻 \(t\) における行動 \(\mathbf{a_t}\) を \((x_{t+1} - x_t, y_{t+1} - y_t)\) と定義する。ここで \(x_t\) と \(y_t\) は時刻 \(t\) における自車位置である。行動が与えられると、映像生成には式5の条件の組み合わせを採用する。生成後、画像ベースの報酬関数を利用して最適な軌道を決定として選択する。このような生成と決定のプロセスを繰り返すことで、木ベースのロールアウトを形成できる。</p>
+
+<h3 id="4.2-画像ベースの報酬関数">4.2　画像ベースの報酬関数</h3>
+<p>計画された軌道について将来の映像を生成した後、複数の未来の健全性を評価するために報酬関数が必要となる。</p>
+<p>まず、知覚結果から報酬を得る。具体的には、画像ベースの 3D 物体検出器［37］とオンライン HD マップ予測器［38］を用いて、生成された映像に対する知覚結果を得る。次に、従来のプランナー［6, 30］に着想を得て、マップ報酬と物体報酬を定義する。マップ報酬は 2 つの要素を含む。1 つは縁石からの距離であり、自車が正しい走行可能領域に留まるよう促す。もう 1 つは中心線との整合性であり、自車が頻繁に車線変更したり横方向に車線から逸脱したりすることを防ぐ。物体報酬は、縦方向および横方向における他の道路利用者からの距離を意味する。この報酬は自車と他の道路利用者との衝突を回避する。総報酬は物体報酬とマップ報酬の積として定義される。最終的に、報酬が最大となる自車の予測を選択する。その後、計画木は次のタイムスタンプへと進み、後続の軌道を反復的に計画する。</p>
+<p>提案する世界モデルはピクセル空間で動作するため、<em>ベクトル化されていない</em>表現からも報酬を得ることができ、より一般的なケースを扱える。例えば、スプリンクラーから散布される水や損傷した路面は、教師あり知覚モデルではベクトル化することが難しいが、大量のラベルなしデータから学習された世界モデルはそのようなケースをピクセル空間で生成できる。GPT-4V のような近年の強力な基盤モデルを活用することで、計画プロセスはベクトル化されていない表現からより包括的な報酬を得ることができる。付録では、いくつかの典型的な例を示す。</p>
+
+<h2 id="5-実験">5　実験</h2>
+<h3 id="5.1-設定">5.1　設定</h3>
+<p><strong>データセット。</strong>実験には nuScenes［5］データセットを採用する。これは 3D 知覚と計画のための最も広く使われているデータセットの 1 つである。合計 700 本の学習用映像と 150 本の検証用映像から構成される。各映像は 6 台のサラウンドビューカメラで撮影された約 20 秒の映像を含む。</p>
+<p><strong>学習方式。</strong>元画像を 1600 × 900 から 384 × 192 にクロップおよびリサイズする。モデルは Stable Diffusion のチェックポイント［44］で初期化する。すべての実験は A40（48GB）GPU で実施する。詳細については付録を参照されたい。</p>
+<p><strong>品質評価。</strong>生成された映像の品質を評価するため、FID（Frechet Inception Distance）［24］と FVD（Frechet Video Distance）［57］を主要な指標として用いる。</p>
+<p><strong>マルチビュー一貫性評価。</strong>マルチビューの一貫性を評価するため、新しい指標としてキーポイントマッチング（KPM）スコアを導入した。この指標は、事前学習済みのマッチングモデル［51］を利用してマッチしたキーポイントの平均数を計算し、それによって KPM スコアを定量化する。計算過程では、各画像について、まず現在のビューとその 2 つの隣接ビューとの間でマッチしたキーポイントの数を計算する。続いて、生成データにおけるマッチ点の数と実データにおけるマッチ点の数との比を計算する。最後に、生成されたすべての画像にわたってこれらの比を平均し、KPM スコアを得る。実際には、検証セットの各シーンから 8 フレームを均等に選択して KPM を計算した。</p>
+<p><strong>制御性評価。</strong>映像コンテンツ生成の制御性を評価するため、事前学習済みの知覚モデルを用いて生成画像を評価する。先行手法［69］に従い、前景および背景のセグメンテーションには CVT［72］を採用した。さらに、3D 物体検出［62］とオンラインマップ構築［38］も評価する。</p>
+<p><strong>計画評価。</strong>エンドツーエンド計画については、オープンループ評価指標［29, 30］に従い、GT 軌道からの L2 距離と物体衝突率を用いる。</p>
+<p><strong>モデルのバリエーション。</strong>行動ベースの映像生成とレイアウトベースの映像生成をサポートする。前者は各フレームの自車の行動を条件として与え、後者は各フレームのレイアウト（3D ボックス、マップ情報）を与える。</p>
+
+<h3 id="5.2-マルチビュー映像生成の主要結果">5.2　マルチビュー映像生成の主要結果</h3>
+<p>まず、本手法の優れた生成品質と制御性を示す。ここでの生成はフレームごとの 3D レイアウトを条件とする。モデルは nuScenes の <strong><em>train</em></strong> 分割で学習し、<strong><em>val</em></strong> 分割の条件で評価する。</p>
+<p><strong>生成品質。</strong>我々はマルチビュー映像生成を初めて探求するため、<em>マルチビュー画像</em>と<em>単一ビュー映像</em>のそれぞれについて先行手法と個別に比較する。マルチビュー画像生成については、3.1 節の時間層を取り除く。表1a に主要な結果を示す。単一ビュー画像生成では <strong>12.99</strong> の FID を達成し、先行手法に対して大幅な改善を達成した。映像生成については、本手法は過去の単一ビュー映像生成手法と比較して大幅な品質向上を示し、<strong>15.8</strong> の FID と <strong>122.7</strong> の FVD を達成した。さらに、本手法は一貫性のあるマルチビュー映像を生成した初めての研究であり、これは 5.3 節で定量的に示される。</p>
+<a class="pg" data-page="7"></a>
+<p><strong>制御性。</strong>表1b では、nuScenes 検証セットにおける本手法の制御性を検証する。前景の制御性については、生成されたマルチビュー映像に対する 3D 物体検出の性能を評価し、\(\text{mAP}_{\text{obj}}\) を報告する。さらに、BEV レイアウト上で前景をセグメンテーションし、\(\text{mIoU}_{\text{fg}}\) を報告する。背景の制御については、道路セグメンテーションの mIoU を報告する。さらに、HD マップの性能として \(\text{mAP}_{\text{map}}\) を評価する。この優れた制御性は、統一条件インターフェース（3.3 節）の有効性を浮き彫りにし、ニューラルシミュレータとしての世界モデルの可能性を示している。</p>
+
+<table>
+<thead>
+<tr><th>手法</th><th>マルチビュー</th><th>映像</th><th>FID↓</th><th>FVD↓</th></tr>
+</thead>
+<tbody>
+<tr><td>BEVGen［53］</td><td>✓</td><td></td><td style="text-align:right">25.54</td><td style="text-align:right">-</td></tr>
+<tr><td>BEVControl［69］</td><td>✓</td><td></td><td style="text-align:right">24.85</td><td style="text-align:right">-</td></tr>
+<tr><td>MagicDrive［17］</td><td>✓</td><td></td><td style="text-align:right">16.20</td><td style="text-align:right">-</td></tr>
+<tr><td>Ours（本手法）</td><td>✓</td><td></td><td style="text-align:right"><strong>12.99</strong></td><td style="text-align:right">-</td></tr>
+<tr><td>DriveGAN［31］</td><td></td><td>✓</td><td style="text-align:right">73.4</td><td style="text-align:right">502.3</td></tr>
+<tr><td>DriveDreamer［63］</td><td></td><td>✓</td><td style="text-align:right">52.6</td><td style="text-align:right">452.0</td></tr>
+<tr><td>Ours（本手法）</td><td>✓</td><td>✓</td><td style="text-align:right"><strong>15.8</strong></td><td style="text-align:right"><strong>122.7</strong></td></tr>
+</tbody>
+</table>
+<p>（a）<strong>生成品質。</strong></p>
+
+<table>
+<thead>
+<tr><th>手法</th><th>\(\text{mAP}_{\text{obj}}\)↑</th><th>\(\text{mAP}_{\text{map}}\)↑</th><th>\(\text{mIoU}_{\text{fg}}\)↑</th><th>\(\text{mIoU}_{\text{bg}}\)↑</th></tr>
+</thead>
+<tbody>
+<tr><td>GT</td><td style="text-align:right">37.78</td><td style="text-align:right">59.30</td><td style="text-align:right">36.08</td><td style="text-align:right">72.36</td></tr>
+<tr><td>BEVGen［53］</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">5.89</td><td style="text-align:right">50.20</td></tr>
+<tr><td>LayoutDiffusion［71］</td><td style="text-align:right">3.68</td><td style="text-align:right">-</td><td style="text-align:right">15.51</td><td style="text-align:right">35.31</td></tr>
+<tr><td>GLIGEN［36］</td><td style="text-align:right">15.42</td><td style="text-align:right">-</td><td style="text-align:right">22.02</td><td style="text-align:right">38.12</td></tr>
+<tr><td>BEVControl［69］</td><td style="text-align:right">19.64</td><td style="text-align:right">-</td><td style="text-align:right">26.80</td><td style="text-align:right">60.80</td></tr>
+<tr><td>MagicDrive［17］</td><td style="text-align:right">12.30</td><td style="text-align:right">-</td><td style="text-align:right">27.01</td><td style="text-align:right">61.05</td></tr>
+<tr><td>Ours（本手法）</td><td style="text-align:right"><strong>20.66</strong></td><td style="text-align:right"><strong>37.68</strong></td><td style="text-align:right"><strong>27.19</strong></td><td style="text-align:right"><strong>65.07</strong></td></tr>
+</tbody>
+</table>
+<p>（b）<strong>生成の制御性。</strong></p>
+<p><strong>表1：nuScenes におけるマルチビュー映像生成の性能。</strong>各タスクについて、nuScenes 学習セットで学習した対応するモデルをテストする。我々の Drive-WM は、品質と制御性の両方の評価において他のすべての手法を上回る。</p>
+<p class="yakuchu">（訳注：本文では表1a の 12.99 を「単一ビュー画像生成」の結果と述べているが、表ではマルチビュー画像生成の行に記載されており、本文の「single-view」は「multi-view」の誤りと思われる。）</p>
+
+<table>
+<thead>
+<tr><th>時間埋め込み</th><th>レイアウト条件</th><th>FID↓</th><th>FVD↓</th><th>KPM(%)↑</th></tr>
+</thead>
+<tbody>
+<tr><td>✓</td><td></td><td style="text-align:right">20.3</td><td style="text-align:right">212.5</td><td style="text-align:right">31.5</td></tr>
+<tr><td></td><td>✓</td><td style="text-align:right">18.9</td><td style="text-align:right">153.8</td><td style="text-align:right">44.6</td></tr>
+<tr><td>✓</td><td>✓</td><td style="text-align:right"><strong>15.8</strong></td><td style="text-align:right"><strong>122.7</strong></td><td style="text-align:right"><strong>45.8</strong></td></tr>
+</tbody>
+</table>
+<p>（a）<strong>統一条件のアブレーション。</strong></p>
+
+<table>
+<thead>
+<tr><th>時間層</th><th>ビュー層</th><th>FID↓</th><th>FVD↓</th><th>KPM(%)↑</th></tr>
+</thead>
+<tbody>
+<tr><td></td><td></td><td style="text-align:right">23.3</td><td style="text-align:right">228.5</td><td style="text-align:right">40.8</td></tr>
+<tr><td>✓</td><td></td><td style="text-align:right">16.2</td><td style="text-align:right">127.1</td><td style="text-align:right">40.9</td></tr>
+<tr><td>✓</td><td>✓</td><td style="text-align:right"><strong>15.8</strong></td><td style="text-align:right"><strong>122.7</strong></td><td style="text-align:right"><strong>45.8</strong></td></tr>
+</tbody>
+</table>
+<p>（b）<strong>マルチビュー時間チューニングのアブレーション。</strong></p>
+
+<table>
+<thead>
+<tr><th>手法</th><th>KPM(%)↑</th><th>FVD↓</th><th>FID↓</th></tr>
+</thead>
+<tbody>
+<tr><td>Joint Modeling（同時モデリング）</td><td style="text-align:right">45.8</td><td style="text-align:right">122.7</td><td style="text-align:right"><strong>15.8</strong></td></tr>
+<tr><td>Factorized Generation（分解生成）</td><td style="text-align:right"><strong>94.4</strong></td><td style="text-align:right"><strong>116.6</strong></td><td style="text-align:right">16.4</td></tr>
+</tbody>
+</table>
+<p>（c）<strong>分解生成のアブレーション。</strong></p>
+<p><strong>表2：モデル設計における構成要素のアブレーション。</strong>実験は nuScenes 検証セットにおいて、レイアウトベースの映像生成（5.1 節のモデルのバリエーションを参照）の設定で行った。</p>
+
+<h3 id="5.3-マルチビュー映像生成のアブレーション研究">5.3　マルチビュー映像生成のアブレーション研究</h3>
+<p>設計上の決定の有効性を検証するため、表2に示すように、モデルの主要な特徴についてアブレーション研究を行う。実験はレイアウトベースの映像生成の設定で行う。</p>
+<p><strong>統一条件。</strong>表2a から、レイアウト条件がモデルの能力に大きな影響を与え、生成映像の品質と一貫性の両方を向上させることがわかる。さらに、時間埋め込みは生成映像の品質を高めることができる。</p>
+<p><strong>モデル設計。</strong>表2b では、マルチビュー時間チューニングにおける時間層とビュー層の役割を探る。実験は、時間層とビュー層が<span class="yakuchu">（訳注：原文はこの文が途中で途切れている）</span>。分解（3.2 節）なしでマルチビュー層を単純に採用するだけでは、KPM はわずかに向上するにとどまる。</p>
+<p><strong>分解マルチビュー生成。</strong>表2c に示すように、分解生成は同時モデリングと比べて複数ビュー間の一貫性を顕著に向上させ、45.8% から 94.4% へと増加させる。この向上は、画像と映像の両方の品質を確保しながら達成されている。定性的な結果を図6に示す。</p>
+
+<h3 id="5.4-世界モデルを用いた計画の探求">5.4　世界モデルを用いた計画の探求</h3>
+<p>本項では、自動運転に関する近年の研究では十分に探求されていない、エンドツーエンド計画における世界モデルの応用を探る。我々の試みは 2 つの側面からなる。（1）まず、生成された未来を評価することが計画に役立つことを示す。（2）次に、世界モデルを活用して一部の領域外ケースにおける計画を改善できることを示す。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">手法</th><th colspan="4">L2 (m)↓</th><th colspan="4">Collision（衝突率）(%)↓</th></tr>
+<tr><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th></tr>
+</thead>
+<tbody>
+<tr><td>VAD (GT cmd)</td><td style="text-align:right">0.41</td><td style="text-align:right">0.70</td><td style="text-align:right">1.05</td><td style="text-align:right">0.72</td><td style="text-align:right">0.07</td><td style="text-align:right">0.17</td><td style="text-align:right">0.41</td><td style="text-align:right">0.22</td></tr>
+<tr><td>VAD (rand cmd)</td><td style="text-align:right">0.51</td><td style="text-align:right">0.97</td><td style="text-align:right">1.57</td><td style="text-align:right">1.02</td><td style="text-align:right">0.34</td><td style="text-align:right">0.74</td><td style="text-align:right">1.72</td><td style="text-align:right">0.93</td></tr>
+<tr><td>Ours（本手法）</td><td style="text-align:right"><strong>0.43</strong></td><td style="text-align:right"><strong>0.77</strong></td><td style="text-align:right"><strong>1.20</strong></td><td style="text-align:right"><strong>0.80</strong></td><td style="text-align:right"><strong>0.10</strong></td><td style="text-align:right"><strong>0.21</strong></td><td style="text-align:right"><strong>0.48</strong></td><td style="text-align:right"><strong>0.26</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表3：nuScenes における計画性能。</strong>正解の運転コマンドを用いる代わりに、我々の木ベースの計画を用いて 3 つのコマンドの中から最良のものを選択する。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">マップ報酬</th><th rowspan="2">物体報酬</th><th colspan="4">L2 (m)↓</th><th colspan="4">Collision（衝突率）(%)↓</th></tr>
+<tr><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th></tr>
+</thead>
+<tbody>
+<tr><td></td><td></td><td style="text-align:right">0.51</td><td style="text-align:right">0.97</td><td style="text-align:right">1.57</td><td style="text-align:right">1.02</td><td style="text-align:right">0.34</td><td style="text-align:right">0.74</td><td style="text-align:right">1.72</td><td style="text-align:right">0.93</td></tr>
+<tr><td>✓</td><td></td><td style="text-align:right">0.45</td><td style="text-align:right">0.82</td><td style="text-align:right">1.29</td><td style="text-align:right">0.85</td><td style="text-align:right">0.12</td><td style="text-align:right">0.33</td><td style="text-align:right">0.72</td><td style="text-align:right">0.39</td></tr>
+<tr><td></td><td>✓</td><td style="text-align:right">0.43</td><td style="text-align:right">0.77</td><td style="text-align:right">1.20</td><td style="text-align:right">0.80</td><td style="text-align:right">0.12</td><td style="text-align:right">0.21</td><td style="text-align:right">0.48</td><td style="text-align:right">0.27</td></tr>
+<tr><td>✓</td><td>✓</td><td style="text-align:right"><strong>0.43</strong></td><td style="text-align:right"><strong>0.77</strong></td><td style="text-align:right"><strong>1.20</strong></td><td style="text-align:right"><strong>0.80</strong></td><td style="text-align:right"><strong>0.10</strong></td><td style="text-align:right"><strong>0.21</strong></td><td style="text-align:right"><strong>0.48</strong></td><td style="text-align:right"><strong>0.26</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表4：画像ベースの報酬関数の設計。</strong>2 つのサブ報酬、すなわちマップ報酬と物体報酬を用いる。</p>
+
+<a class="pg" data-page="8"></a>
+<p><strong>木ベースの計画。</strong>我々の木ベースの計画の性能を示すための実験を行う。正解の運転コマンドを用いる代わりに、「直進（Go straight）」「左折（Turn left）」「右折（Turn right）」の 3 つのコマンドに従って VAD から計画軌道をサンプリングする。次に、サンプリングされた行動を我々の木ベースの計画（4 節）に用いる。表3に示すように、我々の木ベースのプランナーはランダムな運転コマンドを上回り、さらには GT コマンドに近い性能を達成する。加えて、表4では採用した 2 つの報酬についてアブレーションを行い、その結果は、特に物体衝突の指標において、組み合わせた報酬が各サブ報酬を上回ることを示している。</p>
+
+<figure><img src="figs/fig6.jpg" alt="図6" /></figure>
+<p><strong>図6：分解マルチビュー生成の定性的結果。</strong>比較する各ペアについて、上段は分解なしで生成したもの、下段は分解ありで生成したものである。</p>
+
+<figure><img src="figs/fig7.jpg" alt="図7" /></figure>
+<p><strong>図7：反実仮想イベントの生成。</strong>上：雨の日に T 字路で U ターンする場面。我々の学習セットには U ターンのサンプルが一切含まれていないことに注意されたい。下：走行不可能な領域に乗り上げる場面。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">OOD</th><th rowspan="2">世界モデルによる f.t.</th><th colspan="4">L2 (m)↓</th><th colspan="4">Collision（衝突率）(%)↓</th></tr>
+<tr><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th></tr>
+</thead>
+<tbody>
+<tr><td></td><td></td><td style="text-align:right">0.41</td><td style="text-align:right">0.70</td><td style="text-align:right">1.05</td><td style="text-align:right">0.72</td><td style="text-align:right">0.07</td><td style="text-align:right">0.17</td><td style="text-align:right">0.41</td><td style="text-align:right">0.22</td></tr>
+<tr><td>✓</td><td></td><td style="text-align:right">0.73</td><td style="text-align:right">0.99</td><td style="text-align:right">1.33</td><td style="text-align:right">1.02</td><td style="text-align:right">1.25</td><td style="text-align:right">1.62</td><td style="text-align:right">1.91</td><td style="text-align:right">1.59</td></tr>
+<tr><td>✓</td><td>✓</td><td style="text-align:right">0.50</td><td style="text-align:right">0.79</td><td style="text-align:right">1.17</td><td style="text-align:right">0.82</td><td style="text-align:right">0.72</td><td style="text-align:right">0.84</td><td style="text-align:right">1.16</td><td style="text-align:right">0.91</td></tr>
+</tbody>
+</table>
+<p><strong>表5：領域外での計画。</strong>自車から横方向に 0.5 メートルずれた位置を OOD 位置と定義する。</p>
+<p class="yakuchu">（訳注：f.t. はファインチューニング（fine-tuning）の略。）</p>
+
+<p><strong>OOD な自車のずれからの回復。</strong>我々の世界モデルを用いることで、領域外の自車位置をピクセル空間でシミュレートできる。具体的には、図2の右のように、自車位置を横方向に 0.5 メートルずらす。この状況では、表5に示すように、既存のエンドツーエンドプランナー VAD［30］の性能は大幅に低下する。この問題を緩和するため、自車が車線に戻る軌道を教師として、生成映像を用いてプランナーをファインチューニングする。これらの OOD データから学習することで、プランナーの性能は改善し、通常のレベルに近づく。</p>
+
+<h3 id="5.5-反実仮想イベント">5.5　反実仮想イベント</h3>
+<p>初期観測と行動が与えられると、我々の Drive-WM は、U ターンや走行不可能な領域への乗り上げ（図7）など、学習データとは大きく異なる反実仮想イベントを生成できる。このような反実仮想データを生成できる能力は、我々の Drive-WM が領域外のケースを予見し対処する可能性を持つことを改めて示している。</p>
+
+<h2 id="6-結論">6　結論</h2>
+<a class="pg" data-page="9"></a>
+<p>我々は、自動運転のための初のマルチビュー世界モデルである Drive-WM を提案した。本手法は、テキスト記述、レイアウト、あるいは自車の行動からの情報を活用して映像生成を制御し、多様な条件のもとで高品質かつ一貫性のあるマルチビュー映像を生成する能力を示す。導入した分解生成は、さまざまなビュー間の空間的一貫性を大幅に向上させる。さらに、nuScenes データセットでの大規模な実験により、本手法が計画の全体的な健全性と分布外状況における頑健性を向上させ得ることが示された。</p>
+
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>Mohammad Babaeizadeh, Mohammad Taghi Saffar, Suraj Nair, Sergey Levine, Chelsea Finn, and Dumitru Erhan. Fitvid: Overfitting in pixel-level video prediction. <em>arXiv preprint arXiv:2106.13195</em>, 2021.</li>
+<li>Andreas Blattmann, Robin Rombach, Huan Ling, Tim Dockhorn, Seung Wook Kim, Sanja Fidler, and Karsten Kreis. Align your latents: High-resolution video synthesis with latent diffusion models. In <em>CVPR</em>, pages 22563–22575, 2023.</li>
+<li>Tim Brooks, Janne Hellsten, Miika Aittala, Ting-Chun Wang, Timo Aila, Jaakko Lehtinen, Ming-Yu Liu, Alexei Efros, and Tero Karras. Generating long videos of dynamic scenes. <em>NeurIPS</em>, 35:31769–31781, 2022.</li>
+<li>Lars Buesing, Theophane Weber, Sébastien Racaniere, SM Eslami, Danilo Rezende, David P Reichert, Fabio Viola, Frederic Besse, Karol Gregor, Demis Hassabis, et al. Learning and querying fast generative models for reinforcement learning. <em>arXiv preprint arXiv:1802.03006</em>, 2018.</li>
+<li>Holger Caesar, Varun Bankiti, Alex H Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>CVPR</em>, pages 11621–11631, 2020.</li>
+<li>Sergio Casas, Abbas Sadat, and Raquel Urtasun. Mp3: A unified model to map, perceive, predict and plan. In <em>CVPR</em>, pages 14403–14412, 2021.</li>
+<li>Li Chen, Chonghao Sima, Yang Li, Zehan Zheng, Jiajie Xu, Xiangwei Geng, Hongyang Li, Conghui He, Jianping Shi, Yu Qiao, and Junchi Yan. Persformer: 3d lane detection via perspective transformer and the openlane benchmark. In <em>ECCV</em>, 2022.</li>
+<li>Felipe Codevilla, Eder Santana, Antonio M López, and Adrien Gaidon. Exploring the limitations of behavior cloning for autonomous driving. In <em>ICCV</em>, pages 9329–9338, 2019.</li>
+<li>Emily Denton and Rob Fergus. Stochastic video generation with a learned prior. In <em>ICML</em>, pages 1174–1183. PMLR, 2018.</li>
+<li>Michael Dorkenwald, Timo Milbich, Andreas Blattmann, Robin Rombach, Konstantinos G Derpanis, and Bjorn Ommer. Stochastic image-to-video synthesis using cinns. In <em>CVPR</em>, pages 3742–3753, 2021.</li>
+<li>Alexey Dosovitskiy, German Ros, Felipe Codevilla, Antonio Lopez, and Vladlen Koltun. CARLA: An open urban driving simulator. In <em>CoRL</em>, pages 1–16. PMLR, 2017.</li>
+<li>Frederik Ebert, Chelsea Finn, Sudeep Dasari, Annie Xie, Alex Lee, and Sergey Levine. Visual foresight: Model-based deep reinforcement learning for vision-based robotic control. <em>arXiv preprint arXiv:1812.00568</em>, 2018.</li>
+<li>Patrick Esser, Johnathan Chiu, Parmida Atighehchian, Jonathan Granskog, and Anastasis Germanidis. Structure and content-guided video synthesis with diffusion models. In <em>ICCV</em>, pages 7346–7356, 2023.</li>
+<li>Chelsea Finn and Sergey Levine. Deep visual foresight for planning robot motion. <em>ICRA</em>, pages 2786–2793, 2016.</li>
+<li>Gereon Fox, Ayush Tewari, Mohamed Elgharib, and Christian Theobalt. Stylevideogan: A temporal generative model using a pretrained stylegan. <em>arXiv preprint arXiv:2107.07224</em>, 2021.</li>
+<li>Jean-Yves Franceschi, Edouard Delasalles, Mickaël Chen, Sylvain Lamprier, and Patrick Gallinari. Stochastic latent residual video prediction. In <em>ICML</em>, pages 3233–3246. PMLR, 2020.</li>
+<li>Ruiyuan Gao, Kai Chen, Enze Xie, Lanqing Hong, Zhenguo Li, Dit-Yan Yeung, and Qiang Xu. Magicdrive: Street view generation with diverse 3d geometry control. <em>arXiv preprint arXiv:2310.02601</em>, 2023.</li>
+<li>Songwei Ge, Thomas Hayes, Harry Yang, Xi Yin, Guan Pang, David Jacobs, Jia-Bin Huang, and Devi Parikh. Long video generation with time-agnostic vqgan and time-sensitive transformer. In <em>ECCV</em>, pages 102–118. Springer, 2022.</li>
+<li>David Ha and Jürgen Schmidhuber. Recurrent world models facilitate policy evolution. <em>NeurIPS</em>, 31, 2018.</li>
+<li>Danijar Hafner, Timothy Lillicrap, Jimmy Ba, and Mohammad Norouzi. Dream to control: Learning behaviors by latent imagination. In <em>ICLR</em>, 2020.</li>
+<li>Danijar Hafner, Timothy P Lillicrap, Mohammad Norouzi, and Jimmy Ba. Mastering atari with discrete world models. In <em>ICLR</em>, 2021.</li>
+<li>Danijar Hafner, Jurgis Pasukonis, Jimmy Ba, and Timothy Lillicrap. Mastering diverse domains through world models. <em>arXiv preprint arXiv:2301.04104</em>, 2023.</li>
+<li>William Harvey, Saeid Naderiparizi, Vaden Masrani, Christian Weilbach, and Frank Wood. Flexible diffusion modeling of long videos. <em>NeurIPS</em>, 35:27953–27965, 2022.</li>
+<li>Martin Heusel, Hubert Ramsauer, Thomas Unterthiner, Bernhard Nessler, and Sepp Hochreiter. Gans trained by a two time-scale update rule converge to a local nash equilibrium. <em>NeurIPS</em>, 30, 2017.</li>
+<li>Jonathan Ho, William Chan, Chitwan Saharia, Jay Whang, Ruiqi Gao, Alexey Gritsenko, Diederik P Kingma, Ben Poole, Mohammad Norouzi, David J Fleet, et al. Imagen video: High definition video generation with diffusion models. <em>arXiv preprint arXiv:2210.02303</em>, 2022.</li>
+<li>Tobias Höppe, Arash Mehrjou, Stefan Bauer, Didrik Nielsen, and Andrea Dittadi. Diffusion models for video prediction and infilling. <em>TMLR</em>, 2022.</li>
+<li>Anthony Hu, Gianluca Corrado, Nicolas Griffiths, Zachary Murez, Corina Gurau, Hudson Yeo, Alex Kendall, Roberto Cipolla, and Jamie Shotton. Model-based imitation learning for urban driving. <em>NeurIPS</em>, 35:20703–20716, 2022.</li>
+<li>Anthony Hu, Lloyd Russell, Hudson Yeo, Zak Murez, George Fedoseev, Alex Kendall, Jamie Shotton, and Gianluca Corrado. Gaia-1: A generative world model for autonomous driving. <em>arXiv preprint arXiv:2309.17080</em>, 2023.</li>
+</ol>
+<a class="pg" data-page="10"></a>
+<ol class="refs" start="29">
+<li>Yihan Hu, Jiazhi Yang, Li Chen, Keyu Li, Chonghao Sima, Xizhou Zhu, Siqi Chai, Senyao Du, Tianwei Lin, Wenhai Wang, et al. Planning-oriented autonomous driving. In <em>CVPR</em>, pages 17853–17862, 2023.</li>
+<li>Bo Jiang, Shaoyu Chen, Qing Xu, Bencheng Liao, Jiajie Chen, Helong Zhou, Qian Zhang, Wenyu Liu, Chang Huang, and Xinggang Wang. Vad: Vectorized scene representation for efficient autonomous driving. In <em>ICCV</em>, pages 8340–8350, 2023.</li>
+<li>Seung Wook Kim, Jonah Philion, Antonio Torralba, and Sanja Fidler. Drivegan: Towards a controllable high-quality neural simulation. In <em>CVPR</em>, pages 5820–5829, 2021.</li>
+<li>Diederik P Kingma and Jimmy Ba. Adam: A method for stochastic optimization. <em>arXiv preprint arXiv:1412.6980</em>, 2014.</li>
+<li>Diederik P Kingma and Max Welling. Auto-encoding variational bayes. <em>arXiv preprint arXiv:1312.6114</em>, 2013.</li>
+<li>Manoj Kumar, Mohammad Babaeizadeh, Dumitru Erhan, Chelsea Finn, Sergey Levine, Laurent Dinh, and Durk Kingma. Videoflow: A conditional flow-based model for stochastic video generation. In <em>ICLR</em>, 2020.</li>
+<li>Yann LeCun. A path towards autonomous machine intelligence. 2022.</li>
+<li>Yuheng Li, Haotian Liu, Qingyang Wu, Fangzhou Mu, Jianwei Yang, Jianfeng Gao, Chunyuan Li, and Yong Jae Lee. Gligen: Open-set grounded text-to-image generation. In <em>CVPR</em>, pages 22511–22521, 2023.</li>
+<li>Zhiqi Li, Wenhai Wang, Hongyang Li, Enze Xie, Chonghao Sima, Tong Lu, Yu Qiao, and Jifeng Dai. Bevformer: Learning bird's-eye-view representation from multi-camera images via spatiotemporal transformers. In <em>ECCV</em>, pages 1–18. Springer, 2022.</li>
+<li>Bencheng Liao, Shaoyu Chen, Xinggang Wang, Tianheng Cheng, Qian Zhang, Wenyu Liu, and Chang Huang. Maptr: Structured modeling and learning for online vectorized hd map construction. In <em>ICLR</em>, 2022.</li>
+<li>Zhuang Liu, Hanzi Mao, Chao-Yuan Wu, Christoph Feichtenhofer, Trevor Darrell, and Saining Xie. A convnet for the 2020s. In <em>CVPR</em>, pages 11976–11986, 2022.</li>
+<li>Alexander Quinn Nichol, Prafulla Dhariwal, Aditya Ramesh, Pranav Shyam, Pamela Mishkin, Bob Mcgrew, Ilya Sutskever, and Mark Chen. Glide: Towards photorealistic image generation and editing with text-guided diffusion models. In <em>ICML</em>, pages 16784–16804, 2022.</li>
+<li>Junhyuk Oh, Xiaoxiao Guo, Honglak Lee, Richard L Lewis, and Satinder Singh. Action-conditional video prediction using deep networks in atari games. <em>NeurIPS</em>, 28, 2015.</li>
+<li>Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learning transferable visual models from natural language supervision. In <em>ICML</em>, pages 8748–8763, 2021.</li>
+<li>Scott Reed, Konrad Zolna, Emilio Parisotto, Sergio Gómez Colmenarejo, Alexander Novikov, Gabriel Barth-maron, Mai Giménez, Yury Sulsky, Jackie Kay, Jost Tobias Springenberg, et al. A generalist agent. <em>TMLR</em>, 2022.</li>
+<li>Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. High-resolution image synthesis with latent diffusion models. In <em>CVPR</em>, pages 10684–10695, 2022.</li>
+<li>Nataniel Ruiz, Yuanzhen Li, Varun Jampani, Yael Pritch, Michael Rubinstein, and Kfir Aberman. Dreambooth: Fine tuning text-to-image diffusion models for subject-driven generation. In <em>CVPR</em>, pages 22500–22510, 2023.</li>
+<li>Julian Schrittwieser, Ioannis Antonoglou, Thomas Hubert, Karen Simonyan, Laurent Sifre, Simon Schmitt, Arthur Guez, Edward Lockhart, Demis Hassabis, Thore Graepel, et al. Mastering atari, go, chess and shogi by planning with a learned model. <em>Nature</em>, 588(7839):604–609, 2020.</li>
+<li>Ramanan Sekar, Oleh Rybkin, Kostas Daniilidis, Pieter Abbeel, Danijar Hafner, and Deepak Pathak. Planning to explore via self-supervised world models. In <em>ICML</em>, pages 8583–8592, 2020.</li>
+<li>Uriel Singer, Adam Polyak, Thomas Hayes, Xi Yin, Jie An, Songyang Zhang, Qiyuan Hu, Harry Yang, Oron Ashual, Oran Gafni, et al. Make-a-video: Text-to-video generation without text-video data. In <em>ICLR</em>, 2022.</li>
+<li>Ivan Skorokhodov, Sergey Tulyakov, and Mohamed Elhoseiny. Stylegan-v: A continuous video generator with the price, image quality and perks of stylegan2. In <em>CVPR</em>, pages 3626–3636, 2022.</li>
+<li>Jiaming Song, Chenlin Meng, and Stefano Ermon. Denoising diffusion implicit models. In <em>ICLR</em>, 2020.</li>
+<li>Jiaming Sun, Zehong Shen, Yuang Wang, Hujun Bao, and Xiaowei Zhou. Loftr: Detector-free local feature matching with transformers. In <em>CVPR</em>, pages 8922–8931, 2021.</li>
+<li>Pei Sun, Henrik Kretzschmar, Xerxes Dotiwalla, Aurelien Chouard, Vijaysai Patnaik, Paul Tsui, James Guo, Yin Zhou, Yuning Chai, Benjamin Caine, et al. Scalability in perception for autonomous driving: Waymo open dataset. In <em>CVPR</em>, 2020.</li>
+<li>Alexander Swerdlow, Runsheng Xu, and Bolei Zhou. Street-view image generation from a bird's-eye view layout. <em>arXiv preprint arXiv:2301.04634</em>, 2023.</li>
+<li>Ardi Tampuu, Tambet Matiisen, Maksym Semikin, Dmytro Fishman, and Naveed Muhammad. A survey of end-to-end driving: Architectures and training methods. <em>IEEE Trans. Neural Netw. Learn. Syst.</em>, 33(4):1364–1384, 2020.</li>
+<li>Yuval Tassa, Yotam Doron, Alistair Muldal, Tom Erez, Yazhe Li, Diego de Las Casas, David Budden, Abbas Abdolmaleki, Josh Merel, Andrew Lefrancq, Timothy Lillicrap, and Martin Riedmiller. Deepmind control suite, 2018.</li>
+<li>Sergey Tulyakov, Ming-Yu Liu, Xiaodong Yang, and Jan Kautz. Mocogan: Decomposing motion and content for video generation. In <em>CVPR</em>, pages 1526–1535, 2018.</li>
+<li>Thomas Unterthiner, Sjoerd Van Steenkiste, Karol Kurach, Raphael Marinier, Marcin Michalski, and Sylvain Gelly. Towards accurate generative models of video: A new metric &amp; challenges. <em>arXiv preprint arXiv:1812.01717</em>, 2018.</li>
+<li>Ruben Villegas, Arkanath Pathak, Harini Kannan, Dumitru Erhan, Quoc V Le, and Honglak Lee. High fidelity video prediction with large stochastic recurrent neural networks. <em>NeurIPS</em>, 32, 2019.</li>
+</ol>
+<a class="pg" data-page="11"></a>
+<ol class="refs" start="59">
+<li>Vikram Voleti, Alexia Jolicoeur-Martineau, and Chris Pal. Mcvd-masked conditional video diffusion for prediction, generation, and interpolation. <em>NeurIPS</em>, 35:23371–23385, 2022.</li>
+<li>Carl Vondrick, Hamed Pirsiavash, and Antonio Torralba. Generating videos with scene dynamics. <em>NeurIPS</em>, 29, 2016.</li>
+<li>Jacob Walker, Ali Razavi, and Aäron van den Oord. Predicting video with vqvae. <em>arXiv preprint arXiv:2103.01950</em>, 2021.</li>
+<li>Shihao Wang, Yingfei Liu, Tiancai Wang, Ying Li, and Xiangyu Zhang. Exploring object-centric temporal modeling for efficient multi-view 3d object detection. In <em>ICCV</em>, pages 3621–3631, 2023.</li>
+<li>Xiaofeng Wang, Zheng Zhu, Guan Huang, Xinze Chen, and Jiwen Lu. Drivedreamer: Towards real-world-driven world models for autonomous driving. <em>arXiv preprint arXiv:2309.09777</em>, 2023.</li>
+<li>Dirk Weissenborn, Oscar Täckström, and Jakob Uszkoreit. Scaling autoregressive video models. In <em>ICLR</em>, 2020.</li>
+<li>Bohan Wu, Suraj Nair, Roberto Martin-Martin, Li Fei-Fei, and Chelsea Finn. Greedy hierarchical variational autoencoders for large-scale video prediction. In <em>CVPR</em>, pages 2318–2328, 2021.</li>
+<li>Jay Zhangjie Wu, Yixiao Ge, Xintao Wang, Stan Weixian Lei, Yuchao Gu, Yufei Shi, Wynne Hsu, Ying Shan, Xiaohu Qie, and Mike Zheng Shou. Tune-a-video: One-shot tuning of image diffusion models for text-to-video generation. In <em>ICCV</em>, pages 7623–7633, 2023.</li>
+<li>Philipp Wu, Alejandro Escontrela, Danijar Hafner, Pieter Abbeel, and Ken Goldberg. Daydreamer: World models for physical robot learning. In <em>CoRL</em>, pages 2226–2240. PMLR, 2023.</li>
+<li>Wilson Yan, Yunzhi Zhang, Pieter Abbeel, and Aravind Srinivas. Videogpt: Video generation using vq-vae and transformers. <em>arXiv preprint arXiv:2104.10157</em>, 2021.</li>
+<li>Kairui Yang, Enhui Ma, Jibin Peng, Qing Guo, Di Lin, and Kaicheng Yu. Bevcontrol: Accurately controlling street-view elements with multi-perspective consistency via bev sketch layout. <em>arXiv preprint arXiv:2308.01661</em>, 2023.</li>
+<li>Sihyun Yu, Jihoon Tack, Sangwoo Mo, Hyunsu Kim, Junho Kim, Jung-Woo Ha, and Jinwoo Shin. Generating videos with dynamics-aware implicit generative adversarial networks. In <em>ICLR</em>, 2021.</li>
+<li>Guangcong Zheng, Xianpan Zhou, Xuewei Li, Zhongang Qi, Ying Shan, and Xi Li. Layoutdiffusion: Controllable diffusion model for layout-to-image generation. In <em>CVPR</em>, pages 22490–22499, 2023.</li>
+<li>Brady Zhou and Philipp Krähenbühl. Cross-view transformers for real-time map-view semantic segmentation. In <em>CVPR</em>, pages 13760–13769, 2022.</li>
+<li>Daquan Zhou, Weimin Wang, Hanshu Yan, Weiwei Lv, Yizhe Zhu, and Jiashi Feng. Magicvideo: Efficient video generation with latent diffusion models. <em>arXiv preprint arXiv:2211.11018</em>, 2022.</li>
+</ol>
+
+<a class="pg" data-page="12"></a>
+<p><strong>Driving into the Future: Multiview Visual Forecasting and Planning with World Model for Autonomous Driving</strong><br />
+補足資料（Supplementary Material）</p>
+
+<h2 id="a-定性的結果">A　定性的結果</h2>
+<p>本節では、我々のモデルの性能を示す定性的な例を提示する。我々のモデルが生成した映像結果の全体については、匿名化されたプロジェクトページ <a href="https://drive-wm.github.io">https://drive-wm.github.io</a> を参照されたい。</p>
+
+<h3 id="a.1-複数のもっともらしい未来の生成">A.1　複数のもっともらしい未来の生成</h3>
+<p>図8に示すように、Drive-WM はプランナーからの運転操作に応じて多様な将来の結果を予測できる。VAD［30］からの計画に基づき、Drive-WM は初期観測と整合する複数のもっともらしい未来を予測する。映像サンプルは nuScenes［5］検証セットで生成する。図8の各行は、左への車線変更または現在の車線の維持（1 行目）、路肩へ向かう走行と直進（2 行目）、交差点での左折・右折（3 行目）について予測された未来を示している。</p>
+
+<h3 id="a.2-多様なマルチビュー映像の生成">A.2　多様なマルチビュー映像の生成</h3>
+<p>Drive-WM は、時間的なレイアウトを条件とするマルチビュー映像生成器として機能できる。これにより、Drive-WM をニューラルシミュレータとして応用することが可能になる。nuScenes［5］の <em>train</em> セットで学習されているにもかかわらず、Drive-WM は <em>val</em> セットにおいて物体、動き、シーンの新たな組み合わせを生成することで創造性を発揮する。</p>
+<p><strong>通常シーンの生成。</strong>図9に nuScenes［5］検証セットについて示すように、Drive-WM はレイアウト条件に基づいて多様なマルチビュー映像の予測を生成できる。</p>
+<p><strong>まれなシーンの生成。</strong>図10に示すように、学習中に触れる機会が限られているにもかかわらず、夜間や雨天といったまれな運転条件に対しても高品質な映像を生成できる。これは、学習データの分布で支配的な日中のシナリオを超えて、モデルが効果的に汎化できることを示している。</p>
+
+<h3 id="a.3-視覚要素の制御">A.3　視覚要素の制御</h3>
+<p>Drive-WM は、さまざまな形式の制御による条件付き生成を可能にする。例えば、全体の天候や明るさを変更するためのテキストプロンプト、運転操作を変更するための自車の行動、前景レイアウトを変更するための 3D ボックスなどである。本節では、ユーザ指定の条件に基づく対話的な映像生成のための、Drive-WM の柔軟な制御メカニズムを示す。</p>
+<p><strong>天候と明るさの変更。</strong>図11と図12に示すように、同じシーンレイアウト（道路構造と前景物体）を維持したまま、天候や明るさの条件を変更する我々のモデルの能力を示す。映像例は nuScene の <em>val</em> セットのレイアウト条件に基づいて生成されている。この能力は、将来のデータ拡張に大きな可能性を持つ。さまざまな天候や明るさの条件のもとで多様なシーンを生成することで、我々のモデルは学習データセットを大幅に拡張でき、それによってモデルの汎化性能と頑健性を向上させることができる。</p>
+<p><strong>行動の制御。</strong>我々のモデルは、与えられた自車の行動信号と整合した高品質なストリートビューを生成できる。例えば、図14に示すように、我々のモデルは入力された操舵信号に従って、同じ初期フレームから左折と右折の映像を正しく生成する。図15では、我々のモデルは加速信号と減速信号の両方に従って周囲の車両の位置を予測することに成功している。これらの定性的結果は、我々の世界モデルの高い制御性を示している。</p>
+<p><strong>前景の制御。</strong>図13が示すように、Drive-WM は生成映像において前景レイアウトのきめ細かな制御を可能にする。横方向および縦方向の条件を変更することで、指定されたレイアウトの変化に対応した高忠実度の画像が生成される。</p>
+<p>歩行者の生成は、ストリートビュー合成手法にとって課題となる。しかし、先行研究［53, 69］とは異なり、図16は Drive-WM が歩行者を効果的に生成できることを示している。最初の 6 枚の画像は歩行者が横断するのを待つ車両を示し、次の 6 枚の画像はバス停で待つ歩行者を示している。これは、詳細なマルチエージェント間の相互作用を生成する我々のモデルの可能性を示している。</p>
+
+<h3 id="a.4-領域外シナリオにおけるエンドツーエンド計画の結果">A.4　領域外シナリオにおけるエンドツーエンド計画の結果</h3>
+<a class="pg" data-page="13"></a>
+<p>既存のエンドツーエンドプランナーは、車線中央に沿ったエキスパートの軌道で学習されている。図2が示すように、このことは中央から外れたずれに対する生成を困難にしており、これは行動クローニングにおける「探索の欠如（lack-of-exploration）」問題として知られている［8］。Drive-WM をシミュレーションに用いて、図18は車線中央から逸脱した計画軌道をさらに示す。これらの生成された分布外のケースで評価すると、［30］のプランナーは回復できないことがわかる。このことは、コーナーケースを探索し頑健性を向上させるうえでの Drive-WM の有用性を浮き彫りにしている。</p>
+
+<figure><img src="figs/fig8.jpg" alt="図8" /></figure>
+<p><strong>図8：計画に基づく複数のもっともらしい未来の生成。</strong>ここでは見やすさのため前方ビューの映像のみを示す。映像サンプルは nuScenes <em>val</em> セットの最初のフレームに基づいて生成されている。1 行目では、左への車線変更と直進の例を示す。2 行目では、路肩へ向かう走行と直進のケースを示す。最後の行では、交差点で左折と右折を行う例を示す。</p>
+
+<h3 id="a.5-gpt-4v-を報酬関数として用いる">A.5　GPT-4V を報酬関数として用いる</h3>
+<p>異なる計画のもとで予測された異なる未来の安全性を評価するため、近年の GPT-4V モデルを評価器として活用する。具体的には、Drive-WM を用いて、さまざまな道路状況やエージェントの挙動を伴う多様な将来の運転映像を合成する。次に GPT-4V を用いてこれらのシミュレーション映像を分析し、運転の安全性の観点から総合的な報酬を与える。図17に示すように、これは道路前方に水たまりがあるときに GPT-4V が計画するさまざまな運転挙動を示している。ベクトル化された入力を用いる報酬関数と比べて、GPT-4V は Drive-WM の映像における危険な状況について、より汎化された理解を提供する。将来シナリオの評価に GPT-4V のマルチモーダル推論能力を活用することで、直接表現されてはいないがより広いシーン理解を通じて推論されるリスクを特定する、強化された評価が可能になる。これは、Drive-WM のような生成的な世界モデルと GPT-4V のような報酬生成モデルを組み合わせることの価値を示している。GPT-4V を用いて Drive-WM の予測を批評することで、より頑健なフィードバックが得られ、最終的には多様な実世界の条件下で自動運転の安全性を向上させることができる。</p>
+
+<h3 id="a.6-他のデータセットでの映像生成">A.6　他のデータセットでの映像生成</h3>
+<p><strong>Waymo Open Dataset。</strong>Drive-WM の幅広い適用性を示すため、Waymo Open Dataset において 768×512 の高解像度画像の生成に適用する。図19と図20に見られるように、Drive-WM は nuScenes と同じハイパーパラメータで、この解像度において現実的かつ多様な運転予測を生成する。新しいデータセットと解像度に効果的に汎化することで、これらの Waymo の例は、Drive-WM がさまざまな運転データセットにわたる高忠実度の映像合成に対して広く適応可能なアプローチを提供することを裏付けている。</p>
+
+<h2 id="b-実装の詳細">B　実装の詳細</h2>
+<p>本節では、<em>マルチビュー同時映像モデル</em>と<em>分解モデル</em>の学習および推論の詳細を紹介する。</p>
+
+<a class="pg" data-page="14"></a>
+<figure><img src="figs/fig9.jpg" alt="図9" /></figure>
+<p><strong>図9：多様なマルチビュー映像の条件付き生成。</strong>nuScenes val セットのレイアウト条件（3D ボックス、HD マップ、BEV セグメンテーション）が与えられると、我々のモデルは時空間的に一貫したマルチビュー映像を生成できる。</p>
+<p class="yakuchu">図中ラベル：+0s, +2s, +4s, +8s＝開始時点からの経過時間（0 秒後、2 秒後、4 秒後、8 秒後）</p>
+
+<h3 id="b.1-マルチビュー同時映像モデル">B.1　マルチビュー同時映像モデル</h3>
+<p><strong>学習の詳細。</strong>nuScenes の元画像の解像度は 1600 × 900 である。まず上部の領域を除去して 1600 × 800 にクロップし、その後モデルの学習のために 384 × 192 にリサイズする。VideoLDM［2］と同様に、まず条件付き画像潜在拡散モデルを学習する。このモデルは、HD マップ、BEV セグメンテーション、3D バウンディングボックス、テキスト記述などのさまざまなシーン要素を条件とする。すべての条件はトークン長の次元で連結される。画像モデルは Stable Diffusion のチェックポイント［44］で初期化される。この<em>条件付き画像モデル</em>は、合計バッチサイズ 768 で 60,000 イテレーション学習される。学習率 \(1 \times 10^{-4}\) の AdamW オプティマイザを用いる。続いて、時間パラメータとマルチビューパラメータ（3.1 節）を導入して<em>マルチビュー映像モデル</em>を構築し、このモデルをバッチサイズ 32、映像フレーム長 \(T = 8\) で 40,000 イテレーションファインチューニングする。行動ベースの映像生成では、違いは各フレームの条件情報の変更のみにあり、残りの学習とモデル構造は同じである。映像モデルには学習率 \(5 \times 10^{-5}\) の AdamW オプティマイザ［32］を用いる。モデルからのサンプリングには、一般にノイズ除去拡散暗黙モデル（DDIM）［50］のサンプラーを用いる。分類器なしガイダンス（CFG）は条件付きガイダンスの効果を強化する。各条件について、学習中に 20% の確率でランダムにドロップする。すべての実験は A40 GPU で実施する。</p>
+<p><strong>推論の詳細。</strong>推論時には、サンプリングステップ数を 50 とし、確率性 \(\eta\)=1.0、CFG=5.0 を用いる。映像生成では、最初のフレームを条件として後続の映像内容を生成する。VideoLDM［2］と同様に、長い映像の生成には、生成されたフレームを後続の条件として用いる。</p>
+
+<h3 id="b.2-分解モデル">B.2　分解モデル</h3>
+<p><strong>分解の学習の実装。</strong>実装は全体として B.1 節の同時モデリングの実装と同様である。分解生成では、参照ビューを追加の画像条件として用いる。</p>
+<a class="pg" data-page="15"></a>
+<p>nuScenes のデータを例にとると、まず 6 つのマルチビュー映像クリップを時計回りに並べ、\(\mathbf{x}_0\) から \(\mathbf{x}_5\) と表す。次に、学習サンプルを \(\{\mathbf{x}_{(i-1) \bmod 6}, \mathbf{x}_i, \mathbf{x}'_i, \mathbf{x}_{(i+1) \bmod 6}\}\) と定義する。ここで \(\mathbf{x}_i\) は 6 つのビューすべてからランダムにサンプリングされたステッチビューであり、\(\{\mathbf{x}_{(i-1) \bmod 6}, \mathbf{x}_{(i+1) \bmod 6}\}\) は参照ビューのペアである。\(\mathbf{x}'_i\) は \(i\) 番目のビューの以前に生成されたフレームであり、これも追加の画像条件として機能する。学習パイプラインは同時モデリングと非常に似ているが、ここでは各イテレーションで複数のビューではなく単一のビューを生成する。学習サンプル \(\{\mathbf{x}_{(i-1) \bmod 6}, \mathbf{x}_i, \mathbf{x}'_i, \mathbf{x}_{(i+1) \bmod 6}\}\) からわかるように、学習時には単一のステッチビュー \(\mathbf{x}_i\) についてビュー次元 \(N = 1\) となる。</p>
+
+<figure><img src="figs/fig10.jpg" alt="図10" /></figure>
+<p><strong>図10：まれなシーンの生成。</strong>上の 2 行：夜間のシナリオ。下の 2 行：雨天のシナリオ。</p>
+<p class="yakuchu">図中ラベル：+0s, +2s, +4s, +8s＝開始時点からの経過時間（0 秒後、2 秒後、4 秒後、8 秒後）</p>
+
+<figure><img src="figs/fig11.jpg" alt="図11" /></figure>
+<p><strong>図11：天候変化の生成。</strong>上段は晴天の日中のシーンを示す。下段は同じレイアウトを雨天のシーンとして描画したものであり、条件付き生成の能力を示している。</p>
+
+<a class="pg" data-page="16"></a>
+<p><strong>分解の推論。</strong>推論時には、いくつかのビューを参照ビューとして事前に定め、これらの参照ビューに対応する映像をまず同時モデルによって生成する。次に、ペアとなる参照映像クリップと以前に生成されたビュー（すなわち \(\mathbf{x}'_i\)）を条件として、ステッチビューの映像を生成する。具体的には、nuScenes では F、BL、BR<sup>3</sup> を参照ビューとして選択する。3 つの参照ビューは 3 つのペアを構成し、3 つのステッチビューの条件として機能する。例えば、我々のモデルは前方ビュー、左後方ビュー、および以前に生成された左前方ビューを条件として左前方ビューを生成する。推論パラメータは B.1 節と同じである。</p>
+<blockquote><p>脚注3：F：前（front）、B：後（back）、L：左（left）、R：右（right）</p></blockquote>
+
+<figure><img src="figs/fig12.jpg" alt="図12" /></figure>
+<p><strong>図12：明るさ変化の生成。</strong>上段は日中のシーンを示す。下段は同じレイアウトを夜間のシーンとして描画したものであり、条件付き生成の能力を示している。</p>
+
+<figure><img src="figs/fig13.jpg" alt="図13" /></figure>
+<p><strong>図13：前景物体のレイアウトの制御。</strong>3D ボックスの位置を変更することで、指定されたレイアウトの変化に対応する高忠実度の画像が生成される。</p>
+<p class="yakuchu">図中ラベル：Far away＝遠く、Close＝近く、In the left＝左側、In the right＝右側、Removed＝除去</p>
+
+<h2 id="c-データ">C　データ</h2>
+<p>本節では、まずデータセットの準備について述べ、次に行動ベースの生成を強化するためのデータセットのキュレーションについて紹介する。</p>
+
+<h3 id="c.1-データの準備">C.1　データの準備</h3>
+<p><strong>NuScenes データセット。</strong>nuScenes データセットは 360 度全周のカメラカバレッジを提供し、現在 3D 知覚と計画のための主要なデータセットである。公式の構成に従い、700 のストリートビューシーンを学習に、150 を検証に用いる。次に、各条件の処理について紹介する。3D ボックス条件については、3D バウンディングボックスを画像平面に投影し、八角形の角点<span class="yakuchu">（訳注：原文は octagonal corner points。3D ボックスの 8 つの頂点を指すと思われる）</span>を用いて物体の位置と寸法を表し、色を用いて異なるカテゴリを区別する。これにより、正確な物体の位置特定と異なる物体間の識別が保証される。HD マップ条件については、ベクトル線を画像平面に投影し、色でさまざまな種類を示す。BEV セグメンテーションについては、CVT［72］で概説された生成プロセスに従う。このプロセスは鳥瞰図のセグメンテーションマスクを生成し、シーン内のさまざまな物体と景観の分布を表す。テキスト条件については、各シーンの記述で提供される情報を精査する。計画条件については、学習には自車位置の正解の移動量を用い、推論には VAD［30］からの計画出力を用いる。これにより、モデルは正確な自車運動情報から学習し、計画された軌道と整合する予測を行うことができる。最後に、自車の行動条件については、各フレームについて車速と操舵の情報を抽出した。</p>
+<p><strong>Waymo Open Dataset。</strong>Waymo Open Dataset［52］は、よく知られた自動運転用の大規模データセットである。我々は「前方（front）」カメラのデータのみを用いて、768 × 512 ピクセルの画像解像度で映像モデルを学習する。マップ条件については、OpenLane［7］におけるデータ処理に従う。</p>
+<a class="pg" data-page="17"></a>
+<figure><img src="figs/fig14.jpg" alt="図14" /></figure>
+<p><strong>図14：多様な旋回挙動。</strong>同一の初期フレームを用いて、正の操舵角（左折を示す）と負の値（右折を示す）の系列をモデルに与える。この図は、両方の旋回挙動について一貫したストリートビューを生成するモデルの熟達度を示している。各フレームには対応する操舵角（度）を示す青いバーが添えられている。バーが長いほど操舵角が大きいことに対応する。見やすさのため、前方ビューのみを示す。</p>
+<p class="yakuchu">図中ラベル：Turn left＝左折、Turn right＝右折、+0s〜+6s＝開始時点からの経過時間（0〜6 秒後）</p>
+
+<figure><img src="figs/fig15.jpg" alt="図15" /></figure>
+<p><strong>図15：多様な速度挙動。</strong>速度に関する制御性を評価するため、異なるパターンの速度信号をモデルに入力する。上の系列は自車が減速してから加速する様子を示し、下の系列はその逆の挙動を示す。これら 2 つの結果は、我々のモデルの予測の写実性を際立たせている。</p>
+
+<h3 id="c.2-データのキュレーション">C.2　データのキュレーション</h3>
+<p>nuScenes データセットにおける自車の行動の分布は大きく偏っている。すなわち、フレームの大部分は小さな操舵角（30 度未満）と 10〜20 m/s の範囲の通常の速度を示している。この偏りは、まれな操舵角と速度の組み合わせに対する汎化性の弱さにつながる。</p>
+<p>この悪影響を緩和するため、まれな自車の行動を再サンプリングすることで学習データセットのバランスをとる。まず、各軌道をいくつかのクリップに分割し、各クリップが 1 種類の運転挙動（すなわち左折、直進、右折のいずれか）のみを示すようにする。この処理により 1048 個の固有のクリップが得られる。その後、平均操舵角と速度の組み合わせを離散化することで、これらのクリップをクラスタリングする。速度範囲 [0, 40]（m/s）は等しい長さの 10 個のビンに分割される。40 m/s を超える極端な速度は 11 番目のビンに入る。操舵角の範囲 [-150, 150]（度）は等しい長さの 30 個のビンに分割される。同様に、150 度を超える極端な角度と -150 度未満の極端な角度は、それぞれ別の 2 つのビンに入る。この分類によって得られた自車の行動の分布を図21にプロットする。</p>
+<p>これらのクリップの行動分布のバランスをとるため、2D の 32 × 11 のグリッドの各ビンから \(N = 36\) 個のクリップをサンプリングする。\(N\) 個より多くのクリップを含むビンについては、\(N\) 個のクリップをランダムにサンプリングする。\(N\) 個より少ないクリップしか含まないビンについては、\(N\) 個のサンプルが集まるまでそれらのクリップを繰り返し用いる。その結果、7272 個のクリップが収集される。再サンプリング後の行動分布は図21に示されている。</p>
+
+<h2 id="d-評価指標の詳細">D　評価指標の詳細</h2>
+<h3 id="d.1-映像品質">D.1　映像品質</h3>
+<p>FID と FVD の計算は、nuScenes データセットの 150 本の検証用映像クリップに対して行う。我々のモデルはマルチビュー映像を生成できるため、評価のためにそれを 6 つのビューの映像に分解する。合計 900 本の映像セグメント（約 40 フレーム）があり、VideoLDM［2］に記載された計算手順に従う。公式の UCF FVD 評価コード<sup>4</sup>を使用する。</p>
+<blockquote><p>脚注4：<a href="https://github.com/SongweiGe/TATS/">https://github.com/SongweiGe/TATS/</a></p></blockquote>
+
+<h3 id="d.2-kpm-の説明">D.2　KPM の説明</h3>
+<a class="pg" data-page="18"></a>
+<p>5.1 節で述べたように、我々は生成画像のマルチビュー一貫性を測定するための KPM スコア指標を導入した。これは FID と FVD のいずれの指標でも考慮されていないものである。図22に示すように、キーポイントマッチングのプロセスを示す。青い点は画像の左右両側の重なり領域におけるキーポイントである。緑の線は、LoFTR［51］マッチングアルゴリズムを用いた、現在のビューとその 2 つの隣接ビューとの間のマッチした点である。</p>
+
+<figure><img src="figs/fig16.jpg" alt="図16" /></figure>
+<p><strong>図16：歩行者の生成例。</strong></p>
+
+<figure><img src="figs/fig17.jpg" alt="図17" /></figure>
+<p><strong>図17：報酬関数としての GPT-4V。</strong>道路前方に水たまりがあるようなケースにおいて、GPT-4V はより合理的な報酬を与えることができる。</p>
+<p class="yakuchu">図中ラベル（吹き出しの訳）：［ユーザ］まず路面の状態を説明し、考えられる運転挙動とそれに対応する報酬を示してください。［GPT-4V］この画像は路面が濡れた曇りの日を描いている。<strong>道路上に水たまりの領域</strong>がある。- 水たまりの回避（Avoiding Puddles）：大きな水たまりを避けて操舵する。報酬：正（Reward: Positive）。- 水たまりの通過（Driving Through Puddles）：避けられない場合は、リスクを減らすために水たまりに入る前に減速する（slowing down）。報酬：正。ただし、高速（high speed）で行うと制御を失う可能性がある。報酬：負（Reward: Negative）。</p>
+<a class="pg" data-page="19"></a>
+<figure><img src="figs/fig18.jpg" alt="図18" /></figure>
+<p><strong>図18：通常のケースと領域外のケースにおける VAD の計画結果を示す映像。</strong>自車の位置を右に 0.5m ずらして領域外のケースを作成した。各シーンの上段：通常のデータにおける VAD 手法の妥当な軌道予測。各シーンの下段：分布外のケースに遭遇したときの不合理な軌道。</p>
+<p class="yakuchu">図中ラベル：+0s〜+4s＝開始時点からの経過時間（0〜4 秒後）</p>
+
+<figure><img src="figs/fig19.jpg" alt="図19" /></figure>
+<p><strong>図19：Waymo Open Dataset における高解像度画像の生成。</strong>幅広い交通密度、運転シナリオ、明るさ、天候条件に対する画像生成結果を示す。</p>
+
+<a class="pg" data-page="20"></a>
+<figure><img src="figs/fig20.jpg" alt="図20" /></figure>
+<p><strong>図20：Waymo Open Dataset における高解像度映像の生成。</strong>渋滞中に前方車両に密着して追従する場面（上）や、歩行者が道路を横断するのを待つ場面など、相互作用の大きい運転シナリオにおける映像生成結果を示す。</p>
+
+<figure><img src="figs/fig21.png" alt="図21" /></figure>
+<p><strong>図21：再サンプリング前（左）と再サンプリング後（右）の自車の行動分布。</strong>速度と操舵角のまれな組み合わせを再サンプリングし、バランスのとれた学習データセットを得る。</p>
+<p class="yakuchu">図中ラベル：speed (m/s)＝速度（m/s）、steering angle (degree)＝操舵角（度）</p>
+
+<figure><img src="figs/fig22.jpg" alt="図22" /></figure>
+<p><strong>図22：KPM 計算におけるキーポイントマッチングの説明図。</strong>青い点は画像の左右両側の重なり領域における画像キーポイントである。緑の線は、LoFTR［51］マッチングアルゴリズムを用いた、現在のビューとその 2 つの隣接ビューとの間でマッチしたキーポイントである。</p>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>DiffusionDrive 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="DiffusionDrive: Truncated Diffusion Model for End-to-End Autonomous Driving" />
+  <meta name="short-name" content="DiffusionDrive" />
+  <meta name="authors" content="Bencheng Liao, Shaoyu Chen, Haoran Yin, Bo Jiang, Cheng Wang, Sixu Yan, Xinbang Zhang, Xiangyu Li, Ying Zhang, Qian Zhang, Xinggang Wang（Huazhong University of Science &amp; Technology、Horizon Robotics）" />
+  <meta name="source-pdf" content="33_DiffusionDrive_2411.15139.pdf" />
+  <meta name="source-pages" content="15" />
+  <meta name="pdf-href" content="33_DiffusionDrive_2411.15139.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="事前アンカーを中心としたアンカー付きガウス分布から拡散スケジュールを打ち切って逆拡散する「切り詰め拡散方策」とカスケード拡散デコーダを提案し、わずか 2 ステップのノイズ除去で多様な運転軌道を生成する。NAVSIM で 88.1 PDMS を 45 FPS で達成した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">DiffusionDrive 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="33_DiffusionDrive_2411.15139.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+    <div class="page" data-page="13" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">13</div></div>
+    <div class="page" data-page="14" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">14</div></div>
+    <div class="page" data-page="15" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">15</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#diffusiondrive-truncated-diffusion-model-for-end-to-end-autonomous-driving" id="toc-diffusiondrive-truncated-diffusion-model-for-end-to-end-autonomous-driving">DiffusionDrive: Truncated Diffusion Model for End-to-End Autonomous Driving</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a></li>
+<li><a href="#3-手法" id="toc-3-手法">3　手法</a><ul>
+<li><a href="#3.1-準備" id="toc-3.1-準備">3.1　準備</a></li>
+<li><a href="#3.2-予備調査" id="toc-3.2-予備調査">3.2　予備調査</a></li>
+<li><a href="#3.3-切り詰め拡散" id="toc-3.3-切り詰め拡散">3.3　切り詰め拡散</a></li>
+<li><a href="#3.4-アーキテクチャ" id="toc-3.4-アーキテクチャ">3.4　アーキテクチャ</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a><ul>
+<li><a href="#4.1-データセット" id="toc-4.1-データセット">4.1　データセット</a></li>
+<li><a href="#4.2-実装の詳細" id="toc-4.2-実装の詳細">4.2　実装の詳細</a></li>
+<li><a href="#4.3-定量的比較" id="toc-4.3-定量的比較">4.3　定量的比較</a></li>
+<li><a href="#4.4-ロードマップ" id="toc-4.4-ロードマップ">4.4　ロードマップ</a></li>
+<li><a href="#4.5-アブレーション研究" id="toc-4.5-アブレーション研究">4.5　アブレーション研究</a></li>
+<li><a href="#4.6-定性的比較" id="toc-4.6-定性的比較">4.6　定性的比較</a></li>
+<li><a href="#4.7-nuscenes-データセットでの定量的比較" id="toc-4.7-nuscenes-データセットでの定量的比較">4.7　nuScenes データセットでの定量的比較</a></li>
+</ul></li>
+<li><a href="#5-結論" id="toc-5-結論">5　結論</a></li>
+<li><a href="#謝辞" id="toc-謝辞">謝辞</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#a-さらなる実装の詳細" id="toc-a-さらなる実装の詳細">A　さらなる実装の詳細</a></li>
+<li><a href="#b-さらなるアブレーション研究" id="toc-b-さらなるアブレーション研究">B　さらなるアブレーション研究</a></li>
+<li><a href="#c-さらなる定性的比較" id="toc-c-さらなる定性的比較">C　さらなる定性的比較</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="diffusiondrive-truncated-diffusion-model-for-end-to-end-autonomous-driving">DiffusionDrive: Truncated Diffusion Model for End-to-End Autonomous Driving</h1>
+<p>Bencheng Liao<sup>1,2,◇</sup>、Shaoyu Chen<sup>2,3</sup>、Haoran Yin<sup>3</sup>、Bo Jiang<sup>2,◇</sup>、Cheng Wang<sup>1,2,◇</sup>、Sixu Yan<sup>2</sup>、Xinbang Zhang<sup>3</sup>、Xiangyu Li<sup>3</sup>、Ying Zhang<sup>3</sup>、Qian Zhang<sup>3</sup>、Xinggang Wang<sup>2,✉</sup><br />
+<sup>1</sup> Institute of Artificial Intelligence, Huazhong University of Science &amp; Technology<br />
+<sup>2</sup> School of EIC, Huazhong University of Science &amp; Technology<br />
+<sup>3</sup> Horizon Robotics<br />
+コード・モデル・デモ：<a href="https://github.com/hustvl/DiffusionDrive">hustvl/DiffusionDrive</a><br />
+arXiv:2411.15139v3 [cs.CV]、2025年4月10日</p>
+<blockquote><p>◇ Horizon Robotics のインターン。✉ 責任著者：Xinggang Wang（<a href="mailto:xgwang@hust.edu.cn">xgwang@hust.edu.cn</a>）。</p></blockquote>
+<blockquote><p>翻訳について：原文 PDF は <code>33_DiffusionDrive_2411.15139.pdf</code>（全 15 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p><em>近年、拡散モデルはロボットの方策学習のための強力な生成手法として台頭しており、マルチモードの行動分布をモデル化できる。その能力をエンドツーエンド自動運転に活用することは有望な方向性である。しかし、ロボット向け拡散方策における多数のノイズ除去ステップと、交通シーンのより動的でオープンワールドな性質は、多様な運転行動をリアルタイムの速度で生成するうえで大きな課題となる。これらの課題に対処するため、我々は、事前のマルチモードアンカーを組み込み、拡散スケジュールを打ち切る新しい切り詰め拡散方策（truncated diffusion policy）を提案する。これにより、モデルはアンカー付きガウス分布からマルチモードの運転行動分布へのノイズ除去を学習できる。さらに、条件となるシーン文脈との相互作用を強化するため、効率的なカスケード拡散デコーダを設計する。提案モデル DiffusionDrive は、素朴な拡散方策と比べてノイズ除去ステップを 10 分の 1 に削減し、わずか 2 ステップで優れた多様性と品質を実現する。計画指向の NAVSIM データセットにおいて、条件をそろえた ResNet-34 バックボーンを用い、DiffusionDrive は特別な工夫なしに 88.1 PDMS を達成して新記録を樹立し、しかも NVIDIA 4090 上で 45 FPS のリアルタイム速度で動作する。困難なシナリオにおける定性的結果からも、DiffusionDrive が多様でもっともらしい運転行動を頑健に生成できることが確認される。</em></p>
+<blockquote><p>脚注：入力データを形容する「multimodal（マルチモーダル）」という用語と区別するため、本論文では多様な計画上の意思決定を指すのに「multi-mode（マルチモード）」を用いる。</p></blockquote>
+
+<figure><img src="figs/fig1.jpg" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：異なるエンドツーエンドパラダイムの比較。</strong>（a）単一モード回帰［7, 16, 20］。（b）語彙（vocabulary）からのサンプリング［3, 25］。（c）素朴な拡散方策［6, 19］。（d）提案する切り詰め拡散方策。</p>
+<p class="yakuchu">図中ラベル：Encode＝符号化、Scene Representation＝シーン表現、Interacting＝相互作用、Ego Query＝自車クエリ、Reg＝回帰、Single-mode Trajectory＝単一モード軌道、Scene Representation+Vocabulary＝シーン表現＋語彙、Scoring＝スコアリング、Score of Each Anchor＝各アンカーのスコア、Multi-mode Trajectories＝マルチモード軌道、Scene Rep.+Gaussian Distribution＝シーン表現＋ガウス分布、Denoise＝ノイズ除去、Diffusion Policy＝拡散方策、Scene Rep.+Anchored Gaussian Dist.＝シーン表現＋アンカー付きガウス分布、Truncated Diffusion Policy＝切り詰め拡散方策、Confidence Score＝信頼度スコア</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>エンドツーエンド自動運転は、知覚モデル（検出［4, 17, 24, 42］、追跡［54–56］、オンライン地図作成［27, 28, 32］など）の進歩により、近年大きな注目を集めている。これは生のセンサ入力から運転方策を直接学習するものである。このデータ駆動型のアプローチは、複雑な実世界の運転環境への汎化に苦労することの多い従来のルールベースの動作計画に代わる、スケーラブルで頑健な選択肢を提供する。</p>
+<a class="pg" data-page="2"></a>
+<p>データから効果的に学習するため、主流のエンドツーエンドプランナ（たとえば Transfuser［7］、UniAD［16］、VAD［20］）は、図1a に示すように、通常は自車クエリ（ego-query）から単一モードの軌道を回帰する。しかし、このパラダイムは運転行動に内在する不確実性とマルチモード性を考慮していない。最近、VADv2［20］<span class="yakuchu">（訳注：参考文献リストおよび図1・第2章では VADv2 は［3］、［20］は VAD であり、ここは［3］の誤りと思われる）</span>は、連続的な行動空間を離散化してより幅広い運転行動を捉えるために、アンカー軌道の大規模な固定語彙（4096 個のアンカー）を導入し、図1b に示すように予測スコアに基づいてこれらのアンカーからサンプリングする。しかし、この大規模固定語彙パラダイムは、アンカー軌道の数と品質によって根本的に制約され、語彙外のシナリオでしばしば失敗する。さらに、多数のアンカーを扱うことは、リアルタイム応用にとって大きな計算上の課題となる。行動空間を離散化する代わりに、拡散モデル［6］はロボティクス分野において強力な生成的意思決定方策であることが証明されており、反復的なノイズ除去過程によってガウス分布からマルチモードで物理的にもっともらしい行動を直接サンプリングできる。</p>
+<p>このことから我々は、ロボティクス分野における拡散モデルの成功をエンドツーエンド自動運転で再現することに着想を得た。我々は、よく知られた単一モード回帰手法である Transfuser［7］に素朴なロボット向け拡散方策を適用し、決定論的な MLP 回帰ヘッドを条件付き拡散モデル［34］に置き換えた変種 Transfuser<sub>DP</sub> を提案する。Transfuser<sub>DP</sub> は計画性能を改善するものの、2 つの大きな問題が生じる。<em>1）素朴な DDIM 拡散方策における 20 回もの多数のノイズ除去ステップは、表2 に示すように推論時に重い計算コストをもたらし、自動運転へのリアルタイム適用を妨げる。2）図2 に示すように、異なるガウスノイズからサンプリングされた軌道どうしが互いに大きく重なり合う。</em>これは、動的でオープンワールドな交通シーンに拡散モデルを適応させること（taming）が容易ではない課題であることを示している。</p>
+<p>シーン文脈を条件として無作為なガウスノイズから行動をサンプリングする素朴な拡散方策とは異なり、人間のドライバーは確立された運転パターンに従い、それをリアルタイムの交通状況に応じて動的に調整する。この洞察から、我々はガウス分布を事前アンカーを中心とする複数のサブガウス分布に分割すること（これをアンカー付きガウス分布と呼ぶ）によって、こうした事前の運転パターンを拡散方策に埋め込むことを着想した。これは、図3 に示すように、拡散スケジュールを打ち切って事前アンカーの周囲にわずかなガウスノイズのみを導入することで実装される。拡散モデルのマルチモードな分布表現力のおかげで、提案する切り詰め拡散方策は、VADv2 のように大規模な固定アンカー集合を必要とすることなく、潜在的な行動空間を効果的にカバーする。アンカー付きガウス分布からより妥当な初期ノイズサンプルが得られるため、ノイズ除去過程を打ち切ることができ、必要なステップ数を 20 からわずか 2 に削減できる。これは自動運転のリアルタイム要件を満たす大幅な高速化である。</p>
+<p>条件となるシーン文脈との相互作用を強化するため、我々は、知覚モジュールからの構造化クエリだけでなく、鳥瞰図（BEV）特徴および透視図（PV）特徴ともスパースな変形可能注意機構（deformable attention）［62］を通じて相互作用する、効率的な Transformer ベースの拡散デコーダを提案する。さらに、各ノイズ除去ステップにおいて拡散デコーダ内で軌道の再構成を反復的に洗練するカスケード機構を導入する。</p>
+<p>これらの新機軸により、我々はリアルタイムのエンドツーエンド自動運転のための拡散モデル <strong>DiffusionDrive</strong> を提示する。我々は、計画指向の NAVSIM データセット［10］上で、非反応型シミュレーションと閉ループ評価を用いて本手法をベンチマークする。特別な工夫なしに、DiffusionDrive は条件をそろえた ResNet-34 バックボーンで NAVSIM の <code>navtest</code> 分割において 88.1 PDMS を達成し、従来の最先端手法を大きく上回る。8192 個のアンカー軌道を用いる VADv2 に倣い、さらに後処理と追加の教師信号を組み込んだ NAVSIM チャレンジ優勝解法 Hydra-MDP-\(\mathcal{V}_{8192}\)-W-EP［25］と比べても、DiffusionDrive は人間のデモンストレーションから直接学習し後処理なしで推論しながら、なお 1.6 PDMS 上回り、しかも NVIDIA 4090 上で 45 FPS のリアルタイム速度で動作する。さらに、広く使われる nuScenes データセット［2］において開ループ評価により DiffusionDrive の優位性を検証する。同じ ResNet-50 バックボーンで、DiffusionDrive は VAD より 1.8 倍高速に動作し、L2 誤差で 20.8%、衝突率で 63.6% 低く VAD［20］を上回り、最先端の計画性能を示す。</p>
+<p>我々の貢献は次のようにまとめられる。</p>
+<ul>
+<li>我々は初めて拡散モデルをエンドツーエンド自動運転の分野に導入し、素朴な拡散方策を交通シーンに直接適用した際に見られるモード崩壊と重い計算オーバーヘッドの問題に対処する、新しい切り詰め拡散方策を提案する。</li>
+<li>より良い軌道再構成のため、条件情報とカスケード方式で相互作用する効率的な Transformer ベースの拡散デコーダを設計する。</li>
+<li>特別な工夫なしに、DiffusionDrive は従来の最先端手法を大きく上回り、同じバックボーンで NAVSIM の <code>navtest</code> 分割において記録的な 88.1 PDMS を達成しつつ、NVIDIA 4090 上で 45 FPS のリアルタイム性能を維持する。</li>
+<li>DiffusionDrive が、より多様でもっともらしい軌道を生成でき、さまざまな困難なシナリオにおいて高品質なマルチモードの運転行動を示すことを定性的に実証する。</li>
+</ul>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<a class="pg" data-page="3"></a>
+<p><strong>エンドツーエンド自動運転。</strong>先駆的研究である UniAD［16］は、複数の知覚タスクを統合して計画性能を高めることで、エンドツーエンド自動運転の可能性を示した。VAD［20］はさらに、効率を高めるためにコンパクトなベクトル化シーン表現の利用を探究した。その後、一連の研究［5, 7, 12, 23, 26, 43, 45, 58］が、計画性能をさらに高めるために単一軌道計画のパラダイムを採用してきた。より最近では、VADv2［3］が、アンカー軌道の大規模な固定語彙からスコアリングしサンプリングすることで、パラダイムをマルチモード計画へと転換した。Hydra-MDP［25］は、ルールベースのスコアラからの追加の教師信号を導入して VADv2 のスコアリング機構を改善した。SparseDrive［39］は BEV を用いない代替解を探究している。既存のマルチモード計画手法とは異なり、我々はエンドツーエンド自動運転のために強力な生成拡散モデルを活用する新しいパラダイムを提案する。</p>
+
+<figure><img src="figs/fig2.jpg" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：NAVSIM <code>navtest</code> 分割の困難なシーンにおける Transfuser、Transfuser<sub>DP</sub>、DiffusionDrive の定性的比較。</strong>（a）トップ 1 の軌道は直進し、トップ 10 の軌道は多様な車線変更を示す。（b）トップ 1 の軌道は左折し、トップ 10 の軌道は多様な車線変更を示す。前方カメラと LiDAR からの同一の入力を用いて、表2 に示すとおり、DiffusionDrive はトップ 1 スコア軌道において最も高い計画品質を達成する。DiffusionDrive が予測した、強調表示した多様な軌道を前方ビューに描画している。（a）と（b）は、DiffusionDrive のトップ 1 スコア軌道が直進と左折の両方で正解（ground truth）とよく一致することを示している。さらに、DiffusionDrive のトップ 10 スコア軌道は高品質な車線変更を示しており、これはマルチモードの Transfuser<sub>DP</sub> では見られず、Transfuser では不可能な能力である。</p>
+<p class="yakuchu">図中ラベル：Sampled Noises＝サンプリングしたノイズ、Denoised Trajs＝ノイズ除去後の軌道、Camera Input＝カメラ入力、20 steps / 2 steps＝20 ステップ／2 ステップ、Mode Collapse＝モード崩壊、Diverse Modes＝多様なモード、Confidence Score＝信頼度スコア、Top-1 Scoring Traj＝スコア上位 1 の軌道、Top-10 Scoring Traj＝スコア上位 10 の軌道、GT Traj＝正解軌道、Top-1's going straight and diverse top-10's lane changing＝トップ 1 は直進、トップ 10 は多様な車線変更、Top-1's turning left and diverse top-10's lane changing＝トップ 1 は左折、トップ 10 は多様な車線変更</p>
+
+<p><strong>交通シミュレーションのための拡散モデル。</strong>運転のための拡散方策は、抽象的な知覚の正解情報のみを活用する形で交通シミュレーションにおいて探究されてきた［8, 18, 21, 44］。MotionDiffuser［21］と CTG［60］は、条件付き拡散モデルを用いてガウスノイズから目標軌道をサンプリングする、マルチエージェント動作予測への拡散モデルの先駆的な応用である。CTG++［59］はさらに、言語駆動の誘導のために大規模言語モデル（LLM）を組み込み、使いやすさを高めて現実的な交通シミュレーションを可能にした。Diffusion-ES［48］は、報酬勾配による誘導付きノイズ除去を進化的探索に置き換えた。知覚の正解情報を用いる交通シミュレーションに限定された拡散モデルを超えて、我々のアプローチは、提案する切り詰め拡散方策と効率的な拡散デコーダによって、リアルタイムのエンドツーエンド自動運転における拡散モデルの可能性を引き出す。</p>
+<a class="pg" data-page="4"></a>
+<p><strong>ロボットの方策学習のための拡散モデル。</strong>拡散方策（Diffusion policy）［6］はロボットの方策学習において大きな可能性を示し、マルチモードの行動分布と高次元の行動空間を効果的に捉える。Diffuser［19］は軌道サンプリングのための無条件拡散モデルを提案し、classifier-free guidance や画像インペインティングといった技術を取り入れて誘導付きサンプリングを実現した。その後、多くの研究が、静置型マニピュレーション［1, 53］、モバイルマニピュレーション［47］、自律ナビゲーション［37, 51］、四脚歩行［38］、器用なマニピュレーション［46］など、さまざまなロボットタスクに拡散モデルを適用してきた。しかし、素朴な拡散方策をエンドツーエンド自動運転に直接適用することには固有の課題がある。動的でオープンワールドな交通シーンにおいて、リアルタイムの効率と、もっともらしいマルチモード軌道の生成とが求められるからである。本研究では、これらの課題に対処する新しい切り詰め拡散方策を提案し、ロボティクス分野ではまだ探究されていない概念を導入する。</p>
+
+<figure><img src="figs/fig3.jpg" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：素朴な拡散方策との比較による切り詰め拡散方策の説明図。</strong>我々は拡散過程を打ち切り、アンカー軌道を拡散させるためにわずかなガウスノイズのみを加える。次に、条件となるシーン文脈のもとで、アンカー付きガウス分布から正解軌道を再構成するように拡散モデルを学習する。推論時にも、純粋なガウスノイズではなく、アンカー付きガウス分布中のより良いサンプルから開始することで、ノイズ除去過程を打ち切る。</p>
+<p class="yakuchu">図中ラベル：Diffusion step＝拡散ステップ、Denoising step＝ノイズ除去ステップ、Vanilla Diffusion Policy vs. Truncated Diffusion Policy (ours)＝素朴な拡散方策 対 切り詰め拡散方策（提案手法）、Adding noise to the anchors with truncated diffusion schedule＝切り詰めた拡散スケジュールでアンカーにノイズを加える、Denosing from anchored Gaussian distribution with fewer steps＝より少ないステップでアンカー付きガウス分布からノイズ除去する（原文 “Denosing” は “Denoising” の誤植）、Confidence Score＝信頼度スコア</p>
+
+<p><strong>画像生成のための拡散モデル。</strong>拡散モデルは画像生成タスクに広く採用されている［33, 36, 49, 50, 61］。DDIM［35］は、非マルコフ拡散過程に基づいて大幅に少ないステップでの効率的なサンプリングを可能にすることで DDPM［14］を改良した。フローマッチング（Flow matching）［30, 31］は、連続的な確率の流れを直接モデル化することで生成過程をさらに最適化する。TDPM［57］は、暗黙的な中間分布から生成過程を開始してサンプリングを高速化する切り詰めノイズ除去を提案した。これらのアプローチとは対照的に、我々の手法は拡散方策の中に明示的な運転の事前知識を導入し、エンドツーエンド自動運転に特化した、より正確で効率的な生成へと拡散過程を効果的に導く。</p>
+
+<h2 id="3-手法">3　手法</h2>
+<h3 id="3.1-準備">3.1　準備</h3>
+<p><strong>タスクの定式化。</strong>エンドツーエンド自動運転は、生のセンサデータを入力として受け取り、自車の将来軌道を予測する。軌道はウェイポイントの系列 \(\tau = \{(x_t, y_t)\}_{t=1}^{T_f}\) として表現される。ここで \(T_f\) は計画ホライズンを表し、\((x_t, y_t)\) は現在の自車座標系における時刻 \(t\) の各ウェイポイントの位置である。</p>
+<p><strong>条件付き拡散モデル。</strong>条件付き拡散モデルは、データサンプルに徐々にノイズを加える過程として順拡散過程を定め、これは次のように定義できる。</p>
+<p>\[ q\left(\tau^i \mid \tau^0\right) = \mathcal{N}\left(\tau^i; \sqrt{\bar{\alpha}^i}\boldsymbol{\tau}^0, \left(1-\bar{\alpha}^i\right)\mathbf{I}\right), \tag{1} \]</p>
+<a class="pg" data-page="5"></a>
+<p>ここで \(\tau^0\) はノイズのないデータサンプル、\(\tau^i\) は時刻 \(i\) におけるノイズを含むデータサンプルである（注：拡散のタイムステップを表すのに上付きの \(i\) を用いる）。定数 \(\bar{\alpha}^i = \prod_{s=1}^{i} \alpha^s = \prod_{s=1}^{i}(1-\beta^s)\) であり、\(\beta^s\) はノイズスケジュールである。我々は、条件情報 \(z\) の誘導のもとで \(\tau^i\) から \(\tau^0\) を予測するように逆過程モデル \(f_\theta(\tau^i, z, i)\) を学習する。ここで \(\theta\) は学習可能なモデルパラメータである。推論時には、学習済みの拡散モデル \(f_\theta\) が、条件情報 \(z\) の誘導のもとで、ガウス分布からサンプリングした無作為なノイズ \(\tau^T\) を予測されたノイズのないデータサンプル \(\tau^0\) へと段階的に洗練していく。これは次のように定義される。</p>
+<p>\[ p_\theta\left(\boldsymbol{\tau}^0 \mid z\right) = \int p\left(\boldsymbol{\tau}^T\right) \prod_{i=1}^{T} p_\theta\left(\boldsymbol{\tau}^{i-1} \mid \boldsymbol{\tau}^i, z\right) \mathrm{d}\boldsymbol{\tau}^{1:T}. \tag{2} \]</p>
+
+<figure><img src="figs/fig4.png" loading="lazy" alt="図4" /></figure>
+<p><strong>図4：DiffusionDrive の全体アーキテクチャ。</strong>（a）全体パイプライン。DiffusionDrive は既存のさまざまな知覚モジュールとセンサ入力を統合できる。（b）拡散デコーダのアーキテクチャ。設計した拡散デコーダは、アンカー付きガウス分布からサンプリングしたノイズを含む軌道を入力として受け取り、条件となるシーン文脈との強化された相互作用によってそれらをカスケード方式で段階的にノイズ除去し、最終的な予測を生成する。</p>
+<p class="yakuchu">図中ラベル：Anchored Gaussian Distribution＝アンカー付きガウス分布、Sample＝サンプリング、N<sub>infer</sub> Noisy Trajs＝N<sub>infer</sub> 本のノイズを含む軌道、On-board Sensor Data＝車載センサデータ、Perception (Map/Det)＝知覚（地図／検出）、Agent＝エージェント、Map＝地図、Condition＝条件、Diffusion Decoder＝拡散デコーダ、Diverse Driving Trajectories＝多様な運転軌道、Confidence Score＝信頼度スコア、Top-1 / Top-10 Scoring Traj＝スコア上位 1／上位 10 の軌道、N<sub>infer</sub> Denoised Trajs at Step i＝ステップ i における N<sub>infer</sub> 本のノイズ除去後の軌道、Spatial Cross-Attn＝空間クロス注意、Agent/Map Cross-Attn＝エージェント／地図クロス注意、Timestep Modulation＝タイムステップ変調、Score / Traj.＝スコア／軌道、Diffusion Decoder Layer＝拡散デコーダ層、Iterative Diffusion Denoising＝反復的な拡散ノイズ除去、N×＝N 回繰り返し</p>
+
+<h3 id="3.2-予備調査">3.2　予備調査</h3>
+<p><strong>Transfuser［7］を条件付き拡散モデルに変える。</strong>我々は代表的な決定論的エンドツーエンドプランナである Transfuser［7］から出発し、素朴な拡散方策［6］に従って回帰用の MLP 層を条件付き拡散モデルの UNet に置き換えるだけで、これを生成モデル Transfuser<sub>DP</sub> に変える。評価時には、無作為なノイズをサンプリングし、20 ステップで段階的に洗練する。表2 は、Transfuser<sub>DP</sub> が決定論的な Transfuser より優れた計画品質を達成することを示している。</p>
+<p><strong>モード崩壊。</strong>運転における素朴な拡散方策のマルチモード特性をさらに調べるため、ガウス分布から 20 個の無作為なノイズをサンプリングし、20 ステップでノイズ除去した。図2 に示すように、異なる無作為ノイズはノイズ除去過程の後に似通った軌道へと収束する。モード崩壊の現象を定量的に分析するため、各ノイズ除去後の軌道と全ノイズ除去後の軌道の和集合との間の平均 Intersection over Union（mIoU）に基づいて、モード多様性スコア \(\mathcal{D}\) を定義する。</p>
+<p>\[ \mathcal{D} = 1 - \frac{1}{N}\sum_{i=1}^{N} \frac{\mathrm{Area}(\tau_i \cap \bigcup_{j=1}^{N} \tau_j)}{\mathrm{Area}(\tau_i \cup \bigcup_{j=1}^{N} \tau_j)}, \tag{3} \]</p>
+<p>ここで \(\tau_i\) は \(i\) 番目のノイズ除去後の軌道、\(N\) はサンプリングした軌道の総数、\(\bigcup_{j=1}^{N} \tau_j\) は全ノイズ除去後の軌道の和集合を表す。mIoU が高いほど、ノイズ除去後の軌道の多様性が低いことを示す。表2 の定量的なモード多様性の結果は、図2 で示した観察をさらに裏付けている。</p>
+<p><strong>重いノイズ除去オーバーヘッド。</strong>DDIM［35］拡散方策は、無作為なノイズを実行可能な軌道に変換するのに 20 回のノイズ除去ステップを必要とし、表2 に示すように大きな計算オーバーヘッドをもたらして FPS を 60 から 7 に低下させる。これにより、リアルタイムのオンライン運転応用には実用的でなくなる。</p>
+
+<h3 id="3.3-切り詰め拡散">3.3　切り詰め拡散</h3>
+<p>人間の運転は、素朴な拡散方策における無作為ノイズのノイズ除去とは異なり、決まったパターンに従う。このことに動機づけられ、我々は、標準ガウス分布ではなくアンカー付きガウス分布からノイズ除去過程を開始する切り詰め拡散方策を提案する。アンカー付きガウス分布から望ましい運転方策へのノイズ除去をモデルが学習できるように、さらに学習時に拡散スケジュールを打ち切り、アンカーにはわずかな量のガウスノイズのみを加える。</p>
+<p><strong>学習。</strong>まず、学習セット上で K-Means によりクラスタリングしたアンカー \(\{\mathbf{a}_k\}_{k=1}^{N_{\text{anchor}}}\) にガウスノイズを加えることで拡散過程を構成する。ここで \(\mathbf{a}_k = \{(x_t, y_t)\}_{t=1}^{T_f}\) である。拡散ノイズスケジュールを打ち切り、アンカーをアンカー付きガウス分布へと拡散させる。</p>
+<p>\[ \tau_k^i = \sqrt{\bar{\alpha}^i}\mathbf{a}_k + \sqrt{1-\bar{\alpha}^i}\boldsymbol{\epsilon}, \quad \boldsymbol{\epsilon} \sim \mathcal{N}(0, \mathbf{I}), \tag{4} \]</p>
+<p>ここで \(i \in [1, T_{\text{trunc}}]\) であり、\(T_{\text{trunc}} \ll T\) は切り詰めた拡散ステップ数である。</p>
+<p>学習時、拡散デコーダ \(f_\theta\) は \(N_{\text{anchor}}\) 本のノイズを含む軌道 \(\{\tau_k^i\}_{k=1}^{N_{\text{anchor}}}\) を入力として受け取り、分類スコア \(\{\hat{s}_k\}_{k=1}^{N_{\text{anchor}}}\) とノイズ除去後の軌道 \(\{\hat{\tau}_k\}_{k=1}^{N_{\text{anchor}}}\) を予測する。</p>
+<p>\[ \{\hat{s}_k, \hat{\tau}_k\}_{k=1}^{N_{\text{anchor}}} = f_\theta(\{\tau_k^i\}_{k=1}^{N_{\text{anchor}}}, z), \tag{5} \]</p>
+<a class="pg" data-page="6"></a>
+<p>ここで \(z\) は条件情報を表す。正解軌道 \(\tau_{\text{gt}}\) に最も近いアンカーの周囲のノイズを含む軌道を正例（\(y_k = 1\)）、その他を負例（\(y_k = 0\)）として割り当てる。学習目的関数は軌道再構成と分類を組み合わせたものである。</p>
+<p>\[ \mathcal{L} = \sum_{k=1}^{N_{\text{anchor}}} [y_k \mathcal{L}_{\text{rec}}(\hat{\tau}_k, \tau_{\text{gt}}) + \lambda \mathrm{BCE}(\hat{s}_k, y_k)], \tag{6} \]</p>
+<p>ここで \(\lambda\) は、単純な L1 再構成損失 \(\mathcal{L}_{\text{rec}}\) と二値交差エントロピー（BCE）分類損失のバランスをとる。</p>
+
+<table><thead><tr><th>手法</th><th>入力</th><th>画像バックボーン</th><th>アンカー数</th><th>NC ↑</th><th>DAC ↑</th><th>TTC ↑</th><th>Comf. ↑</th><th>EP ↑</th><th>PDMS ↑</th></tr></thead>
+<tbody>
+<tr><td>UniAD［16］</td><td>Camera</td><td>ResNet-34［13］</td><td style="text-align:right">0</td><td style="text-align:right">97.8</td><td style="text-align:right">91.9</td><td style="text-align:right">92.9</td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right">78.8</td><td style="text-align:right">83.4</td></tr>
+<tr><td>PARA-Drive［45］</td><td>Camera</td><td>ResNet-34［13］</td><td style="text-align:right">0</td><td style="text-align:right">97.9</td><td style="text-align:right">92.4</td><td style="text-align:right">93.0</td><td style="text-align:right">99.8</td><td style="text-align:right">79.3</td><td style="text-align:right">84.0</td></tr>
+<tr><td>LTF［7］</td><td>Camera</td><td>ResNet-34［13］</td><td style="text-align:right">0</td><td style="text-align:right">97.4</td><td style="text-align:right">92.8</td><td style="text-align:right">92.4</td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right">79.0</td><td style="text-align:right">83.8</td></tr>
+<tr><td>Transfuser［7］</td><td>C &amp; L</td><td>ResNet-34［13］</td><td style="text-align:right">0</td><td style="text-align:right">97.7</td><td style="text-align:right">92.8</td><td style="text-align:right">92.8</td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right">79.2</td><td style="text-align:right">84.0</td></tr>
+<tr><td>DRAMA［52］</td><td>C &amp; L</td><td>ResNet-34［13］</td><td style="text-align:right">0</td><td style="text-align:right">98.0</td><td style="text-align:right">93.1</td><td style="text-align:right"><strong>94.8</strong></td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right"><u>80.1</u></td><td style="text-align:right">85.5</td></tr>
+<tr><td>VADv2-\(\mathcal{V}_{8192}\)［3］</td><td>C &amp; L</td><td>ResNet-34［13］</td><td style="text-align:right">8192</td><td style="text-align:right">97.2</td><td style="text-align:right">89.1</td><td style="text-align:right">91.6</td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right">76.0</td><td style="text-align:right">80.9</td></tr>
+<tr><td>Hydra-MDP-\(\mathcal{V}_{8192}\)［25］</td><td>C &amp; L</td><td>ResNet-34［13］</td><td style="text-align:right">8192</td><td style="text-align:right">97.9</td><td style="text-align:right">91.7</td><td style="text-align:right">92.9</td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right">77.6</td><td style="text-align:right">83.0</td></tr>
+<tr><td>Hydra-MDP-\(\mathcal{V}_{8192}\)-W-EP［25］</td><td>C &amp; L</td><td>ResNet-34［13］</td><td style="text-align:right">8192</td><td style="text-align:right"><strong>98.3</strong></td><td style="text-align:right"><u>96.0</u></td><td style="text-align:right">94.6</td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right">78.7</td><td style="text-align:right">86.5</td></tr>
+<tr><td>DiffusionDrive（提案手法）</td><td>C &amp; L</td><td>ResNet-34［13］</td><td style="text-align:right">20</td><td style="text-align:right"><u>98.2</u></td><td style="text-align:right"><strong>96.2</strong></td><td style="text-align:right"><u>94.7</u></td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right"><strong>82.2</strong></td><td style="text-align:right"><strong>88.1</strong></td></tr>
+</tbody></table>
+<p><strong>表1：閉ループ指標による計画指向の NAVSIM <code>navtest</code> 分割での比較。</strong>「C &amp; L」はセンサ入力としてカメラと LiDAR の両方を用いることを表す。「\(\mathcal{V}_{8192}\)」は 8192 個のアンカーを表す。「Hydra-MDP-\(\mathcal{V}_{8192}\)-W-EP」は Hydra-MDP［25］の変種であり、ルールベースの評価器からの追加の教師信号によって EP 評価指標に適合するようさらに学習され、重み付き信頼度による後処理を用いる。DiffusionDrive は単純に人間のデモンストレーションから学習し、後処理なしで推論する。<strong>最良</strong>と<u>次点</u>の結果をそれぞれ太字と下線で示す。</p>
+
+<table><thead>
+<tr><th rowspan="2">手法</th><th rowspan="2">NC↑</th><th rowspan="2">DAC↑</th><th rowspan="2">TTC↑</th><th rowspan="2">Comf.↑</th><th rowspan="2">EP↑</th><th rowspan="2">PDMS↑</th><th colspan="4">計画モジュールの時間</th><th rowspan="2">\(\mathcal{D}\) ↑</th><th rowspan="2">Para.↓</th><th rowspan="2">FPS↑</th></tr>
+<tr><th>構造</th><th>ステップ時間↓</th><th>ステップ数↓</th><th>合計↓</th></tr>
+</thead><tbody>
+<tr><td>Transfuser</td><td style="text-align:right">97.7</td><td style="text-align:right">92.8</td><td style="text-align:right">92.8</td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right">79.2</td><td style="text-align:right">84.0</td><td>MLP</td><td style="text-align:right"><strong>0.2ms</strong></td><td style="text-align:right"><strong>1</strong></td><td style="text-align:right"><strong>0.2ms</strong></td><td style="text-align:right">0%</td><td style="text-align:right"><strong>56M</strong></td><td style="text-align:right"><strong>60</strong></td></tr>
+<tr><td>Transfuser<sub>DP</sub></td><td style="text-align:right">97.5</td><td style="text-align:right">93.7</td><td style="text-align:right">92.7</td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right">79.4</td><td style="text-align:right">84.6<sub>+0.6</sub></td><td>UNet</td><td style="text-align:right">6.5ms</td><td style="text-align:right">20</td><td style="text-align:right">130.0ms</td><td style="text-align:right">11%</td><td style="text-align:right">101M</td><td style="text-align:right">7</td></tr>
+<tr><td>Transfuser<sub>TD</sub></td><td style="text-align:right"><u>97.9</u></td><td style="text-align:right"><u>94.2</u></td><td style="text-align:right"><u>93.9</u></td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right"><u>80.2</u></td><td style="text-align:right"><u>85.7</u><sub>+1.7</sub></td><td>UNet</td><td style="text-align:right">6.9ms</td><td style="text-align:right">2</td><td style="text-align:right">13.8ms</td><td style="text-align:right"><u>70%</u></td><td style="text-align:right">102M</td><td style="text-align:right">27</td></tr>
+<tr><td>DiffusionDrive</td><td style="text-align:right"><strong>98.2</strong></td><td style="text-align:right"><strong>96.2</strong></td><td style="text-align:right"><strong>94.7</strong></td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right"><strong>82.2</strong></td><td style="text-align:right"><strong>88.1</strong><sub>+4.1</sub></td><td>Dec.</td><td style="text-align:right"><u>3.8ms</u></td><td style="text-align:right"><u>2</u></td><td style="text-align:right"><u>7.6ms</u></td><td style="text-align:right"><strong>74%</strong></td><td style="text-align:right"><u>60M</u></td><td style="text-align:right"><u>45</u></td></tr>
+</tbody></table>
+<p><strong>表2：NAVSIM <code>navtest</code> 分割における Transfuser から DiffusionDrive へのロードマップ。</strong>「Transfuser<sub>DP</sub>」は素朴な DDIM 拡散方策［6］を用いた Transfuser を表す。「Transfuser<sub>TD</sub>」は切り詰め拡散方策を用いた Transfuser を表す。「ステップ時間（Step Time）」は各ノイズ除去ステップの実行時間を表す。「FPS」と実行時間は NVIDIA 4090 GPU 上で計測した。「\(\mathcal{D}\)」は式（3）で定義したモード多様性スコアを表す。</p>
+<p class="yakuchu">表中の略記：構造（Arch.）の Dec. は提案する拡散デコーダ、Para. はパラメータ数。</p>
+
+<p><strong>推論。</strong>我々は、アンカー付きガウス分布からサンプリングしたノイズを含む軌道から開始し、それらを段階的にノイズ除去して最終予測に至る切り詰めノイズ除去過程を用いる。各ノイズ除去タイムステップにおいて、前のステップで推定された軌道が拡散デコーダ \(f_\theta\) に渡され、デコーダは分類スコア \(\{\hat{s}_k\}_{k=1}^{N_{\text{infer}}}\) と座標 \(\{\hat{\tau}_k\}_{k=1}^{N_{\text{infer}}}\) を予測する。現在のタイムステップの予測を得た後、DDIM［35］の更新則を適用して次のタイムステップの軌道をサンプリングする。</p>
+<p><strong>推論の柔軟性。</strong>我々のアプローチの重要な利点は推論の柔軟性にある。モデルは \(N_{\text{anchor}}\) 本の軌道で学習されるが、推論過程では任意の数の軌道サンプル \(N_{\text{infer}}\) を扱うことができ、\(N_{\text{infer}}\) は計算資源や応用上の要件に応じて動的に調整できる。</p>
+
+<h3 id="3.4-アーキテクチャ">3.4　アーキテクチャ</h3>
+<p>提案手法 DiffusionDrive の全体アーキテクチャを図4 に示す。DiffusionDrive は、従来のエンドツーエンドプランナ［7, 16, 20, 39］で用いられた既存のさまざまな知覚モジュールを統合でき、異なるセンサ入力を受け取ることができる。設計した拡散デコーダは、複雑で困難な運転応用に合わせて調整されており、条件となるシーン文脈との相互作用が強化されている。</p>
+<p><strong>拡散デコーダ。</strong>アンカー付きガウス分布からサンプリングしたノイズを含む軌道の集合 \(\{\hat{\tau}_k\}_{k=1}^{N_{\text{infer}}}\) が与えられると、まず変形可能な空間クロス注意［29, 42, 62］を適用し、軌道の座標に基づいて鳥瞰図（BEV）特徴または透視図（PV）特徴と相互作用させる。続いて、軌道特徴と知覚モジュールから得られたエージェント／地図クエリとの間でクロス注意を行い、その後にフィードフォワードネットワーク（FFN）を適用する。拡散タイムステップの情報を符号化するため、タイムステップ変調（Timestep Modulation）層を用い、その後に多層パーセプトロン（MLP）を置いて、信頼度スコアと、初期のノイズを含む軌道座標に対するオフセットを予測する。この拡散デコーダ層の出力は、後続のカスケード拡散デコーダ層の入力となる。DiffusionDrive はさらに、推論時にカスケード拡散デコーダを再利用して軌道を反復的にノイズ除去し、そのパラメータは異なるノイズ除去タイムステップ間で共有される。最も高い信頼度スコアをもつ最終軌道が出力として選択される。</p>
+<a class="pg" data-page="7"></a>
+<table><thead>
+<tr><th rowspan="2">ID</th><th rowspan="2">UNet デコーダ</th><th rowspan="2">自車クエリとの相互作用</th><th rowspan="2">空間クロス注意</th><th rowspan="2">エージェント／地図クロス注意</th><th rowspan="2">カスケードデコーダ</th><th rowspan="2">Param.↓</th><th colspan="6">計画指標</th></tr>
+<tr><th>NC↑</th><th>DAC↑</th><th>TTC↑</th><th>Comf.↑</th><th>EP↑</th><th>PDMS↑</th></tr>
+</thead><tbody>
+<tr><td style="text-align:right">1</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td style="text-align:right">102M</td><td style="text-align:right">97.9</td><td style="text-align:right">94.2</td><td style="text-align:right">93.9</td><td style="text-align:right">100</td><td style="text-align:right">80.2</td><td style="text-align:right">85.7</td></tr>
+<tr><td style="text-align:right">2</td><td>✗</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td style="text-align:right">57M</td><td style="text-align:right">88.7</td><td style="text-align:right">83.2</td><td style="text-align:right">80.0</td><td style="text-align:right">84.8</td><td style="text-align:right">43.3</td><td style="text-align:right">55.1</td></tr>
+<tr><td style="text-align:right">3</td><td>✗</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td style="text-align:right">58M</td><td style="text-align:right">98.2</td><td style="text-align:right">95.4</td><td style="text-align:right">94.4</td><td style="text-align:right">100</td><td style="text-align:right">81.3</td><td style="text-align:right">87.1</td></tr>
+<tr><td style="text-align:right">4</td><td>✗</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td style="text-align:right">58M</td><td style="text-align:right">97.9</td><td style="text-align:right">93.5</td><td style="text-align:right">93.8</td><td style="text-align:right">100</td><td style="text-align:right">79.8</td><td style="text-align:right">85.1</td></tr>
+<tr><td style="text-align:right">5</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td style="text-align:right">59M</td><td style="text-align:right">98.0</td><td style="text-align:right">95.8</td><td style="text-align:right">94.4</td><td style="text-align:right">100</td><td style="text-align:right">81.7</td><td style="text-align:right">87.4</td></tr>
+<tr><td style="text-align:right">6</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">60M</td><td style="text-align:right">98.2</td><td style="text-align:right">96.2</td><td style="text-align:right">94.7</td><td style="text-align:right">100</td><td style="text-align:right">82.2</td><td style="text-align:right">88.1</td></tr>
+</tbody></table>
+<p><strong>表3：設計上の選択に関するアブレーション。</strong>「カスケードデコーダ（Cascade Decoder）」は、2 層のカスケード拡散デコーダ層を積み重ねることを示す。ID-1 は表2 の Transfuser<sub>TD</sub> を指し、条件付き UNet と、Transfuser が単一モード軌道を直接回帰するのに用いる自車クエリとの相互作用を利用する。</p>
+
+<table><thead><tr><th>ステップ数</th><th>Param.</th><th>NC</th><th>DAC</th><th>TTC</th><th>Comf.</th><th>EP</th><th>PDMS</th></tr></thead><tbody>
+<tr><td style="text-align:right">1</td><td style="text-align:right">60M</td><td style="text-align:right">98.3</td><td style="text-align:right">96.0</td><td style="text-align:right">94.7</td><td style="text-align:right">100</td><td style="text-align:right">82.1</td><td style="text-align:right">87.9</td></tr>
+<tr><td style="text-align:right">2</td><td style="text-align:right">60M</td><td style="text-align:right">98.2</td><td style="text-align:right">96.2</td><td style="text-align:right">94.7</td><td style="text-align:right">100</td><td style="text-align:right">82.2</td><td style="text-align:right">88.1</td></tr>
+<tr><td style="text-align:right">3</td><td style="text-align:right">60M</td><td style="text-align:right">98.2</td><td style="text-align:right">96.3</td><td style="text-align:right">94.7</td><td style="text-align:right">100</td><td style="text-align:right">92.2</td><td style="text-align:right">88.1</td></tr>
+</tbody></table>
+<p><strong>表4：ノイズ除去ステップ数。</strong><span class="yakuchu">（訳注：3 ステップの行の EP「92.2」は、他の行の値および PDMS が 88.1 で変わらないことから「82.2」の誤植と思われる。値は原文のまま掲載した。）</span></p>
+
+<table><thead><tr><th>ステージ数</th><th>Param.</th><th>NC</th><th>DAC</th><th>TTC</th><th>Comf.</th><th>EP</th><th>PDMS</th></tr></thead><tbody>
+<tr><td style="text-align:right">1</td><td style="text-align:right">59M</td><td style="text-align:right">98.0</td><td style="text-align:right">95.8</td><td style="text-align:right">94.4</td><td style="text-align:right">100</td><td style="text-align:right">81.7</td><td style="text-align:right">87.4</td></tr>
+<tr><td style="text-align:right">2</td><td style="text-align:right">60M</td><td style="text-align:right">98.2</td><td style="text-align:right">96.2</td><td style="text-align:right">94.7</td><td style="text-align:right">100</td><td style="text-align:right">82.2</td><td style="text-align:right">88.1</td></tr>
+<tr><td style="text-align:right">4</td><td style="text-align:right">65M</td><td style="text-align:right">98.4</td><td style="text-align:right">96.2</td><td style="text-align:right">94.9</td><td style="text-align:right">100</td><td style="text-align:right">82.4</td><td style="text-align:right">88.2</td></tr>
+</tbody></table>
+<p><strong>表5：カスケードのステージ数。</strong></p>
+
+<table><thead><tr><th>\(N_{\text{infer}}\)</th><th>Param.</th><th>NC</th><th>DAC</th><th>TTC</th><th>Comf.</th><th>EP</th><th>PDMS</th></tr></thead><tbody>
+<tr><td style="text-align:right">10</td><td style="text-align:right">60M</td><td style="text-align:right">97.9</td><td style="text-align:right">93.5</td><td style="text-align:right">93.1</td><td style="text-align:right">100</td><td style="text-align:right">80.0</td><td style="text-align:right">84.9</td></tr>
+<tr><td style="text-align:right">20</td><td style="text-align:right">60M</td><td style="text-align:right">98.2</td><td style="text-align:right">96.2</td><td style="text-align:right">94.7</td><td style="text-align:right">100</td><td style="text-align:right">82.2</td><td style="text-align:right">88.1</td></tr>
+<tr><td style="text-align:right">40</td><td style="text-align:right">60M</td><td style="text-align:right">98.5</td><td style="text-align:right">96.2</td><td style="text-align:right">94.8</td><td style="text-align:right">100</td><td style="text-align:right">82.5</td><td style="text-align:right">88.2</td></tr>
+</tbody></table>
+<p><strong>表6：サンプリングするノイズの数 \(N_{\text{infer}}\)。</strong></p>
+
+<h2 id="4-実験">4　実験</h2>
+<h3 id="4.1-データセット">4.1　データセット</h3>
+<p><strong>NAVSIM。</strong>NAVSIM データセット［10］は、公開されている最大のアノテーション付き運転データセットである nuPlan［22］をコンパクトに再配布した OpenScene［9］の上に構築された、実世界の計画指向データセットである。NAVSIM は 8 台のカメラにより 360° の完全な視野（FOV）を実現し、加えて 5 台のセンサから得られる統合 LiDAR 点群を利用する。アノテーションは 2Hz の頻度で提供され、HD マップと物体のバウンディングボックスの両方を含む。このデータセットは、運転意図の動的な変化を伴う困難な運転シナリオを重視するよう設計されており、静止シーンや定速走行のような自明な状況は意図的に除外されている。</p>
+<p>NAVSIM は、包括的な評価のために非反応型シミュレーションと閉ループ指標を用いて計画性能をベンチマークする。本論文では、提案された PDM スコア（PDMS）［10］を用いる。これは複数のサブスコア、すなわち過失衝突なし（NC）、走行可能領域の遵守（DAC）、衝突余裕時間（TTC）、快適性（Comf.）、自車進捗（EP）の重み付き組み合わせである。</p>
+
+<h3 id="4.2-実装の詳細">4.2　実装の詳細</h3>
+<p>公平な比較のため、Transfuser と同じ知覚モジュールと ResNet-34 バックボーン［13］を採用する。拡散デコーダ層では、Transfuser の BEV ベースの設定に従い、空間クロス注意は BEV 特徴とのみ相互作用させる。Transfuser の知覚モジュールはベクトル化地図の構築を含まないため、エージェントとのクロス注意のみを行う。2 層のカスケード拡散デコーダ層を積み重ね、20 個のクラスタリングされたアンカーで切り詰め拡散方策を適用する。学習時の拡散スケジュールはアンカーを拡散させるために 50/1000 に打ち切り、推論時にはわずか 2 回のノイズ除去ステップを用いて、評価にはスコア上位 1 の予測軌道を選択する。学習と推論の手順は Transfuser にそのまま従う。すなわち、切り出して縮小した前方向きカメラ画像 3 枚を 1024×256 の画像として連結したものと、ラスタ化した BEV LiDAR を入力として用いる。DiffusionDrive は <code>navtrain</code> 分割上でスクラッチから 100 エポック、AdamW オプティマイザを用いて 8 基の NVIDIA 4090 GPU で総バッチサイズ 512、学習率 \(6 \times 10^{-4}\) で学習する。テスト時拡張は適用せず、<code>navtest</code> 分割での評価に用いる最終出力は 4 秒間にわたる 8 ウェイポイントの軌道である。</p>
+
+<h3 id="4.3-定量的比較">4.3　定量的比較</h3>
+<p>表1 は、NAVSIM <code>navtest</code> 分割において DiffusionDrive を最先端手法と比較したものである。同じ ResNet-34 バックボーンで、DiffusionDrive は 88.1 の PDMS スコアを達成し、従来の学習ベースの手法に対して有意に優れた性能を示す。VADv2 と比べると、DiffusionDrive はアンカー数を 8192 から 20 へと 400 分の 1 に削減しながら、7.2 PDMS 上回る。DiffusionDrive は、VADv2 の語彙からのサンプリングというパラダイムに従う Hydra-MDP も 5.1 PDMS の改善で上回る。追加の教師信号によって EP 評価指標に適合するようさらに学習し、重み付き信頼度による後処理を用いる Hydra-MDP［25］の変種 Hydra-MDP-\(\mathcal{V}_{8192}\)-W-EP と比べても、DiffusionDrive は後処理を一切用いない、人間から学習するだけの素直なアプローチにのみ依拠しながら、なお EP で 3.5、PDMS 全体で 1.6 上回る。計画モジュールのみが異なる Transfuser ベースラインと比べると、DiffusionDrive は 4.1 PDMS という顕著な改善をもたらし、すべてのサブスコアで上回る。</p>
+
+<a class="pg" data-page="8"></a>
+<table><thead>
+<tr><th rowspan="2">手法</th><th rowspan="2">入力</th><th rowspan="2">画像バックボーン</th><th colspan="4">L2 (m) ↓</th><th colspan="4">衝突率 (%) ↓</th><th rowspan="2">FPS ↑</th></tr>
+<tr><th>1s</th><th>2s</th><th>3s</th><th>平均</th><th>1s</th><th>2s</th><th>3s</th><th>平均</th></tr>
+</thead><tbody>
+<tr><td>ST-P3［15］</td><td>Camera</td><td>EffNet-b4［40］</td><td style="text-align:right">1.33</td><td style="text-align:right">2.11</td><td style="text-align:right">2.90</td><td style="text-align:right">2.11</td><td style="text-align:right">0.23</td><td style="text-align:right">0.62</td><td style="text-align:right">1.27</td><td style="text-align:right">0.71</td><td style="text-align:right">1.6</td></tr>
+<tr><td>UniAD［16］</td><td>Camera</td><td>ResNet-101［13］</td><td style="text-align:right">0.45</td><td style="text-align:right">0.70</td><td style="text-align:right">1.04</td><td style="text-align:right">0.73</td><td style="text-align:right">0.62</td><td style="text-align:right">0.58</td><td style="text-align:right">0.63</td><td style="text-align:right">0.61</td><td style="text-align:right">1.8</td></tr>
+<tr><td>OccNet［41］</td><td>Camera</td><td>ResNet-50［13］</td><td style="text-align:right">1.29</td><td style="text-align:right">2.13</td><td style="text-align:right">2.99</td><td style="text-align:right">2.14</td><td style="text-align:right">0.21</td><td style="text-align:right">0.59</td><td style="text-align:right">1.37</td><td style="text-align:right">0.72</td><td style="text-align:right">2.6</td></tr>
+<tr><td>VAD［20］</td><td>Camera</td><td>ResNet-50［13］</td><td style="text-align:right">0.41</td><td style="text-align:right">0.70</td><td style="text-align:right">1.05</td><td style="text-align:right">0.72</td><td style="text-align:right">0.07</td><td style="text-align:right">0.17</td><td style="text-align:right">0.41</td><td style="text-align:right">0.22</td><td style="text-align:right">4.5</td></tr>
+<tr><td>SparseDrive［39］</td><td>Camera</td><td>ResNet-50［13］</td><td style="text-align:right">0.29</td><td style="text-align:right">0.58</td><td style="text-align:right">0.96</td><td style="text-align:right">0.61</td><td style="text-align:right"><strong>0.01</strong></td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right"><u>0.18</u></td><td style="text-align:right"><strong>0.08</strong></td><td style="text-align:right"><strong>9.0</strong></td></tr>
+<tr><td>DiffusionDrive（提案手法）</td><td>Camera</td><td>ResNet-50［13］</td><td style="text-align:right"><strong>0.27</strong></td><td style="text-align:right"><strong>0.54</strong></td><td style="text-align:right"><strong>0.90</strong></td><td style="text-align:right"><strong>0.57</strong></td><td style="text-align:right"><u>0.03</u></td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right"><strong>0.16</strong></td><td style="text-align:right"><strong>0.08</strong></td><td style="text-align:right"><u>8.2</u></td></tr>
+</tbody></table>
+<p><strong>表7：開ループ指標による nuScenes データセットでの比較。</strong>FPS は SparseDrive［39］の手順に従い、単一の NVIDIA 4090 GPU 上で計測した。指標の計算は ST-P3［15］に従う。</p>
+
+<h3 id="4.4-ロードマップ">4.4　ロードマップ</h3>
+<p>表2 において、素朴な拡散方策を用いて Transfuser を生成的な Transfuser<sub>DP</sub> に変換すると、PDMS スコアが 0.6、モード多様性スコア \(\mathcal{D}\) が 11% 向上する。しかし同時に、計画モジュールのオーバーヘッドも大幅に増加し、20 倍のノイズ除去ステップと 32 倍のステップ時間を要して、実行時オーバーヘッドは合計で 650 倍に増える。提案する切り詰め拡散方策を用いると、Transfuser<sub>TD</sub> はノイズ除去ステップ数を 20 から 2 に減らしつつ、PDMS を 1.1、モード多様性を 59% 改善する。さらに提案する拡散デコーダを組み込むことで、最終モデル DiffusionDrive は 88.1 PDMS と 74% のモード多様性スコア \(\mathcal{D}\) に達する。Transfuser<sub>DP</sub> と比べて、DiffusionDrive は PDMS で 3.5、モード多様性で 64% の改善を示し、ノイズ除去ステップを 10 分の 1 に削減して FPS で 6 倍の高速化を実現する。これにより、リアルタイムで高品質なマルチモード計画が可能になる。</p>
+
+<h3 id="4.5-アブレーション研究">4.5　アブレーション研究</h3>
+<p><strong>拡散デコーダにおける設計の効果。</strong>表3 は、拡散デコーダにおける我々の設計上の選択の有効性を示す。ID-1 は表2 の Transfuser<sub>TD</sub> である。ID-6 と ID-1 を比較すると、提案する拡散デコーダはパラメータを 39% 削減し、計画品質を 2.4 PDMS 大きく改善することがわかる。ID-2 は、環境との豊かで階層的な相互作用を欠くために深刻な性能劣化を示す。ID-2 と ID-3 の比較により、空間クロス注意が正確な計画に不可欠であることを示す。ID-5 は、提案するカスケード機構が有効であり、性能をさらに向上させうることを示す<span class="yakuchu">（訳注：カスケードデコーダの有無を比較しているのは ID-5 と ID-6 である）</span>。</p>
+<p><strong>ノイズ除去ステップ数。</strong>表4 は、妥当な開始点のおかげで、DiffusionDrive がわずか 1 ステップでも良好な計画品質を達成し、さらなるノイズ除去ステップが品質の向上と複雑な環境に対する推論の柔軟性をもたらすことを示している。</p>
+<p><strong>カスケードのステージ数。</strong>表5 では、カスケードのステージ数の影響をアブレーションする。ステージ数を増やすと計画品質を改善できるが、4 ステージで飽和し、各ステップでより多くのパラメータと推論時間を要する。</p>
+<p><strong>サンプリングするノイズの数 \(N_{\text{infer}}\)。</strong>3.3 節で述べたとおり、DiffusionDrive は、アンカー付きガウス分布から可変数のノイズをサンプリングするだけで多様な軌道を生成できる。表6 は、10 個のノイズをサンプリングするだけですでにまずまずの計画品質を達成できることを示している。より多くのノイズをサンプリングすることで、DiffusionDrive は潜在的な計画行動空間をカバーでき、計画品質の向上につながる。</p>
+
+<h3 id="4.6-定性的比較">4.6　定性的比較</h3>
+<p>PDMS 計画指標はスコア上位 1 の軌道に基づいて計算され、提案する \(\mathcal{D}\) スコアはモード多様性を評価するものであるため、これらの指標だけでは多様な軌道の品質を十分に捉えられない。マルチモード軌道の品質をさらに検証するため、図2 において、NAVSIM <code>navtest</code> 分割の困難なシナリオにおける Transfuser、Transfuser<sub>DP</sub>、DiffusionDrive の計画結果を可視化する。結果は、DiffusionDrive が生成するマルチモード軌道が多様であるだけでなく高品質でもあることを示している。図2a では、DiffusionDrive が生成したスコア上位 1 の軌道は正解軌道によく似ており、一方で強調表示したスコア上位 10 の軌道は、驚くべきことに高品質な車線変更を行おうとしている。図2b では、強調表示したスコア上位 10 の軌道もまた車線変更を行い、さらに隣接する低スコアの軌道は周囲のエージェントと相互作用して効果的に衝突を回避している。</p>
+
+<h3 id="4.7-nuscenes-データセットでの定量的比較">4.7　nuScenes データセットでの定量的比較</h3>
+<p>nuScenes データセットは、これまでエンドツーエンド計画のベンチマークとして広く用いられてきた。nuScenes の主なシナリオは単純で自明な状況であるため、表7 での比較のみを行う。我々は SparseDrive［39］の上に DiffusionDrive を実装し、その学習と推論の手順に従い、ST-P3［15］で提案された開ループ指標を用いる。2 層のカスケード拡散デコーダ層を積み重ね、18 個のクラスタリングされたアンカーで切り詰め拡散方策を適用する。</p>
+<p>表7 に示すように、DiffusionDrive は SparseDrive の平均 L2 誤差を 0.04m 減らし、最も低い L2 誤差と平均衝突率を達成する。また DiffusionDrive は効率的でもあり、VAD より 1.8 倍高速に動作しつつ、L2 誤差は 20.8%、衝突率は 63.6% 低い。</p>
+<a class="pg" data-page="9"></a>
+<h2 id="5-結論">5　結論</h2>
+<p>本研究では、提案する切り詰め拡散方策と効率的なカスケード拡散デコーダを組み込むことで、エンドツーエンド自動運転のための新しい生成的運転意思決定モデル DiffusionDrive を提案した。DiffusionDrive は、アンカー付きガウス分布からの可変数のサンプルをノイズ除去し、リアルタイムの速度で多様な計画軌道を生成できる。包括的な実験と定性的比較により、計画品質、実行効率、モード多様性における DiffusionDrive の優位性が検証された。</p>
+
+<h2 id="謝辞">謝辞</h2>
+<p>草稿に有益なフィードバックをくださった Tianheng Cheng 氏に感謝する。</p>
+
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>Anurag Ajay, Yilun Du, Abhi Gupta, Joshua B. Tenenbaum, Tommi S. Jaakkola, and Pulkit Agrawal. Is conditional generative modeling all you need for decision making? In <em>ICLR</em>, 2023.</li>
+<li>Holger Caesar, Varun Bankiti, Alex H Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>CVPR</em>, 2020.</li>
+<li>Shaoyu Chen, Bo Jiang, Hao Gao, Bencheng Liao, Qing Xu, Qian Zhang, Chang Huang, Wenyu Liu, and Xinggang Wang. Vadv2: End-to-end vectorized autonomous driving via probabilistic planning. <em>arXiv preprint arXiv:2402.13243</em>, 2024.</li>
+<li>Shaoyu Chen, Xinggang Wang, Tianheng Cheng, Qian Zhang, Chang Huang, and Wenyu Liu. Polardetr: Polar parametrization for vision-based surround-view 3d detection. <em>Image and Vision Computing</em>, 156:105438, 2025.</li>
+<li>Zhili Chen, Maosheng Ye, Shuangjie Xu, Tongyi Cao, and Qifeng Chen. Ppad: Iterative interactions of prediction and planning for end-to-end autonomous driving. In <em>ECCV</em>, 2024.</li>
+<li>Cheng Chi, Zhenjia Xu, Siyuan Feng, Eric Cousineau, Yilun Du, Benjamin Burchfiel, Russ Tedrake, and Shuran Song. Diffusion policy: Visuomotor policy learning via action diffusion. In <em>RSS</em>, 2023.</li>
+<li>Kashyap Chitta, Aditya Prakash, Bernhard Jaeger, Zehao Yu, Katrin Renz, and Andreas Geiger. Transfuser: Imitation with transformer-based sensor fusion for autonomous driving. <em>TPAMI</em>, 2022.</li>
+<li>Younwoo Choi, Ray Coden Mercurius, Soheil Mohamad Alizadeh Shabestary, and Amir Rasouli. Dice: Diverse diffusion model with scoring for trajectory prediction. In <em>IV</em>, 2024.</li>
+<li>OpenScene Contributors. Openscene: The largest up-to-date 3d occupancy prediction benchmark in autonomous driving. <a href="https://github.com/OpenDriveLab/OpenScene">https://github.com/OpenDriveLab/OpenScene</a>, 2023.</li>
+<li>Daniel Dauner, Marcel Hallgarten, Tianyu Li, Xinshuo Weng, Zhiyu Huang, Zetong Yang, Hongyang Li, Igor Gilitschenski, Boris Ivanovic, Marco Pavone, Andreas Geiger, and Kashyap Chitta. Navsim: Data-driven non-reactive autonomous vehicle simulation and benchmarking. In <em>NeurIPS</em>, 2024.</li>
+<li>Alexey Dosovitskiy, German Ros, Felipe Codevilla, Antonio Lopez, and Vladlen Koltun. Carla: An open urban driving simulator. In <em>Conference on robot learning</em>, pages 1–16. PMLR, 2017.</li>
+<li>Xunjiang Gu, Guanyu Song, Igor Gilitschenski, Marco Pavone, and Boris Ivanovic. Producing and leveraging online map uncertainty in trajectory prediction. In <em>CVPR</em>, 2024.</li>
+<li>Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In <em>CVPR</em>, 2016.</li>
+<li>Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. <em>Advances in neural information processing systems</em>, 33:6840–6851, 2020.</li>
+<li>Shengchao Hu, Li Chen, Penghao Wu, Hongyang Li, Junchi Yan, and Dacheng Tao. St-p3: End-to-end vision-based autonomous driving via spatial-temporal feature learning. In <em>ECCV</em>, 2022.</li>
+<li>Yihan Hu, Jiazhi Yang, Li Chen, Keyu Li, Chonghao Sima, Xizhou Zhu, Siqi Chai, Senyao Du, Tianwei Lin, Wenhai Wang, et al. Planning-oriented autonomous driving. In <em>CVPR</em>, 2023.</li>
+<li>Junjie Huang, Guan Huang, Zheng Zhu, Yun Ye, and Dalong Du. Bevdet: High-performance multi-camera 3d object detection in bird-eye-view. <em>arXiv preprint arXiv:2112.11790</em>, 2021.</li>
+<li>Zhiyu Huang, Zixu Zhang, Ameya Vaidya, Yuxiao Chen, Chen Lv, and Jaime Fernández Fisac. Versatile scene-consistent traffic scenario generation as optimization with diffusion. <em>arXiv preprint arXiv:2404.02524</em>, 2024.</li>
+<li>Michael Janner, Yilun Du, Joshua B. Tenenbaum, and Sergey Levine. Planning with diffusion for flexible behavior synthesis. In <em>ICLR</em>, 2022.</li>
+<li>Bo Jiang, Shaoyu Chen, Qing Xu, Bencheng Liao, Jiajie Chen, Helong Zhou, Qian Zhang, Wenyu Liu, Chang Huang, and Xinggang Wang. Vad: Vectorized scene representation for efficient autonomous driving. In <em>ICCV</em>, 2023.</li>
+<li>Chiyu Jiang, Andre Cornman, Cheolho Park, Benjamin Sapp, Yin Zhou, Dragomir Anguelov, et al. Motiondiffuser: Controllable multi-agent motion prediction using diffusion. In <em>CVPR</em>, 2023.</li>
+<li>Napat Karnchanachari, Dimitris Geromichalos, Kok Seang Tan, Nanxiang Li, Christopher Eriksen, Shakiba Yaghoubi, Noushin Mehdipour, Gianmarco Bernasconi, Whye Kit Fong, Yiluan Guo, et al. Towards learning-based planning: The nuplan benchmark for real-world autonomous driving. In <em>ICRA</em>, 2024.</li>
+<li>Yingyan Li, Lue Fan, Jiawei He, Yuqi Wang, Yuntao Chen, Zhaoxiang Zhang, and Tieniu Tan. Enhancing end-to-end autonomous driving with latent world model. <em>arXiv preprint arXiv:2406.08481</em>, 2024.</li>
+<li>Zhiqi Li, Wenhai Wang, Hongyang Li, Enze Xie, Chonghao Sima, Tong Lu, Yu Qiao, and Jifeng Dai. Bevformer: Learning bird's-eye-view representation from multi-camera images via spatiotemporal transformers. In <em>ECCV</em>, 2022.</li>
+</ol>
+<a class="pg" data-page="10"></a>
+<ol class="refs" start="25">
+<li>Zhenxin Li, Kailin Li, Shihao Wang, Shiyi Lan, Zhiding Yu, Yishen Ji, Zhiqi Li, Ziyue Zhu, Jan Kautz, Zuxuan Wu, et al. Hydra-mdp: End-to-end multimodal planning with multi-target hydra-distillation. <em>arXiv preprint arXiv:2406.06978</em>, 2024.</li>
+<li>Zhiqi Li, Zhiding Yu, Shiyi Lan, Jiahan Li, Jan Kautz, Tong Lu, and Jose M Alvarez. Is ego status all you need for open-loop end-to-end autonomous driving? In <em>CVPR</em>, 2024.</li>
+<li>Bencheng Liao, Shaoyu Chen, Xinggang Wang, Tianheng Cheng, Qian Zhang, Wenyu Liu, and Chang Huang. MapTR: Structured modeling and learning for online vectorized HD map construction. In <em>ICLR</em>, 2023.</li>
+<li>Bencheng Liao, Shaoyu Chen, Yunchi Zhang, Bo Jiang, Qian Zhang, Wenyu Liu, Chang Huang, and Xinggang Wang. Maptrv2: An end-to-end framework for online vectorized hd map construction. <em>IJCV</em>, 2024.</li>
+<li>Xuewu Lin, Tianwei Lin, Zixiang Pei, Lichao Huang, and Zhizhong Su. Sparse4d: Multi-view 3d object detection with sparse spatial-temporal fusion. <em>arXiv preprint arXiv:2211.10581</em>, 2022.</li>
+<li>Yaron Lipman, Ricky T. Q. Chen, Heli Ben-Hamu, Maximilian Nickel, and Matthew Le. Flow matching for generative modeling. In <em>The Eleventh International Conference on Learning Representations</em>, 2023.</li>
+<li>Xingchao Liu, Chengyue Gong, and Qiang Liu. Flow straight and fast: Learning to generate and transfer data with rectified flow. <em>arXiv preprint arXiv:2209.03003</em>, 2022.</li>
+<li>Yicheng Liu, Tianyuan Yuan, Yue Wang, Yilun Wang, and Hang Zhao. Vectormapnet: End-to-end vectorized hd map learning. In <em>ICML</em>, 2023.</li>
+<li>Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. High-resolution image synthesis with latent diffusion models. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 10684–10695, 2022.</li>
+<li>Olaf Ronneberger, Philipp Fischer, and Thomas Brox. U-net: Convolutional networks for biomedical image segmentation. In <em>MICCAI</em>, 2015.</li>
+<li>Jiaming Song, Chenlin Meng, and Stefano Ermon. Denoising diffusion implicit models. In <em>ICLR</em>, 2021.</li>
+<li>Yang Song, Jascha Sohl-Dickstein, Diederik P Kingma, Abhishek Kumar, Stefano Ermon, and Ben Poole. Score-based generative modeling through stochastic differential equations. In <em>International Conference on Learning Representations</em>, 2021.</li>
+<li>Ajay Sridhar, Dhruv Shah, Catherine Glossop, and Sergey Levine. Nomad: Goal masked diffusion policies for navigation and exploration. In <em>ICRA</em>, 2024.</li>
+<li>Maria Stamatopoulou, Jianwei Liu, and Dimitrios Kanoulas. Dippest: Diffusion-based path planner for synthesizing trajectories applied on quadruped robots. <em>arXiv preprint arXiv:2405.19232</em>, 2024.</li>
+<li>Wenchao Sun, Xuewu Lin, Yining Shi, Chuang Zhang, Haoran Wu, and Sifa Zheng. Sparsedrive: End-to-end autonomous driving via sparse scene representation. <em>arXiv preprint arXiv:2405.19620</em>, 2024.</li>
+<li>Mingxing Tan and Quoc Le. Efficientnet: Rethinking model scaling for convolutional neural networks. In <em>ICML</em>, 2019.</li>
+<li>Wenwen Tong, Chonghao Sima, Tai Wang, Li Chen, Silei Wu, Hanming Deng, Yi Gu, Lewei Lu, Ping Luo, Dahua Lin, et al. Scene as occupancy. In <em>ICCV</em>, 2023.</li>
+<li>Yue Wang, Vitor Campagnolo Guizilini, Tianyuan Zhang, Yilun Wang, Hang Zhao, and Justin Solomon. Detr3d: 3d object detection from multi-view images via 3d-to-2d queries. In <em>CoRL</em>, 2022.</li>
+<li>Yuqi Wang, Jiawei He, Lue Fan, Hongxin Li, Yuntao Chen, and Zhaoxiang Zhang. Driving into the future: Multiview visual forecasting and planning with world model for autonomous driving. In <em>CVPR</em>, 2024.</li>
+<li>Yixiao Wang, Chen Tang, Lingfeng Sun, Simone Rossi, Yichen Xie, Chensheng Peng, Thomas Hannagan, Stefano Sabatini, Nicola Poerio, Masayoshi Tomizuka, et al. Optimizing diffusion models for joint trajectory prediction and controllable generation. In <em>ECCV</em>, 2024.</li>
+<li>Xinshuo Weng, Boris Ivanovic, Yan Wang, Yue Wang, and Marco Pavone. Para-drive: Parallelized architecture for real-time autonomous driving. In <em>CVPR</em>, 2024.</li>
+<li>Zehang Weng, Haofei Lu, Danica Kragic, and Jens Lundell. Dexdiffuser: Generating dexterous grasps with diffusion models. <em>arXiv preprint arXiv:2402.02989</em>, 2024.</li>
+<li>Sixu Yan, Zeyu Zhang, Muzhi Han, Zaijin Wang, Qi Xie, Zhitian Li, Zhehan Li, Hangxin Liu, Xinggang Wang, and Song-Chun Zhu. M2diffuser: Diffusion-based trajectory optimization for mobile manipulation in 3d scenes. <em>arXiv preprint arXiv:2410.11402</em>, 2024.</li>
+<li>Brian Yang, Huangyuan Su, Nikolaos Gkanatsios, Tsung-Wei Ke, Ayush Jain, Jeff Schneider, and Katerina Fragkiadaki. Diffusion-es: Gradient-free planning with diffusion for autonomous driving and zero-shot instruction following. In <em>CVPR</em>, 2024.</li>
+<li>Jingfeng Yao and Xinggang Wang. Reconstruction vs. generation: Taming optimization dilemma in latent diffusion models. <em>arXiv preprint arXiv:2501.01423</em>, 2025.</li>
+<li>Jingfeng Yao, Cheng Wang, Wenyu Liu, and Xinggang Wang. Fasterdit: Towards faster diffusion transformers training without architecture modification. <em>arXiv preprint arXiv:2410.10356</em>, 2024.</li>
+<li>Wenhao Yu, Jie Peng, Huanyu Yang, Junrui Zhang, Yifan Duan, Jianmin Ji, and Yanyong Zhang. Ldp: A local diffusion planner for efficient robot navigation and collision avoidance. <em>arXiv preprint arXiv:2407.01950</em>, 2024.</li>
+<li>Chengran Yuan, Zhanqi Zhang, Jiawei Sun, Shuo Sun, Zefan Huang, Christina Dao Wen Lee, Dongen Li, Yuhang Han, Anthony Wong, Keng Peng Tee, et al. Drama: An efficient end-to-end motion planner for autonomous driving with mamba. <em>arXiv preprint arXiv:2408.03601</em>, 2024.</li>
+<li>Yanjie Ze, Gu Zhang, Kangning Zhang, Chenyuan Hu, Muhan Wang, and Huazhe Xu. 3d diffusion policy. In <em>RSS</em>, 2024.</li>
+<li>Fangao Zeng, Bin Dong, Yuang Zhang, Tiancai Wang, Xiangyu Zhang, and Yichen Wei. Motr: End-to-end multiple-object tracking with transformer. In <em>ECCV</em>, 2022.</li>
+</ol>
+<a class="pg" data-page="11"></a>
+<ol class="refs" start="55">
+<li>Yifu Zhang, Chunyu Wang, Xinggang Wang, Wenjun Zeng, and Wenyu Liu. Fairmot: On the fairness of detection and re-identification in multiple object tracking. <em>IJCV</em>, 2021.</li>
+<li>Yifu Zhang, Peize Sun, Yi Jiang, Dongdong Yu, Fucheng Weng, Zehuan Yuan, Ping Luo, Wenyu Liu, and Xinggang Wang. Bytetrack: Multi-object tracking by associating every detection box. In <em>ECCV</em>, 2022.</li>
+<li>Huangjie Zheng, Pengcheng He, Weizhu Chen, and Mingyuan Zhou. Truncated diffusion probabilistic models and diffusion-based adversarial auto-encoders. In <em>The Eleventh International Conference on Learning Representations</em>, 2023.</li>
+<li>Wenzhao Zheng, Ruiqi Song, Xianda Guo, Chenming Zhang, and Long Chen. Genad: Generative end-to-end autonomous driving. In <em>ECCV</em>, 2024.</li>
+<li>Ziyuan Zhong, Davis Rempe, Yuxiao Chen, Boris Ivanovic, Yulong Cao, Danfei Xu, Marco Pavone, and Baishakhi Ray. Language-guided traffic simulation via scene-level diffusion. In <em>CoRL</em>, 2023.</li>
+<li>Ziyuan Zhong, Davis Rempe, Danfei Xu, Yuxiao Chen, Sushant Veer, Tong Che, Baishakhi Ray, and Marco Pavone. Guided conditional diffusion for controllable traffic simulation. In <em>ICRA</em>, 2023.</li>
+<li>Lianghui Zhu, Zilong Huang, Bencheng Liao, Jun Hao Liew, Hanshu Yan, Jiashi Feng, and Xinggang Wang. Dig: Scalable and efficient diffusion models with gated linear attention. <em>arXiv preprint arXiv:2405.18428</em>, 2024.</li>
+<li>Xizhou Zhu, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang, and Jifeng Dai. Deformable detr: Deformable transformers for end-to-end object detection. In <em>ICLR</em>, 2021.</li>
+</ol>
+
+<a class="pg" data-page="12"></a>
+<p><strong>DiffusionDrive: Truncated Diffusion Model for End-to-End Autonomous Driving</strong><br />
+補足資料（Supplementary Material）</p>
+
+<h2 id="a-さらなる実装の詳細">A　さらなる実装の詳細</h2>
+<p>NAVSIM［10］および nuScenes［2］データセットにおける本手法の追加の実装詳細を示す。</p>
+<p><strong>NAVSIM データセット。</strong>ResNet-34［13］バックボーンは ImageNet で事前学習した重みで初期化し、LiDAR の範囲は Transfuser ベースライン［10］に従って前後左右に 32m とする。また Transfuser ベースライン［10］に従い、3D 物体検出と 2D BEV セマンティックセグメンテーションを含む補助的な知覚タスクも行う。物体クエリと BEV 特徴を、提案する拡散デコーダの入力とする。</p>
+<p><strong>nuScenes データセット。</strong>SparseDrive ベースライン［39］に従い、2 段階の学習を行う。モデルは、知覚タスク（3D 物体検出／追跡、ベクトル化 HD マップ構築、動作予測）のみで学習された、公式のオープンソース実装が提供するステージ 1 の事前学習済み重みで直接初期化する。SparseDrive の計画モジュールを提案する拡散デコーダと切り詰め拡散機構に置き換え、ステージ 2 のモデルを nuScenes データセット上で 10 エポック学習する。物体クエリ、地図クエリ、PV 特徴を拡散デコーダへの入力とする。</p>
+
+<h2 id="b-さらなるアブレーション研究">B　さらなるアブレーション研究</h2>
+<table><thead><tr><th>学習</th><th>推論</th><th>NC↑</th><th>DAC↑</th><th>TTC↑</th><th>Comf.↑</th><th>EP↑</th><th>PDMS↑</th></tr></thead><tbody>
+<tr><td rowspan="2">Anchored Dist.</td><td>Anchored. Dist.</td><td style="text-align:right">98.2</td><td style="text-align:right">96.2</td><td style="text-align:right">94.7</td><td style="text-align:right">100</td><td style="text-align:right">82.2</td><td style="text-align:right">88.1</td></tr>
+<tr><td>Extra. Traj.</td><td style="text-align:right">96.3</td><td style="text-align:right">91.7</td><td style="text-align:right">90.4</td><td style="text-align:right">100</td><td style="text-align:right">76.8</td><td style="text-align:right">81.3</td></tr>
+<tr><td>Extra. Traj.</td><td>Extra. Traj.</td><td style="text-align:right">97.3</td><td style="text-align:right">94.0</td><td style="text-align:right">92.6</td><td style="text-align:right">100</td><td style="text-align:right">79.6</td><td style="text-align:right">84.7</td></tr>
+</tbody></table>
+<p><strong>表8：運転の事前知識の比較。</strong>「Anchored Dist.」はアンカー付きガウス分布を表す。「Extra. Traj.」は現在の状態に基づいて外挿した軌道を表す。青で示した Row-1（1 行目）は本論文本編の DiffusionDrive ベースラインを表す（原文は “DiffusioDrive” と誤記）。</p>
+
+<p><strong>運転の事前知識の比較。</strong>表8 において、現在の状態に基づく外挿軌道という事前知識に対する、事前アンカーの優位性を検証する。Row-1 は DiffusionDrive のベースラインである。Row-2 は、DiffusionDrive のベースラインモデルを用い、\(N_{\text{infer}}\) 本のサンプリング軌道の代わりに外挿軌道から推論する。Row-3 は、単一のアンカー、すなわち外挿軌道で学習し、その周囲からサンプリングして推論する DiffusionDrive を表す。結果は、提案するアンカー付きガウス分布が外挿による事前知識よりも優れていることを示している。外挿による事前知識は潜在的な行動空間をカバーできず、実世界の応用における困難なシナリオ（たとえば障害物回避や旋回）を効果的に扱えない（これは NAVSIM 論文［10］の表1 における自車状態ベースのプランナとの比較と一致する）。</p>
+
+<table><thead><tr><th>手法</th><th>アンカーの出典</th><th>DS↑</th><th>RC↑</th><th>IS↑</th></tr></thead><tbody>
+<tr><td>Transfuser<sup>†</sup></td><td>-</td><td style="text-align:right">47.30<sub>±5.72</sub></td><td style="text-align:right">93.38<sub>±1.20</sub></td><td style="text-align:right">0.50<sub>±0.06</sub></td></tr>
+<tr><td>DiffusionDrive</td><td>NAVSIM</td><td style="text-align:right"><strong>64.27</strong><sub>±2.43</sub></td><td style="text-align:right"><strong>94.16</strong><sub>±1.46</sub></td><td style="text-align:right"><strong>0.69</strong><sub>±0.02</sub></td></tr>
+</tbody></table>
+<p><strong>表9：アンカーの出典に関する汎化。</strong>NAVSIM データセットからクラスタリングしたアンカーを用いて、DiffusionDrive を Carla Longest6 ベンチマークで評価する。† は、結果が Transfuser の論文［7］から引用したものであることを表す。</p>
+<p class="yakuchu">（訳注：DS、RC、IS は CARLA の評価指標で、一般にそれぞれ Driving Score、Route Completion、Infraction Score を指す。）</p>
+
+<p><strong>アンカーの出典に関する汎化。</strong>アンカーの出典に関する汎化をさらに調べるため、NAVSIM でクラスタリングしたアンカー付きガウス分布を用いて CARLA［11］上で DiffusionDrive を学習する（表9 の Row-2）。CARLA データセットは NAVSIM とはまったく異なるため、この優れた結果は、学習／検証データの情報漏洩ではなく潜在的なマルチモードの運転行動空間をカバーするよう設計された、我々のアンカー付きガウス分布の汎化能力を裏付けている。</p>
+
+<h2 id="c-さらなる定性的比較">C　さらなる定性的比較</h2>
+<p>本節では、計画指向の NAVSIM データセット <code>navtest</code> 分割［10］の困難なシナリオにおける追加の定性的比較を示す。</p>
+<p><strong>直進。</strong>図5a と図5b は、DiffusionDrive のスコア上位 1 の軌道が正解軌道に類似している一方で、強調表示したスコア上位 10 の軌道が頑健な車線変更を行えることを示している。特に図5c は、多様で強調表示されたトップ 10 の軌道がさらに信号機を認識し、妥当な車線変更と停止線での停止を可能にしていることを示している。</p>
+<p><strong>左折。</strong>図6 は、ノイズ除去された多様な軌道が交通状況に基づいて動的に調整されることを示している。強調表示したスコア上位 10 の軌道は頑健かつ妥当であり、効果的に車線変更を行っている。</p>
+<p><strong>右折。</strong>図7a と図7b は、DiffusionDrive のスコア上位 1 の軌道が正解軌道と同様に追従走行を行おうとしている一方で、強調表示したスコア上位 10 の軌道は先行車を追い越そうとする傾向があることを示している。これらの結果は、DiffusionDrive が多様でもっともらしい運転行動を頑健に生成できることを裏付けている。</p>
+<a class="pg" data-page="13"></a>
+<figure><img src="figs/fig5.jpg" loading="lazy" alt="図5" /></figure>
+<p><strong>図5：NAVSIM <code>navtest</code> 分割の直進シナリオにおける Transfuser、Transfuser<sub>DP</sub>、DiffusionDrive の定性的比較。</strong><span class="yakuchu">（訳注：サブ図（a）（b）（c）に原文の個別説明はない）</span></p>
+<p class="yakuchu">図中ラベル（図5〜図7 共通）：Sampled Noises＝サンプリングしたノイズ、Denoised Trajs＝ノイズ除去後の軌道、Camera Input＝カメラ入力、20 steps / 2 steps＝20 ステップ／2 ステップ、Mode Collapse＝モード崩壊、Diverse Modes＝多様なモード、Confidence Score＝信頼度スコア、Top-1 Scoring Traj＝スコア上位 1 の軌道、Top-10 Scoring Traj＝スコア上位 10 の軌道、GT Traj＝正解軌道</p>
+
+<a class="pg" data-page="14"></a>
+<figure><img src="figs/fig6.jpg" loading="lazy" alt="図6" /></figure>
+<p><strong>図6：NAVSIM <code>navtest</code> 分割の左折シナリオにおける Transfuser、Transfuser<sub>DP</sub>、DiffusionDrive の定性的比較。</strong><span class="yakuchu">（訳注：サブ図（a）（b）（c）に原文の個別説明はない）</span></p>
+
+<a class="pg" data-page="15"></a>
+<figure><img src="figs/fig7.jpg" loading="lazy" alt="図7" /></figure>
+<p><strong>図7：NAVSIM <code>navtest</code> 分割の右折シナリオにおける Transfuser、Transfuser<sub>DP</sub>、DiffusionDrive の定性的比較。</strong><span class="yakuchu">（訳注：サブ図（a）（b）（c）に原文の個別説明はない）</span></p>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>

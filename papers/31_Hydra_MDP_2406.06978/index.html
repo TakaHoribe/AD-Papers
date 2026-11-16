@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Hydra-MDP 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="Hydra-MDP: End-to-end Multimodal Planning with Multi-target Hydra-Distillation" />
+  <meta name="short-name" content="Hydra-MDP" />
+  <meta name="authors" content="Zhenxin Li, Kailin Li, Shihao Wang, Shiyi Lan, Zhiding Yu, Yishen Ji, Zhiqi Li, Ziyue Zhu, Jan Kautz, Zuxuan Wu, Yu-Gang Jiang, Jose M. Alvarez（NVIDIA, Fudan University ほか）" />
+  <meta name="source-pdf" content="31_Hydra_MDP_2406.06978.pdf" />
+  <meta name="source-pages" content="5" />
+  <meta name="pdf-href" content="31_Hydra_MDP_2406.06978.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="人間の運転ログとルールベースの教師（シミュレーションによる評価指標）の双方から多頭デコーダへ知識蒸留し、多様な軌道候補を各評価指標に合わせて採点する End-to-End マルチモーダル計画手法。NAVSIM チャレンジで 1 位を獲得した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">Hydra-MDP 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="31_Hydra_MDP_2406.06978.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#hydra-mdp-end-to-end-multimodal-planning-with-multi-target-hydra-distillation" id="toc-hydra-mdp-end-to-end-multimodal-planning-with-multi-target-hydra-distillation">Hydra-MDP: End-to-end Multimodal Planning with Multi-target Hydra-Distillation</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-解法" id="toc-2-解法">2　解法</a><ul>
+<li><a href="#2.1-準備" id="toc-2.1-準備">2.1　準備</a></li>
+<li><a href="#2.2-全体フレームワーク" id="toc-2.2-全体フレームワーク">2.2　全体フレームワーク</a></li>
+<li><a href="#2.3-多目標-hydra-蒸留" id="toc-2.3-多目標-hydra-蒸留">2.3　多目標 Hydra 蒸留</a></li>
+<li><a href="#2.4-推論と後処理" id="toc-2.4-推論と後処理">2.4　推論と後処理</a></li>
+</ul></li>
+<li><a href="#3-実験" id="toc-3-実験">3　実験</a><ul>
+<li><a href="#3.1-データセットと評価指標" id="toc-3.1-データセットと評価指標">3.1　データセットと評価指標</a></li>
+<li><a href="#3.2-実装の詳細" id="toc-3.2-実装の詳細">3.2　実装の詳細</a></li>
+<li><a href="#3.3-主要な結果" id="toc-3.3-主要な結果">3.3　主要な結果</a></li>
+<li><a href="#3.4-スケールアップとモデルのアンサンブル" id="toc-3.4-スケールアップとモデルのアンサンブル">3.4　スケールアップとモデルのアンサンブル</a></li>
+</ul></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="hydra-mdp-end-to-end-multimodal-planning-with-multi-target-hydra-distillation">Hydra-MDP: End-to-end Multimodal Planning with Multi-target Hydra-Distillation</h1>
+<p>Zhenxin Li<sup>1,2</sup>、Kailin Li<sup>3</sup>、Shihao Wang<sup>1,4</sup>、Shiyi Lan<sup>1</sup>、Zhiding Yu<sup>1</sup>、Yishen Ji<sup>5</sup>、Zhiqi Li<sup>5</sup>、Ziyue Zhu<sup>6</sup>、Jan Kautz<sup>1</sup>、Zuxuan Wu<sup>2</sup>、Yu-Gang Jiang<sup>2</sup>、Jose M. Alvarez<sup>1</sup><br />
+<sup>1</sup>NVIDIA、<sup>2</sup>Fudan University、<sup>3</sup>East China Normal University、<sup>4</sup>Beijing Institute of Technology、<sup>5</sup>Nanjing University、<sup>6</sup>Nankai University<br />
+arXiv:2406.06978v4 [cs.CV]、2024年8月30日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>31_Hydra_MDP_2406.06978.pdf</code>（全 5 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p>本稿では、教師–生徒モデルにおいて複数の教師を用いる新しいパラダイムである Hydra-MDP を提案する。この手法は、人間の教師とルールベースの教師の双方からの知識蒸留を用いて生徒モデルを学習する。生徒モデルは多頭（マルチヘッド）デコーダを備え、さまざまな評価指標に合わせた多様な軌道候補を学習する。ルールベースの教師の知識により、Hydra-MDP は微分不可能な後処理に頼ることなく、環境が計画にどのように影響するかを End-to-End に学習する。本手法は Navsim チャレンジで 1 位を獲得し、多様な走行環境・条件にわたる汎化性能の大幅な向上を示した。詳細は <a href="https://github.com/NVlabs/Hydra-MDP">https://github.com/NVlabs/Hydra-MDP</a> を参照されたい。</p>
+
+<figure><img src="figs/fig1.png" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：</strong><strong>End-to-End 計画パラダイムの比較。</strong>（a）単一モーダル計画＋単一目標学習、（b）マルチモーダル計画＋単一目標学習、（c）マルチモーダル計画＋多目標学習（本手法）。</p>
+<p class="yakuchu">図中ラベル：Planning＝計画、Perception＝知覚、Perception GT＝知覚の正解データ、Limited Supervision＝限定的な教師信号、Log-replay＝ログ再生、Post-processing＝後処理、Information Loss / Detached from NN.＝情報の損失／ニューラルネットワークから切り離されている、Knowledge from Various Teachers＝さまざまな教師からの知識、Simulation＝シミュレーション、Fully Utilizes Perception GT＝知覚の正解データを最大限に活用</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>生のセンサ入力からニューラルプランナを学習する End-to-End 自動運転は、完全自律を達成するための有望な方向性と考えられている。この分野では有望な進展があるものの［11, 12］、近年の研究［4, 8, 14］は、模倣学習（IL）手法の複数の脆弱性と限界、とりわけ機能不全な評価指標や暗黙のバイアスといった、オープンループ評価に内在する問題を明らかにした［8, 14］。これは、安全性、効率性、快適性、交通規則の遵守を保証できないという点で重大である。この主要な限界に対処するため、いくつかの研究はクローズドループ指標の導入を提案している。クローズドループ指標は、機械学習によるプランナが単に人間の運転者を模倣するだけでなく、本質的な基準を満たしていることを確かめることで、End-to-End 自動運転をより効果的に評価する。</p>
+<p>したがって、End-to-End 計画は理想的には多目標（multi-target）かつマルチモーダルなタスクである。ここで多目標計画とは、オープンループとクローズドループのいずれの設定に由来するさまざまな評価指標をも満たすことを指す。この文脈において、マルチモーダルとは各指標に対して複数の最適解が存在することを示す。</p>
+<p>既存の End-to-End 手法［4, 11, 12］は、多くの場合、後処理によってクローズドループ評価を考慮しようとする。しかしこれは一貫したパイプラインではなく、完全な End-to-End パイプラインと比べて追加の情報が失われる可能性がある。一方、ルールベースのプランナ［8, 18］は不完全な知覚入力に苦しむ。こうした不完全な入力は、正解（GT）ラベルではなく予測された知覚に依存するため、クローズドループ指標とオープンループ指標の両方においてルールベース計画の性能を低下させる。</p>
+<a class="pg" data-page="2"></a>
+<p>これらの問題に対処するため、本稿では Hydra-MDP（Multimodal Planning with Multi-target Hydra-distillation）と呼ぶ新しい End-to-End 自動運転フレームワークを提案する。Hydra-MDP は、新しい教師–生徒型の知識蒸留（KD）アーキテクチャに基づく。生徒モデルは、人間の教師とルールベースの教師の双方からの KD を通じて、さまざまな評価指標に合わせた多様な軌道候補を学習する。多目標 Hydra 蒸留は多頭デコーダによって具体化され、これにより専門化した教師たちの知識を効果的に統合する。Hydra-MDP はまた拡張可能な KD アーキテクチャを備えており、追加の教師を容易に組み込むことができる。</p>
+
+<figure><img src="figs/fig2.png" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：</strong><strong>Hydra-MDP の全体アーキテクチャ。</strong></p>
+<p class="yakuchu">図中ラベル：Perception Network＝知覚ネットワーク、LiDAR BEV＝LiDAR 鳥瞰図（BEV）、Concatenated Front-view Image＝連結した前方視画像、LiDAR Backbone＝LiDAR バックボーン、Image Backbone＝画像バックボーン、LiDAR Tokens＝LiDAR トークン、Image Tokens＝画像トークン、Modality Fusion＝モダリティ融合、Env. Tokens＝環境トークン、Perception Heads＝知覚ヘッド、Ground truth Perceptions＝知覚の正解データ、Trajectory Decoder＝軌道デコーダ、Planning Vocabulary＝計画語彙、Transformer Decoder＝Transformer デコーダ、Imitation Score＝模倣スコア、Human Teacher＝人間の教師、Multi-target Hydra-Distillation＝多目標 Hydra 蒸留、Simulation＝シミュレーション、Rule-based Teachers＝ルールベースの教師、Hydra Prediction Heads＝Hydra 予測ヘッド、No at-fault Collisions＝自責衝突なし、Drivable Area Compliance＝走行可能領域の遵守、Comfort＝快適性</p>
+
+<p>生徒モデルは学習中に環境の観測を用いる一方、教師モデルは正解（GT）データを用いる。この構成により、教師モデルはより良い計画予測を生成でき、生徒モデルの効果的な学習を助ける。環境の観測を用いて生徒モデルを学習することで、生徒モデルはテスト時に GT の知覚が得られない現実的な状況に巧みに対処できるようになる。</p>
+<p>本稿の貢献は以下のようにまとめられる。</p>
+<ol>
+<li>多目標 Hydra 蒸留による End-to-End マルチモーダル計画の汎用的なフレームワークを提案する。これにより、モデルはルールベースのプランナと人間の運転者の双方からスケーラブルな形で学習できる。</li>
+<li>本手法は、Navsim におけるシミュレーションベースの評価指標のもとで最先端の性能を達成する。</li>
+</ol>
+
+<h2 id="2-解法">2　解法</h2>
+<h3 id="2.1-準備">2.1　準備</h3>
+<p>\( O \) をセンサ観測、\( \hat{P} \) と \( P \) をそれぞれ正解の知覚と予測された知覚（例：3D 物体検出、車線検出）、\( \hat{T} \) をエキスパート軌道、\( T^* \) を予測軌道とする。\( \mathcal{L}_{im} \) は模倣損失を表す。本節ではまず、主流の 2 つのパラダイムと、我々が提案するパラダイム（図1）を紹介する。</p>
+<p><strong>A. 単一モーダル計画＋単一目標学習。</strong>このパラダイム［11, 12, 14］では、計画ネットワークがセンサ観測から計画軌道を直接回帰する。正解の知覚は補助的な教師信号として使用できるが、計画の出力には影響しない。簡単のため、知覚の損失は式に含めない。処理全体は次のように定式化できる。</p>
+<p>\[ \mathcal{L} = \mathcal{L}_{im}(T^*, \hat{T}), \tag{1} \]</p>
+<p>ここで \( \mathcal{L}_{im} \) は通常 L2 損失である。</p>
+<p><strong>B. マルチモーダル計画＋単一目標学習。</strong>この手法［1, 4］は複数の軌道 \( \{T_i\}_{i=1}^{k} \) を予測し、それらとエキスパート軌道との類似度を計算する。</p>
+<p>\[ \mathcal{L} = \sum_i \mathcal{L}_{im}(T_i, \hat{T}), \tag{2} \]</p>
+<p>ここで \( \mathcal{L}_{im} \) は KL ダイバージェンス［4］または最大マージン損失［1］とすることができる。知覚出力 \( P \) は、コスト関数 \( f(T_i, P) \) を介して適切な軌道を後処理するために明示的に用いられる。コストが最小の軌道が選択される。</p>
+<p>\[ T^* = \arg\min_{T_i} f(T_i, P), \tag{3} \]</p>
+<p>これは不完全な知覚 \( P \) に基づく微分不可能な処理である。</p>
+<p><strong>C. マルチモーダル計画＋多目標学習。</strong>我々はこのパラダイムを提案し、ニューラルネットワーク \( \tilde{f} \) によってさまざまなコスト（例：衝突コスト、走行可能領域遵守コスト）を同時に予測する。これは教師–生徒蒸留の形で行われ、教師は正解の知覚 \( \hat{P} \) にアクセスできる一方、生徒はセンサ観測 \( O \) のみに依存する。このパラダイムは次のように定式化できる。</p>
+<p>\[ \mathcal{L} = \sum_i \mathcal{L}_{im}(T_i, \hat{T}) + \mathcal{L}_{kd}(f(T_i, \hat{P}), \tilde{f}(T_i, O)). \tag{4} \]</p>
+<p>ここでは明確さのため、1 つのコスト関数 \( f \) のみを考える。予測コストが最小の軌道が選択される。</p>
+<p>\[ T^* = \arg\min_{T_i} \tilde{f}(T_i, O). \tag{5} \]</p>
+<p>強調しておくと、このフレームワークは微分不可能な後処理に制約されない。より多くのコスト関数を取り込むか、あるいは我々の実装（2.4 節）のように模倣の類似度を活用することで、End-to-End の形で容易に拡張できる。</p>
+<a class="pg" data-page="3"></a>
+<h3 id="2.2-全体フレームワーク">2.2　全体フレームワーク</h3>
+<p>図2に示すように、Hydra-MDP は 2 つのネットワーク、すなわち<strong>知覚ネットワーク</strong>と<strong>軌道デコーダ</strong>から構成される。</p>
+<p><strong>知覚ネットワーク。</strong>我々の知覚ネットワークは、チャレンジ公式のベースラインである Transfuser［5, 6］を基盤としている。Transfuser は、画像バックボーン、LiDAR バックボーン、および 3D 物体検出と BEV セグメンテーションのための知覚ヘッドからなる。複数の Transformer 層［19］が両バックボーンの各ステージの特徴を結合し、異なるモダリティから有意な情報を抽出する。知覚ネットワークの最終出力は環境トークン \( F_{env} \) であり、画像と LiDAR 点群の双方から得られる豊富な意味情報を符号化している。</p>
+<p><strong>軌道デコーダ。</strong>Vadv2［4］に倣い、連続的な行動空間を離散化するために固定の計画語彙（planning vocabulary）を構築する。語彙を構築するため、まず元の nuPlan データベース［2］から 700K 本の軌道をランダムにサンプリングする。各軌道 \( T_i (i = 1, ..., k) \) は 40 個のタイムスタンプの \( (x, y, heading) \) からなり、これはチャレンジで求められる 10Hz の周波数と 4 秒先までの未来ホライズンに対応する。計画語彙 \( \mathcal{V}_k \) は 700K 本の軌道の K-means クラスタリング中心として形成され、\( k \) は語彙のサイズを表す。次に \( \mathcal{V}_k \) は MLP によって \( k \) 個の潜在クエリとして埋め込まれ、Transformer エンコーダ［19］の層に入力されたのち、自車状態 \( E \) に加算される。</p>
+<p>\[ \mathcal{V}'_k = Transformer(Q, K, V = Mlp(\mathcal{V}_k)) + E. \tag{6} \]</p>
+<p>\( F_{env} \) に含まれる環境の手がかりを取り込むため、Transformer デコーダを活用する。</p>
+<p>\[ \mathcal{V}''_k = Transformer(Q = \mathcal{V}'_k, K, V = F_{env}). \tag{7} \]</p>
+<p>ログ再生軌道 \( \hat{T} \) を用いて、人間の運転者を模倣するための距離ベースの交差エントロピー損失を実装する。</p>
+<p>\[ \mathcal{L}_{im} = -\sum_{i=1}^{k} y_i \log(\mathcal{S}_i^{im}), \tag{8} \]</p>
+<p>ここで \( \mathcal{S}_i^{im} \) は \( \mathcal{V}''_k \) の \( i \) 番目のソフトマックススコアであり、\( y_i \) はログ再生軌道と語彙との L2 距離から生成される模倣ターゲットである。L2 距離にソフトマックスを適用して確率分布を得る。</p>
+<p>\[ y_i = \frac{e^{-(\hat{T} - T_i)^2}}{\sum_{j=1}^{k} e^{-(\hat{T} - T_j)^2}}. \tag{9} \]</p>
+<p>この模倣ターゲットの背後にある直観は、人間の運転挙動に近い軌道候補に報酬を与えることである。</p>
+
+<h3 id="2.3-多目標-hydra-蒸留">2.3　多目標 Hydra 蒸留</h3>
+<p>模倣ターゲットはプランナにある程度の手がかりを与えるものの、クローズドループの設定下で計画の決定を走行環境と関連付けるには不十分であり、衝突や走行可能領域からの逸脱といった失敗につながる［14］。そこで、我々の End-to-End プランナのクローズドループ性能を高めるため、本チャレンジにおけるシミュレーションベースの指標にプランナを整合させる学習戦略である多目標 Hydra 蒸留（Multi-target Hydra-Distillation）を提案する。</p>
+<p>蒸留プロセスは 2 つのステップによって学習ターゲットを拡張する。（1）学習データセット全体について、計画語彙 \( \mathcal{V}_k \) のオフラインシミュレーション［8］を実行する。（2）学習過程において、\( \mathcal{V}_k \) 内の各軌道に対するシミュレーションスコアからの教師信号を導入する。あるシナリオについて、ステップ 1 は各指標 \( m \in M \) と \( i \) 番目の軌道に対する正解シミュレーションスコア \( \{\hat{\mathcal{S}}_i^m | i = 1, ..., k\}_{m=1}^{|M|} \) を生成する。ここで \( M \) は本チャレンジで用いられるクローズドループ指標の集合を表す。スコア予測のために、潜在ベクトル \( \mathcal{V}''_k \) を一連の Hydra 予測ヘッドで処理し、予測スコア \( \{\mathcal{S}_i^m | i = 1, ..., k\}_{m=1}^{|M|} \) を得る。二値交差エントロピー損失により、ルールベースの運転知識を End-to-End プランナへ蒸留する。</p>
+<p>\[ \mathcal{L}_{kd} = -\sum_{m,i} \hat{\mathcal{S}}_i^m \log \mathcal{S}_i^m + (1 - \hat{\mathcal{S}}_i^m) \log(1 - \mathcal{S}_i^m). \tag{10} \]</p>
+<p>軌道 \( T_i \) について、各サブスコアの蒸留損失は式（4）における学習されたコスト値として機能し、その指標に対応する特定の交通規則への違反の度合いを測る。</p>
+
+<h3 id="2.4-推論と後処理">2.4　推論と後処理</h3>
+<h4>2.4.1　推論</h4>
+<p>予測された模倣スコア \( \{\mathcal{S}_i^{im} | i = 1, ..., k\} \) と指標のサブスコア \( \{\mathcal{S}_i^m | i = 1, ..., k\}_{m=1}^{|M|} \) が与えられたとき、与えられたシナリオにおいて各軌道が選択される尤度を測る統合コストを次のように計算する。</p>
+<p>\[ \begin{aligned} \tilde{f}(T_i, O) = -\,&amp;(w_1 \log \mathcal{S}_i^{im} + w_2 \log \mathcal{S}_i^{NC} + w_3 \log \mathcal{S}_i^{DAC} \\ &amp;+ w_4 \log(5\mathcal{S}_i^{TTC} + 2\mathcal{S}_i^{C} + 5\mathcal{S}_i^{EP})), \end{aligned} \tag{11} \]</p>
+<p>ここで \( \{w_i\}_{i=1}^{4} \) は、異なる教師への当てはまりの不完全さを緩和するための信頼度重みパラメータを表す。重みの最適な組み合わせはグリッドサーチによって求められ、典型的には \( 0.01 \le w_1 \le 0.1, 0.1 \le w_2, w_3 \le 1, 1 \le w_4 \le 10 \) の範囲に収まる。これは、模倣よりもルールベースのコストを優先する必要があることを示している。最終的に、全体のコストが最も低い軌道が選ばれる。</p>
+<h4>2.4.2　モデルのアンサンブル</h4>
+<p>我々は 2 つのモデルアンサンブル手法、すなわちエンコーダ混合（Mixture of Encoders）とサブスコアのアンサンブル（Sub-score Ensembling）を提示する。前者は線形層を用いて異なる視覚エンコーダからの特徴を結合し、後者は独立したモデル群のサブスコアの重み付き和を計算して軌道選択に用いる。</p>
+
+<h2 id="3-実験">3　実験</h2>
+<h3 id="3.1-データセットと評価指標">3.1　データセットと評価指標</h3>
+<a class="pg" data-page="4"></a>
+<p><strong>データセット。</strong>Navsim データセットは、既存の OpenScene［7］データセットを基盤としている。OpenScene は nuPlan［3］のコンパクト版であり、関連するアノテーションと 2 Hz でサンプリングされたセンサデータのみを含む。本データセットは主に意図の変化を伴うシナリオ、すなわち自車の過去のデータを外挿しても将来の計画が得られないシナリオに焦点を当てている。本データセットは、意味カテゴリ付きのアノテーション済み 2D 高精度地図と、物体の 3D バウンディングボックスを提供する。データセットは Navtrain と Navtest の 2 つに分割されており、それぞれ学習／検証用に 1192 シナリオ、テスト用に 136 シナリオを含む。</p>
+
+<table><thead><tr><th>手法</th><th>入力</th><th>NC</th><th>DAC</th><th>EP</th><th>TTC</th><th>C</th><th>Score</th></tr></thead><tbody>
+<tr><td>PDM-Closed［8］◇</td><td>Perception GT</td><td style="text-align:right">94.6</td><td style="text-align:right">99.8</td><td style="text-align:right">89.9</td><td style="text-align:right">86.9</td><td style="text-align:right">99.9</td><td style="text-align:right">89.1</td></tr>
+<tr><td>Transfuser［5］</td><td>LiDAR &amp; Camera</td><td style="text-align:right">96.5</td><td style="text-align:right">87.9</td><td style="text-align:right">73.9</td><td style="text-align:right">90.2</td><td style="text-align:right">100</td><td style="text-align:right">78.0</td></tr>
+<tr><td>Vadv2-\( \mathcal{V}_{4096} \)［4］*</td><td>LiDAR &amp; Camera</td><td style="text-align:right">97.1</td><td style="text-align:right">88.8</td><td style="text-align:right">74.9</td><td style="text-align:right">91.4</td><td style="text-align:right">100</td><td style="text-align:right">79.7</td></tr>
+<tr><td>Vadv2-\( \mathcal{V}_{4096} \)［4］*-PP</td><td>LiDAR &amp; Camera</td><td style="text-align:right">97.0</td><td style="text-align:right">89.1</td><td style="text-align:right">75.0</td><td style="text-align:right">91.2</td><td style="text-align:right">100</td><td style="text-align:right">79.9</td></tr>
+<tr><td>Vadv2-\( \mathcal{V}_{8192} \)［4］*</td><td>LiDAR &amp; Camera</td><td style="text-align:right">97.2</td><td style="text-align:right">89.1</td><td style="text-align:right">76.0</td><td style="text-align:right">91.6</td><td style="text-align:right">100</td><td style="text-align:right">80.9</td></tr>
+<tr><td>Hydra-MDP-\( \mathcal{V}_{4096} \)</td><td>LiDAR &amp; Camera</td><td style="text-align:right">97.7</td><td style="text-align:right">91.5</td><td style="text-align:right">77.5</td><td style="text-align:right">92.7</td><td style="text-align:right">100</td><td style="text-align:right">82.6</td></tr>
+<tr><td>Hydra-MDP-\( \mathcal{V}_{8192} \)</td><td>LiDAR &amp; Camera</td><td style="text-align:right">97.9</td><td style="text-align:right">91.7</td><td style="text-align:right">77.6</td><td style="text-align:right">92.9</td><td style="text-align:right">100</td><td style="text-align:right">83.0</td></tr>
+<tr><td>Hydra-MDP-\( \mathcal{V}_{8192} \)-PDM</td><td>LiDAR &amp; Camera</td><td style="text-align:right">97.5</td><td style="text-align:right">88.9</td><td style="text-align:right">74.8</td><td style="text-align:right">92.5</td><td style="text-align:right">100</td><td style="text-align:right">80.2</td></tr>
+<tr><td>Hydra-MDP-\( \mathcal{V}_{8192} \)-W</td><td>LiDAR &amp; Camera</td><td style="text-align:right">98.1</td><td style="text-align:right"><strong>96.1</strong></td><td style="text-align:right">77.8</td><td style="text-align:right">93.9</td><td style="text-align:right">100</td><td style="text-align:right">85.7</td></tr>
+<tr><td>Hydra-MDP-\( \mathcal{V}_{8192} \)-W-EP</td><td>LiDAR &amp; Camera</td><td style="text-align:right"><strong>98.3</strong></td><td style="text-align:right">96.0</td><td style="text-align:right"><strong>78.7</strong></td><td style="text-align:right"><strong>94.6</strong></td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right"><strong>86.5</strong></td></tr>
+</tbody></table>
+<p><strong>表1：</strong><strong>Navtest 分割における性能。</strong>◇ Navsim 公式の PDM-Closed 実装は、nuPlan の実装と比べて制動操作とオフセットの定式化に不整合があるため、誤りを含む可能性がある［8］。すべての End-to-End 手法は、知覚ネットワークとして公式の Transfuser［5］を用いている。* 学習には我々の距離ベースの模倣損失を採用している。PP：Transfuser の知覚を後処理に用いる。PDM：学習ターゲットを PDM スコア全体とする。W：推論時に重み付き信頼度を用いる。EP：連続値の EP（Ego Progress、自車の進捗）指標に当てはまるようにモデルを学習する。（訳注：表中「Perception GT」は知覚の正解データ、「LiDAR &amp; Camera」は LiDAR とカメラを入力とすることを表す。）</p>
+
+<table><thead><tr><th>手法</th><th>画像解像度</th><th>バックボーン</th><th>NC</th><th>DAC</th><th>EP</th><th>TTC</th><th>C</th><th>Score</th></tr></thead><tbody>
+<tr><td>PDM-Closed［8］◇</td><td>-</td><td>-</td><td style="text-align:right">94.6</td><td style="text-align:right"><strong>99.8</strong></td><td style="text-align:right"><strong>89.9</strong></td><td style="text-align:right">86.9</td><td style="text-align:right">99.9</td><td style="text-align:right">89.1</td></tr>
+<tr><td>Hydra-MDP-A</td><td>256 × 1024</td><td>ViT-L*</td><td style="text-align:right">98.4</td><td style="text-align:right">97.7</td><td style="text-align:right">85.0</td><td style="text-align:right">94.5</td><td style="text-align:right">100</td><td style="text-align:right">89.9</td></tr>
+<tr><td>Hydra-MDP-B</td><td>512 × 2048</td><td>V2-99</td><td style="text-align:right">98.4</td><td style="text-align:right">97.8</td><td style="text-align:right">86.5</td><td style="text-align:right">93.9</td><td style="text-align:right">100</td><td style="text-align:right">90.3</td></tr>
+<tr><td>Hydra-MDP-C</td><td>256 × 1024<br />256 × 1024<br />512 × 2048</td><td>ViT-L*<br />ViT-L†<br />V2-99</td><td style="text-align:right"><strong>98.7</strong></td><td style="text-align:right">98.2</td><td style="text-align:right">86.5</td><td style="text-align:right"><strong>95.0</strong></td><td style="text-align:right"><strong>100</strong></td><td style="text-align:right"><strong>91.0</strong></td></tr>
+</tbody></table>
+<p><strong>表2：</strong><strong>Navtest 分割におけるスケールアップの効果。</strong>◇ Navsim 公式の PDM-Closed 実装。* ViT-L は Depth Anything［20］から初期化。† ViT-L は Objects365［17］と COCO［15］で事前学習した EVA［9］。V2-99［13］は DD3D［16］から初期化。</p>
+
+<p><strong>評価指標。</strong>本チャレンジでは、次のように定式化される PDM スコアに基づいてモデルを評価する。</p>
+<p>\[ PDM_{score} = NC \times DAC \times DDC \times \frac{(5 \times TTC + 2 \times C + 5 \times EP)}{12}, \tag{12} \]</p>
+<p>ここでサブ指標 \( NC \)、\( DAC \)、\( TTC \)、\( C \)、\( EP \) は、それぞれ自責衝突なし（No at-fault Collisions）、走行可能領域の遵守（Drivable Area Compliance）、衝突までの時間（Time to Collision）、快適性（Comfort）、自車の進捗（Ego Progress）に対応する。蒸留プロセスおよびそれ以降の結果では、実装上の問題により \( DDC \) は無視している<sup>1</sup>。</p>
+<blockquote><p>脚注1：<a href="https://github.com/autonomousvision/navsim/issues/14">https://github.com/autonomousvision/navsim/issues/14</a></p></blockquote>
+
+<h3 id="3.2-実装の詳細">3.2　実装の詳細</h3>
+<p>モデルは Navtrain 分割上で 8 基の NVIDIA A100 GPU を用い、合計バッチサイズ 256、20 エポックで学習する。学習率と重み減衰は公式ベースラインに従い、それぞれ \( 1 \times 10^{-4} \) と 0.0 に設定する。4 フレーム分の LiDAR 点を BEV 平面上にスプラッティングして密度 BEV 特徴を形成し、これを ResNet34［10］で符号化する。画像については、前方視画像を中央で切り出した左前方視画像および右前方視画像と連結し、既定で 256 × 1024 の入力解像度とする。特に断りのない限り、特徴抽出にも ResNet34 を用いる。データ拡張やテスト時拡張は一切用いない。</p>
+
+<h3 id="3.3-主要な結果">3.3　主要な結果</h3>
+<p>表1に示す結果は、ベースラインに対する Hydra-MDP の明確な優位性を際立たせている。異なる計画語彙［4］の検討において、より大きな語彙 \( \mathcal{V}_{8192} \) を用いると、さまざまな手法で性能が向上することが示された。さらに、微分不可能な後処理による性能向上は我々のフレームワークより小さく、一方で重み付き信頼度は性能を総合的に向上させる。異なる学習ターゲットの効果をアブレーションするため、初期の実験では連続値の指標 EP（Ego Progress）を考慮せず、PDM スコア全体の蒸留を試みた。しかし、PDM スコアの不規則な分布は性能低下を招き、これは我々の多目標学習パラダイムの必要性を示唆している。Hydra-MDP-\( \mathcal{V}_{8192} \)-W-EP の最終版では、EP を蒸留することで対応する指標を改善できる。</p>
+
+<h3 id="3.4-スケールアップとモデルのアンサンブル">3.4　スケールアップとモデルのアンサンブル</h3>
+<p>先行文献［11］は、より大きなバックボーンは計画性能をわずかにしか改善しないことを示唆している。それにもかかわらず、我々はより大きなバックボーンを用いた場合の本モデルのスケーラビリティを示す。表2は、画像バックボーンとして ViT-L［9, 20］と V2-99［13］を用いた、最も性能の高い 3 つのバージョンの Hydra-MDP を示している。最終提出では、これら 3 つのモデルのサブスコアをアンサンブルしたものを推論に用いる。</p>
+<a class="pg" data-page="5"></a>
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>Sourav Biswas, Sergio Casas, Quinlan Sykora, Ben Agro, Abbas Sadat, and Raquel Urtasun. Quad: Query-based interpretable neural motion planning for autonomous driving. <em>arXiv preprint arXiv:2404.01486</em>, 2024.</li>
+<li>Holger Caesar, Juraj Kabzan, Kok Seang Tan, Whye Kit Fong, Eric Wolff, Alex Lang, Luke Fletcher, Oscar Beijbom, and Sammy Omari. nuplan: A closed-loop ml-based planning benchmark for autonomous vehicles. <em>arXiv preprint arXiv:2106.11810</em>, 2021.</li>
+<li>Holger Caesar, Juraj Kabzan, Kok Seang Tan, Whye Kit Fong, Eric Wolff, Alex Lang, Luke Fletcher, Oscar Beijbom, and Sammy Omari. nuplan: A closed-loop ml-based planning benchmark for autonomous vehicles. <em>arXiv preprint arXiv:2106.11810</em>, 2021.</li>
+<li>Shaoyu Chen, Bo Jiang, Hao Gao, Bencheng Liao, Qing Xu, Qian Zhang, Chang Huang, Wenyu Liu, and Xinggang Wang. Vadv2: End-to-end vectorized autonomous driving via probabilistic planning. <em>arXiv preprint arXiv:2402.13243</em>, 2024.</li>
+<li>Kashyap Chitta, Aditya Prakash, Bernhard Jaeger, Zehao Yu, Katrin Renz, and Andreas Geiger. Transfuser: Imitation with transformer-based sensor fusion for autonomous driving. <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em>, 2022.</li>
+<li>NAVSIM Contributors. Navsim: Data-driven non-reactive autonomous vehicle simulation. <a href="https://github.com/autonomousvision/navsim">https://github.com/autonomousvision/navsim</a>, 2024.</li>
+<li>OpenScene Contributors. Openscene: The largest up-to-date 3d occupancy prediction benchmark in autonomous driving. <a href="https://github.com/OpenDriveLab/OpenScene">https://github.com/OpenDriveLab/OpenScene</a>, 2023.</li>
+<li>Daniel Dauner, Marcel Hallgarten, Andreas Geiger, and Kashyap Chitta. Parting with misconceptions about learning-based vehicle motion planning. In <em>Conference on Robot Learning</em>, pages 1268–1281. PMLR, 2023.</li>
+<li>Yuxin Fang, Quan Sun, Xinggang Wang, Tiejun Huang, Xinlong Wang, and Yue Cao. Eva-02: A visual representation for neon genesis. <em>arXiv preprint arXiv:2303.11331</em>, 2023.</li>
+<li>Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pages 770–778, 2016.</li>
+<li>Yihan Hu, Jiazhi Yang, Li Chen, Keyu Li, Chonghao Sima, Xizhou Zhu, Siqi Chai, Senyao Du, Tianwei Lin, Wenhai Wang, et al. Planning-oriented autonomous driving. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 17853–17862, 2023.</li>
+<li>Bo Jiang, Shaoyu Chen, Qing Xu, Bencheng Liao, Jiajie Chen, Helong Zhou, Qian Zhang, Wenyu Liu, Chang Huang, and Xinggang Wang. Vad: Vectorized scene representation for efficient autonomous driving. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pages 8340–8350, 2023.</li>
+<li>Youngwan Lee, Joong-won Hwang, Sangrok Lee, Yuseok Bae, and Jongyoul Park. An energy and gpu-computation efficient backbone network for real-time object detection. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition workshops</em>, pages 0–0, 2019.</li>
+<li>Zhiqi Li, Zhiding Yu, Shiyi Lan, Jiahan Li, Jan Kautz, Tong Lu, and Jose M Alvarez. Is ego status all you need for open-loop end-to-end autonomous driving? <em>arXiv preprint arXiv:2312.03031</em>, 2023.</li>
+<li>Tsung-Yi Lin, Michael Maire, Serge Belongie, James Hays, Pietro Perona, Deva Ramanan, Piotr Dollár, and C Lawrence Zitnick. Microsoft coco: Common objects in context. In <em>Computer Vision–ECCV 2014: 13th European Conference, Zurich, Switzerland, September 6-12, 2014, Proceedings, Part V 13</em>, pages 740–755. Springer, 2014.</li>
+<li>Dennis Park, Rares Ambrus, Vitor Guizilini, Jie Li, and Adrien Gaidon. Is pseudo-lidar needed for monocular 3d object detection? In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pages 3142–3152, 2021.</li>
+<li>Shuai Shao, Zeming Li, Tianyuan Zhang, Chao Peng, Gang Yu, Xiangyu Zhang, Jing Li, and Jian Sun. Objects365: A large-scale, high-quality dataset for object detection. In <em>Proceedings of the IEEE/CVF international conference on computer vision</em>, pages 8430–8439, 2019.</li>
+<li>Martin Treiber, Ansgar Hennecke, and Dirk Helbing. Congested traffic states in empirical observations and microscopic simulations. <em>Physical review E</em>, 62(2):1805, 2000.</li>
+<li>Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. <em>Advances in neural information processing systems</em>, 30, 2017.</li>
+<li>Lihe Yang, Bingyi Kang, Zilong Huang, Xiaogang Xu, Jiashi Feng, and Hengshuang Zhao. Depth anything: Unleashing the power of large-scale unlabeled data. <em>arXiv preprint arXiv:2401.10891</em>, 2024.</li>
+</ol>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>

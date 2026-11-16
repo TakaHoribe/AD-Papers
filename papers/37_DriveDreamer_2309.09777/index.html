@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>DriveDreamer 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="DriveDreamer: Towards Real-world-driven World Models for Autonomous Driving" />
+  <meta name="short-name" content="DriveDreamer" />
+  <meta name="authors" content="Xiaofeng Wang, Zheng Zhu, Guan Huang, Xinze Chen, Jiagang Zhu, Jiwen Lu（GigaAI, Tsinghua University）" />
+  <meta name="source-pdf" content="37_DriveDreamer_2309.09777.pdf" />
+  <meta name="source-pages" content="15" />
+  <meta name="pdf-href" content="37_DriveDreamer_2309.09777.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="実世界の運転シナリオのみから構築した初の自動運転向け世界モデル。拡散モデル Auto-DM と 2 段階学習により、交通構造条件に沿った制御可能な運転動画生成と将来の運転行動予測を実現した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">DriveDreamer 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="37_DriveDreamer_2309.09777.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+    <div class="page" data-page="13" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">13</div></div>
+    <div class="page" data-page="14" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">14</div></div>
+    <div class="page" data-page="15" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">15</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#drivedreamer-towards-real-world-driven-world-models-for-autonomous-driving" id="toc-drivedreamer-towards-real-world-driven-world-models-for-autonomous-driving">DriveDreamer: Towards Real-world-driven World Models for Autonomous Driving</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a><ul>
+<li><a href="#2.1-拡散モデル" id="toc-2.1-拡散モデル">2.1　拡散モデル</a></li>
+<li><a href="#2.2-動画生成" id="toc-2.2-動画生成">2.2　動画生成</a></li>
+<li><a href="#2.3-世界モデル" id="toc-2.3-世界モデル">2.3　世界モデル</a></li>
+</ul></li>
+<li><a href="#3-drivedreamer" id="toc-3-drivedreamer">3　DriveDreamer</a><ul>
+<li><a href="#3.1-第-1-段階の学習" id="toc-3.1-第-1-段階の学習">3.1　第 1 段階の学習</a></li>
+<li><a href="#3.2-第-2-段階の学習" id="toc-3.2-第-2-段階の学習">3.2　第 2 段階の学習</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a><ul>
+<li><a href="#4.1-実験の詳細" id="toc-4.1-実験の詳細">4.1　実験の詳細</a></li>
+<li><a href="#4.2-制御可能な運転動画生成" id="toc-4.2-制御可能な運転動画生成">4.2　制御可能な運転動画生成</a></li>
+<li><a href="#4.3-運転行動の生成" id="toc-4.3-運転行動の生成">4.3　運転行動の生成</a></li>
+</ul></li>
+<li><a href="#5-議論と結論" id="toc-5-議論と結論">5　議論と結論</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#6-実装の詳細" id="toc-6-実装の詳細">6　実装の詳細</a></li>
+<li><a href="#7-可視化" id="toc-7-可視化">7　可視化</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="drivedreamer-towards-real-world-driven-world-models-for-autonomous-driving">DriveDreamer: Towards Real-world-driven World Models for Autonomous Driving</h1>
+<p>Xiaofeng Wang<sup>*1</sup>、Zheng Zhu<sup>*1✉</sup>、Guan Huang<sup>1,2</sup>、Xinze Chen<sup>1</sup>、Jiagang Zhu<sup>1</sup>、Jiwen Lu<sup>2</sup><br />
+<sup>1</sup>GigaAI、<sup>2</sup>Tsinghua University（清華大学）<br />
+プロジェクトページ：<a href="https://drivedreamer.github.io">https://drivedreamer.github.io</a><br />
+arXiv:2309.09777v2 [cs.CV]、2023年11月27日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>37_DriveDreamer_2309.09777.pdf</code>（全 15 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<figure><img src="figs/fig1.jpg" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：</strong><em>DriveDreamer</em> は運転シナリオに対する包括的な理解を示す。テキストプロンプトおよび構造化された交通制約と滑らかに整合する、制御可能な運転動画生成に優れている。<em>DriveDreamer</em> はまた、運転シーンと相互作用し、入力された行動に基づいて異なる将来の運転動画を予測することができる。さらに、<em>DriveDreamer</em> はその有用性を将来の行動の予測にまで拡張する。</p>
+<p class="yakuchu">図中ラベル：Initial Conditions / Initial Condition＝初期条件、Different Text Prompts＝異なるテキストプロンプト（"Sunny"＝晴れ、"Rainy"＝雨、"Night"＝夜）、Driving Video Generation with Traffic Condition and Different Text Prompts＝交通条件と異なるテキストプロンプトによる運転動画生成、Different Driving Actions＝異なる運転行動、Future Driving Video Generation with Action Interaction＝行動との相互作用による将来の運転動画生成、Initial Driving Actions＝初期運転行動、Future Driving Action Generation＝将来の運転行動の生成、Vel. (m/s)＝速度（m/s）、Steer. (deg)＝操舵角（度）</p>
+
+<h2 id="要旨">要旨</h2>
+<a class="pg" data-page="2"></a>
+<p>世界モデル、特に自動運転における世界モデルは、運転環境を理解する能力を持つことから、注目を集める潮流となっている。確立された世界モデルは、高品質な運転動画の生成や、安全な走行のための運転方策の生成に大きな可能性を秘めている。しかし、関連研究の重大な限界は、主にゲーム環境やシミュレーション環境に焦点を当てているため、実世界の運転シナリオの表現を欠いている点にある。そこで本論文では、実世界の運転シナリオのみから構築された先駆的な世界モデルである DriveDreamer を提案する。複雑な運転シーンにおける世界のモデル化は膨大な探索空間を伴うことから、強力な拡散モデルを活用して複雑な環境の包括的な表現を構築することを提案する。さらに、2 段階の学習パイプラインを導入する。第 1 段階で DriveDreamer は構造化された交通制約を深く理解し、続く第 2 段階で将来の状態を予測する能力を獲得する。提案する DriveDreamer は、実世界の運転シナリオから確立された初の世界モデルである。DriveDreamer を難度の高い nuScenes ベンチマーク上で具体化し、大規模な実験により、DriveDreamer が実世界の交通シナリオの構造的制約を忠実に捉えた、精密かつ制御可能な動画生成を可能にすることを検証した。加えて、DriveDreamer は現実的かつ妥当な運転方策の生成を可能にし、相互作用や実用的応用への道を開く。</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>AGI（Artificial General Intelligence：汎用人工知能）からの洞察と身体性 AI（embodied AI）の原理に後押しされ、自動運転において大きな変革が進行している。自動運転車は、実際の運転世界と関わり、それを理解する高度なシステムに依存している。この進化の中心にあるのが世界モデルの統合である［15,17–19］。世界モデルは、ロングテールのシナリオまでも含む多様で現実的な運転動画を生成することに大きな可能性を持ち、生成した動画はさまざまな運転知覚手法の学習に利用できる。さらに、世界モデルが持つ予測能力はエンドツーエンド運転を促進し、自動運転体験の新時代を切り開く。</p>
+<p>視覚信号から世界モデルの潜在ダイナミクスを導出する手法は、当初は動画予測において導入された［8, 11, 19］。観測された視覚系列から外挿することで、動画予測手法は環境の将来の状態を推論でき、シーン内の物体や実体が時間とともにどのように変化するかを効果的にモデル化する。しかし、複雑な運転シナリオをピクセル空間でモデル化することは、サンプリング空間が大きいために困難である［5, 7］。この問題を緩和するため、近年の研究ではサンプリング効率を高める革新的な戦略が模索されてきた。ISO-Dream［52］は、視覚ダイナミクスを制御可能な状態と制御不可能な状態に明示的に分離する。MILE［29］は、鳥瞰図（Bird's Eye View：BEV）のセマンティックセグメンテーション空間内に世界モデリングを戦略的に組み込み、模倣学習で世界モデリングを補完する。SEM2［13］は Dreamer フレームワークをさらに BEV セグメンテーションマップへと拡張し、学習に強化学習（Reinforce Learning：RL）を用いる。世界モデルにおける進展にもかかわらず、関連研究の重大な限界は、主にシミュレーション環境に焦点を当てている点にある。</p>
+<p>本論文では、実際の運転動画と人間のドライバーの行動から包括的な世界モデルを構築する先駆けとなる <em>DriveDreamer</em> を提案する。実世界の運転シーンをモデル化することの複雑さを考慮し、複雑な運転環境の包括的な表現を作り出す能力を与える自動運転拡散モデル（Autonomous-driving Diffusion Model：<em>Auto-DM</em>）を導入する。我々は 2 段階の学習パイプラインを提案する。第 1 段階では、交通の構造情報を中間条件として組み込んで <em>Auto-DM</em> を学習し、これによりサンプリング効率が大幅に向上する。その結果、<em>Auto-DM</em> は実世界の運転シーン、特に動的な前景物体と静的な背景の理解において顕著な能力を示す。第 2 段階の学習では、動画予測を通じて世界モデルを確立する。具体的には、運転行動を用いて将来の交通構造条件を反復的に更新し、これにより <em>DriveDreamer</em> は異なる運転戦略に基づく運転環境の変化を予測できるようになる。さらに、<em>DriveDreamer</em> はその予測能力を拡張し、過去の観測と <em>Auto-DM</em> の特徴量から今後の運転方策を予見する。こうして、実行可能かつ予測可能な運転世界モデルが構築される。</p>
+<p>本論文の主な貢献は次のようにまとめられる。（1）実世界の運転シナリオから導出された初の世界モデルである <em>DriveDreamer</em> を提案する。<em>DriveDreamer</em> は高品質な運転動画と妥当な運転方策の生成を同時に可能にする。（2）実世界の運転シーンの理解を高め、世界モデルの収束を早めるため、自動運転拡散モデルと 2 段階の学習パイプラインを導入する。第 1 段階の学習は交通構造情報の理解を可能にし、第 2 段階の動画予測学習は予測能力を与える。（3）<em>DriveDreamer</em> は交通制約と高度に整合した運転シーン動画を制御可能に生成でき（図1参照）、運転知覚手法（例：3D 検出）の学習を強化する。さらに、<em>DriveDreamer</em> は過去の観測と <em>Auto-DM</em> の特徴量に基づいて将来の運転方策を生成できる。特筆すべきこととして、<em>DriveDreamer</em> は nuScenes データセットにおけるオープンループ評価で有望な計画結果を達成している。</p>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<h3 id="2.1-拡散モデル">2.1　拡散モデル</h3>
+<a class="pg" data-page="3"></a>
+<p>拡散モデルは、データに段階的にノイズを加え、その後この過程を逆転させることを学習してサンプルを生成する、確率的生成モデルの一群である［73］。これらのモデルは、画像合成［1, 14, 49, 55, 57］、動画生成［21, 23, 35, 60, 67, 74］、3D コンテンツ生成［6, 43, 53, 69］といったさまざまな応用における卓越した性能により、近年大きな注目を集め、新たなベンチマークを打ち立てている。制御可能な生成能力を高めるため、ControlNet［76］、GLIGEN［42］、T2I-Adapter［48］、Composer［32］が導入され、深度マップ、セグメンテーションマップ、Canny エッジ、スケッチなどのさまざまな制御入力を利用できるようになった。並行して、BEVControl［72］、MagicDrive［12］、DrivingDiffuson［41］はレイアウト条件を組み込んで画像生成を強化している。拡散ベースの生成モデルの本質は、世界の複雑さを把握し理解する能力にある。<em>DriveDreamer</em> は、これらの拡散モデルの力を活用して、自動運転シナリオという複雑な領域を理解することを目指す。</p>
+
+<figure><img src="figs/fig2.jpg" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：</strong><em>DriveDreamer</em> の 2 段階学習パイプライン。</p>
+<p class="yakuchu">図中ラベル：First-stage Training (Auto-DM)＝第 1 段階の学習（Auto-DM）、Second-stage Training (ActionFormer)＝第 2 段階の学習（ActionFormer）、Step 1／Step 2＝ステップ 1／ステップ 2、Single Condition＝単一条件、Sequential Conditions＝系列条件、Image Generation＝画像生成、Video Generation＝動画生成、Image Supervision＝画像による教師、Video Supervision＝動画による教師、Sequential Driving Actions＝系列運転行動、Future Video Generation＝将来の動画生成、Future Driving Actions＝将来の運転行動、Action Supervision＝行動による教師</p>
+
+<h3 id="2.2-動画生成">2.2　動画生成</h3>
+<p>動画生成と動画予測は、視覚世界を理解するための有効なアプローチである。動画生成の分野では、変分オートエンコーダ（Variational Autoencoders：VAE）［8,28］、自己回帰モデル［34,56,61,70］、フローベースモデル［40］、敵対的生成ネットワーク（Generative Adversarial Networks：GAN）［46, 58, 62, 65］など、いくつかの標準的なアーキテクチャが用いられてきた。近年では、急速に発展している拡散モデル［9, 24, 25, 49, 50, 57］も動画生成の領域へ拡張されている。動画拡散モデル［21, 23, 35, 60, 67, 74］は、より高品質な動画生成能力を示し、現実的なフレームとフレーム間の遷移を生成するとともに、高い制御性を提供する。これらは、テキスト、Canny、スケッチ、セマンティックマップ、深度マップなど、さまざまな入力制御条件に対応する。</p>
+<p>動画予測モデルは動画生成モデルの特殊な形態であり、多くの類似点を共有する。特に、動画予測は過去の動画観測に基づいて将来の動画の変化を予測するものである［8, 11, 19, 27, 64］。DriveGAN［36］は運転行動とピクセルとの対応関係を確立し、将来の運転方策を指定することで将来の運転動画を予測する。これに対し、<em>DriveDreamer</em> は構造化された交通条件、テキストプロンプト、運転行動を入力として取り込み、実世界の運転シナリオに忠実に整合した、精密で現実的な動画および行動の生成を可能にする。</p>
+
+<h3 id="2.3-世界モデル">2.3　世界モデル</h3>
+<p>世界モデルはモデルベース模倣学習において広く研究されており、さまざまな応用で顕著な成功を収めている［15–20, 37, 44, 59, 71］。これらのアプローチは通常、変分オートエンコーダ（VAE）［39］や長短期記憶（Long Short-Term Memory：LSTM）［26］を利用して、遷移ダイナミクスとレンダリング機能をモデル化する。世界モデル手法は環境の動的モデルを確立することを目的としており、エージェントが将来を予測できるようにする。この側面は、将来についての精密な予測が安全な走行に不可欠な自動運転において、極めて重要である。しかし、自動運転における世界モデルの構築には特有の課題があり、その主因は実世界の運転タスクに内在する高いサンプル複雑性にある［5］。これらの問題に対処するため、ISO-Dream［52］は視覚ダイナミクスを制御可能な状態と制御不可能な状態へ明示的に分離する手法を導入している。MILE［29］は BEV セマンティックセグメンテーション空間内に世界モデリングを戦略的に組み込み、模倣学習によって世界モデリングを強化する。SEM2［13］は Dreamer フレームワークを BEV セグメンテーションマップへ拡張し、学習に強化学習を用いる。世界モデルにおける進展にもかかわらず、関連研究の重大な限界は、主にシミュレーション環境に焦点を当てている点にある。実世界の運転シナリオへの移行は、依然として十分に探究されていないフロンティアである。</p>
+
+<h2 id="3-drivedreamer">3　DriveDreamer</h2>
+<p><em>DriveDreamer</em> の全体的なフレームワークを図3に示す。フレームワークは、初期参照フレーム \( I_0 \) と、それに対応する道路構造情報（<em>すなわち</em>、HDMap \( H_0 \) と 3D ボックス \( B_0 \)）から始まる。この文脈において、<em>DriveDreamer</em> は提案する <em>ActionFormer</em> を利用して、今後の道路構造特徴を潜在空間で予測する。予測された特徴は条件として <em>Auto-DM</em> に与えられ、<em>Auto-DM</em> が将来の運転動画を生成する。同時に、テキストプロンプトを利用することで、運転シナリオのスタイル（<em>例えば</em>、天候や時間帯）を動的に調整できる。さらに、<em>DriveDreamer</em> は過去の行動情報と <em>Auto-DM</em> から抽出したマルチスケールの潜在特徴を取り込み、それらを組み合わせて妥当な将来の運転行動を生成する。要するに、<em>DriveDreamer</em> はマルチモーダルな入力をシームレスに統合して将来の運転動画と運転方策を生成する包括的なフレームワークを提供し、それによって自動運転システムの能力を前進させる。</p>
+<a class="pg" data-page="4"></a>
+<figure><img src="figs/fig3.jpg" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：</strong><em>DriveDreamer</em> の全体的なフレームワーク。フレームワークは参照フレーム \( I_0 \) と道路構造情報（すなわち、HDMap \( H_0 \) と 3D ボックス \( B_0 \)）から始まる。<em>DriveDreamer</em> は <em>ActionFormer</em> を用いて将来の道路構造特徴を予測し、それが <em>Auto-DM</em> に与えられる条件となって、将来の運転動画 \( \hat{I}_{i=0}^{N-1} \) を生成する。加えて、テキストプロンプトによりシナリオのスタイルを動的に調整できる。モデルは過去の運転行動と <em>Auto-DM</em> のマルチスケール特徴を統合し、妥当な将来の運転行動 \( \hat{A}_{i=N}^{N+M} \) を生成する。</p>
+<p class="yakuchu">図中ラベル：Condition Input＝条件入力、Text "A realistic driving scene"＝テキスト「現実的な運転シーン」、CLIP Embedding＝CLIP 埋め込み、Reference Image＝参照画像、Enc＝エンコーダ、Reference Style Embedding＝参照スタイル埋め込み、3D Box＝3D ボックス、Actions＝行動、Self-Attention＝自己注意、Cross-Attention＝クロス注意、Autonomous-driving Diffusion Model＝自動運転拡散モデル、Denoising ×T＝デノイズ ×T、Temporal-attention＝時間注意、Gated Self-attention＝ゲート付き自己注意、Cross-attention＝クロス注意、Output＝出力、Video Decoder＝動画デコーダ、Future Driving Videos＝将来の運転動画、Action Decoder＝行動デコーダ、Future Driving Actions＝将来の運転行動（訳注：炎のアイコンは学習される層、雪の結晶のアイコンは固定された層を表すと考えられる）</p>
+<p>実世界の運転シナリオで世界モデルを確立する際の広大な探索空間を踏まえ、<em>DriveDreamer</em> のための 2 段階の学習戦略を導入する。この戦略は、サンプリング効率を大幅に高め、モデルの収束を早めるように設計されている。2 段階の学習を図2に示す。第 1 段階の学習には 2 つのステップがある。ステップ 1 では単一フレームの構造化条件を利用し、<em>DriveDreamer</em> が運転シーン画像を生成するように導くことで、構造的な交通制約の理解を促す。ステップ 2 ではその理解を動画生成へと拡張する。第 2 段階の学習により、<em>DriveDreamer</em> は環境と相互作用し、将来の状態を効果的に予測できるようになる。この段階では、初期フレーム画像とそれに対応する構造化情報を入力として受け取る。同時に系列的な運転行動が与えられ、モデルは将来の運転動画と将来の運転行動を生成することが求められる。以下の節では、モデルのアーキテクチャと学習パイプラインの詳細を掘り下げる。</p>
+
+<h3 id="3.1-第-1-段階の学習">3.1　第 1 段階の学習</h3>
+<p><strong><em>Auto-DM</em>。</strong><em>DriveDreamer</em> では、実世界の運転動画から運転シナリオをモデル化し理解するために <em>Auto-DM</em> を導入する。ピクセル空間のみから運転シーンを理解することは、実世界の運転シナリオにおける探索空間が広大であるために困難であることが知られている。これを緩和するため、構造化された交通情報を条件入力として明示的に組み込む。</p>
+<p><em>Auto-DM</em> の全体構造を図4に示す。ここでは交通条件が画像平面に投影され、HDMap 条件 \( \{H_i\}_{i=0}^{N-1} \in \mathcal{R}^{N\times H\times W\times 3} \) と 3D ボックス条件 \( \{B_i\}_{i=0}^{N-1} \in \mathcal{R}^{N\times N_B\times 16} \)、およびボックスのカテゴリ \( \{C_i\}_{i=0}^{N-1} \in \mathcal{R}^{N\times N_B} \) が生成される（\( N \) は動画のフレーム数、\( N_B \) はゼロパディングされた事前定義の最大ボックス数）。以下では、特に断らない限り、読みやすさのため添え字 \( i \) を省略する。制御性を実現するため、空間的に整合した条件 \( H \) を畳み込み層で符号化し、\( \mathcal{Z}_t \) と連結する。ここで \( \{\mathcal{Z}_t\}_{i=0}^{N-1} \) は前向き拡散過程［57］によって生成されたノイズを含む潜在特徴である。\( \mathcal{Z}_t \) と空間的に整合していない位置条件（<em>すなわち</em>、3D ボックス）については、まず位置埋め込み \( H^p \) を集約する。</p>
+<p>\[ H^p = \mathcal{F}_\alpha([C_e, \mathrm{Fourier}(B)]), \tag{1} \]</p>
+<p>ここで \( \mathcal{F}_a \) は MLP 層<span class="yakuchu">（訳注：式(1)では添え字が \( \alpha \)、本文では \( a \) と表記されているが、同一の MLP 層を指すと考えられる）</span>、\( C_e \) は CLIP［54］によるボックスカテゴリの埋め込み特徴、\( \mathrm{Fourier}(\cdot) \) はフーリエ埋め込み［47］、\( [\cdot] \) は連結操作である。次に、<em>ゲート付き自己注意</em>［42］を利用して、位置埋め込み \( H^p \) を元の UNet 特徴の視覚信号 \( v \) と統合する［57］。</p>
+<p>\[ v = v + \tanh(\eta)\cdot \mathrm{TS}(\mathcal{F}_s([v, H^p])), \tag{2} \]</p>
+<p>ここで \( \eta \) は学習可能なパラメータ、\( \mathcal{F}_s \) は自己注意、\( \mathrm{TS}(\cdot) \) は視覚トークンのみを考慮するトークン選択操作である［42］。</p>
+<p>運転ダイナミクスの理解能力を <em>Auto-DM</em> にさらに付与するため、生成動画のフレーム間の一貫性を高める時間注意層 \( \mathcal{F}_t \) を導入する。</p>
+<p>\[ \mathcal{F}_t(v) = \mathrm{Reshape}(\mathcal{F}_s(\mathrm{Reshape}(v + \mathcal{T}_{\mathrm{pos}}))), \tag{3} \]</p>
+<a class="pg" data-page="5"></a>
+<figure><img src="figs/fig4.jpg" loading="lazy" alt="図4" /></figure>
+<p><strong>図4：</strong><em>Auto-DM</em> の全体構造。<em>Auto-DM</em> は 3 種類の制御条件を入力として受け取る。空間的に整合した条件（<em>すなわち</em>、HDMap \( H_{i=0}^{N-1} \)）はノイズ画像と連結されて拡散ステップに入力される。3D ボックス \( B_{i=0}^{N-1} \) とそのラベルで表される位置条件は平坦化され、ゲート付き自己注意で利用される。テキストプロンプトはクロス注意を用いて拡散ステップに取り込まれ、生成される運転動画のスタイルに影響を与える。時間注意層は、生成される動画フレームの一貫性を確保するために用いられる。拡散ステップはノイズを推定し、入力ノイズとの損失を生成して <em>Auto-DM</em> を最適化する。</p>
+<p class="yakuchu">図中ラベル：Conditions＝条件、HDMaps＝HDMap、Enc＝エンコーダ、Spatially Aligned Conditions＝空間的に整合した条件、3D Boxes＝3D ボックス、"Car / Pedestrian/..."＝「車／歩行者／…」、Position Embedding＝位置埋め込み、Text "A realistic driving scene, daytime"＝テキスト「現実的な運転シーン、昼間」、CLIP Embedding＝CLIP 埋め込み、Diffusion Steps＝拡散ステップ、Denoising ×T steps＝デノイズ ×T ステップ、GT Video＝正解（GT）動画、Gaussian Noise＝ガウスノイズ、Loss＝損失、Pred Noise＝予測ノイズ、Dec＝デコーダ、Generated Video＝生成動画、Temporal-attention＝時間注意、Gated Self-attention＝ゲート付き自己注意、Cross-attention＝クロス注意</p>
+<p>ここではまず、視覚信号 \( v \) を \( \mathcal{R}^{N\times C\times H\times W} \) から \( \mathcal{R}^{C\times NHW} \) へ再整形する。この形状変換により、フレーム単位の自己注意層 \( \mathcal{F}_s \) がフレーム間のダイナミクスを学習できるようになる。\( \mathcal{T}_{\mathrm{pose}} \) は正弦波関数［2］で符号化された時間的位置埋め込みを表す<span class="yakuchu">（訳注：式(3)では \( \mathcal{T}_{\mathrm{pos}} \) と表記されている）</span>。最後に、視覚信号を元の次元に戻し、特徴の整合性を確保する。特筆すべきこととして、同じアーキテクチャはマルチビュー画像の生成にも拡張でき（図6参照）、その場合 \( \mathcal{F}_s \) は隣接するビューのみに注意を向ける。さらに、フレーム単位の注意とビュー単位の注意を積み重ねることで、マルチビュー動画の生成が可能になる（詳細は補足資料を参照）。</p>
+<p>さらに、クロス注意層［57］を利用してテキスト入力と視覚信号との特徴の相互作用を促し、天候や時間帯などの運転シーンの属性にテキスト記述が影響を与えられるようにする。次に、2 つのステップからなる第 1 段階の学習パイプラインについて詳しく述べる。</p>
+<p><strong>ステップ 1 の学習。</strong><em>Auto-DM</em> は、構造化された交通条件の単一フレームのみからの入力を取り込み、単一フレームの画像による教師と組み合わせる。構造化された交通条件として、HDMap と 3D ボックスは人手によるアノテーション、または事前学習済みの知覚手法（<em>例えば</em>、LAV［4］、BEVerse［77］、UniAD［31］）から取得する。次に、3 チャネルの HDMap（車線境界、車線区分線、横断歩道）と 8 頂点の 3D ボックスを画像平面に投影し、対応する条件を生成する。特筆すべきこととして、ステップ 1 の学習では時間注意層を省略しており、これによりネットワークは交通構造の制約の学習のみに集中でき、学習過程の収束が早まる。</p>
+<p><strong>ステップ 2 の学習。</strong><em>Auto-DM</em> は構造化された交通条件の複数フレームからの入力を取り込み、運転動画を用いて教師あり学習される。ステップ 1 とは対照的に、動画から学習することで、<em>Auto-DM</em> は運転シナリオにおける複雑な動きの遷移をより深く理解できる。ステップ 2 では、ステップ 1 で構築した事前学習済みモデルを基に、時間注意層をモデルアーキテクチャに組み込む。これらの追加パラメータにより、<em>Auto-DM</em> は入力データに存在する時間的ダイナミクスに注目できるようになり、運転シーンの微妙な時間的側面を捉え解釈する能力がさらに高まる。</p>
+<p>ステップ 1 とステップ 2 の学習において、提案する <em>Auto-DM</em> は基盤となる画像モデル［57］と同じノイズスケジュールを用いて学習される。具体的には、前向き過程で潜在特徴 \( \mathcal{Z}_0 \) にノイズ \( \epsilon \) を徐々に加え、ノイズを含む潜在特徴 \( \mathcal{Z}_T \) を得る。次に、加えたノイズを予測するように \( \epsilon_\phi \) を学習し、学習可能なパラメータ \( \phi \) を次式で最適化する。</p>
+<p>\[ \min_{\phi} \mathcal{L} = \mathbb{E}_{\mathcal{Z}_0, \epsilon\sim\mathcal{N}(\mathbf{0},\mathbf{I}), t, c}\left[\left\|\epsilon - \epsilon_\phi\left(\mathcal{Z}_t, t, c\right)\right\|_2^2\right], \tag{4} \]</p>
+<p>ここで \( \phi \) はゲート付き自己注意層、時間注意層、クロス注意層に含まれる学習可能なパラメータを表し、時刻ステップ \( t \) は \( [1, T] \) から一様にサンプリングされる。</p>
+
+<h3 id="3.2-第-2-段階の学習">3.2　第 2 段階の学習</h3>
+<a class="pg" data-page="6"></a>
+<p>第 1 段階の学習により、<em>DriveDreamer</em> は構造化された交通情報の理解を獲得した。しかし、望ましい世界モデルは将来を予測でき、かつ環境と相互作用できるものでもあるべきである。そこで、我々のアプローチの第 2 段階に着手する。この段階では、動画予測タスクを活用して運転世界モデルを確立する。具体的には、動画予測タスクでは初期観測 \( I_0, H_0, B_0 \) と運転行動 \( \{A_i\}_{i=0}^{T-1} \) を与え、望ましい出力は将来の運転動画 \( \{I_i\}_{i=1}^{T} \) と将来の運転行動 \( \{A_i\}_{i=T}^{T+N} \) である。</p>
+
+<figure><img src="figs/fig5.png" loading="lazy" alt="図5" /></figure>
+<p><strong>図5：</strong><em>ActionFormer</em> の全体構造。初期構造条件 \( H_0 \) と \( B_0 \) はまず符号化され、1 次元の潜在空間へ平坦化される。これらの潜在特徴は連結され、自己注意層と MLP 層で処理されて隠れ状態を生成する。クロス注意層は隠れ状態と運転行動との対応関係を構築する。ゲート付き回帰ユニット（Gated Recurrent Units：GRU）を用いて将来の隠れ状態を反復的に予測する。予測された隠れ状態はさらに行動特徴と連結され、<em>Auto-DM</em> に入力される将来の交通構造条件へと復号される。</p>
+<p class="yakuchu">図中ラベル：Autonomous-driving Diffusion Model＝自動運転拡散モデル、"A realistic driving scene, daytime"＝「現実的な運転シーン、昼間」、Enc＝エンコーダ、Dec＝デコーダ、Self-Attention＝自己注意、Cross-Attention＝クロス注意、GRU Blocks＝GRU ブロック、Concat＝連結、Observing＝観測、Predicting＝予測</p>
+
+<p><strong><em>ActionFormer</em>。</strong>学習済みの <em>Auto-DM</em> は、系列的な構造化情報 \( \{H_i\}_{i=0}^{T}, \{B_i\}_{i=0}^{T} \) に基づいて運転動画 \( \{I_i\}_{i=0}^{T} \) を生成できることを思い出してほしい。しかし動画予測タスクでは、現在のタイムスタンプより先の将来の交通構造条件は利用できない。この課題に対処するため、運転行動 \( \{A_i\}_{i=0}^{T-1} \) を活用して将来の構造条件を反復的に予測する <em>ActionFormer</em> を導入する。<em>ActionFormer</em> の全体アーキテクチャを図5に示す。まず、初期構造条件 \( H_0, B_0 \) を符号化し、1 次元の潜在空間へ平坦化する。潜在特徴は連結され、自己注意層と MLP 層によって集約されて隠れ状態 \( \mathbf{h}_0 \) を生成する。続いて、クロス注意層 \( \mathcal{F}_{ca} \) を用いて隠れ状態と運転行動との対応関係を構築する。そして潜在変数 \( \mathbf{s}_t \) を次のようにパラメータ化する。</p>
+<p>\[ \mathbf{s}_t \sim \mathcal{N}\left(\mu_\theta\left(\mathcal{F}_{ca}(\mathbf{h}_t, A_t)\right), \sigma_\theta\left(\mathcal{F}_{ca}(\mathbf{h}_t, A_t)\right)\boldsymbol{I}\right), \tag{5} \]</p>
+<p>ここで \( \mu_\theta, \sigma_\theta \) はガウス分布のパラメータを学習する層である。将来の隠れ状態を予測するため、ゲート付き回帰ユニット（Gated Recurrent Units：GRU）を用いて反復的に更新を行う。</p>
+<p>\[ \mathbf{h}_{t+1} = \mathcal{F}_{\mathrm{GRU}}(\mathbf{h}_t, \mathbf{s}_t). \tag{6} \]</p>
+<p>これらの隠れ状態は行動特徴と連結され、将来の交通構造条件へと復号される。<em>Actionformer</em> は将来の交通条件を特徴レベルで予測するため、ピクセルレベルでのノイズの干渉が緩和され、より頑健な予測が得られることに留意されたい。<em>Actionformer</em> が生成する交通構造条件とテキストプロンプト条件に加え、参照画像条件 \( I_0 \) を［2］と同様に処理する。以上の条件に基づき、<em>Auto-DM</em> を拡張して将来の運転動画 \( \{I_i\}_{i=1}^{T} \) と運転行動 \( \{A_i\}_{i=T}^{T+N} \) を同時に生成する。この過程を生成的確率モデルとして定式化し、同時確率を次のように分解する。</p>
+<p>\[ \begin{aligned} &amp;p\left(I_{0:T}, A_{0:T+N}, \mathbf{h}_{0:T}, \mathbf{s}_{0:T-1}\right) \\ &amp;\quad = p\left(I_{1:T}, A_{T:T+N} \mid \mathbf{h}_{0:T}, \mathbf{s}_{0:T-1}, A_{0:T-1}, I_0\right) \\ &amp;\quad\quad \prod_{t=0}^{T} p\left(\mathbf{h}_t, \mathbf{s}_t \mid \mathbf{h}_{t-1}, \mathbf{s}_{t-1}, A_t\right), \end{aligned} \tag{7} \]</p>
+<p>ここで</p>
+<p>\[ \begin{aligned} &amp;p\left(\mathbf{h}_t, \mathbf{s}_t \mid \mathbf{h}_{t-1}, \mathbf{s}_{t-1}, A_t\right) \\ &amp;\quad = p\left(\mathbf{h}_t \mid \mathbf{h}_{t-1}, \mathbf{s}_{t-1}\right) p\left(\mathbf{s}_t \mid \mathbf{h}_t, A_t\right) \\ &amp;p\left(I_{1:T}, A_{T:T+N} \mid \mathbf{h}_{0:T}, \mathbf{s}_{0:T-1}, A_{0:T-1}, I_0\right) \\ &amp;\quad = p\left(I_{1:T} \mid \mathbf{h}_{0:T}, \mathbf{s}_{0:T-1}, A_{0:T-1}, I_0\right) \\ &amp;\quad\quad p\left(A_{T:T+N} \mid \mathbf{h}_{0:T}, \mathbf{s}_{0:T-1}, A_{0:T-1}, I_0\right). \end{aligned} \tag{8} \]</p>
+<a class="pg" data-page="7"></a>
+<p>隠れ状態の更新 \( p(\mathbf{h}_t \mid \mathbf{h}_{t-1}, \mathbf{s}_{t-1}) \) が決定論的な過程（式6）であることを考慮すると、観測の周辺尤度 \( p(I_{1:T}, A_{T:T+N}) \) を最大化するために推論する必要があるのは潜在変数 \( \mathbf{s}_t \) のみである。そこで、変分推論を行うために変分分布 \( q_{\mathrm{vd}} \) を導入する。</p>
+<p>\[ \begin{aligned} q_{\mathrm{vd}} &amp;\triangleq q\left(\mathbf{h}_{1:T}, \mathbf{s}_{1:T} \mid I_{0:T}, A_{0:T+N}\right) \\ &amp;= \prod_{t=1}^{T} q\left(\mathbf{h}_t \mid \mathbf{h}_{t-1}, \mathbf{s}_{t-1}\right) q\left(\mathbf{s}_t \mid I_{\le t}, A_{\lt t}\right), \end{aligned} \tag{9} \]</p>
+<p>ここで \( q\left(\mathbf{h}_t \mid \mathbf{h}_{t-1}, \mathbf{s}_{t-1}\right) = p\left(\mathbf{h}_t \mid \mathbf{h}_{t-1}, \mathbf{s}_{t-1}\right) \) である。［29］と同様に、変分下界は次のように導出できる。</p>
+<p>\[ \begin{aligned} &amp;\log p\left(I_{1:T},\ A_{T:T+N}\right) \ge \\ &amp;\mathbb{E}_{q\left(\mathbf{h}_{1:T}, \mathbf{s}_{1:T} \mid I_{0:T}, A_{0:T+N}\right)}\Big[\underbrace{\log p\left(I_{1:T} \mid \mathbf{h}_{0:T}, \mathbf{s}_{0:T-1}, A_{0:T-1}, I_0\right)}_{\text{video prediction}} \\ &amp;\quad + \underbrace{\log p\left(A_{T:T+N} \mid \mathbf{h}_{0:T}, \mathbf{s}_{0:T-1}, A_{0:T-1}, I_0\right)}_{\text{action predcition}}\Big]. \end{aligned} \tag{10} \]</p>
+<p class="yakuchu">式中ラベル：video prediction＝動画予測、action predcition＝行動予測（原文の綴り "predcition" は "prediction" の誤植と考えられる）</p>
+<p>なお、事後分布と事前分布のマッチング［29］は含めていない。これは、簡略化した変分下界でも同様に妥当な結果が得られることを経験的に確認したためである。式10において、動画予測部分と行動予測部分は、それぞれガウス分布 \( \mathcal{N}(\mathcal{G}(\mathbf{h}_{0:T}, A_{0:T-1}, I_0), \mathbf{I}) \) とラプラス分布 \( \mathrm{Laplace}(\pi(\mathbf{h}_{0:T}, A_{0:T-1}, I_0), 1) \) でモデル化できる。したがって、平均二乗誤差と \( L_1 \) 損失を用いて動画予測の学習を最適化する。\( \mathcal{G} \)、\( \pi \) は、<em>ActionFormer</em>、<em>Auto-DM</em>、動画デコーダ（<em>すなわち</em>、VAE デコーダ）、行動デコーダに含まれる学習可能な層である。行動予測の詳細としては、まず <em>Auto-DM</em> からマルチスケールの UNet 特徴をプーリングする。プーリングした特徴を過去の行動特徴と連結し、それを MLP 層で復号して将来の運転行動を生成する。</p>
+<p>2 段階の学習に基づき、<em>DriveDreamer</em> は、交通の構造的制約、将来の運転状態の予測、そして確立された世界モデルとの相互作用を含む、運転世界の包括的な理解を獲得した。</p>
+
+<h2 id="4-実験">4　実験</h2>
+<h3 id="4.1-実験の詳細">4.1　実験の詳細</h3>
+<p><strong>データセット。</strong>学習データは実世界の運転データセット nuScenes［3］から取得しており、合計 700 本の学習動画と 150 本の検証動画からなる。各動画には 6 台のサラウンドビューカメラで撮影された約 20 秒の映像が含まれる。動画のフレームレートは 12Hz であり、学習に利用可能な動画フレームは約 1M 枚となる。第 1 段階の学習では、nuScenes-devkit［51］を利用して 12Hz のフレームに対応する HDMap アノテーション（車線境界、車線区分線、横断歩道）を取得し、それを画像平面に投影する。nuScenes データセットは 2Hz の 3D バウンディングボックスアノテーションしか提供していないことを考慮し、［68］の 12Hz のバウンディングボックスアノテーションでこれを補う。第 2 段階の学習では、自車のヨー角と速度を運転行動の入力として用いる。さらに、nuScenes のアノテーションからシーン記述情報（<em>例えば</em>、天候や時刻）を抽出し、テキスト条件として用いる。</p>
+<p><strong>学習。</strong>提案する <em>Auto-DM</em> は Stable Diffusion v1.4［57］を基盤として構築され、その元のパラメータは固定される。第 1 段階の学習のステップ 1 では、モデルをバッチサイズ 16 で 40 エポック学習する。ステップ 2 では、<em>Auto-DM</em> を動画フレーム長 \( N = 32 \)、空間サイズ \( 448\times 256 \) で、バッチサイズ 1 で 10 エポック学習する。第 2 段階の動画予測の学習では、モデルは 16 フレームの運転動画 \( I_{1:16} \) と 16 個の将来の運転行動 \( I_{17:32} \)<span class="yakuchu">（訳注：運転行動であるため \( A_{17:32} \) の誤記と考えられる）</span>を予測し、バッチサイズ 1 で 10 エポック学習する。すべての実験は A800 GPU 上で実施し、学習率 \( 5\times 10^{-5} \) の AdamW オプティマイザ［38］を用いる。</p>
+<p><strong>評価。</strong>提案する <em>DriveDreamer</em> について、定性的評価と定量的評価の両方を用いた包括的な評価を行った。生成品質の評価には、フレーム単位の Fréchet Inception Distance（FID）［22］と Fréchet Video Distance（FVD）［63］を用い、評価対象の画像は \( 448\times 256 \) にリサイズした。さらに、生成画像が運転知覚手法の学習を強化することを検証するため、FCOS3D［66］と BEVFusion［45］をベースライン手法として、3D 物体検出により <em>DriveDreamer</em> を評価した。加えて、運転方策生成の性能を検証した。［30］の設定に従い、将来 3 秒間の出力運転軌跡を評価した。</p>
+
+<h3 id="4.2-制御可能な運転動画生成">4.2　制御可能な運転動画生成</h3>
+<p>提案する <em>DriveDreamer</em> は運転シナリオに対する深い理解を示し、多様な運転動画を制御可能に生成できる。本小節では、まず、第 1 段階の学習に基づいて <em>DriveDreamer</em> が構造化された交通条件のもとで多様な運転動画を生成できることを示す。また、生成された画像が運転知覚手法の学習を強化できることを検証する。さらに、<em>DriveDreamer</em> は異なる入力行動に応答することで汎用性を示し、車両の軌跡を制御し、その結果として多様な運転動画を生成することを可能にする。</p>
+<a class="pg" data-page="8"></a>
+<figure><img src="figs/fig6.jpg" loading="lazy" alt="図6" /></figure>
+<p><strong>図6：</strong>生成されたマルチビュー画像の可視化。生成条件（HDMap、3D ボックス）は nuScenes 検証セットのものである。<span style="color:red">赤</span>の矩形と<span style="color:#c9a800">黄</span>の円で強調した領域は、生成画像がマルチビュー間の一貫性を持ち、正解条件と整合していることを示す。</p>
+<p class="yakuchu">図中ラベル：Ground Truth images＝正解画像、Generated images＝生成画像</p>
+
+<table><thead><tr><th>手法</th><th>解像度</th><th>データ</th><th>mAP (↑)</th><th>NDS (↑)</th></tr></thead><tbody>
+<tr><td>FCOS3D［66］</td><td>1600 × 900</td><td>合成データなし</td><td style="text-align:right">30.2</td><td style="text-align:right">38.1</td></tr>
+<tr><td>FCOS3D［66］</td><td>1600 × 900</td><td>4K 合成データあり</td><td style="text-align:right"><strong>30.9</strong> (+0.7)</td><td style="text-align:right"><strong>38.3</strong> (+0.2)</td></tr>
+<tr><td>BEVFusion［45］</td><td>704 × 256</td><td>合成データなし</td><td style="text-align:right">32.8</td><td style="text-align:right">37.6</td></tr>
+<tr><td>BEVFusion［45］</td><td>704 × 256</td><td>4K 合成データあり</td><td style="text-align:right"><strong>35.8</strong> (+3.0)</td><td style="text-align:right"><strong>39.5</strong> (+1.9)</td></tr>
+</tbody></table>
+<p><strong>表1：</strong>3D 物体検出の学習における合成データ拡張の性能。</p>
+
+<table><thead><tr><th>手法</th><th>第 1 段階の学習（<em>Auto-DM</em>）</th><th>第 2 段階の学習（<em>ActionFormer</em>）</th><th>FID (↓)</th><th>FVD (↓)</th></tr></thead><tbody>
+<tr><td>DriveGAN［36］</td><td>-</td><td>-</td><td style="text-align:right">27.8</td><td style="text-align:right">390.8</td></tr>
+<tr><td><em>DriveDreamer</em></td><td></td><td></td><td style="text-align:right">15.9</td><td style="text-align:right">363.3</td></tr>
+<tr><td><em>DriveDreamer</em></td><td>✓</td><td></td><td style="text-align:right">15.3</td><td style="text-align:right">349.6</td></tr>
+<tr><td><em>DriveDreamer</em></td><td>✓</td><td>✓</td><td style="text-align:right"><strong>14.9</strong></td><td style="text-align:right"><strong>340.8</strong></td></tr>
+</tbody></table>
+<p><strong>表2：</strong>nuScenes 検証セットにおける生成品質の比較。</p>
+
+<p>図1および図6に示すように、<em>DriveDreamer</em> は構造化された交通条件に緻密に従う画像と動画を生成する能力を示す（さらなる可視化は補足資料にある）。重要なこととして、テキストプロンプトを操作して、天候や時間帯の変化を含む生成動画の変化を引き起こすこともできる。生成品質をさらに検証するため、（nuScenes 学習セットから）4K 件の交通条件を抽出して運転画像を生成した。生成画像を実画像と組み合わせて 3D 検出タスクの学習に用いた。表1の結果は、我々の合成データを用いた学習が 3D 検出の性能を大幅に向上させることを示している。具体的には、合成データなしで学習した場合と比較して、FCOS3D と BEVFusion の mAP 指標がそれぞれ 0.7 と 3.0 向上した。</p>
+<p>運転動画の生成に構造化された交通条件を利用するだけでなく、<em>DriveDreamer</em> は異なる運転行動に適応することで、生成する運転動画を多様化する能力を示す。図1に示すように（さらなる可視化は補足資料にある）、初期フレームとそれに対応する構造情報から出発して、<em>DriveDreamer</em> は左折や右折を描く動画など、さまざまな運転行動に基づいて異なる動画を生成できる。まとめると、<em>DriveDreamer</em> は高い制御性と多様性の両方を特徴とする、幅広い運転シーン動画の生成に優れている。したがって、<em>DriveDreamer</em> はコーナーケースやロングテールのシナリオまで含む幅広いタスクにわたって、自動運転システムの学習に役立つことが期待される。</p>
+<p>定量的な実験では、nuScenes 検証セットから自車の運転行動を抽出し、運転動画を生成するための条件として用いる。比較のため、<em>Drivedreamer</em> と同じ学習設定を用いて nuScenes データセットで DriveGAN［36］を学習する。さらに、<em>ActionFormer</em> を用いない <em>Drivedreamer</em> をベースラインとして学習する（具体的には、行動特徴をゼロパディングした構造化交通条件と直接連結する）。結果を表2に示し、生成動画の品質を評価している。特筆すべきこととして、第 1 段階の学習を行わない我々のアプローチでも、DriveGAN と比較して優れた FID と FVD のスコアを達成している。この観察は、運転シナリオを視覚的に理解するうえで強力な拡散モデルを活用することの有効性を裏付けている。さらに、第 1 段階の学習後の <em>Drivedreamer</em> は運転シーン内の構造化情報に対する理解が向上し、より高品質な動画生成につながることが明らかになった。最後に、提案する <em>ActionFormer</em> が第 1 段階の学習で獲得した交通構造情報の知識を効果的に活用していることを確認した。<em>連結</em>によるベースライン手法と比較して、<em>ActionFormer</em> は入力行動に基づいて将来の構造化情報を反復的に更新し、生成動画の品質をさらに高める。</p>
+
+<h3 id="4.3-運転行動の生成">4.3　運転行動の生成</h3>
+<a class="pg" data-page="9"></a>
+<table><thead><tr><th>手法</th><th>視覚情報</th><th>行動情報</th><th>\( L_2 \) 平均 (m)</th><th>衝突率平均 (%)</th></tr></thead><tbody>
+<tr><td>ST-P3［30］</td><td>✓</td><td></td><td style="text-align:right">2.11</td><td style="text-align:right">0.71</td></tr>
+<tr><td>UniAD［31］</td><td>✓</td><td></td><td style="text-align:right">1.65</td><td style="text-align:right">0.31</td></tr>
+<tr><td>AD-MLP［75］</td><td></td><td>✓</td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right">0.19</td></tr>
+<tr><td>VAD［33］</td><td>✓</td><td>✓</td><td style="text-align:right">0.37</td><td style="text-align:right"><strong>0.14</strong></td></tr>
+<tr><td><em>DriveDreamer</em></td><td>✓</td><td>✓</td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right">0.15</td></tr>
+</tbody></table>
+<p><strong>表3：</strong>nuScenes 検証セットにおけるオープンループ計画の性能。評価設定は ST-P3［30］と同一である。</p>
+
+<p>高度に制御可能な運転動画を生成する能力に加え、<em>DriveDreamer</em> は妥当な運転行動を予測する能力も示す。図1に示すように、初期フレームの条件と過去の運転行動が与えられると、<em>DriveDreamer</em> は実世界のシナリオに沿った将来の運転行動を生成できる。さらに、予測精度の定量評価を行う。具体的には、MLP 層［75］を用いて過去の運転行動情報を符号化する。加えて、マルチスケールの UNet 特徴を視覚的手がかりとしてプーリングする。そして 2 つのモダリティの特徴を連結し、将来の運転軌跡を学習する（実装の詳細は補足資料にある）。nuScenes データセットにおけるオープンループ評価の結果を表3に示す。注目すべきことに、<em>DriveDreamer</em> の平均 \( L_2 \) 軌跡誤差はわずか 0.29m であり、マルチモダリティ手法である VAD［33］の性能を上回っている。加えて、<em>DriveDreamer</em> は［75］で報告された平均衝突率を相対的に 21% 低減しており、<em>DriveDreamer</em> が学習した視覚特徴がエンドツーエンド自動運転に寄与し、運転の安全性を高めることが確認された。</p>
+
+<h2 id="5-議論と結論">5　議論と結論</h2>
+<p><em>DriveDreamer</em> は、世界モデリングの分野、特に自動運転の文脈において重要な進歩である。実世界の運転シナリオに焦点を当て、拡散モデルの力を活用することで、<em>DriveDreamer</em> は複雑な環境を理解し、高品質な運転動画を生成し、現実的な運転方策を策定する能力を実証した。従来の研究が主にゲーム環境やシミュレーション環境に集中していたのに対し、<em>DriveDreamer</em> は世界モデリングの境界を、実際の運転状況の複雑さを包含するまでに押し広げる。<em>DriveDreamer</em> は自動運転における将来の研究への道を開き、この重要な領域においてより正確なモデリングと意思決定を行うための実世界表現の重要性を強調するものである。</p>
+
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>Fan Bao, Shen Nie, Kaiwen Xue, Chongxuan Li, Shi Pu, Yaole Wang, Gang Yue, Yue Cao, Hang Su, and Jun Zhu. One transformer fits all distributions in multi-modal diffusion at scale. <em>arXiv preprint arXiv:2303.06555</em>, 2023. 2</li>
+<li>Andreas Blattmann, Robin Rombach, Huan Ling, Tim Dockhorn, Seung Wook Kim, Sanja Fidler, and Karsten Kreis. Align your latents: High-resolution video synthesis with latent diffusion models. In <em>CVPR</em>, 2023. 5, 6</li>
+<li>Holger Caesar, Varun Bankiti, Alex H. Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. <em>CVPR</em>, 2019. 7, 12</li>
+<li>Dian Chen and Philipp Krähenbühl. Learning from all vehicles. In <em>CVPR</em>, 2022. 5</li>
+<li>Li Chen, Penghao Wu, Kashyap Chitta, Bernhard Jaeger, Andreas Geiger, and Hongyang Li. End-to-end autonomous driving: Challenges and frontiers. <em>arXiv preprint arXiv:2306.16927</em>, 2023. 2, 3</li>
+<li>Rui Chen, Yongwei Chen, Ningxin Jiao, and Kui Jia. Fantasia3d: Disentangling geometry and appearance for high-quality text-to-3d content creation. <em>arXiv preprint arXiv:2303.13873</em>, 2023. 2</li>
+<li>Felipe Codevilla, Eder Santana, Antonio M López, and Adrien Gaidon. Exploring the limitations of behavior cloning for autonomous driving. In <em>CVPR</em>, 2019. 2</li>
+<li>Emily Denton and Rob Fergus. Stochastic video generation with a learned prior. In <em>ICML</em>, 2018. 2, 3</li>
+<li>Prafulla Dhariwal and Alexander Nichol. Diffusion models beat gans on image synthesis. <em>NeurIPS</em>, 2021. 3</li>
+<li>Stefan Elfwing, Eiji Uchibe, and Kenji Doya. Sigmoid-weighted linear units for neural network function approximation in reinforcement learning. <em>Neural networks</em>, 2018. 12</li>
+<li>Jean-Yves Franceschi, Edouard Delasalles, Mickaël Chen, Sylvain Lamprier, and Patrick Gallinari. Stochastic latent residual video prediction. In <em>ICML</em>, 2020. 2, 3</li>
+<li>Ruiyuan Gao, Kai Chen, Enze Xie, Lanqing Hong, Zhenguo Li, Dit-Yan Yeung, and Qiang Xu. Magicdrive: Street view generation with diverse 3d geometry control. <em>arXiv preprint arXiv:2310.02601</em>, 2023. 3</li>
+<li>Zeyu Gao, Yao Mu, Ruoyan Shen, Chen Chen, Yangang Ren, Jianyu Chen, Shengbo Eben Li, Ping Luo, and Yanfeng Lu. Enhance sample efficiency and robustness of end-to-end urban autonomous driving via semantic masked world model. <em>arXiv preprint arXiv:2210.04017</em>, 2022. 2, 3</li>
+<li>Shuyang Gu, Dong Chen, Jianmin Bao, Fang Wen, Bo Zhang, Dongdong Chen, Lu Yuan, and Baining Guo. Vector quantized diffusion model for text-to-image synthesis. In <em>CVPR</em>, 2022. 2</li>
+<li>David Ha and Jürgen Schmidhuber. Recurrent world models facilitate policy evolution. <em>NeurIPS</em>, 2018. 2, 3</li>
+<li>Danijar Hafner, Kuang-Huei Lee, Ian Fischer, and Pieter Abbeel. Deep hierarchical planning from pixels. <em>NeurIPS</em>, 2022. 3</li>
+<li>Danijar Hafner, Timothy Lillicrap, Jimmy Ba, and Mohammad Norouzi. Dream to control: Learning behaviors by latent imagination. <em>arXiv preprint arXiv:1912.01603</em>, 2019. 2, 3</li>
+<li>Danijar Hafner, Timothy Lillicrap, Mohammad Norouzi, and Jimmy Ba. Mastering atari with discrete world models. <em>arXiv preprint arXiv:2010.02193</em>, 2020. 2, 3</li>
+<li>Danijar Hafner, Jurgis Pasukonis, Jimmy Ba, and Timothy Lillicrap. Mastering diverse domains through world models. <em>arXiv preprint arXiv:2301.04104</em>, 2023. 2, 3</li>
+</ol>
+<a class="pg" data-page="10"></a>
+<ol class="refs" start="20">
+<li>Danijar Hafner, Jurgis Pasukonis, Jimmy Ba, and Timothy Lillicrap. Mastering diverse domains through world models. <em>arXiv preprint arXiv:2301.04104</em>, 2023. 3</li>
+<li>William Harvey, Saeid Naderiparizi, Vaden Masrani, Christian Weilbach, and Frank Wood. Flexible diffusion modeling of long videos. <em>NeurIPS</em>, 2022. 2, 3</li>
+<li>Martin Heusel, Hubert Ramsauer, Thomas Unterthiner, Bernhard Nessler, and Sepp Hochreiter. Gans trained by a two time-scale update rule converge to a local nash equilibrium. <em>NeurIPS</em>, 2017. 7</li>
+<li>Jonathan Ho, William Chan, Chitwan Saharia, Jay Whang, Ruiqi Gao, Alexey Gritsenko, Diederik P Kingma, Ben Poole, Mohammad Norouzi, David J Fleet, et al. Imagen video: High definition video generation with diffusion models. <em>arXiv preprint arXiv:2210.02303</em>, 2022. 2, 3</li>
+<li>Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. <em>NeurIPS</em>, 2020. 3</li>
+<li>Jonathan Ho, Chitwan Saharia, William Chan, David J Fleet, Mohammad Norouzi, and Tim Salimans. Cascaded diffusion models for high fidelity image generation. <em>JMLR</em>, 2022. 3</li>
+<li>Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. <em>Neural computation</em>, 1997. 3</li>
+<li>Tobias Höppe, Arash Mehrjou, Stefan Bauer, Didrik Nielsen, and Andrea Dittadi. Diffusion models for video prediction and infilling. <em>arXiv preprint arXiv:2206.07696</em>, 2022. 3</li>
+<li>Jun-Ting Hsieh, Bingbin Liu, De-An Huang, Li F Fei-Fei, and Juan Carlos Niebles. Learning to decompose and disentangle representations for video prediction. <em>NeurIPS</em>, 2018. 3</li>
+<li>Anthony Hu, Gianluca Corrado, Nicolas Griffiths, Zachary Murez, Corina Gurau, Hudson Yeo, Alex Kendall, Roberto Cipolla, and Jamie Shotton. Model-based imitation learning for urban driving. <em>NeurIPS</em>, 2022. 2, 3, 7</li>
+<li>Shengchao Hu, Li Chen, Penghao Wu, Hongyang Li, Junchi Yan, and Dacheng Tao. St-p3: End-to-end vision-based autonomous driving via spatial-temporal feature learning. In <em>ECCV</em>, 2022. 7, 9</li>
+<li>Yihan Hu, Jiazhi Yang, Li Chen, Keyu Li, Chonghao Sima, Xizhou Zhu, Siqi Chai, Senyao Du, Tianwei Lin, Wenhai Wang, Lewei Lu, Xiaosong Jia, Qiang Liu, Jifeng Dai, Yu Qiao, and Hongyang Li. Planning-oriented autonomous driving. In <em>CVPR</em>, 2023. 5, 9</li>
+<li>Lianghua Huang, Di Chen, Yu Liu, Yujun Shen, Deli Zhao, and Jingren Zhou. Composer: Creative and controllable image synthesis with composable conditions. <em>arXiv preprint arXiv:2302.09778</em>, 2023. 3</li>
+<li>Bo Jiang, Shaoyu Chen, Qing Xu, Bencheng Liao, Jiajie Chen, Helong Zhou, Qian Zhang, Wenyu Liu, Chang Huang, and Xinggang Wang. Vad: Vectorized scene representation for efficient autonomous driving. <em>arXiv preprint arXiv:2303.12077</em>, 2023. 9</li>
+<li>Nal Kalchbrenner, Aäron Oord, Karen Simonyan, Ivo Danihelka, Oriol Vinyals, Alex Graves, and Koray Kavukcuoglu. Video pixel networks. In <em>ICML</em>, 2017. 3</li>
+<li>Levon Khachatryan, Andranik Movsisyan, Vahram Tadevosyan, Roberto Henschel, Zhangyang Wang, Shant Navasardyan, and Humphrey Shi. Text2video-zero: Text-to-image diffusion models are zero-shot video generators. <em>arXiv preprint arXiv:2303.13439</em>, 2023. 2, 3</li>
+<li>Seung Wook Kim, Jonah Philion, Antonio Torralba, and Sanja Fidler. Drivegan: Towards a controllable high-quality neural simulation. In <em>CVPR</em>, 2021. 3, 8</li>
+<li>Seung Wook Kim, Yuhao Zhou, Jonah Philion, Antonio Torralba, and Sanja Fidler. Learning to simulate dynamic environments with gamegan. In <em>CVPR</em>, 2020. 3</li>
+<li>Diederik P Kingma and Jimmy Ba. Adam: A method for stochastic optimization. <em>arXiv preprint arXiv:1412.6980</em>, 2014. 7</li>
+<li>Diederik P Kingma and Max Welling. Auto-encoding variational bayes. <em>arXiv preprint arXiv:1312.6114</em>, 2013. 3</li>
+<li>Manoj Kumar, Mohammad Babaeizadeh, Dumitru Erhan, Chelsea Finn, Sergey Levine, Laurent Dinh, and Durk Kingma. Videoflow: A flow-based generative model for video. <em>arXiv preprint arXiv:1903.01434</em>, 2019. 3</li>
+<li>Xiaofan Li, Yifu Zhang, and Xiaoqing Ye. Drivingdiffusion: Layout-guided multi-view driving scene video generation with latent diffusion model. <em>arXiv preprint arXiv:2310.07771</em>, 2023. 3</li>
+<li>Yuheng Li, Haotian Liu, Qingyang Wu, Fangzhou Mu, Jianwei Yang, Jianfeng Gao, Chunyuan Li, and Yong Jae Lee. Gligen: Open-set grounded text-to-image generation. In <em>CVPR</em>, 2023. 2, 4</li>
+<li>Chen-Hsuan Lin, Jun Gao, Luming Tang, Towaki Takikawa, Xiaohui Zeng, Xun Huang, Karsten Kreis, Sanja Fidler, Ming-Yu Liu, and Tsung-Yi Lin. Magic3d: High-resolution text-to-3d content creation. In <em>CVPR</em>, 2023. 2</li>
+<li>Jessy Lin, Yuqing Du, Olivia Watkins, Danijar Hafner, Pieter Abbeel, Dan Klein, and Anca Dragan. Learning to model the world with language. <em>arXiv preprint arXiv:2308.01399</em>, 2023. 3</li>
+<li>Zhijian Liu, Haotian Tang, Alexander Amini, Xinyu Yang, Huizi Mao, Daniela L Rus, and Song Han. Bevfusion: Multitask multi-sensor fusion with unified bird's-eye view representation. In <em>ICRA</em>, 2023. 7, 8, 13</li>
+<li>Michael Mathieu, Camille Couprie, and Yann LeCun. Deep multi-scale video prediction beyond mean square error. <em>arXiv preprint arXiv:1511.05440</em>, 2015. 3</li>
+<li>Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik, Jonathan T Barron, Ravi Ramamoorthi, and Ren Ng. Nerf: Representing scenes as neural radiance fields for view synthesis. <em>Communications of the ACM</em>, 2021. 4, 12</li>
+<li>Chong Mou, Xintao Wang, Liangbin Xie, Jian Zhang, Zhongang Qi, Ying Shan, and Xiaohu Qie. T2i-adapter: Learning adapters to dig out more controllable ability for text-to-image diffusion models. <em>arXiv preprint arXiv:2302.08453</em>, 2023. 2</li>
+<li>Alex Nichol, Prafulla Dhariwal, Aditya Ramesh, Pranav Shyam, Pamela Mishkin, Bob McGrew, Ilya Sutskever, and Mark Chen. Glide: Towards photorealistic image generation and editing with text-guided diffusion models. <em>arXiv preprint arXiv:2112.10741</em>, 2021. 2, 3</li>
+<li>Alexander Quinn Nichol and Prafulla Dhariwal. Improved denoising diffusion probabilistic models. In <em>ICML</em>, 2021. 3</li>
+</ol>
+<a class="pg" data-page="11"></a>
+<ol class="refs" start="51">
+<li>nuScenes Contributors. The devkit of the nuscenes dataset. <a href="https://github.com/nutonomy/nuscenes-devkit">https://github.com/nutonomy/nuscenes-devkit</a>, 2019. 7</li>
+<li>Minting Pan, Xiangming Zhu, Yunbo Wang, and Xiaokang Yang. Iso-dream: Isolating and leveraging noncontrollable visual dynamics in world models. <em>NeurIPS</em>, 2022. 2, 3</li>
+<li>Ben Poole, Ajay Jain, Jonathan T Barron, and Ben Mildenhall. Dreamfusion: Text-to-3d using 2d diffusion. <em>arXiv preprint arXiv:2209.14988</em>, 2022. 2</li>
+<li>Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learning transferable visual models from natural language supervision. In <em>ICML</em>. 4</li>
+<li>Aditya Ramesh, Prafulla Dhariwal, Alex Nichol, Casey Chu, and Mark Chen. Hierarchical text-conditional image generation with clip latents. <em>arXiv preprint arXiv:2204.06125</em>, 2022. 2</li>
+<li>MarcAurelio Ranzato, Arthur Szlam, Joan Bruna, Michael Mathieu, Ronan Collobert, and Sumit Chopra. Video (language) modeling: a baseline for generative models of natural videos. <em>arXiv preprint arXiv:1412.6604</em>, 2014. 3</li>
+<li>Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. High-resolution image synthesis with latent diffusion models. In <em>CVPR</em>, 2022. 2, 3, 4, 5, 7</li>
+<li>Masaki Saito, Eiichi Matsumoto, and Shunta Saito. Temporal generative adversarial nets with singular value clipping. In <em>ICCV</em>, 2017. 3</li>
+<li>Younggyo Seo, Danijar Hafner, Hao Liu, Fangchen Liu, Stephen James, Kimin Lee, and Pieter Abbeel. Masked world models for visual control. In <em>CoRL</em>, 2023. 3</li>
+<li>Uriel Singer, Adam Polyak, Thomas Hayes, Xi Yin, Jie An, Songyang Zhang, Qiyuan Hu, Harry Yang, Oron Ashual, Oran Gafni, et al. Make-a-video: Text-to-video generation without text-video data. <em>arXiv preprint arXiv:2209.14792</em>, 2022. 2, 3</li>
+<li>Nitish Srivastava, Elman Mansimov, and Ruslan Salakhudinov. Unsupervised learning of video representations using lstms. In <em>ICML</em>, 2015. 3</li>
+<li>Sergey Tulyakov, Ming-Yu Liu, Xiaodong Yang, and Jan Kautz. Mocogan: Decomposing motion and content for video generation. In <em>CVPR</em>, 2018. 3</li>
+<li>Thomas Unterthiner, Sjoerd Van Steenkiste, Karol Kurach, Raphael Marinier, Marcin Michalski, and Sylvain Gelly. Towards accurate generative models of video: A new metric &amp; challenges. <em>arXiv preprint arXiv:1812.01717</em>, 2018. 7</li>
+<li>Vikram Voleti, Alexia Jolicoeur-Martineau, and Chris Pal. Mcvd-masked conditional video diffusion for prediction, generation, and interpolation. <em>NeurIPS</em>, 2022. 3</li>
+<li>Carl Vondrick, Hamed Pirsiavash, and Antonio Torralba. Generating videos with scene dynamics. <em>NeurIPS</em>, 29, 2016. 3</li>
+<li>Tai Wang, Xinge Zhu, Jiangmiao Pang, and Dahua Lin. Fcos3d: Fully convolutional one-stage monocular 3d object detection. In <em>CVPR</em>, 2021. 7, 8, 13</li>
+<li>Xiang Wang, Hangjie Yuan, Shiwei Zhang, Dayou Chen, Jiuniu Wang, Yingya Zhang, Yujun Shen, Deli Zhao, and Jingren Zhou. Videocomposer: Compositional video synthesis with motion controllability. <em>arXiv preprint arXiv:2306.02018</em>, 2023. 2, 3</li>
+<li>Xiaofeng Wang, Zheng Zhu, Yunpeng Zhang, Guan Huang, Yun Ye, Wenbo Xu, Ziwei Chen, and Xingang Wang. Are we ready for vision-centric driving streaming perception? the asap benchmark. In <em>CVPR</em>, 2023. 7</li>
+<li>Zhengyi Wang, Cheng Lu, Yikai Wang, Fan Bao, Chongxuan Li, Hang Su, and Jun Zhu. Prolificdreamer: High-fidelity and diverse text-to-3d generation with variational score distillation. <em>arXiv preprint arXiv:2305.16213</em>, 2023. 2</li>
+<li>Dirk Weissenborn, Oscar Täckström, and Jakob Uszkoreit. Scaling autoregressive video models. <em>arXiv preprint arXiv:1906.02634</em>, 2019. 3</li>
+<li>Philipp Wu, Alejandro Escontrela, Danijar Hafner, Pieter Abbeel, and Ken Goldberg. Daydreamer: World models for physical robot learning. In <em>CoRL</em>, 2023. 3</li>
+<li>Kairui Yang, Enhui Ma, Jibin Peng, Qing Guo, Di Lin, and Kaicheng Yu. Bevcontrol: Accurately controlling street-view elements with multi-perspective consistency via bev sketch layout. <em>arXiv preprint arXiv:2308.01661</em>, 2023. 3</li>
+<li>Ling Yang, Zhilong Zhang, Yang Song, Shenda Hong, Runsheng Xu, Yue Zhao, Yingxia Shao, Wentao Zhang, Bin Cui, and Ming-Hsuan Yang. Diffusion models: A comprehensive survey of methods and applications. <em>arXiv preprint arXiv:2209.00796</em>, 2022. 2</li>
+<li>Ruihan Yang, Prakhar Srivastava, and Stephan Mandt. Diffusion probabilistic modeling for video generation. <em>arXiv preprint arXiv:2203.09481</em>, 2022. 2, 3</li>
+<li>Jiang-Tian Zhai, Ze Feng, Jihao Du, Yongqiang Mao, Jiang-Jiang Liu, Zichang Tan, Yifu Zhang, Xiaoqing Ye, and Jingdong Wang. Rethinking the open-loop evaluation of end-to-end autonomous driving in nuscenes. <em>arXiv preprint arXiv:2305.10430</em>, 2023. 9, 12</li>
+<li>Lvmin Zhang, Anyi Rao, and Maneesh Agrawala. Adding conditional control to text-to-image diffusion models, 2023. 2</li>
+<li>Yunpeng Zhang, Zheng Zhu, Wenzhao Zheng, Junjie Huang, Guan Huang, Jie Zhou, and Jiwen Lu. Beverse: Unified perception and prediction in birds-eye-view for vision-centric autonomous driving. <em>arXiv preprint arXiv:2205.09743</em>, 2022. 5</li>
+</ol>
+
+<a class="pg" data-page="12"></a>
+<p>補足資料では、まずモデルアーキテクチャと合成データによる学習の詳細を含む、<em>DriveDreamer</em> の実装の詳細を説明する。次に、追加の可視化結果を示す。</p>
+
+<h2 id="6-実装の詳細">6　実装の詳細</h2>
+<p><strong>条件エンコーダ。</strong><em>DriveDreamer</em> では、参照画像、HDMap、3D ボックス、行動を含むさまざまな条件入力を埋め込むために、多様なエンコーダを用いる。これらのエンコーダの詳細なアーキテクチャを表4に示す。参照画像 \( I \in \mathcal{R}^{H\times W\times 3} \) や HDMap \( H \in \mathcal{R}^{H\times W\times 3} \) のような空間的に整合した条件には、2D 畳み込み層のスタックを用いてダウンサンプリングを行い、最終的な出力次元が拡散ノイズの次元と一致するようにする。3D ボックス \( B \in \mathcal{R}^{N\times N_B\times 16} \) や行動 \( A \in \mathcal{R}^{N\times 2} \) のような非構造化条件には、多層パーセプトロン（Multi-layer Perceptron：MLP）層を用いて特徴を符号化する。</p>
+
+<table><thead><tr><th>条件</th><th>層の説明</th><th>出力サイズ</th></tr></thead><tbody>
+<tr><td>Ref. Img.（Step A）</td><td>Conv2D, 4 × 4, S4</td><td>\( H/4\times W/4\times 4 \)</td></tr>
+<tr><td>Ref. Img.（Step B）</td><td>Conv2D, 4 × 4, S4</td><td>\( H/16\times W/16\times 4 \)</td></tr>
+<tr><td>Ref. Img.（Step C）</td><td>Conv2D, 4 × 4, S4</td><td>\( H/64\times W/64\times 8 \)</td></tr>
+<tr><td>HDMap（Step A）</td><td>Conv2D, 4 × 4, S4</td><td>\( H/4\times W/4\times 4 \)</td></tr>
+<tr><td>HDMap（Step B）</td><td>Conv2D, 4 × 4, S4</td><td>\( H/16\times W/16\times 4 \)</td></tr>
+<tr><td>HDMap（Step C）</td><td>Conv2D, 4 × 4, S4</td><td>\( H/64\times W/64\times 8 \)</td></tr>
+<tr><td>3D Box（Step A）</td><td>FourierEmbedder［47］</td><td>\( N\times N_B\times 256 \)</td></tr>
+<tr><td>3D Box（Step B）</td><td>MLP</td><td>\( N\times N_B\times 512 \)</td></tr>
+<tr><td>3D Box（Step C）</td><td>MLP</td><td>\( N\times N_B\times 768 \)</td></tr>
+<tr><td>Action（Step A）</td><td>MLP</td><td>\( N\times 32 \)</td></tr>
+<tr><td>Action（Step B）</td><td>MLP</td><td>\( N\times 128 \)</td></tr>
+</tbody></table>
+<p><strong>表4：</strong>エンコーダのアーキテクチャの詳細。S はストライドを表し、各畳み込み層と MLP 層の後には <em>Sigmoid Linear Units</em>［10］が続く。</p>
+<p class="yakuchu">表中の語：Ref. Img.＝参照画像、3D Box＝3D ボックス、Action＝行動、Step A／B／C＝ステップ A／B／C（エンコーダ内の段）</p>
+
+<figure><img src="figs/fig7.png" loading="lazy" alt="図7" /></figure>
+<p><strong>図7：</strong>動画生成、マルチビュー画像生成、マルチビュー動画生成のモデルアーキテクチャの比較。</p>
+<p class="yakuchu">図中ラベル：Video Generation＝動画生成、Multi-view Image Generation＝マルチビュー画像生成、Multi-view Video Generation＝マルチビュー動画生成、Denoising ×T steps＝デノイズ ×T ステップ、View-wise-attention＝ビュー単位の注意、Frame-wise-attention＝フレーム単位の注意、Gated Self-attention＝ゲート付き自己注意、Cross-attention＝クロス注意</p>
+
+<p><strong>マルチビュー生成。</strong><em>DriveDreamer</em> のフレームワークは、マルチビューの画像／動画生成へ容易に拡張できる。動画生成、マルチビュー画像生成、マルチビュー動画生成のモデルアーキテクチャの比較を図7に示す。マルチビュー画像生成では、フレーム単位の注意層がビュー単位の注意層に置き換えられる点を除き、モデルのフレームワークは動画生成と同じである。また、ビュー単位の注意層は隣接するビュー間のみで対応関係を構築する。マルチビュー動画生成では、ビュー単位の注意層とフレーム単位の注意層を積み重ねて拡散の潜在特徴を処理し、その結果、ビュー間およびフレーム間で一貫した動画が得られる（図8参照）。</p>
+<p><strong>行動予測のアーキテクチャ。</strong>行動予測では、まずマルチモーダルな特徴を連結する。</p>
+<p>\[ \mathrm{CONCAT}(\mathcal{F}_{\mathrm{p}}(U_0), \mathcal{F}_{\mathrm{p}}(U_1), \mathcal{F}_{\mathrm{p}}(U_2), \mathcal{F}_{\mathrm{p}}(U_3), A_f), \tag{11} \]</p>
+<p>ここで \( \mathcal{F}_{\mathrm{p}} \) は平均プーリング操作、\( U_i\ (i = 0, 1, 2, 3) \) はマルチスケールの UNet 特徴、\( A_f \) は符号化された運転行動（すなわち、速度とヨー角）の特徴である。次に、MLP 層［75］を用いて将来の運転行動を学習する。軌跡予測の評価では、［75］に従い、\( A_f \) を高レベルコマンド、加速度、過去の軌跡からも追加で抽出し、［75］と同じ行動特徴エンコーダを用いる。</p>
+<a class="pg" data-page="13"></a>
+<figure><img src="figs/fig8.jpg" loading="lazy" alt="図8" /></figure>
+<p><strong>図8：</strong>生成されたマルチビュー動画の可視化。<span style="color:red">赤</span>の円で強調した領域は、生成動画がビュー間およびフレーム間で一貫していることを示す。</p>
+
+<p><strong>合成データによる学習。</strong><em>DriveDreamer</em> が生成したデータを活用して、3D 検出タスクの学習を拡張する。具体的には、<em>DriveDreamer</em> をより高解像度の画像でファインチューニングする。学習データは nuScenes［3］のものである。その結果、<em>DriveDreamer</em> は解像度 768 × 448 の高忠実度な画像を生成できる。次に、生成画像を元の解像度 1600 × 900 にリサイズし、さまざまな既製の 3D 検出器の学習に利用できるようにする。学習過程では、nuScenes 学習セットから 4000 サンプル（3D ボックスと HDMap）を無作為に選択し、マルチビュー画像の生成に用いる。これらの合成データを元の学習セットと混合して 3D 検出器を学習する。実験では、各ベースライン（すなわち、FCOS3D［66］と BEVFusion［45］）を 12 エポック学習する。表1に示した結果は、我々のアプローチが下流タスクの性能を大幅に向上させることを示している。</p>
+
+<h2 id="7-可視化">7　可視化</h2>
+<p>図9に示すように、<em>DriveDreamer</em> は HDMap や 3D ボックスなどの要素からなる構造化された交通条件に緻密に従う、多様な運転シーン動画の生成において顕著な能力を示す。重要なこととして、テキストプロンプトを操作して、天候や時間帯の変化を含む生成動画の変化を引き起こすこともできる。この高い適応性は、生成される動画出力の多面性に大きく寄与する。運転動画の生成に構造化された交通条件を利用するだけでなく、<em>DriveDreamer</em> は異なる運転行動に適応することで、生成する運転動画を多様化する能力を示す。図10に示すように、初期フレームとそれに対応する構造情報から出発して、<em>DriveDreamer</em> は左折や右折を描く動画など、さまざまな運転行動に基づいて異なる動画を生成できる。高度に制御可能な運転動画を生成する能力に加え、<em>DriveDreamer</em> は妥当な運転行動を予測する能力も示す。図11に示すように、初期フレームの条件と過去の運転行動が与えられると、<em>DriveDreamer</em> は実世界のシナリオに沿った将来の運転行動を生成できる。生成された行動を対応する正解動画と比較分析すると、<em>DriveDreamer</em> は交差点、信号機の遵守、右左折の実行といった複雑な状況においても、一貫して理にかなった運転行動を予測していることがわかる。</p>
+
+<a class="pg" data-page="14"></a>
+<figure><img src="figs/fig9.jpg" loading="lazy" alt="図9" /></figure>
+<p><strong>図9：</strong>構造化された交通条件（HDMap と 3D ボックス）による運転動画生成。テキストプロンプトを利用して運転シナリオのスタイル（<em>例えば</em>、天候や時間帯）を調整している。</p>
+<p class="yakuchu">図中ラベル：Structured traffic conditions HDMaps, 3D Bboxes＝構造化された交通条件（HDMap、3D バウンディングボックス）、"Realistic autonousmous driving scene, sunny / rainy / night"＝「現実的な自動運転シーン、晴れ／雨／夜」（原図の綴り "autonousmous"、"scen" は "autonomous"、"scene" の誤植と考えられる）</p>
+
+<a class="pg" data-page="15"></a>
+<figure><img src="figs/fig10.jpg" loading="lazy" alt="図10" /></figure>
+<p><strong>図10：</strong>運転行動との相互作用による将来の運転動画生成。異なる運転行動（<em>例えば</em>、左折、右折）により、それぞれに対応する運転動画を生成できる。</p>
+<p class="yakuchu">図中ラベル：Initial Conditions / Initial Condition＝初期条件、"Realistic autonousmous driving scene"＝「現実的な自動運転シーン」、Turn Right＝右折、Turn Left＝左折、Vel. (m/s)＝速度（m/s）、Steer. (deg)＝操舵角（度）</p>
+
+<figure><img src="figs/fig11.jpg" loading="lazy" alt="図11" /></figure>
+<p><strong>図11：</strong>予測された将来の運転行動と、対応する正解の運転動画の可視化。</p>
+<p class="yakuchu">図中ラベル：Initial Condition＝初期条件、Initial Driving Actions＝初期運転行動、Vel. (m/s)＝速度（m/s）、Steer. (deg)＝操舵角（度）</p>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>
