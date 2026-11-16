@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Autonomous Driving Papers 全文日本語訳</title>
+<style>
+:root{color-scheme:light}
+body{font-family:'Noto Sans CJK JP','Yu Gothic','Meiryo',sans-serif;line-height:1.8;color:#182634;max-width:1020px;margin:0 auto;padding:48px 38px;background:#fff;font-size:16px}
+h1{font-size:30px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:18px}
+.count{color:#5b6b78;font-size:14px;margin-top:-8px}
+ul.list{list-style:none;padding:0;margin:28px 0}
+li.card{padding:18px 22px;margin:14px 0;background:#f3f7fa;border-left:3px solid #285d78}
+a.ttl{font-size:19px;font-weight:bold;color:#215c80;text-decoration:none}
+a.ttl:hover{text-decoration:underline}
+.num{display:inline-block;min-width:2.2em;color:#fff;background:#285d78;font-size:13px;text-align:center;border-radius:4px;padding:0 6px;margin-right:10px;vertical-align:2px}
+.en{color:#244b64;font-size:14px;margin-top:4px}
+.au{color:#5b6b78;font-size:13px}
+p.sum{margin:10px 0 6px;font-size:14px}
+.links{font-size:13px;margin-top:4px}
+.links a{color:#215c80}
+.info{color:#7a8794;font-size:12px}
+input#q{width:100%;box-sizing:border-box;font-size:16px;padding:10px 12px;border:1px solid #ccd6df;margin-top:18px;border-radius:0;-webkit-appearance:none}
+.links a{display:inline-block;padding:4px 0}
+@media (max-width:700px){
+ body{padding:20px 16px}
+ h1{font-size:22px}
+ li.card{padding:14px 14px}
+ a.ttl{font-size:17px}
+ .links{font-size:14px}
+}
+</style>
+</head>
+<body>
+<h1>Autonomous Driving Papers 全文日本語訳</h1>
+<p class="count">65 件　／　更新: 2026-11-16 19:26　／　タイトルをクリックすると原文と訳文を並べて読めます（スマホ・タブレット縦では上下に並びます）</p>
+<input id="q" type="search" placeholder="タイトル・著者・要約で絞り込み" oninput="(function(v){document.querySelectorAll('li.card').forEach(function(c){c.style.display=c.textContent.toLowerCase().indexOf(v.toLowerCase())>=0?'':'none'})})(this.value)" />
+<ul class="list">
+<li class="card">
+  <a class="ttl" href="papers/01_Transformer_1706.03762/">Attention Is All You Need</a>
+  <div class="au">Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin（Google Brain / Google Research / University of Toronto）</div>
+  <p class="sum">再帰や畳み込みを一切使わず注意機構のみで構成した系列変換モデル Transformer を提案し、WMT 2014 英独・英仏翻訳で最高水準の BLEU を大幅に短い学習時間で達成した。英語の構成素構文解析にも汎化することを示す。</p>
+  <div class="links"><a href="papers/01_Transformer_1706.03762/">原文と並べて読む</a>　<a href="papers/01_Transformer_1706.03762/ja.html">訳文のみ</a>　<a href="papers/01_Transformer_1706.03762/01_Transformer_1706.03762.pdf">原文PDF</a></div>
+  <div class="info">01_Transformer_1706.03762.pdf　／　15ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/02_ViT_2010.11929/">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a>
+  <div class="au">Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, Neil Houlsby（Google Research, Brain Team）</div>
+  <p class="sum">画像を 16x16 のパッチ列に分割して標準的な Transformer にそのまま入力する Vision Transformer（ViT）を提案し、大規模データで事前学習すれば最先端の CNN に匹敵・凌駕する画像分類性能を、より少ない計算資源で達成できることを示した（ICLR 2021）。</p>
+  <div class="links"><a href="papers/02_ViT_2010.11929/">原文と並べて読む</a>　<a href="papers/02_ViT_2010.11929/ja.html">訳文のみ</a>　<a href="papers/02_ViT_2010.11929/02_ViT_2010.11929.pdf">原文PDF</a></div>
+  <div class="info">02_ViT_2010.11929.pdf　／　22ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/03_DETR_2005.12872/">End-to-End Object Detection with Transformers</a>
+  <div class="au">Nicolas Carion, Francisco Massa, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, Sergey Zagoruyko（Facebook AI）</div>
+  <p class="sum">物体検出を直接的な集合予測問題として定式化し、二部マッチングによる集合損失と Transformer エンコーダ・デコーダにより、NMS やアンカーなどの手設計要素を不要にした検出器 DETR を提案する。COCO で Faster R-CNN と同等の精度を達成し、パノプティックセグメンテーションにも容易に拡張できる。</p>
+  <div class="links"><a href="papers/03_DETR_2005.12872/">原文と並べて読む</a>　<a href="papers/03_DETR_2005.12872/ja.html">訳文のみ</a>　<a href="papers/03_DETR_2005.12872/03_DETR_2005.12872.pdf">原文PDF</a></div>
+  <div class="info">03_DETR_2005.12872.pdf　／　26ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/04_VectorNet_2005.04259/">VectorNet: Encoding HD Maps and Agent Dynamics from Vectorized Representation</a>
+  <div class="au">Jiyang Gao, Chen Sun, Hang Zhao, Yi Shen, Dragomir Anguelov, Congcong Li, Cordelia Schmid（Waymo LLC、Google Research）</div>
+  <p class="sum">HD マップと移動エージェントの軌跡をラスタ画像ではなくベクトル（ポリライン）として表現し、局所的なポリライン部分グラフと大域的な相互作用グラフからなる階層型グラフニューラルネットワークで符号化する行動予測手法。ノード補完の補助タスクを導入し、パラメータを 70% 以上、FLOPs を 1 桁削減しつつ Argoverse で最先端の性能を達成した。</p>
+  <div class="links"><a href="papers/04_VectorNet_2005.04259/">原文と並べて読む</a>　<a href="papers/04_VectorNet_2005.04259/ja.html">訳文のみ</a>　<a href="papers/04_VectorNet_2005.04259/04_VectorNet_2005.04259.pdf">原文PDF</a></div>
+  <div class="info">04_VectorNet_2005.04259.pdf　／　9ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/05_Lift_Splat_Shoot_2008.05711/">Lift, Splat, Shoot: Encoding Images from Arbitrary Camera Rigs by Implicitly Unprojecting to 3D</a>
+  <div class="au">Jonah Philion, Sanja Fidler（NVIDIA, University of Toronto, Vector Institute）</div>
+  <p class="sum">任意台数のカメラ画像を各画素の奥行き分布つき特徴の視錐台へ「持ち上げ（Lift）」、鳥瞰図（BEV）グリッドへ「投げ落とし（Splat）」てシーン表現をエンドツーエンドに学習する手法。nuScenes・Lyft の BEV セグメンテーションで既存手法を上回り、テンプレート軌道を BEV コストマップへ「撃ち込む（Shoot）」解釈可能な動作計画も示す。</p>
+  <div class="links"><a href="papers/05_Lift_Splat_Shoot_2008.05711/">原文と並べて読む</a>　<a href="papers/05_Lift_Splat_Shoot_2008.05711/ja.html">訳文のみ</a>　<a href="papers/05_Lift_Splat_Shoot_2008.05711/05_Lift_Splat_Shoot_2008.05711.pdf">原文PDF</a></div>
+  <div class="info">05_Lift_Splat_Shoot_2008.05711.pdf　／　17ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/06_DETR3D_2110.06922/">DETR3D: 3D Object Detection from Multi-view Images via 3D-to-2D Queries</a>
+  <div class="au">Yue Wang, Vitor Guizilini, Tianyuan Zhang, Yilun Wang, Hang Zhao, Justin Solomon（MIT、Toyota Research Institute、CMU、Li Auto、Tsinghua University）</div>
+  <p class="sum">多視点カメラ画像から 3D 物体検出を行う手法。疎な 3D 物体クエリから参照点を各カメラに逆投影して 2D 特徴を取得し、集合対集合損失で学習することで、深度推定や NMS を不要にして nuScenes で最先端性能を達成した。</p>
+  <div class="links"><a href="papers/06_DETR3D_2110.06922/">原文と並べて読む</a>　<a href="papers/06_DETR3D_2110.06922/ja.html">訳文のみ</a>　<a href="papers/06_DETR3D_2110.06922/06_DETR3D_2110.06922.pdf">原文PDF</a></div>
+  <div class="info">06_DETR3D_2110.06922.pdf　／　12ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/07_BEVFormer_2203.17270/">BEVFormer: Learning Bird&#39;s-Eye-View Representation from Multi-Camera Images via Spatiotemporal Transformers</a>
+  <div class="au">Zhiqi Li, Wenhai Wang, Hongyang Li, Enze Xie, Chonghao Sima, Tong Lu, Yu Qiao, Jifeng Dai（Nanjing University、Shanghai AI Laboratory、The University of Hong Kong）</div>
+  <p class="sum">グリッド状の BEV クエリが空間クロス注意で多視点カメラ画像から、時間自己注意で過去の BEV 特徴から情報を集約する時空間 Transformer により、統一的な鳥瞰図（BEV）表現を学習する。nuScenes test で NDS 56.9% を達成し、3D 検出と地図セグメンテーションを同時に扱える。</p>
+  <div class="links"><a href="papers/07_BEVFormer_2203.17270/">原文と並べて読む</a>　<a href="papers/07_BEVFormer_2203.17270/ja.html">訳文のみ</a>　<a href="papers/07_BEVFormer_2203.17270/07_BEVFormer_2203.17270.pdf">原文PDF</a></div>
+  <div class="info">07_BEVFormer_2203.17270.pdf　／　20ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/08_PETR_2203.05625/">PETR: Position Embedding Transformation for Multi-View 3D Object Detection</a>
+  <div class="au">Yingfei Liu, Tiancai Wang, Xiangyu Zhang, Jian Sun（MEGVII Technology）</div>
+  <p class="sum">3D 座標の位置情報を多視点画像特徴に埋め込んだ「3D 位置認識特徴」を作り、オブジェクトクエリがそれと直接相互作用することで、2D→3D 射影や特徴サンプリングなしにエンドツーエンドの多視点 3D 物体検出を行う PETR を提案。nuScenes で NDS 50.4%、mAP 44.1% を達成した。</p>
+  <div class="links"><a href="papers/08_PETR_2203.05625/">原文と並べて読む</a>　<a href="papers/08_PETR_2203.05625/ja.html">訳文のみ</a>　<a href="papers/08_PETR_2203.05625/08_PETR_2203.05625.pdf">原文PDF</a></div>
+  <div class="info">08_PETR_2203.05625.pdf　／　18ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/09_BEVFusion_2205.13542/">BEVFusion: Multi-Task Multi-Sensor Fusion with Unified Bird&#39;s-Eye View Representation</a>
+  <div class="au">Zhijian Liu, Haotian Tang, Alexander Amini, Xinyu Yang, Huizi Mao, Daniela L. Rus, Song Han（MIT, OmniML）</div>
+  <p class="sum">カメラと LiDAR の特徴を共有の鳥瞰図（BEV）空間で統合するマルチタスク・マルチセンサ融合フレームワーク。BEV プーリングを 40 倍以上高速化し、nuScenes の 3D 物体検出と BEV 地図セグメンテーションで最高性能を達成した。</p>
+  <div class="links"><a href="papers/09_BEVFusion_2205.13542/">原文と並べて読む</a>　<a href="papers/09_BEVFusion_2205.13542/ja.html">訳文のみ</a>　<a href="papers/09_BEVFusion_2205.13542/09_BEVFusion_2205.13542.pdf">原文PDF</a></div>
+  <div class="info">09_BEVFusion_2205.13542.pdf　／　8ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/10_TPVFormer_2302.07817/">Tri-Perspective View for Vision-Based 3D Semantic Occupancy Prediction</a>
+  <div class="au">Yuanhui Huang, Wenzhao Zheng, Yunpeng Zhang, Jie Zhou, Jiwen Lu（清華大学、BNRist、PhiGent Robotics）</div>
+  <p class="sum">BEV に直交する 2 平面を加えた三視点ビュー（TPV）表現と、画像特徴を TPV へ持ち上げる Transformer エンコーダ TPVFormer を提案し、疎な LiDAR 教師だけでカメラ画像から全ボクセルの 3D セマンティック占有を予測する。nuScenes の LiDAR セグメンテーションでカメラのみで LiDAR 手法に匹敵する性能を初めて示した。</p>
+  <div class="links"><a href="papers/10_TPVFormer_2302.07817/">原文と並べて読む</a>　<a href="papers/10_TPVFormer_2302.07817/ja.html">訳文のみ</a>　<a href="papers/10_TPVFormer_2302.07817/10_TPVFormer_2302.07817.pdf">原文PDF</a></div>
+  <div class="info">10_TPVFormer_2302.07817.pdf　／　13ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/11_Occ3D_2304.14365/">Occ3D: A Large-Scale 3D Occupancy Prediction Benchmark for Autonomous Driving</a>
+  <div class="au">Xiaoyu Tian, Tao Jiang, Longfei Yun, Yucheng Mao, Huitong Yang, Yue Wang, Yilun Wang, Hang Zhao（清華大学 IIIS、南カリフォルニア大学、Shanghai AI Lab、Shanghai Qi Zhi Institute）</div>
+  <p class="sum">Waymo Open Dataset と nuScenes から、ボクセル高密度化・遮蔽推論・画像誘導ボクセル精緻化の 3 段階パイプラインで可視性を考慮した高密度 3D 占有ラベルを生成し、Occ3D-Waymo／Occ3D-nuScenes ベンチマークを構築。さらに粗から細への 3D 占有予測ネットワーク CTF-Occ を提案する（NeurIPS 2023 Datasets and Benchmarks）。</p>
+  <div class="links"><a href="papers/11_Occ3D_2304.14365/">原文と並べて読む</a>　<a href="papers/11_Occ3D_2304.14365/ja.html">訳文のみ</a>　<a href="papers/11_Occ3D_2304.14365/11_Occ3D_2304.14365.pdf">原文PDF</a></div>
+  <div class="info">11_Occ3D_2304.14365.pdf　／　25ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/12_MapTR_2208.14437/">MapTR: Structured Modeling and Learning for Online Vectorized HD Map Construction</a>
+  <div class="au">Bencheng Liao, Shaoyu Chen, Xinggang Wang, Tianheng Cheng, Qian Zhang, Wenyu Liu, Chang Huang（Huazhong University of Science &amp; Technology, Horizon Robotics）</div>
+  <p class="sum">地図要素を等価な置換群を持つ点集合としてモデル化し、階層的クエリ埋め込みと階層的二部マッチングで学習する DETR 型の構造化 Transformer により、カメラ入力のみでリアルタイムにベクトル化 HD マップをオンライン構築する手法。</p>
+  <div class="links"><a href="papers/12_MapTR_2208.14437/">原文と並べて読む</a>　<a href="papers/12_MapTR_2208.14437/ja.html">訳文のみ</a>　<a href="papers/12_MapTR_2208.14437/12_MapTR_2208.14437.pdf">原文PDF</a></div>
+  <div class="info">12_MapTR_2208.14437.pdf　／　18ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/13_Scene_Transformer_2106.08417/">Scene Transformer: A unified architecture for predicting multiple agent trajectories</a>
+  <div class="au">Jiquan Ngiam, Benjamin Caine, Vijay Vasudevan, Zhengdong Zhang, Hao-Tien Lewis Chiang, Jeffrey Ling, Rebecca Roelofs, Alex Bewley, Chenxi Liu, Ashish Venugopal, David Weiss, Ben Sapp, Zhifeng Chen, Jonathon Shlens（Google Research, Brain Team / Waymo）</div>
+  <p class="sum">エージェント・時間・道路グラフ要素の軸に分解した注意機構を持つシーン中心の Transformer で、全エージェントの軌道を同時に予測する。マスク付き系列モデリングにより、周辺予測・同時予測・自車の目標や軌道で条件付けた予測を単一モデルで扱い、Argoverse と Waymo Open Motion Dataset で最高性能を達成した（ICLR 2022）。</p>
+  <div class="links"><a href="papers/13_Scene_Transformer_2106.08417/">原文と並べて読む</a>　<a href="papers/13_Scene_Transformer_2106.08417/ja.html">訳文のみ</a>　<a href="papers/13_Scene_Transformer_2106.08417/13_Scene_Transformer_2106.08417.pdf">原文PDF</a></div>
+  <div class="info">13_Scene_Transformer_2106.08417.pdf　／　25ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/14_Wayformer_2207.05844/">Wayformer: Motion Forecasting via Simple &amp; Efficient Attention Networks</a>
+  <div class="au">Nigamaa Nayakanti, Rami Al-Rfou, Aurick Zhou, Kratarth Goel, Khaled S. Refaat, Benjamin Sapp（Waymo）</div>
+  <p class="sum">自動運転の動き予測のため、注意機構のみからなる単純で均質なエンコーダ・デコーダ型アーキテクチャ群 Wayformer を提案。早期・後期・階層的融合と、因子分解注意・潜在クエリ注意による効率化を比較し、単純な早期融合で WOMD と Argoverse の両方で最先端の性能を達成した。</p>
+  <div class="links"><a href="papers/14_Wayformer_2207.05844/">原文と並べて読む</a>　<a href="papers/14_Wayformer_2207.05844/ja.html">訳文のみ</a>　<a href="papers/14_Wayformer_2207.05844/14_Wayformer_2207.05844.pdf">原文PDF</a></div>
+  <div class="info">14_Wayformer_2207.05844.pdf　／　20ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/15_MTR_2209.13508/">Motion Transformer with Global Intention Localization and Local Movement Refinement</a>
+  <div class="au">Shaoshuai Shi, Li Jiang, Dengxin Dai, Bernt Schiele（Max Planck Institute for Informatics）</div>
+  <p class="sum">少数の学習可能なモーションクエリペア（静的意図クエリと動的探索クエリ）により、動作予測を大域的意図位置推定と局所的動作洗練の同時最適化として定式化した Transformer ベースの枠組み MTR を提案し、Waymo Open Motion Dataset の周辺・同時予測で首位を達成した（NeurIPS 2022）。</p>
+  <div class="links"><a href="papers/15_MTR_2209.13508/">原文と並べて読む</a>　<a href="papers/15_MTR_2209.13508/ja.html">訳文のみ</a>　<a href="papers/15_MTR_2209.13508/15_MTR_2209.13508.pdf">原文PDF</a></div>
+  <div class="info">15_MTR_2209.13508.pdf　／　19ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/16_TransFuser_2205.15997/">TransFuser: Imitation with Transformer-Based Sensor Fusion for Autonomous Driving</a>
+  <div class="au">Kashyap Chitta, Aditya Prakash, Bernhard Jaeger, Zehao Yu, Katrin Renz, Andreas Geiger（University of T&#252;bingen / Max Planck Institute for Intelligent Systems, University of Illinois Urbana-Champaign）</div>
+  <p class="sum">カメラ画像と LiDAR の BEV 特徴を複数解像度で Transformer の自己注意により融合する TransFuser を提案し、模倣学習による end-to-end 自動運転に適用。新ベンチマーク Longest6 と CARLA リーダーボードで従来手法を大きく上回る運転スコアを達成した。</p>
+  <div class="links"><a href="papers/16_TransFuser_2205.15997/">原文と並べて読む</a>　<a href="papers/16_TransFuser_2205.15997/ja.html">訳文のみ</a>　<a href="papers/16_TransFuser_2205.15997/16_TransFuser_2205.15997.pdf">原文PDF</a></div>
+  <div class="info">16_TransFuser_2205.15997.pdf　／　18ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/17_ST_P3_2207.07601/">ST-P3: End-to-end Vision-based Autonomous Driving via Spatial-Temporal Feature Learning</a>
+  <div class="au">Shengchao Hu, Li Chen, Penghao Wu, Hongyang Li, Junchi Yan, Dacheng Tao（Shanghai Jiao Tong University、Shanghai AI Laboratory、UC San Diego、JD Explore Academy）</div>
+  <p class="sum">カメラ画像のみから知覚・予測・計画を同時に行う解釈可能なエンドツーエンド自動運転フレームワーク ST-P3 を提案。自車中心整列累積、二経路予測、時間的精緻化ユニットにより、nuScenes（開ループ）と CARLA（閉ループ）で従来手法を上回った。</p>
+  <div class="links"><a href="papers/17_ST_P3_2207.07601/">原文と並べて読む</a>　<a href="papers/17_ST_P3_2207.07601/ja.html">訳文のみ</a>　<a href="papers/17_ST_P3_2207.07601/17_ST_P3_2207.07601.pdf">原文PDF</a></div>
+  <div class="info">17_ST_P3_2207.07601.pdf　／　25ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/18_UniAD_2212.10156/">Planning-oriented Autonomous Driving</a>
+  <div class="au">Yihan Hu, Jiazhi Yang, Li Chen, Keyu Li, Chonghao Sima, Xizhou Zhu, Siqi Chai, Senyao Du, Tianwei Lin, Wenhai Wang, Lewei Lu, Xiaosong Jia, Qiang Liu, Jifeng Dai, Yu Qiao, Hongyang Li（Shanghai AI Laboratory, Wuhan University, SenseTime Research）</div>
+  <p class="sum">知覚・予測・計画の全タスク（追跡、地図、動き予測、占有予測、計画）をクエリで接続した単一ネットワーク UniAD を提案し、計画を最終目標とする設計により nuScenes の全タスクで従来手法を上回ることを示した。</p>
+  <div class="links"><a href="papers/18_UniAD_2212.10156/">原文と並べて読む</a>　<a href="papers/18_UniAD_2212.10156/ja.html">訳文のみ</a>　<a href="papers/18_UniAD_2212.10156/18_UniAD_2212.10156.pdf">原文PDF</a></div>
+  <div class="info">18_UniAD_2212.10156.pdf　／　24ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/19_VAD_2303.12077/">VAD: Vectorized Scene Representation for Efficient Autonomous Driving</a>
+  <div class="au">Bo Jiang, Shaoyu Chen, Qing Xu, Bencheng Liao, Jiajie Chen, Helong Zhou, Qian Zhang, Wenyu Liu, Chang Huang, Xinggang Wang（華中科技大学、Horizon Robotics）</div>
+  <p class="sum">走行シーンを完全にベクトル化された表現（エージェントの動きベクトルと地図ベクトル）でモデル化するエンドツーエンド自動運転手法 VAD を提案。インスタンスレベルの計画制約により安全性を高め、nuScenes で従来の最良手法を大きく上回る計画性能と高速な推論を達成した。</p>
+  <div class="links"><a href="papers/19_VAD_2303.12077/">原文と並べて読む</a>　<a href="papers/19_VAD_2303.12077/ja.html">訳文のみ</a>　<a href="papers/19_VAD_2303.12077/19_VAD_2303.12077.pdf">原文PDF</a></div>
+  <div class="info">19_VAD_2303.12077.pdf　／　11ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/20_nuPlan_2106.11810/">nuPlan: A closed-loop ML-based planning benchmark for autonomous vehicles</a>
+  <div class="au">Holger Caesar, Juraj Kabzan, Kok Seang Tan, Whye Kit Fong, Eric Wolff, Alex Lang, Luke Fletcher, Oscar Beijbom, Sammy Omari（Motional）</div>
+  <p class="sum">自動運転向けに世界初のクローズドループ型 ML ベース計画ベンチマーク nuPlan を提案する。4 都市・1500 時間の実走行データ、軽量なクローズドループシミュレータ、計画に特化した評価指標を提供する。</p>
+  <div class="links"><a href="papers/20_nuPlan_2106.11810/">原文と並べて読む</a>　<a href="papers/20_nuPlan_2106.11810/ja.html">訳文のみ</a>　<a href="papers/20_nuPlan_2106.11810/20_nuPlan_2106.11810.pdf">原文PDF</a></div>
+  <div class="info">20_nuPlan_2106.11810.pdf　／　5ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/21_PDM_2306.07962/">Parting with Misconceptions about Learning-based Vehicle Motion Planning</a>
+  <div class="au">Daniel Dauner, Marcel Hallgarten, Andreas Geiger, Kashyap Chitta（University of T&#252;bingen, T&#252;bingen AI Center, Robert Bosch GmbH）</div>
+  <p class="sum">nuPlan 上でオープンループ評価（自車予測）とクローズドループ評価（計画）が負の相関を持つことを示し、IDM を拡張したルールベースのプランナ PDM-Closed と中心線のみを入力とする学習型 PDM-Open、両者を組み合わせた PDM-Hybrid を提案。PDM-Hybrid は nuPlan チャレンジ 2023 で優勝した。</p>
+  <div class="links"><a href="papers/21_PDM_2306.07962/">原文と並べて読む</a>　<a href="papers/21_PDM_2306.07962/ja.html">訳文のみ</a>　<a href="papers/21_PDM_2306.07962/21_PDM_2306.07962.pdf">原文PDF</a></div>
+  <div class="info">21_PDM_2306.07962.pdf　／　14ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/22_Ego_Status_2312.03031/">Is Ego Status All You Need for Open-Loop End-to-End Autonomous Driving?</a>
+  <div class="au">Zhiqi Li, Zhiding Yu, Shiyi Lan, Jiahan Li, Jan Kautz, Tong Lu, Jose M. Alvarez（南京大学、NVIDIA）</div>
+  <p class="sum">nuScenes 上の開ループ型エンドツーエンド自動運転評価では、自車状態（ego status）だけで最先端に並ぶ計画性能が得られてしまうことを示し、データセットの偏りと既存指標の不備を分析した。道路境界との交差率という新指標と、知覚アノテーションを用いない簡素なベースライン BEV-Planner を提案する。</p>
+  <div class="links"><a href="papers/22_Ego_Status_2312.03031/">原文と並べて読む</a>　<a href="papers/22_Ego_Status_2312.03031/ja.html">訳文のみ</a>　<a href="papers/22_Ego_Status_2312.03031/22_Ego_Status_2312.03031.pdf">原文PDF</a></div>
+  <div class="info">22_Ego_Status_2312.03031.pdf　／　14ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/23_NAVSIM_2406.15349/">NAVSIM: Data-Driven Non-Reactive Autonomous Vehicle Simulation and Benchmarking</a>
+  <div class="au">Daniel Dauner, Marcel Hallgarten, Tianyu Li, Xinshuo Weng, Zhiyu Huang, Zetong Yang, Hongyang Li, Igor Gilitschenski, Boris Ivanovic, Marco Pavone, Andreas Geiger, Kashyap Chitta（University of T&#252;bingen, T&#252;bingen AI Center, OpenDriveLab at Shanghai AI Lab, NVIDIA Research ほか）</div>
+  <p class="sum">実データと非反応型シミュレーションを組み合わせ、BEV 上で短時間の展開を行ってシミュレーションベースの指標（PDM スコア）を計算する、センサベース運転方策のベンチマーク NAVSIM を提案する。CVPR 2024 チャレンジ（143 チーム・463 件）の知見も報告する。</p>
+  <div class="links"><a href="papers/23_NAVSIM_2406.15349/">原文と並べて読む</a>　<a href="papers/23_NAVSIM_2406.15349/ja.html">訳文のみ</a>　<a href="papers/23_NAVSIM_2406.15349/23_NAVSIM_2406.15349.pdf">原文PDF</a></div>
+  <div class="info">23_NAVSIM_2406.15349.pdf　／　14ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/24_Bench2Drive_2406.03877/">Bench2Drive: Towards Multi-Ability Benchmarking of Closed-Loop End-To-End Autonomous Driving</a>
+  <div class="au">Xiaosong Jia, Zhenjie Yang, Qifeng Li, Zhiyuan Zhang, Junchi Yan（Shanghai Jiao Tong University）</div>
+  <p class="sum">CARLA v2 上で 44 種の対話的シナリオ・220 本の短いルートによりエンドツーエンド自動運転の多面的な能力をクローズドループで評価するベンチマークと、エキスパート Think2Drive で収集した 200 万フレームの公式学習データを提案する。</p>
+  <div class="links"><a href="papers/24_Bench2Drive_2406.03877/">原文と並べて読む</a>　<a href="papers/24_Bench2Drive_2406.03877/ja.html">訳文のみ</a>　<a href="papers/24_Bench2Drive_2406.03877/24_Bench2Drive_2406.03877.pdf">原文PDF</a></div>
+  <div class="info">24_Bench2Drive_2406.03877.pdf　／　26ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/25_E2E_Survey_2306.16927/">End-to-end Autonomous Driving: Challenges and Frontiers</a>
+  <div class="au">Li Chen, Penghao Wu, Kashyap Chitta, Bernhard Jaeger, Andreas Geiger, Hongyang Li（OpenDriveLab / Shanghai AI Lab、University of Hong Kong、University of T&#252;bingen / T&#252;bingen AI Center）</div>
+  <p class="sum">生のセンサ入力から運転計画・制御を出力するエンドツーエンド自動運転について、270 本以上の論文を対象に、手法（模倣学習・強化学習）、ベンチマーク、主要な課題（マルチモダリティ、解釈性、因果的混同、ロバスト性、世界モデルなど）、および基盤モデルなどの将来動向を体系的に整理したサーベイ。</p>
+  <div class="links"><a href="papers/25_E2E_Survey_2306.16927/">原文と並べて読む</a>　<a href="papers/25_E2E_Survey_2306.16927/ja.html">訳文のみ</a>　<a href="papers/25_E2E_Survey_2306.16927/25_E2E_Survey_2306.16927.pdf">原文PDF</a></div>
+  <div class="info">25_E2E_Survey_2306.16927.pdf　／　20ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/26_MotionLM_2309.16534/">MotionLM: Multi-Agent Motion Forecasting as Language Modeling</a>
+  <div class="au">Ari Seff, Brian Cera, Dian Chen, Mason Ng, Aurick Zhou, Nigamaa Nayakanti, Khaled S. Refaat, Rami Al-Rfou, Benjamin Sapp（Waymo）</div>
+  <p class="sum">連続軌跡を離散的なモーショントークン列として表し、複数エージェントの動き予測を言語モデリングとして定式化した自己回帰モデル。アンカーや潜在変数なしで同時分布を生成し、Waymo Open Motion Dataset のインタラクティブ予測で 1 位を達成した。</p>
+  <div class="links"><a href="papers/26_MotionLM_2309.16534/">原文と並べて読む</a>　<a href="papers/26_MotionLM_2309.16534/ja.html">訳文のみ</a>　<a href="papers/26_MotionLM_2309.16534/26_MotionLM_2309.16534.pdf">原文PDF</a></div>
+  <div class="info">26_MotionLM_2309.16534.pdf　／　16ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/27_SMART_2405.15677/">SMART: Scalable Multi-agent Real-time Simulation via Next-token Prediction</a>
+  <div class="au">Wei Wu, Xiaoxin Feng, Ziyan Gao, Yuheng Kan（Tsinghua University、SenseTime Research）</div>
+  <p class="sum">ベクトル化地図とエージェント軌跡を離散トークン化し、デコーダのみの Transformer で次トークン予測として学習する自動運転モーション生成モデル。WOMD Sim Agents で首位を獲得し、ゼロショット汎化とスケーラビリティを示した。</p>
+  <div class="links"><a href="papers/27_SMART_2405.15677/">原文と並べて読む</a>　<a href="papers/27_SMART_2405.15677/ja.html">訳文のみ</a>　<a href="papers/27_SMART_2405.15677/27_SMART_2405.15677.pdf">原文PDF</a></div>
+  <div class="info">27_SMART_2405.15677.pdf　／　17ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/28_DriveGPT_2412.14415/">DriveGPT: Scaling Autoregressive Behavior Models for Driving</a>
+  <div class="au">Xin Huang, Eric M. Wolff, Paul Vernaza, Tung Phan-Minh, Hongge Chen, David S. Hayden, Mark Edmonds, Brian Pierce, Xinxin Chen, Pratik Elias Jacob, Xiaobai Chen, Chingiz Tairbekov, Pratik Agarwal, Tianshi Gao, Yuning Chai, Siddhartha S. Srinivasa（Cruise LLC、Meta）</div>
+  <p class="sum">運転を逐次意思決定として捉え、エージェントの将来状態をトークンとして自己回帰的に予測するTransformer行動モデルDriveGPTを提案。1億件超の実走行データと14億パラメータまでスケールさせ、データ量・モデル規模・計算量に関するスケーリング則を実証し、計画とWOMDでの動き予測で有効性を示した。</p>
+  <div class="links"><a href="papers/28_DriveGPT_2412.14415/">原文と並べて読む</a>　<a href="papers/28_DriveGPT_2412.14415/ja.html">訳文のみ</a>　<a href="papers/28_DriveGPT_2412.14415/28_DriveGPT_2412.14415.pdf">原文PDF</a></div>
+  <div class="info">28_DriveGPT_2412.14415.pdf　／　14ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/29_Scaling_Laws_2506.08228/">Scaling Laws of Motion Forecasting and Planning Technical Report</a>
+  <div class="au">Mustafa Baniodeh, Kratarth Goel, Scott Ettinger, Carlos Fuertes, Ari Seff, Tim Shen, ... , Benjamin Sapp, Dragomir Anguelov（Waymo LLC）</div>
+  <p class="sum">約50万時間の運転データで、エンコーダ・デコーダ型自己回帰Transformerによる同時運動予測・計画のスケーリング則を調べ、性能が計算量のべき乗則に従って向上し、クローズドループ指標も改善することを示した。最適なモデル／データ規模の配分や推論時計算のスケーリング、他エージェントデータからの技能転移も分析している。</p>
+  <div class="links"><a href="papers/29_Scaling_Laws_2506.08228/">原文と並べて読む</a>　<a href="papers/29_Scaling_Laws_2506.08228/ja.html">訳文のみ</a>　<a href="papers/29_Scaling_Laws_2506.08228/29_Scaling_Laws_2506.08228.pdf">原文PDF</a></div>
+  <div class="info">29_Scaling_Laws_2506.08228.pdf　／　31ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/30_VADv2_2402.13243/">VADv2: End-to-End Vectorized Autonomous Driving via Probabilistic Planning</a>
+  <div class="au">Bo Jiang, Shaoyu Chen, Hao Gao, Bencheng Liao, Qian Zhang, Wenyu Liu, Xinggang Wang（Huazhong University of Science and Technology, Horizon Robotics）</div>
+  <p class="sum">計画行動空間を大規模な計画語彙へ離散化・トークン化し、シーントークンとの相互作用から行動の確率分布を出力する確率的計画によって、計画の不確実性に対処するエンドツーエンド自動運転モデル VADv2 を提案する。CARLA Town05 と Bench2Drive で最先端の閉ループ性能を達成し、NAVSIM や 3DGS ベースのベンチマークでも有効性を示す。</p>
+  <div class="links"><a href="papers/30_VADv2_2402.13243/">原文と並べて読む</a>　<a href="papers/30_VADv2_2402.13243/ja.html">訳文のみ</a>　<a href="papers/30_VADv2_2402.13243/30_VADv2_2402.13243.pdf">原文PDF</a></div>
+  <div class="info">30_VADv2_2402.13243.pdf　／　15ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/31_Hydra_MDP_2406.06978/">Hydra-MDP: End-to-end Multimodal Planning with Multi-target Hydra-Distillation</a>
+  <div class="au">Zhenxin Li, Kailin Li, Shihao Wang, Shiyi Lan, Zhiding Yu, Yishen Ji, Zhiqi Li, Ziyue Zhu, Jan Kautz, Zuxuan Wu, Yu-Gang Jiang, Jose M. Alvarez（NVIDIA, Fudan University ほか）</div>
+  <p class="sum">人間の運転ログとルールベースの教師（シミュレーションによる評価指標）の双方から多頭デコーダへ知識蒸留し、多様な軌道候補を各評価指標に合わせて採点する End-to-End マルチモーダル計画手法。NAVSIM チャレンジで 1 位を獲得した。</p>
+  <div class="links"><a href="papers/31_Hydra_MDP_2406.06978/">原文と並べて読む</a>　<a href="papers/31_Hydra_MDP_2406.06978/ja.html">訳文のみ</a>　<a href="papers/31_Hydra_MDP_2406.06978/31_Hydra_MDP_2406.06978.pdf">原文PDF</a></div>
+  <div class="info">31_Hydra_MDP_2406.06978.pdf　／　5ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/32_SparseDrive_2405.19620/">SparseDrive: End-to-End Autonomous Driving via Sparse Scene Representation</a>
+  <div class="au">Wenchao Sun, Xuewu Lin, Yining Shi, Chuang Zhang, Haoran Wu, Sifa Zheng（Tsinghua University, Horizon）</div>
+  <p class="sum">高コストな BEV 特徴を使わず、検出・追跡・オンラインマッピングを対称なスパース知覚で統一し、動き予測と計画を並列に行う動作プランナと衝突考慮の階層的計画選択を組み合わせたエンドツーエンド自動運転手法。nuScenes で UniAD を大きく上回る性能と学習・推論効率を達成した。</p>
+  <div class="links"><a href="papers/32_SparseDrive_2405.19620/">原文と並べて読む</a>　<a href="papers/32_SparseDrive_2405.19620/ja.html">訳文のみ</a>　<a href="papers/32_SparseDrive_2405.19620/32_SparseDrive_2405.19620.pdf">原文PDF</a></div>
+  <div class="info">32_SparseDrive_2405.19620.pdf　／　16ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/33_DiffusionDrive_2411.15139/">DiffusionDrive: Truncated Diffusion Model for End-to-End Autonomous Driving</a>
+  <div class="au">Bencheng Liao, Shaoyu Chen, Haoran Yin, Bo Jiang, Cheng Wang, Sixu Yan, Xinbang Zhang, Xiangyu Li, Ying Zhang, Qian Zhang, Xinggang Wang（Huazhong University of Science &amp; Technology、Horizon Robotics）</div>
+  <p class="sum">事前アンカーを中心としたアンカー付きガウス分布から拡散スケジュールを打ち切って逆拡散する「切り詰め拡散方策」とカスケード拡散デコーダを提案し、わずか 2 ステップのノイズ除去で多様な運転軌道を生成する。NAVSIM で 88.1 PDMS を 45 FPS で達成した。</p>
+  <div class="links"><a href="papers/33_DiffusionDrive_2411.15139/">原文と並べて読む</a>　<a href="papers/33_DiffusionDrive_2411.15139/ja.html">訳文のみ</a>　<a href="papers/33_DiffusionDrive_2411.15139/33_DiffusionDrive_2411.15139.pdf">原文PDF</a></div>
+  <div class="info">33_DiffusionDrive_2411.15139.pdf　／　15ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/34_GoalFlow_2503.05689/">GoalFlow: Goal-Driven Flow Matching for Multimodal Trajectories Generation in End-to-End Autonomous Driving</a>
+  <div class="au">Zebin Xing, Xingyu Zhang, Yang Hu, Bo Jiang, Tong He, Qian Zhang, Xiaoxiao Long, Wei Yin（UCAS、Horizon Robotics、南京大学、華中科技大学、Shanghai AI Laboratory）</div>
+  <p class="sum">ゴール点の語彙からシーン情報に基づくスコアで最適なゴール点を選び、それを条件としたフローマッチングで高品質なマルチモーダル軌道を生成する、エンドツーエンド自動運転手法。Navsim で PDMS 90.3 を達成し、1 ステップのデノイズでも高性能を保つ。</p>
+  <div class="links"><a href="papers/34_GoalFlow_2503.05689/">原文と並べて読む</a>　<a href="papers/34_GoalFlow_2503.05689/ja.html">訳文のみ</a>　<a href="papers/34_GoalFlow_2503.05689/34_GoalFlow_2503.05689.pdf">原文PDF</a></div>
+  <div class="info">34_GoalFlow_2503.05689.pdf　／　12ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/35_RAD_2502.13144/">RAD: Training an End-to-End Driving Policy via Large-Scale 3DGS-based Reinforcement Learning</a>
+  <div class="au">Hao Gao, Shaoyu Chen, Bo Jiang, Bencheng Liao, Yiang Shi, Xiaoyang Guo, Yuechuan Pu, Haoran Yin, Xiangyu Li, Xinbang Zhang, Ying Zhang, Wenyu Liu, Qian Zhang, Xinggang Wang（Huazhong University of Science &amp; Technology、Horizon Robotics）</div>
+  <p class="sum">3DGS で構築した写実的なデジタルツイン環境内で、エンドツーエンド自動運転方策を大規模な閉ループ強化学習で訓練し、模倣学習を正則化項として組み合わせる RAD を提案。模倣学習ベースの手法と比べ衝突率を 3 分の 1 に低減した。</p>
+  <div class="links"><a href="papers/35_RAD_2502.13144/">原文と並べて読む</a>　<a href="papers/35_RAD_2502.13144/ja.html">訳文のみ</a>　<a href="papers/35_RAD_2502.13144/35_RAD_2502.13144.pdf">原文PDF</a></div>
+  <div class="info">35_RAD_2502.13144.pdf　／　19ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/36_GAIA_1_2309.17080/">GAIA-1: A Generative World Model for Autonomous Driving</a>
+  <div class="au">Anthony Hu, Lloyd Russell, Hudson Yeo, Zak Murez, George Fedoseev, Alex Kendall, Jamie Shotton, Gianluca Corrado（Wayve）</div>
+  <p class="sum">動画・テキスト・行動を離散トークンに写像し次トークン予測で学習する自動運転向け生成的世界モデル GAIA-1 を提案。自車両の挙動やシーン属性を細かく制御しつつ、写実的な運転動画を生成できる。</p>
+  <div class="links"><a href="papers/36_GAIA_1_2309.17080/">原文と並べて読む</a>　<a href="papers/36_GAIA_1_2309.17080/ja.html">訳文のみ</a>　<a href="papers/36_GAIA_1_2309.17080/36_GAIA_1_2309.17080.pdf">原文PDF</a></div>
+  <div class="info">36_GAIA_1_2309.17080.pdf　／　25ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/37_DriveDreamer_2309.09777/">DriveDreamer: Towards Real-world-driven World Models for Autonomous Driving</a>
+  <div class="au">Xiaofeng Wang, Zheng Zhu, Guan Huang, Xinze Chen, Jiagang Zhu, Jiwen Lu（GigaAI, Tsinghua University）</div>
+  <p class="sum">実世界の運転シナリオのみから構築した初の自動運転向け世界モデル。拡散モデル Auto-DM と 2 段階学習により、交通構造条件に沿った制御可能な運転動画生成と将来の運転行動予測を実現した。</p>
+  <div class="links"><a href="papers/37_DriveDreamer_2309.09777/">原文と並べて読む</a>　<a href="papers/37_DriveDreamer_2309.09777/ja.html">訳文のみ</a>　<a href="papers/37_DriveDreamer_2309.09777/37_DriveDreamer_2309.09777.pdf">原文PDF</a></div>
+  <div class="info">37_DriveDreamer_2309.09777.pdf　／　15ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/38_MagicDrive_2310.02601/">MagicDrive: Street View Generation with Diverse 3D Geometry Control</a>
+  <div class="au">Ruiyuan Gao, Kai Chen, Enze Xie, Lanqing Hong, Zhenguo Li, Dit-Yan Yeung, Qiang Xu（CUHK、HKUST、Huawei Noah&#39;s Ark Lab）</div>
+  <p class="sum">BEV 道路地図・3D バウンディングボックス・カメラ姿勢・テキストを個別に符号化して拡散モデルに条件付けし、ビュー間注意でマルチカメラの一貫性を保った街路画像・動画を生成する。生成データは BEV セグメンテーションと 3D 物体検出の学習を改善する。</p>
+  <div class="links"><a href="papers/38_MagicDrive_2310.02601/">原文と並べて読む</a>　<a href="papers/38_MagicDrive_2310.02601/ja.html">訳文のみ</a>　<a href="papers/38_MagicDrive_2310.02601/38_MagicDrive_2310.02601.pdf">原文PDF</a></div>
+  <div class="info">38_MagicDrive_2310.02601.pdf　／　20ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/39_Drive_WM_2311.17918/">Driving into the Future: Multiview Visual Forecasting and Planning with World Model for Autonomous Driving</a>
+  <div class="au">Yuqi Wang, Jiawei He, Lue Fan, Hongxin Li, Yuntao Chen, Zhaoxiang Zhang（CASIA、CAIR, HKISI, CAS）</div>
+  <p class="sum">潜在ビデオ拡散モデルに基づき、ビュー分解による時空間の同時モデリングで高品質かつ一貫したマルチビュー運転映像を生成する世界モデル Drive-WM を提案し、複数の未来を想像して画像ベースの報酬で最適な軌道を選ぶ安全な計画への応用を初めて示した。</p>
+  <div class="links"><a href="papers/39_Drive_WM_2311.17918/">原文と並べて読む</a>　<a href="papers/39_Drive_WM_2311.17918/ja.html">訳文のみ</a>　<a href="papers/39_Drive_WM_2311.17918/39_Drive_WM_2311.17918.pdf">原文PDF</a></div>
+  <div class="info">39_Drive_WM_2311.17918.pdf　／　20ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/40_Vista_2405.17398/">Vista: A Generalizable Driving World Model with High Fidelity and Versatile Controllability</a>
+  <div class="au">Shenyuan Gao, Jiazhi Yang, Li Chen, Kashyap Chitta, Yihang Qiu, Andreas Geiger, Jun Zhang, Hongyang Li（HKUST、OpenDriveLab at Shanghai AI Lab、University of T&#252;bingen、T&#252;bingen AI Center、HKU）</div>
+  <p class="sum">Stable Video Diffusion を基に、動的事前情報・動的強調損失・構造保存損失と多様な行動制御（角度・速度・軌跡・コマンド・目標点）を導入し、10 Hz・576&#215;1024 で高忠実に将来を予測する汎化可能な運転世界モデル Vista を提案する。さらに Vista 自体を真値行動なしで行動を評価する報酬関数として利用する。</p>
+  <div class="links"><a href="papers/40_Vista_2405.17398/">原文と並べて読む</a>　<a href="papers/40_Vista_2405.17398/ja.html">訳文のみ</a>　<a href="papers/40_Vista_2405.17398/40_Vista_2405.17398.pdf">原文PDF</a></div>
+  <div class="info">40_Vista_2405.17398.pdf　／　31ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/41_UniSim_2308.01898/">UniSim: A Neural Closed-Loop Sensor Simulator</a>
+  <div class="au">Ze Yang, Yun Chen, Jingkang Wang, Sivabalan Manivasagam, Wei-Chiu Ma, Anqi Joyce Yang, Raquel Urtasun（Waabi / University of Toronto / MIT）</div>
+  <p class="sum">センサ搭載車両で記録した 1 本の走行ログから、静的背景と動的アクターをニューラル特徴グリッドで再構成し、新しい視点・アクター配置でのカメラと LiDAR を合成する閉ループ型ニューラルセンサシミュレータ UniSim を提案する。下流の自動運転タスクで領域ギャップが小さく、安全上重要なシナリオでの閉ループ評価を初めて実証した。</p>
+  <div class="links"><a href="papers/41_UniSim_2308.01898/">原文と並べて読む</a>　<a href="papers/41_UniSim_2308.01898/ja.html">訳文のみ</a>　<a href="papers/41_UniSim_2308.01898/41_UniSim_2308.01898.pdf">原文PDF</a></div>
+  <div class="info">41_UniSim_2308.01898.pdf　／　22ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/42_3D_Gaussian_Splatting_2308.04079/">3D Gaussian Splatting for Real-Time Radiance Field Rendering</a>
+  <div class="au">Bernhard Kerbl, Georgios Kopanas, Thomas Leimk&#252;hler, George Drettakis（Inria, Universit&#233; C&#244;te d&#39;Azur / Max-Planck-Institut f&#252;r Informatik）</div>
+  <p class="sum">シーンを異方性 3D ガウシアンの集合で表現し、適応的な密度制御を伴う最適化とタイルベースの微分可能ラスタライザを組み合わせることで、Mip-NeRF360 と同等以上の画質を保ちつつ 1080p で実時間（≥30 fps）の新規視点合成を実現した。学習時間も最速級の手法と同程度である。</p>
+  <div class="links"><a href="papers/42_3D_Gaussian_Splatting_2308.04079/">原文と並べて読む</a>　<a href="papers/42_3D_Gaussian_Splatting_2308.04079/ja.html">訳文のみ</a>　<a href="papers/42_3D_Gaussian_Splatting_2308.04079/42_3D_Gaussian_Splatting_2308.04079.pdf">原文PDF</a></div>
+  <div class="info">42_3D_Gaussian_Splatting_2308.04079.pdf　／　14ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/43_GAIA_2_2503.20523/">GAIA-2: A Controllable Multi-View Generative World Model for Autonomous Driving</a>
+  <div class="au">Lloyd Russell, Anthony Hu, Lorenzo Bertoni, George Fedoseev, Jamie Shotton, Elahe Arani, Gianluca Corrado（Wayve）</div>
+  <p class="sum">自車挙動・エージェント配置・環境・道路セマンティクスなどの構造化条件で制御可能な、自動運転向けの潜在拡散型マルチカメラ動画生成世界モデル GAIA-2 を提案する。</p>
+  <div class="links"><a href="papers/43_GAIA_2_2503.20523/">原文と並べて読む</a>　<a href="papers/43_GAIA_2_2503.20523/ja.html">訳文のみ</a>　<a href="papers/43_GAIA_2_2503.20523/43_GAIA_2_2503.20523.pdf">原文PDF</a></div>
+  <div class="info">43_GAIA_2_2503.20523.pdf　／　21ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/44_Cosmos_2501.03575/">Cosmos World Foundation Model Platform for Physical AI</a>
+  <div class="au">NVIDIA</div>
+  <p class="sum">フィジカル AI 向けに、動画キュレーション、動画トークナイザ、拡散型・自己回帰型の事前学習済み世界基盤モデル（WFM）とその事後学習例をまとめた NVIDIA の Cosmos プラットフォームを提案する。カメラ制御、ロボット操作、自動運転への事後学習を示し、モデルをオープンウェイトで公開している。</p>
+  <div class="links"><a href="papers/44_Cosmos_2501.03575/">原文と並べて読む</a>　<a href="papers/44_Cosmos_2501.03575/ja.html">訳文のみ</a>　<a href="papers/44_Cosmos_2501.03575/44_Cosmos_2501.03575.pdf">原文PDF</a></div>
+  <div class="info">44_Cosmos_2501.03575.pdf　／　75ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/45_Learning_to_Drive_from_a_World_Model_2504.19077/">Learning to Drive from a World Model</a>
+  <div class="au">Mitchell Goff, Greg Hogan, George Hotz, Armand du Parc Locmaria, Kacper Raczy, Harald Sch&#228;fer, Adeeb Shihadeh, Weixing Zhang, Yassine Yousfi（comma.ai）</div>
+  <p class="sum">実走行データから構築した再投影シミュレータと学習済み世界モデルの 2 種類のシミュレータで、手作りの運転ルールなしに End-to-End 運転方策をオンポリシー学習し、実車の ADAS（openpilot）に展開した comma.ai の研究。</p>
+  <div class="links"><a href="papers/45_Learning_to_Drive_from_a_World_Model_2504.19077/">原文と並べて読む</a>　<a href="papers/45_Learning_to_Drive_from_a_World_Model_2504.19077/ja.html">訳文のみ</a>　<a href="papers/45_Learning_to_Drive_from_a_World_Model_2504.19077/45_Learning_to_Drive_from_a_World_Model_2504.19077.pdf">原文PDF</a></div>
+  <div class="info">45_Learning_to_Drive_from_a_World_Model_2504.19077.pdf　／　10ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/46_DrivingGPT_2412.18607/">DrivingGPT: Unifying Driving World Modeling and Planning with Multi-modal Autoregressive Transformers</a>
+  <div class="au">Yuntao Chen, Yuqi Wang, Zhaoxiang Zhang（中国科学院自動化研究所、中国科学院大学、HKISI CAS）</div>
+  <p class="sum">運転映像フレームと軌道を離散的な画像トークン・行動トークンに変換して交互に並べた「マルチモーダル運転言語」を定義し、単一の自己回帰 Transformer による次トークン予測で、行動条件付き映像生成（世界モデル）とエンドツーエンド計画を同時に学習する。nuPlan と NAVSIM で強力なベースラインを上回る。</p>
+  <div class="links"><a href="papers/46_DrivingGPT_2412.18607/">原文と並べて読む</a>　<a href="papers/46_DrivingGPT_2412.18607/ja.html">訳文のみ</a>　<a href="papers/46_DrivingGPT_2412.18607/46_DrivingGPT_2412.18607.pdf">原文PDF</a></div>
+  <div class="info">46_DrivingGPT_2412.18607.pdf　／　15ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/47_DriveGPT4_2310.01412/">DriveGPT4: Interpretable End-to-end Autonomous Driving via Large Language Model</a>
+  <div class="au">Zhenhua Xu, Yujia Zhang, Enze Xie, Zhen Zhao, Yong Guo, Kwan-Yee K. Wong, Zhenguo Li, Hengshuang Zhao（The University of Hong Kong、Zhejiang University、Huawei Noah&#39;s Ark Lab、University of Sydney）</div>
+  <p class="sum">前方単眼カメラの動画とテキスト質問を入力とし、車両行動の説明・理由付けと低レベル制御信号（速度・旋回角）の予測を同時に行う、マルチモーダル LLM による解釈可能なエンドツーエンド自動運転システム DriveGPT4 を提案。BDD-X を基に ChatGPT で作成した視覚指示チューニングデータと混合ファインチューニングにより、既存手法や GPT4-V に匹敵・上回る性能を示した。</p>
+  <div class="links"><a href="papers/47_DriveGPT4_2310.01412/">原文と並べて読む</a>　<a href="papers/47_DriveGPT4_2310.01412/ja.html">訳文のみ</a>　<a href="papers/47_DriveGPT4_2310.01412/47_DriveGPT4_2310.01412.pdf">原文PDF</a></div>
+  <div class="info">47_DriveGPT4_2310.01412.pdf　／　8ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/48_GPT_Driver_2310.01415/">GPT-Driver: Learning to Drive with GPT</a>
+  <div class="au">Jiageng Mao, Yuxi Qian, Junjie Ye, Hang Zhao, Yue Wang（University of Southern California, Tsinghua University）</div>
+  <p class="sum">自動運転の動作計画を言語モデリング問題として再定式化し、プロンプティング・推論・ファインチューニング戦略により GPT-3.5 を高精度かつ解釈可能な動作プランナーに変える手法。nuScenes で既存手法を上回る L2 誤差と少数ショット汎化を示した。</p>
+  <div class="links"><a href="papers/48_GPT_Driver_2310.01415/">原文と並べて読む</a>　<a href="papers/48_GPT_Driver_2310.01415/ja.html">訳文のみ</a>　<a href="papers/48_GPT_Driver_2310.01415/48_GPT_Driver_2310.01415.pdf">原文PDF</a></div>
+  <div class="info">48_GPT_Driver_2310.01415.pdf　／　12ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/49_DriveLM_2312.14150/">DriveLM: Driving with Graph Visual Question Answering</a>
+  <div class="au">Chonghao Sima, Katrin Renz, Kashyap Chitta, Li Chen, Hanxue Zhang, Chengen Xie, Jens Bei&#223;wenger, Ping Luo, Andreas Geiger, Hongyang Li（OpenDriveLab / Shanghai AI Lab, University of T&#252;bingen, T&#252;bingen AI Center, University of Hong Kong）</div>
+  <p class="sum">知覚・予測・計画の質問応答ペアをグラフ構造で結ぶ新タスク Graph VQA を提案し、nuScenes と CARLA に基づくデータセット DriveLM-Data と VLM ベースのベースライン DriveLM-Agent を構築して、エンドツーエンド運転と未知のセンサ構成へのゼロショット汎化を評価した論文。</p>
+  <div class="links"><a href="papers/49_DriveLM_2312.14150/">原文と並べて読む</a>　<a href="papers/49_DriveLM_2312.14150/ja.html">訳文のみ</a>　<a href="papers/49_DriveLM_2312.14150/49_DriveLM_2312.14150.pdf">原文PDF</a></div>
+  <div class="info">49_DriveLM_2312.14150.pdf　／　52ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/50_LMDrive_2312.07488/">LMDrive: Closed-Loop End-to-End Driving with Large Language Models</a>
+  <div class="au">Hao Shao, Yuxuan Hu, Letian Wang, Steven L. Waslander, Yu Liu, Hongsheng Li（CUHK MMLab, SenseTime Research, CPII under InnoHK, University of Toronto, Shanghai AI Laboratory）</div>
+  <p class="sum">マルチビュー・マルチモーダルのセンサデータと自然言語指示を凍結 LLM に統合し、制御信号を直接出力する初の言語誘導型クローズドループ・エンドツーエンド自動運転フレームワーク LMDrive を提案。約 64K クリップの指示追従データセットと LangAuto ベンチマークも公開する。</p>
+  <div class="links"><a href="papers/50_LMDrive_2312.07488/">原文と並べて読む</a>　<a href="papers/50_LMDrive_2312.07488/ja.html">訳文のみ</a>　<a href="papers/50_LMDrive_2312.07488/50_LMDrive_2312.07488.pdf">原文PDF</a></div>
+  <div class="info">50_LMDrive_2312.07488.pdf　／　14ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/51_DriveVLM_2402.12289/">DriveVLM: The Convergence of Autonomous Driving and Large Vision-Language Models</a>
+  <div class="au">Xiaoyu Tian, Junru Gu, Bailin Li, Yicheng Liu, Yang Wang, Zhiyong Zhao, Kun Zhan, Peng Jia, Xianpeng Lang, Hang Zhao（清華大学 IIS、Li Auto）</div>
+  <p class="sum">視覚言語モデル（VLM）によるシーン記述・シーン解析・階層的計画の思考連鎖で複雑・ロングテールな運転シーンを理解する DriveVLM と、従来の自動運転パイプラインと組み合わせて空間推論とリアルタイム性を補う DriveVLM-Dual を提案し、量産車への搭載まで検証した。</p>
+  <div class="links"><a href="papers/51_DriveVLM_2402.12289/">原文と並べて読む</a>　<a href="papers/51_DriveVLM_2402.12289/ja.html">訳文のみ</a>　<a href="papers/51_DriveVLM_2402.12289/51_DriveVLM_2402.12289.pdf">原文PDF</a></div>
+  <div class="info">51_DriveVLM_2402.12289.pdf　／　30ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/52_CoVLA_2408.10845/">CoVLA: Comprehensive Vision-Language-Action Dataset for Autonomous Driving</a>
+  <div class="au">Hidehisa Arai, Keita Miwa, Kento Sasaki, Kohei Watanabe, Yu Yamaguchi, Shunsuke Aoki, Issei Yamamoto（Turing Inc.）</div>
+  <p class="sum">80 時間超・10,000 本の実走行動画に、自動生成したフレーム単位の言語キャプションとセンサフュージョンによる将来軌跡を付与した大規模な視覚・言語・行動（VLA）データセット CoVLA を構築し、CLIP/Llama-2 ベースの VLA モデル CoVLA-Agent で走行シーン記述と軌跡予測を示した。</p>
+  <div class="links"><a href="papers/52_CoVLA_2408.10845/">原文と並べて読む</a>　<a href="papers/52_CoVLA_2408.10845/ja.html">訳文のみ</a>　<a href="papers/52_CoVLA_2408.10845/52_CoVLA_2408.10845.pdf">原文PDF</a></div>
+  <div class="info">52_CoVLA_2408.10845.pdf　／　14ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/53_EMMA_2410.23262/">EMMA: End-to-End Multimodal Model for Autonomous Driving</a>
+  <div class="au">Jyh-Jing Hwang, Runsheng Xu, Hubert Lin, Wei-Chih Hung, Jingwei Ji, Kristy Choi, Di Huang, Tong He, Paul Covington, Benjamin Sapp, Yin Zhou, James Guo, Dragomir Anguelov, Mingxing Tan（Waymo LLC）</div>
+  <p class="sum">Gemini などのマルチモーダル大規模言語モデルを基盤に、カメラ画像から計画軌跡・3D 物体・道路グラフなどをすべて自然言語テキストとして直接出力するエンドツーエンド自動運転モデル EMMA を提案し、nuScenes の動作計画で最先端性能、WOMD・WOD でも競争力ある結果を示した。</p>
+  <div class="links"><a href="papers/53_EMMA_2410.23262/">原文と並べて読む</a>　<a href="papers/53_EMMA_2410.23262/ja.html">訳文のみ</a>　<a href="papers/53_EMMA_2410.23262/53_EMMA_2410.23262.pdf">原文PDF</a></div>
+  <div class="info">53_EMMA_2410.23262.pdf　／　31ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/54_Senna_2410.22313/">Senna: Bridging Large Vision-Language Models and End-to-End Autonomous Driving</a>
+  <div class="au">Bo Jiang, Shaoyu Chen, Bencheng Liao, Xingyu Zhang, Wei Yin, Qian Zhang, Chang Huang, Wenyu Liu, Xinggang Wang（Huazhong University of Science and Technology、Horizon Robotics）</div>
+  <p class="sum">大規模視覚言語モデル（Senna-VLM）が自然言語の高レベル計画決定（メタアクション）を予測し、エンドツーエンドモデル（Senna-E2E）がそれを条件に精密な軌道を生成する構造化自動運転システム。計画指向 QA と 3 段階学習により、nuScenes と大規模データセット DriveX で最先端の計画性能を達成した。</p>
+  <div class="links"><a href="papers/54_Senna_2410.22313/">原文と並べて読む</a>　<a href="papers/54_Senna_2410.22313/ja.html">訳文のみ</a>　<a href="papers/54_Senna_2410.22313/54_Senna_2410.22313.pdf">原文PDF</a></div>
+  <div class="info">54_Senna_2410.22313.pdf　／　13ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/55_OpenDriveVLA_2503.23463/">OpenDriveVLA: Towards End-to-end Autonomous Driving with Large Vision Language Action Model</a>
+  <div class="au">Xingcheng Zhou, Xuyuan Han, Feng Yang, Yunpu Ma, Volker Tresp, Alois Knoll（Technical University of Munich、Ludwig Maximilian University of Munich）</div>
+  <p class="sum">オープンソース LLM を基盤とし、階層的な 2D/3D 視覚トークン整列とエージェント・環境・自車の相互作用モデリングを導入したエンドツーエンド自動運転向け視覚言語行動（VLA）モデル。nuScenes の開ループ計画と運転 QA で最先端性能を示す。</p>
+  <div class="links"><a href="papers/55_OpenDriveVLA_2503.23463/">原文と並べて読む</a>　<a href="papers/55_OpenDriveVLA_2503.23463/ja.html">訳文のみ</a>　<a href="papers/55_OpenDriveVLA_2503.23463/55_OpenDriveVLA_2503.23463.pdf">原文PDF</a></div>
+  <div class="info">55_OpenDriveVLA_2503.23463.pdf　／　30ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/56_ORION_2503.19755/">ORION: A Holistic End-to-End Autonomous Driving Framework by Vision-Language Instructed Action Generation</a>
+  <div class="au">Haoyu Fu, Diankun Zhang, Zongchuang Zhao, Jianfeng Cui, Dingkang Liang, Chong Zhang, Dingyuan Zhang, Hongwei Xie, Bing Wang, Xiang Bai（Huazhong University of Science and Technology、Xiaomi EV）</div>
+  <p class="sum">長期履歴を集約する QT-Former、シナリオ推論を行う LLM、軌道を生成する生成プランナーを組み合わせ、VLM の推論空間と軌道の行動空間を整合させた E2E 自動運転フレームワーク。Bench2Drive の閉ループ評価で DS 77.74、SR 54.62% を達成した。</p>
+  <div class="links"><a href="papers/56_ORION_2503.19755/">原文と並べて読む</a>　<a href="papers/56_ORION_2503.19755/ja.html">訳文のみ</a>　<a href="papers/56_ORION_2503.19755/56_ORION_2503.19755.pdf">原文PDF</a></div>
+  <div class="info">56_ORION_2503.19755.pdf　／　18ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/57_SimLingo_2503.09594/">SimLingo: Vision-Only Closed-Loop Autonomous Driving with Language-Action Alignment</a>
+  <div class="au">Katrin Renz, Long Chen, Elahe Arani, Oleg Sinavski（Wayve、University of T&#252;bingen、T&#252;bingen AI Center）</div>
+  <p class="sum">カメラ画像のみを入力とする視覚言語モデル（VLM）ベースの自動運転モデル SimLingo を提案し、閉ループ運転・視覚言語理解・言語と行動の整合を 1 つのモデルで実現した。CARLA Leaderboard 2.0 と Bench2Drive で最先端の性能を達成し、言語指示と行動の整合を高める新タスク Action Dreaming を導入した。</p>
+  <div class="links"><a href="papers/57_SimLingo_2503.09594/">原文と並べて読む</a>　<a href="papers/57_SimLingo_2503.09594/ja.html">訳文のみ</a>　<a href="papers/57_SimLingo_2503.09594/57_SimLingo_2503.09594.pdf">原文PDF</a></div>
+  <div class="info">57_SimLingo_2503.09594.pdf　／　22ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/58_S4_Driver_2505.24139/">S4-Driver: Scalable Self-Supervised Driving Multimodal Large Language Model with Spatio-Temporal Visual Representation</a>
+  <div class="au">Yichen Xie, Runsheng Xu, Tong He, Jyh-Jing Hwang, Katie Luo, Jingwei Ji, Hubert Lin, Letian Chen, Yiren Lu, Zhaoqi Leng, Dragomir Anguelov, Mingxing Tan（UC Berkeley, Waymo LLC, Cornell University, Georgia Institute of Technology）</div>
+  <p class="sum">PaLI マルチモーダル大規模言語モデルを基盤に、人手アノテーションを使わず自車軌跡のみで学習する自己教師ありエンドツーエンド運動計画手法。疎なボリューム表現で多視点・多フレームの画像特徴を 3D 空間に集約し、nuScenes と WOMD-Planning-ADE で最高水準の性能と大規模事前学習によるスケーラビリティを示す。</p>
+  <div class="links"><a href="papers/58_S4_Driver_2505.24139/">原文と並べて読む</a>　<a href="papers/58_S4_Driver_2505.24139/ja.html">訳文のみ</a>　<a href="papers/58_S4_Driver_2505.24139/58_S4_Driver_2505.24139.pdf">原文PDF</a></div>
+  <div class="info">58_S4_Driver_2505.24139.pdf　／　15ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/59_AutoVLA_2506.13757/">AutoVLA: A Vision-Language-Action Model for End-to-End Autonomous Driving with Adaptive Reasoning and Reinforcement Fine-Tuning</a>
+  <div class="au">Zewei Zhou, Tianhui Cai, Seth Z. Zhao, Yun Zhang, Zhiyu Huang, Bolei Zhou, Jiaqi Ma（University of California, Los Angeles）</div>
+  <p class="sum">推論と行動生成を単一の自己回帰 VLM に統合し、物理的に実行可能な行動トークンで軌道を直接出力する End-to-End 自動運転用 VLA モデル。SFT で高速／低速の二重思考モードを学習し、GRPO による強化ファインチューニングで不要な推論を削減しつつ計画性能を高める。</p>
+  <div class="links"><a href="papers/59_AutoVLA_2506.13757/">原文と並べて読む</a>　<a href="papers/59_AutoVLA_2506.13757/ja.html">訳文のみ</a>　<a href="papers/59_AutoVLA_2506.13757/59_AutoVLA_2506.13757.pdf">原文PDF</a></div>
+  <div class="info">59_AutoVLA_2506.13757.pdf　／　30ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/60_DriveVLA_W0_2510.12796/">DriveVLA-W0: World Models Amplify Data Scaling Law in Autonomous Driving</a>
+  <div class="au">Yingyan Li, Shuyao Shang, Weisong Liu, Bing Zhan, Haochen Wang, Yuqi Wang, Yuntao Chen, Xiaoman Wang, Yasong An, Chufeng Tang, Lu Hou, Lue Fan, Zhaoxiang Zhang（CASIA NLPR、Yinwang Intelligent Technology）</div>
+  <p class="sum">VLA モデルの「教師信号不足」を補うため、将来画像を予測する世界モデリングを密な自己教師あり目的として導入する訓練パラダイム DriveVLA-W0 を提案。NAVSIM と 7000 万フレームの社内データで、世界モデリングがデータのスケーリング則を増幅することを示す。</p>
+  <div class="links"><a href="papers/60_DriveVLA_W0_2510.12796/">原文と並べて読む</a>　<a href="papers/60_DriveVLA_W0_2510.12796/ja.html">訳文のみ</a>　<a href="papers/60_DriveVLA_W0_2510.12796/60_DriveVLA_W0_2510.12796.pdf">原文PDF</a></div>
+  <div class="info">60_DriveVLA_W0_2510.12796.pdf　／　22ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/61_Alpamayo_R1_2511.00088/">Alpamayo-R1: Bridging Reasoning and Action Prediction for Generalizable Autonomous Driving in the Long Tail</a>
+  <div class="au">NVIDIA</div>
+  <p class="sum">因果の連鎖（Chain of Causation）推論と拡散ベースの軌道デコーダを統合した自動運転向け視覚・言語・行動モデル（VLA）Alpamayo-R1 を提案し、SFT と強化学習の多段階学習によりロングテール場面での計画精度と推論・行動の一貫性を高め、実車で 99 ms の実時間動作を示した。</p>
+  <div class="links"><a href="papers/61_Alpamayo_R1_2511.00088/">原文と並べて読む</a>　<a href="papers/61_Alpamayo_R1_2511.00088/ja.html">訳文のみ</a>　<a href="papers/61_Alpamayo_R1_2511.00088/61_Alpamayo_R1_2511.00088.pdf">原文PDF</a></div>
+  <div class="info">61_Alpamayo_R1_2511.00088.pdf　／　42ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/62_RT_2_2307.15818/">RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control</a>
+  <div class="au">Anthony Brohan, Noah Brown, Justice Carbajal, Yevgen Chebotar, Xi Chen, ... , Tianhe Yu, Brianna Zitkovich（Google DeepMind）</div>
+  <p class="sum">ロボットの行動をテキストトークンとして表現し、大規模視覚言語モデル（PaLI-X、PaLM-E）をロボット軌道データとWeb規模の視覚言語データで共同ファインチューニングすることで、視覚・言語・行動（VLA）モデル RT-2 を構築した。Web知識がロボット制御に転移し、未知物体・未知指示への汎化や記号理解・推論などの創発的能力が得られることを約6,000回の実機評価で示した。</p>
+  <div class="links"><a href="papers/62_RT_2_2307.15818/">原文と並べて読む</a>　<a href="papers/62_RT_2_2307.15818/ja.html">訳文のみ</a>　<a href="papers/62_RT_2_2307.15818/62_RT_2_2307.15818.pdf">原文PDF</a></div>
+  <div class="info">62_RT_2_2307.15818.pdf　／　26ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/63_pi0_2410.24164/">π0: A Vision-Language-Action Flow Model for General Robot Control</a>
+  <div class="au">Kevin Black, Noah Brown, Danny Driess, Adnan Esmail, Michael Equi, Chelsea Finn, Niccolo Fusai, ... Ury Zhilinsky（Physical Intelligence）</div>
+  <p class="sum">事前学習済み VLM（PaliGemma）にフローマッチングで連続行動を生成する行動エキスパートを加えた視覚・言語・行動モデル π0 を提案し、7 種のロボット構成・68 タスクの大規模データで事前学習した後、洗濯物畳みや箱組み立てなどの複雑で器用なタスクへ適用できることを示す。</p>
+  <div class="links"><a href="papers/63_pi0_2410.24164/">原文と並べて読む</a>　<a href="papers/63_pi0_2410.24164/ja.html">訳文のみ</a>　<a href="papers/63_pi0_2410.24164/63_pi0_2410.24164.pdf">原文PDF</a></div>
+  <div class="info">63_pi0_2410.24164.pdf　／　17ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/64_VLA4AD_Survey_2512.16760/">Vision-Language-Action Models for Autonomous Driving: Past, Present, and Future</a>
+  <div class="au">Tianshuai Hu, Xiaolu Liu, Song Wang, Yiyao Zhu, Ao Liang, Lingdong Kong, ... , Ziwei Liu, Junwei Liang（HKUST、Zhejiang University、NUS、NTU ほか / WorldBench Team）</div>
+  <p class="sum">自動運転における視覚-言語-行動（VLA）モデルのサーベイ。VA モデルから VLA への発展をたどり、エンドツーエンド VLA とデュアルシステム VLA の 2 大パラダイムに整理し、データセット・ベンチマーク・課題と今後の方向性をまとめる。</p>
+  <div class="links"><a href="papers/64_VLA4AD_Survey_2512.16760/">原文と並べて読む</a>　<a href="papers/64_VLA4AD_Survey_2512.16760/ja.html">訳文のみ</a>　<a href="papers/64_VLA4AD_Survey_2512.16760/64_VLA4AD_Survey_2512.16760.pdf">原文PDF</a></div>
+  <div class="info">64_VLA4AD_Survey_2512.16760.pdf　／　47ページ　／　翻訳 2026-11-16</div>
+</li>
+<li class="card">
+  <a class="ttl" href="papers/65_WOD_E2E_2510.26125/">WOD-E2E: Waymo Open Dataset for End-to-End Driving in Challenging Long-tail Scenarios</a>
+  <div class="au">Runsheng Xu, Hubert Lin, Wonseok Jeon, Hao Feng, Yuliang Zou, Liting Sun, John Gorman, Ekaterina Tolstaya, Sarah Tang, Brandyn White, Ben Sapp, Mingxing Tan, Jyh-Jing Hwang, Dragomir Anguelov（Waymo LLC）</div>
+  <p class="sum">発生頻度 0.03% 未満のロングテール状況に特化した 4,021 セグメントのエンドツーエンド運転データセット WOD-E2E と、評価者が付与した軌道の選好ラベルに基づく新しいオープンループ評価指標 Rater Feedback Score（RFS）を提案する。</p>
+  <div class="links"><a href="papers/65_WOD_E2E_2510.26125/">原文と並べて読む</a>　<a href="papers/65_WOD_E2E_2510.26125/ja.html">訳文のみ</a>　<a href="papers/65_WOD_E2E_2510.26125/65_WOD_E2E_2510.26125.pdf">原文PDF</a></div>
+  <div class="info">65_WOD_E2E_2510.26125.pdf　／　15ページ　／　翻訳 2026-11-16</div>
+</li>
+</ul>
+</body>
+</html>

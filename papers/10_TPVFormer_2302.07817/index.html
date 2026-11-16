@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>TPVFormer 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="Tri-Perspective View for Vision-Based 3D Semantic Occupancy Prediction" />
+  <meta name="short-name" content="TPVFormer" />
+  <meta name="authors" content="Yuanhui Huang, Wenzhao Zheng, Yunpeng Zhang, Jie Zhou, Jiwen Lu（清華大学、BNRist、PhiGent Robotics）" />
+  <meta name="source-pdf" content="10_TPVFormer_2302.07817.pdf" />
+  <meta name="source-pages" content="13" />
+  <meta name="pdf-href" content="10_TPVFormer_2302.07817.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="BEV に直交する 2 平面を加えた三視点ビュー（TPV）表現と、画像特徴を TPV へ持ち上げる Transformer エンコーダ TPVFormer を提案し、疎な LiDAR 教師だけでカメラ画像から全ボクセルの 3D セマンティック占有を予測する。nuScenes の LiDAR セグメンテーションでカメラのみで LiDAR 手法に匹敵する性能を初めて示した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">TPVFormer 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="10_TPVFormer_2302.07817.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+    <div class="page" data-page="13" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">13</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#tri-perspective-view-for-vision-based-3d-semantic-occupancy-prediction" id="toc-tri-perspective-view-for-vision-based-3d-semantic-occupancy-prediction">Tri-Perspective View for Vision-Based 3D Semantic Occupancy Prediction</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a></li>
+<li><a href="#3-提案手法" id="toc-3-提案手法">3　提案手法</a><ul>
+<li><a href="#3.1-bev-から-tpv-への一般化" id="toc-3.1-bev-から-tpv-への一般化">3.1　BEV から TPV への一般化</a></li>
+<li><a href="#3.2-tpvformer" id="toc-3.2-tpvformer">3.2　TPVFormer</a></li>
+<li><a href="#3.3-tpv-の応用" id="toc-3.3-tpv-の応用">3.3　TPV の応用</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a><ul>
+<li><a href="#4.1-タスクの説明" id="toc-4.1-タスクの説明">4.1　タスクの説明</a></li>
+<li><a href="#4.2-実装の詳細" id="toc-4.2-実装の詳細">4.2　実装の詳細</a></li>
+<li><a href="#4.3-3d-セマンティック占有予測の結果" id="toc-4.3-3d-セマンティック占有予測の結果">4.3　3D セマンティック占有予測の結果</a></li>
+<li><a href="#4.4-lidar-セグメンテーションの結果" id="toc-4.4-lidar-セグメンテーションの結果">4.4　LiDAR セグメンテーションの結果</a></li>
+<li><a href="#4.5-セマンティックシーン補完の結果" id="toc-4.5-セマンティックシーン補完の結果">4.5　セマンティックシーン補完の結果</a></li>
+<li><a href="#4.6-アブレーション研究" id="toc-4.6-アブレーション研究">4.6　アブレーション研究</a></li>
+</ul></li>
+<li><a href="#5-結論" id="toc-5-結論">5　結論</a></li>
+<li><a href="#a-データセットの詳細" id="toc-a-データセットの詳細">A　データセットの詳細</a></li>
+<li><a href="#b-実装の詳細" id="toc-b-実装の詳細">B　実装の詳細</a></li>
+<li><a href="#c-3d-セマンティック占有予測の結果" id="toc-c-3d-セマンティック占有予測の結果">C　3D セマンティック占有予測の結果</a></li>
+<li><a href="#d-lidar-セグメンテーションの結果" id="toc-d-lidar-セグメンテーションの結果">D　LiDAR セグメンテーションの結果</a></li>
+<li><a href="#e-セマンティックシーン補完の結果" id="toc-e-セマンティックシーン補完の結果">E　セマンティックシーン補完の結果</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="tri-perspective-view-for-vision-based-3d-semantic-occupancy-prediction">Tri-Perspective View for Vision-Based 3D Semantic Occupancy Prediction</h1>
+<p>Yuanhui Huang<sup>1,2,*</sup>、Wenzhao Zheng<sup>1,2,*</sup>、Yunpeng Zhang<sup>3</sup>、Jie Zhou<sup>1,2</sup>、Jiwen Lu<sup>1,2,†</sup><br />
+<sup>1</sup>Beijing National Research Center for Information Science and Technology（中国）、<sup>2</sup>清華大学 自動化系（中国）、<sup>3</sup>PhiGent Robotics<br />
+{huangyh22,zhengwz18}@mails.tsinghua.edu.cn; yunpengzhang97@gmail.com; {jzhou,lujiwen}@tsinghua.edu.cn<br />
+arXiv:2302.07817v2 [cs.CV]、2023年3月2日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>10_TPVFormer_2302.07817.pdf</code>（全 13 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<figure><img src="figs/fig1.jpg" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：</strong>サラウンドカメラの RGB 画像のみを入力として、我々のモデル（疎な LiDAR 点の教師のみを用いて学習）は 3D 空間内のすべての体積についてセマンティック占有を予測できる。このタスクは 3D シーンの幾何学的理解と意味的理解の両方を必要とするため困難である。我々のモデルは、nuScenes［4］の検証セット（学習中には見ていない）において、正解データよりもさらに網羅的で一貫した体積占有を生成できることが観察される。LiDAR のような幾何学的入力がないにもかかわらず、我々のモデルは近くの物体と遠くの物体の 3D 位置と大きさを正確に特定できる。特に、部分的に遮蔽され、わずか 2 点の LiDAR 点でしか捉えられていない自転車さえも識別に成功しており、ビジョンベースの 3D セマンティック占有予測の潜在的な利点を示している。</p>
+<p class="yakuchu">図中ラベル：Only RGB Images As Inputs＝RGB 画像のみを入力、Vision-based Occupancy Prediction＝ビジョンベースの占有予測、Ground Truth＝正解、driveable surface＝走行可能路面、car＝乗用車、bus＝バス、truck＝トラック、terrain＝地形、vegetation＝植生、sidewalk＝歩道、other flat＝その他の平面、pedestrian＝歩行者、bicycle＝自転車、manmade＝人工物</p>
+
+<h2 id="要旨">要旨</h2>
+<p>ビジョン中心の自動運転知覚の最新手法は、3D シーンを記述するために鳥瞰図（BEV）表現を広く採用している。BEV はボクセル表現より効率的であるものの、単一の平面でシーンの細粒度な 3D 構造を記述することは難しい。この問題に対処するため、我々は BEV に直交する 2 つの平面を追加した三視点ビュー（tri-perspective view; TPV）表現を提案する。3D 空間内の各点は、3 つの平面上に射影された特徴を合計することでモデル化する。さらに画像特徴を 3D の TPV 空間へ持ち上げるため、TPV 特徴を効果的に得る Transformer ベースの TPV エンコーダ（TPVFormer）を提案する。注意機構を用いて、各 TPV 平面の各クエリに対応する画像特徴を集約する。実験により、疎な教師で学習した我々のモデルが全ボクセルのセマンティック占有を効果的に予測することを示す。また、nuScenes の LiDAR セグメンテーションタスクにおいて、カメラ入力のみで LiDAR ベース手法に匹敵する性能を達成できることを初めて実証する。コード：<a href="https://github.com/wzzheng/TPVFormer">https://github.com/wzzheng/TPVFormer</a>。</p>
+<blockquote><p>脚注：* 同等の貢献。† 責任著者。</p></blockquote>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>3D の周囲環境を正確かつ網羅的に知覚することは、自動運転システムにおいて重要な役割を果たす。ビジョンベースの 3D 知覚は、2D 画像から 3D 情報を効果的に抽出する手段として、LiDAR ベースの知覚に代わる有望な選択肢として近年台頭している。深度情報を直接センシングできないにもかかわらず、周囲カメラを備えたビジョンベースのモデルは、深度推定［18,45］、セマンティックマップ再構成［1,20,51］、3D 物体検出［28,31,49］といったさまざまな 3D 知覚タスクで有望な性能を示している。</p>
+<a class="pg" data-page="2"></a>
+<p>3D の周囲知覚の核心は、3D シーンをいかに効果的に表現するかにある。従来の手法は 3D 空間をボクセルに分割し、各ボクセルにその状態を表すベクトルを割り当てる。正確ではあるものの、膨大な数のボクセルは計算上の大きな課題となり、疎畳み込み［13］のような特殊な技術を必要とする。屋外シーンの情報は等方的に分布していないため、最新の手法は高さ方向の次元を潰し、情報が最も大きく変化する地面平面（鳥瞰図）に主に注目する［21,27,29,32,38,49,51］。これらの手法は、各 BEV グリッドのベクトル表現の中に各物体の 3D 情報を暗黙的に符号化する。より効率的でありながら、BEV ベースの手法は 3D 物体検出タスクで驚くほど良好な性能を示す［29,32］。これは、3D 物体検出が乗用車や歩行者などのよく見られる物体について粗いレベルのバウンディングボックスの予測しか要求しないためである。しかし、実際のシーンではさまざまな 3D 構造を持つ物体に遭遇しうるため、それらすべてを平坦化されたベクトルで符号化することは（不可能ではないにせよ）困難である。したがって、より安全で頑健なビジョン中心の自動運転システムに向けては、3D の周囲環境をより網羅的かつ細粒度に理解することが必要となる。とはいえ、BEV の効率と検出性能を保ったまま、細粒度な 3D 構造をモデル化できるように BEV を一般化する方法はまだ分かっていない。</p>
+
+<figure><img src="figs/fig2.jpg" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：</strong>3D セマンティック占有予測のための我々の手法の概要。カメラ画像を入力とし、提案する TPVFormer は学習に疎な LiDAR セマンティックラベルのみを用いるが、全ボクセルのセマンティック占有を効果的に予測できる。</p>
+<p class="yakuchu">図中ラベル：Camera Input＝カメラ入力、Image Backbone＝画像バックボーン、Training Phase＝学習フェーズ、Test Phase＝テストフェーズ、TPV Representation＝TPV 表現、Sparse Supervision＝疎な教師、Dense Prediction＝密な予測、LiDAR Ground Truth＝LiDAR の正解、Semantic Occupancy Prediction＝セマンティック占有予測</p>
+
+<p>本論文では、この方向に前進し、3D シーンを記述するための三視点ビュー（TPV）表現を提案する。陽的・陰的ハイブリッドなシーン表現の近年の進展［7,8］に触発され、我々は BEV に直交する 2 つの平面を加えて、互いに直交する 3 つの交差平面を構築することで BEV を一般化する。各平面は 1 つの視点から 3D の周囲環境をモデル化し、それらを組み合わせることで 3D 構造の網羅的な記述が得られる。具体的には、3D 空間内の点の特徴を得るために、まずその点を 3 つの平面それぞれに射影し、双線形補間を用いて各射影点の特徴を得る。次に 3 つの射影特徴を合計して、その 3D 点の総合的な特徴とする。これにより TPV 表現は任意の解像度で 3D シーンを記述でき、3D 空間内の異なる点に対して異なる特徴を生成できる。さらに、2D 画像から TPV 特徴を効果的に得るため、Transformer ベースのエンコーダ（TPVFormer）を提案する。まず TPV グリッドクエリと対応する 2D 画像特徴との間で画像クロス注意を行い、2D 情報を 3D 空間へ持ち上げる。次に TPV 特徴の間でビュー間ハイブリッド注意（cross-view hybrid-attention）を行い、3 つの平面間の相互作用を可能にする。</p>
+<p>TPV の優位性を示すため、我々はビジョンベースの 3D セマンティック占有予測という、実用的でありながら困難なタスクを定式化する。このタスクでは、図2 に示すように、学習には疎な LiDAR セマンティックラベルのみが与えられ、テスト時には全ボクセルの予測が求められる。しかし、この困難な設定にはベンチマークが用意されていないため、定性的な分析のみを行い、定量的な評価は 2 つの代理タスク、すなわち nuScenes［4］での LiDAR セグメンテーション（疎な学習、疎なテスト）と SemanticKITTI［2］での 3D セマンティックシーン補完（密な学習、密なテスト）で行う。どちらのタスクでも入力には RGB 画像のみを用いる。LiDAR セグメンテーションでは、評価指標を計算するための点クエリにのみ LiDAR データを用いる。可視化結果は、図1 に示すように、TPVFormer が学習時に疎な点の教師しか用いずに一貫したセマンティックボクセル占有予測を生成することを示している。また、我々のビジョンベース手法が LiDAR セグメンテーションにおいて LiDAR ベース手法に匹敵する性能を達成することを初めて実証する。</p>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<p><strong>ボクセルベースのシーン表現：</strong>3D シーンの効果的な表現を得ることは、3D の周囲知覚における基本的な手続きである。直接的な方法の 1 つは、3D 空間をボクセルに離散化し、各ボクセルを表すベクトルを割り当てることである［52,54］。細粒度な 3D 構造を記述できる能力により、ボクセルベースの表現は、LiDAR セグメンテーション［12,30,43,47,48,55］や 3D シーン補完［5,10,24,41,46］を含む 3D セマンティック占有予測タスクに好適である。ボクセルベースの表現は 3D セグメンテーションタスクを席巻してきたが［47］、3D 検出性能では依然として BEV ベースの手法に後れを取っている［27］。LiDAR 中心の周囲知覚におけるボクセルベース表現の成功にもかかわらず、ビジョン中心の自動運転においてボクセルベース表現を探求した研究はごくわずかである［5,26］。MonoScene［5］は、まず画像特徴を光線に沿って 3D 空間内のすべての可能な位置へ逆投影して初期ボクセル表現を得て、さらにそれを 3D UNet で処理する。しかし、ボクセル表現の非効率性のため、これを多視点画像による 3D 知覚へ一般化することは依然として困難である。このことが、シーンの細粒度な 3D 構造を記述するための、より効率的で表現力の高い方法を探求する動機となっている。</p>
+<a class="pg" data-page="3"></a>
+<p><strong>BEV ベースのシーン表現：</strong>膨大な数のボクセルは、ボクセルベース手法の計算効率にとって大きな課題となる。高さ方向の次元は他の 2 つの次元よりも含む情報が少ないことを考慮し、BEV ベースの手法は、シーンをよりコンパクトに表現するために高さ情報を各 BEV グリッドに暗黙的に符号化する［23］。BEV ベースの知覚に関する近年の研究は、画像空間から BEV 空間へ特徴をいかに効果的に変換するかに焦点を当てている［21,27,28,38,39,51］。一連の研究は、各画像について深度マップを陽に予測し、それを用いて画像特徴を 3D 空間へ射影した後に BEV プーリングを行う［21,27,29,32,38,39,51］。別の一連の研究は、BEV クエリを用い、クロス注意機構によって画像特徴から情報を暗黙的に取り込む［22,28］。BEV ベースの知覚は多視点画像からのビジョン中心の 3D 検出で大きな成功を収め［27］、LiDAR 中心の手法に匹敵する性能を示している。しかし、3D 空間のより細粒度な記述を必要とする 3D セマンティック占有予測に BEV を適用することは難しい。</p>
+<p><strong>陰的シーン表現：</strong>近年の手法は、シーンを記述するための陰的表現も探求している。これらは、点の 3D 座標を入力としてその点の表現を出力する連続関数を学習する［34,35,37］。ボクセルや BEV のような陽的表現と比べ、陰的表現は一般に、任意解像度でのモデル化と計算効率の高いアーキテクチャという利点を共有している［6,11,40］。これらの利点により、陰的表現はより細粒度な記述でより大規模かつ複雑なシーンへ拡張できる。特に、我々の研究は陽的・陰的ハイブリッド表現の近年の進展［7,8］に触発されている。これらは陰的表現の連続写像に空間情報を陽に注入する。そのため、陰的表現の計算効率の高いアーキテクチャと、陽的表現のより優れた空間認識を兼ね備えている。とはいえ、これらは主に 3D を考慮した画像レンダリングのための小規模で複雑なシーンに焦点を当てている。我々の知る限り、自動運転における 3D の周囲知覚のために屋外シーンを陰的表現でモデル化したのは我々が初めてである。</p>
+
+<figure><img src="figs/fig3.jpg" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：</strong>提案する TPV 表現とボクセル表現および BEV 表現の比較。BEV はボクセル表現より効率的であるが、高さ情報を捨ててしまい、3D シーンを網羅的に記述することができない。</p>
+<p class="yakuchu">図中ラベル：Voxel＝ボクセル、TPV (ours)＝TPV（提案手法）</p>
+
+<h2 id="3-提案手法">3　提案手法</h2>
+<h3 id="3.1-bev-から-tpv-への一般化">3.1　BEV から TPV への一般化</h3>
+<p>自動運転の知覚では通常、複雑な 3D シーンの表現力が高くかつ効率的な表現が求められ、その中でボクセル表現と鳥瞰図（BEV）表現は最も広く採用されている 2 つの枠組みである。ボクセル表現［26,43,48］は、3D シーンを密な立方体状の特徴 \( \mathbf{V} \in \mathbb{R}^{H \times W \times D \times C} \) で記述する。ここで \( H, W, D \) はボクセル空間の空間解像度、\( C \) は特徴の次元を表す。実世界の \( (x,y,z) \) に位置する任意の点は、一対一の対応 \( \mathcal{P}_{vox} \) によってボクセル座標 \( (h,w,d) \) に写像され、得られる特徴 \( \mathbf{f}_{x,y,z} \) は \( \mathbf{V} \) を \( (h,w,d) \) でサンプリングすることで得られる：</p>
+<p>\[ \begin{aligned} \mathbf{f}_{x,y,z} = \mathbf{v}_{h,w,d} &amp;= \mathcal{S}(\mathbf{V}, (h,w,d)), \\ &amp;= \mathcal{S}(\mathbf{V}, \mathcal{P}_{vox}(x,y,z)), \end{aligned} \tag{1} \]</p>
+<p>ここで \( \mathcal{S}(arg1, arg2) \) は \( arg1 \) を \( arg2 \) で指定された位置でサンプリングすることを表し、\( \mathbf{v}_{h,w,d} \) はサンプリングされたボクセル特徴である。ボクセル空間が実世界と位置合わせされていれば、射影関数 \( \mathcal{P}_{vox} \) は単純なスケーリングと剛体変換から構成されることに注意されたい。したがって、ボクセル表現は実世界の次元性を保持し、適切な \( H, W, D \) のもとで十分な表現力を提供する。しかし、ボクセル特徴の記憶量と計算量は \( O(HWD) \) に比例するため、リアルタイムの車載アプリケーションに展開することは困難である。</p>
+<p>よく用いられる代替手段として、BEV［22,27,28,32］は、シーンの上面視を符号化する 2D 特徴マップ \( \mathbf{B} \in \mathbb{R}^{H \times W \times C} \) で 3D シーンをモデル化する。ボクセル表現とは異なり、\( (x,y,z) \) にある点は、\( z \) 軸に関係なく地面平面の位置情報のみを用いて BEV 座標 \( (h,w) \) に射影される。\( \mathbf{B} \) からサンプリングされた各特徴 \( \mathbf{b}_{h,w} \) は、実世界で \( z \) 軸の全範囲を覆う柱状（ピラー）領域に対応する：</p>
+<p>\[ \mathbf{f}_{x,y,\mathbf{Z}} = \mathbf{b}_{h,w} = \mathcal{S}(\mathbf{B}, (h,w)) = \mathcal{S}(\mathbf{B}, \mathcal{P}_{bev}(x,y)), \tag{2} \]</p>
+<p>ここで \( \mathbf{f}_{x,y,\mathbf{Z}} \) は同じ \( (x,y) \) を共有し \( z \) が異なる点の特徴を表し、\( \mathcal{P}_{bev} \) は点から BEV への射影である。BEV は記憶量と計算負荷を \( O(HW) \) へと大幅に削減するものの、\( z \) 軸を完全に省略することはその表現力に悪影響を及ぼす。</p>
+<p>この問題に対処するため、我々は、図3 に示すように、どの軸も抑制することなく 3D 空間をフルスケールでモデル化でき、かつ 3 乗の計算量を回避できる三視点ビュー（TPV）表現を提案する。形式的には、軸に沿った 3 つの直交する TPV 平面を学習する：</p>
+<p>\[ \begin{aligned} &amp;\mathbf{T} = [\mathbf{T}^{HW}, \mathbf{T}^{DH}, \mathbf{T}^{WD}], \ \ \mathbf{T}^{HW} \in \mathbb{R}^{H \times W \times C}, \\ &amp;\mathbf{T}^{DH} \in \mathbb{R}^{D \times H \times C}, \ \ \mathbf{T}^{WD} \in \mathbb{R}^{W \times D \times C}, \end{aligned} \tag{3} \]</p>
+<p>これらはそれぞれ 3D シーンの上面視、側面視、正面視を表す。\( H, W, D \) は 3 つの平面の解像度を、\( C \) は特徴の次元を表す。直感的には、複雑なシーンは異なる視点から調べることでよりよく理解できる。これらの視点がシーンについて相補的な手がかりを与えうるからである。</p>
+<a class="pg" data-page="4"></a>
+<p><strong>点クエリによる定式化。</strong>実世界の \( (x,y,z) \) にあるクエリ点が与えられたとき、TPV 表現はその点の網羅的な記述を得るために、上面・側面・正面の各視点への射影を集約しようとする。具体的には、まず点を TPV 平面に射影して座標 \( [(h,w),(d,h),(w,d)] \) を得て、これらの位置で TPV 平面をサンプリングして対応する特徴 \( [\mathbf{t}_{h,w}, \mathbf{t}_{d,h}, \mathbf{t}_{w,d}] \) を取得し、3 つの特徴を集約して最終的な \( \mathbf{f}_{x,y,z} \) を生成する：</p>
+<p>\[ \begin{aligned} \mathbf{t}_{h,w} &amp;= \mathcal{S}(\mathbf{T}^{HW}, (h,w)) = \mathcal{S}(\mathbf{T}^{HW}, \mathcal{P}_{hw}(x,y)), \\ \mathbf{t}_{d,h} &amp;= \mathcal{S}(\mathbf{T}^{DH}, (d,h)) = \mathcal{S}(\mathbf{T}^{DH}, \mathcal{P}_{dh}(z,x)), \\ \mathbf{t}_{w,d} &amp;= \mathcal{S}(\mathbf{T}^{WD}, (w,d)) = \mathcal{S}(\mathbf{T}^{WD}, \mathcal{P}_{wd}(y,z)). \end{aligned} \tag{4} \]</p>
+<p>\[ \mathbf{f}_{x,y,z} = \mathcal{A}(\mathbf{t}_{h,w}, \mathbf{t}_{d,h}, \mathbf{t}_{w,d}), \tag{5} \]</p>
+<p>ここでサンプリング関数 \( \mathcal{S} \) と集約関数 \( \mathcal{A} \) はそれぞれ双線形補間と総和で実装され、TPV 平面は実世界の軸に揃っているため、各射影関数 \( \mathcal{P} \) は関係する 2 つの座標に対して単純なスケーリングを行う。</p>
+<p><strong>ボクセル特徴による定式化。</strong>点クエリによる定式化と等価に、TPV 平面をそれぞれの直交方向に沿って展開して合計すると、ボクセル特徴空間と同様のフルスケールの 3D 特徴空間が構築される。ただし記憶量と計算量は \( O(HW + DH + WD) \) にすぎず、ボクセル表現より 1 桁低い。</p>
+<p>BEV と比較すると、TPV の 3 つの平面は互いに直交しているため、ある平面の直交方向に沿った点の特徴は、他の 2 つの平面からサンプリングされた特徴によって多様化される。これは BEV 表現では無視されている点である。さらに、各 TPV 平面のグリッド特徴は、BEV のように完全な情報を符号化するのではなく、対応する柱状領域の視点固有の情報のみを担う。まとめると、TPV 表現は BEV を単一の上面視から相補的かつ直交する上面・側面・正面の視点へと一般化し、効率を保ちつつ 3D の周囲環境のより網羅的かつ細粒度な理解を提供できる。</p>
+
+<h3 id="3.2-tpvformer">3.2　TPVFormer</h3>
+<p>ビジョン中心の自動運転知覚では、表現の枠組みに応じた特定のエンコーダに入力する前に、2D バックボーンを用いて画像特徴を得ることが多い。我々は、注意機構によって画像特徴を TPV 平面へ持ち上げる Transformer ベースの TPV エンコーダ（TPVFormer）を提示する。</p>
+<p><strong>全体構造：</strong>TPVFormer では、図4 に示すように、TPV 平面を効果的に生成するために TPV クエリ、画像クロス注意（ICA）、ビュー間ハイブリッド注意（CVHA）を導入する。実際、TPV クエリと TPV 平面は (3) で定義された同じ特徴ベクトルの集合を指す。各 TPV クエリ \( \mathbf{t} \in \mathbf{T} \) は 3 つの平面のいずれかに属するグリッドセルの特徴であり、対応する柱状領域の視点固有の情報を符号化するために用いられる。ビュー間ハイブリッド注意は、文脈情報を集めるために、同じ視点または異なる視点の TPV クエリ間の直接的な相互作用を可能にする。画像クロス注意の内部では、TPV クエリが変形可能注意（deformable attention）によって画像特徴から視覚情報を集約する。</p>
+<p>さらに我々は 2 種類の Transformer ブロック、すなわちハイブリッドクロス注意ブロック（HCAB）とハイブリッド注意ブロック（HAB）を構築する。CVHA と ICA の両方の注意から構成される HCAB ブロックは、画像特徴から視覚情報を効果的にクエリするために TPVFormer の前半で用いられる。HCAB ブロックに続く HAB ブロックは CVHA 注意のみを含み、文脈情報の符号化に特化している。最後に、\( N_1 \) 個の HCAB ブロックと \( N_2 \) 個の HAB ブロックを積み重ねて TPVFormer を構築する。</p>
+<p><strong>TPV クエリ：</strong>TPV クエリと TPV 平面は (3) で定義された同じ 2D 特徴のリストを指すが、それぞれ注意の文脈と 3D 表現の文脈で用いられる。各 TPV クエリは、対応する視点における大きさ \( s \times s \ m^2 \) の 2D グリッドセル領域に対応し、さらにその視点から直交方向に延びる 3D の柱状領域に対応する。我々のパイプラインでは、TPV クエリはまず HCAB ブロックで画像特徴からの生の視覚情報によって強化され、次に HAB ブロックで他のクエリからの文脈的手がかりによって洗練される。実装としては、TPV クエリを学習可能なパラメータとして初期化し、最初のエンコーダ層の前に 3D 位置埋め込みを加える。</p>
+<p><strong>画像クロス注意：</strong>TPVFormer では、マルチスケールかつ（場合によっては）複数カメラの画像特徴を TPV 平面へ持ち上げるために画像クロス注意を用いる。TPV クエリの高解像度という性質（\( \sim 10^4 \) クエリ）と複数の画像特徴マップ（各 \( \sim 10^5 \) 画素）を考えると、両者の間でフルスケールの通常のクロス注意を計算することは実行不可能である。その回避策として、効率的な変形可能注意［15,53］を用いて画像クロス注意を実装する。</p>
+<a class="pg" data-page="5"></a>
+<figure><img src="figs/fig4.jpg" loading="lazy" alt="図4" /></figure>
+<p><strong>図4：</strong>3D セマンティック占有予測のために提案する TPVFormer の枠組み。画像バックボーンネットワークを用いて、マルチカメラ画像のマルチスケール特徴を抽出する。次にクロス注意を行って 2D 特徴を TPV 空間へ適応的に持ち上げ、ビュー間ハイブリッド注意を用いて TPV 平面間の相互作用を可能にする。3D 空間内の点のセマンティック占有を予測するため、3 つの TPV 平面上の射影特徴の総和に軽量な予測ヘッドを適用する。</p>
+<p class="yakuchu">図中ラベル：Image Inputs＝画像入力、Network＝ネットワーク、Feature Maps＝特徴マップ、Hybrid-Attention＝ハイブリッド注意、Cross-Attention＝クロス注意、TPV Representation＝TPV 表現、Point Prediction＝点の予測、Prediction Head＝予測ヘッド、Semantic Occupancy of ☆＝☆のセマンティック占有</p>
+
+<p>参照点をサンプリングする際には、局所的な受容野を帰納バイアスとして採用する。具体的には、上面平面の \( (h,w) \) に位置する TPV クエリ \( \mathbf{t}_{h,w} \) について、まず逆射影関数 \( \mathcal{P}_{hw}^{-1} \) によって実世界の上面視における座標 \( (x,y) \) を計算する。次に、平面の直交方向に沿って、クエリ \( \mathbf{t}_{h,w} \) のための \( N_{ref}^{HW} \) 個の参照点を一様にサンプリングする：</p>
+<p>\[ (x,y) = \mathcal{P}_{hw}^{-1}(h,w) = \left(\left(h - \frac{H}{2}\right) \times s, \left(w - \frac{W}{2}\right) \times s\right). \tag{6} \]</p>
+<p>\[ \mathbf{Ref}_{h,w}^{world} = (\mathcal{P}_{hw}^{-1}(h,w), \mathbf{Z}) = \{(x,y,z_i)\}_{i=1}^{N_{ref}^{HW}}, \tag{7} \]</p>
+<p>ここで \( \mathbf{Ref}_{h,w}^{world} \) はクエリ \( \mathbf{t}_{h,w} \) に対する世界座標系での参照点の集合を表す。同様の手続きをすべての TPV クエリについて繰り返す。なお、軸の範囲が異なるため、参照点の数 \( N_{ref} \) は平面ごとに変わりうることに注意されたい。\( \mathbf{t}_{h,w} \) の参照点を導出した後、後で画像特徴マップをサンプリングするために、それらを画素座標へ射影する必要がある：</p>
+<p>\[ \mathbf{Ref}_{h,w}^{pix} = \mathcal{P}_{pix}(\mathbf{Ref}_{h,w}^{world}) = \mathcal{P}_{pix}(\{(x,y,z_i)\}), \tag{8} \]</p>
+<p>ここで \( \mathbf{Ref}_{h,w}^{pix} \) はクエリ \( \mathbf{t}_{h,w} \) に対する画素座標系での参照点の集合であり、\( \mathcal{P}_{pix} \) はカメラの外部パラメータと内部パラメータによって決まる透視投影関数である。異なる方向を向いた複数のカメラが存在しうるため、\( \{\mathbf{Ref}_{h,w}^{pix,j}\}_{j=1}^{N_c} \) という集合が生成されることに注意されたい。ここで \( N_c \) はカメラの数を表す。すべてのカメラがクエリ \( \mathbf{t}_{h,w} \) の参照点を捉えられるわけではないため、参照点のいずれも対応するカメラで撮影された画像上に落ちない場合には、その無効な集合を \( \{\mathbf{Ref}_{h,w}^{pix,j}\}_{j=1}^{N_c} \) から除去することで計算量をさらに削減できる。最後のステップでは、\( \mathbf{t}_{h,w} \) に適用した 2 つの線形層によってオフセットと注意重みを生成し、サンプリングした画像特徴を注意重みで重み付けして合計することで、更新された TPV クエリを生成する：</p>
+<p>\[ \mathrm{ICA}(\mathbf{t}_{h,w}, \mathbf{I}) = \frac{1}{|N_{h,w}^{val}|} \sum_{j \in N_{h,w}^{val}} \mathrm{DA}(\mathbf{t}_{h,w}, \mathbf{Ref}_{h,w}^{pix,j}, \mathbf{I}_j), \tag{9} \]</p>
+<p>ここで \( N_{h,w}^{val} \)、\( \mathbf{I}_j \)、\( \mathrm{DA}(\cdot) \) はそれぞれ、有効なカメラのインデックス集合、\( j \) 番目のカメラからの画像特徴、変形可能注意関数を表す。</p>
+<p><strong>ビュー間ハイブリッド注意：</strong>画像クロス注意では、TPV クエリは参照画像特徴を個別にサンプリングし、クエリ同士の直接的な相互作用は行われない。そこで我々は、クエリが異なる視点をまたいで情報を交換できるようにするビュー間ハイブリッド注意を提案する。これは文脈の抽出に有益である。ここでも計算量を削減するために変形可能注意を採用し、3 つの TPV 平面がキーとバリューの役割を果たす。上面平面の \( (h,w) \) に位置する TPV クエリ \( \mathbf{t}_{h,w} \) を例にとると、その参照点を、それぞれ上面・側面・正面の平面に属する参照点からなる互いに素な 3 つの部分集合にグループ化する：</p>
+<p>\[ \mathbf{R}_{h,w} = \mathbf{R}_{h,w}^{top} \cup \mathbf{R}_{h,w}^{side} \cup \mathbf{R}_{h,w}^{front}. \tag{10} \]</p>
+<p>上面平面上の参照点を集めるには、クエリ \( \mathbf{t}_{h,w} \) の近傍で少数のランダムな点を単純にサンプリングする。側面と正面の平面については、まず上面平面に垂直な方向に沿って 3D 点を一様にサンプリングし、それらを側面と正面の平面に射影する：</p>
+<p>\[ \mathbf{R}_{h,w}^{side} = \{(d_i, h)\}_i, \quad \mathbf{R}_{h,w}^{front} = \{(w, d_i)\}_i. \tag{11} \]</p>
+<p>参照点の導出に続くのは変形可能注意の典型的な手順である。すなわち、線形層によって各参照点のサンプリングオフセットと注意重みを計算し、サンプリングした特徴を注意スコアで重み付けして合計する：</p>
+<p>\[ \mathrm{CVHA}(\mathbf{t}_{h,w}) = \mathrm{DA}(\mathbf{t}_{h,w}, \mathbf{R}_{h,w}, \mathbf{T}). \tag{12} \]</p>
+
+<h3 id="3.3-tpv-の応用">3.3　TPV の応用</h3>
+<p>TPVFormer によって得られる TPV 平面 \( \mathbf{T} \) は、3D シーンの細粒度な視点固有の情報を符号化している。とはいえ、これらは直交する交差平面の形をしており、一般的なタスクヘッドにとってそのままでは解釈しにくい。ここでは、TPV 平面を点特徴とボクセル特徴に変換する方法を説明し、さらに軽量なセグメンテーションヘッドを導入する。</p>
+<p><strong>点特徴。</strong>実世界での位置が与えられたとき、特徴生成の過程を、点が TPV 表現から自身の特徴をクエリする過程とみなす。(4) と (5) で定義したように、まず点を TPV 平面に射影して対応する特徴 \( [\mathbf{t}_{h,w}, \mathbf{t}_{d,h}, \mathbf{t}_{w,d}] \) を取得し、それらを合計して点ごとの特徴を得る。</p>
+<p><strong>ボクセル特徴。</strong>密なボクセル特徴については、各 TPV 平面を対応する直交方向に沿って能動的にブロードキャストして、同じサイズ \( H \times W \times D \times C \) の 3 つの特徴テンソルを生成し、それらを総和によって集約してフルスケールのボクセル特徴を得る。どの物理的な点の位置も事前には知らないことに注意されたい。</p>
+<p>細粒度なセグメンテーションタスクを行うため、点特徴またはボクセル特徴に軽量な MLP を適用してそのセマンティックラベルを予測する。この MLP は 2 つの線形層と中間の活性化層のみで構成される。</p>
+
+<h2 id="4-実験">4　実験</h2>
+<h3 id="4.1-タスクの説明">4.1　タスクの説明</h3>
+<p>我々は、3D セマンティック占有予測、LiDAR セグメンテーション、セマンティックシーン補完（SSC）の 3 種類の実験を行う。最初の 2 つのタスクは Panoptic nuScenes［17］で、最後のタスクは Semantic KITTI［2］で行う。データセットの詳細は付録 A で述べる。すべてのタスクにおいて、我々のモデルは入力として RGB 画像のみを用いる。</p>
+<a class="pg" data-page="6"></a>
+<figure><img src="figs/fig5.jpg" loading="lazy" alt="図5" /></figure>
+<p><strong>図5：3D セマンティック占有予測と nuScenes LiDAR セグメンテーションの可視化結果。</strong>我々の手法は、LiDAR セグメンテーションの正解よりも網羅的な予測結果を生成できる。</p>
+<p class="yakuchu">図中ラベル：FRONT_LEFT／FRONT／FRONT_RIGHT／BACK_LEFT／BACK／BACK_RIGHT＝前方左／前方／前方右／後方左／後方／後方右のカメラ、Camera As Input: Semantic Occupancy Prediction (Ours)＝カメラ入力：セマンティック占有予測（提案手法）、Camera As Input: LiDAR Seg. (Ours)＝カメラ入力：LiDAR セグメンテーション（提案手法）、LiDAR As Input: LiDAR Seg. (Cylinder3D)＝LiDAR 入力：LiDAR セグメンテーション（Cylinder3D）、LiDAR Seg. (Ground Truth)＝LiDAR セグメンテーション（正解）。凡例：driveable surface＝走行可能路面、car＝乗用車、bus＝バス、truck＝トラック、terrain＝地形、vegetation＝植生、sidewalk＝歩道、other flat＝その他の平面、pedestrian＝歩行者、bicycle＝自転車、manmade＝人工物、motorcycle＝オートバイ、barrier＝バリア、construction vehicle＝工事車両、trailer＝トレーラー、traffic cone＝三角コーン</p>
+
+<figure><img src="figs/fig6.jpg" loading="lazy" alt="図6" /></figure>
+<p><strong>図6：テスト時の任意解像度。</strong>テスト時に補間によって予測解像度を調整できる。解像度が上がるにつれて、3D 物体のより多くの詳細が捉えられる。</p>
+<p class="yakuchu">図中ラベル：Camera Inputs＝カメラ入力、Semantic Occupancy Predictions＝セマンティック占有予測（各パネル上下の数値は予測解像度）</p>
+
+<p><strong>3D セマンティック占有予測。</strong>密なセマンティックラベルは入手が難しいため、我々はビジョンベースの 3D セマンティック占有予測という、実用的でありながら困難なタスクを定式化する。このタスクでは、モデルは疎なセマンティックラベル（LiDAR 点）のみを用いて学習されるが、テスト時には対象とする 3D 空間内のすべてのボクセルについてセマンティック占有を生成することが求められる。これに対するベンチマークは用意されていないため、我々は手法の定性的な分析のみを行う。それでも、我々の手法はこの困難なタスクで有効な結果を示した最初の手法である。</p>
+<p><strong>LiDAR セグメンテーション。</strong>LiDAR セグメンテーションタスクは 3.3 節で述べた点クエリによる定式化に対応し、与えられた点のセマンティックラベルを予測する。LiDAR セグメンテーションタスクは、必ずしも点群を入力として用いるわけではない。我々の場合、入力には RGB 画像のみを用い、点は特徴のクエリと学習フェーズでの教師にのみ用いる。</p>
+<p><strong>セマンティックシーン補完。</strong>従来の SSC では、単一の初期 LiDAR スキャンが与えられ、ある体積内の完全なシーンについて各ボクセルが占有されているかどうかとそのセマンティックラベルを予測する必要がある。ビジョン中心の適応として、我々は入力として RGB 画像のみを用い、各ボクセルの占有とセマンティックラベルを予測する。それに応じて、学習過程はボクセルラベルで教師付けする。TPV 表現の場合、3.3 節のボクセル特徴による定式化を採用してフルスケールのボクセル特徴を生成する。一般的な慣行に従い、シーン補完（SC）タスクについてはセマンティッククラスを無視した占有ボクセルの IoU（intersection over union）を、SSC タスクについては全セマンティッククラスの mIoU を報告する。</p>
+
+<h3 id="4.2-実装の詳細">4.2　実装の詳細</h3>
+<a class="pg" data-page="7"></a>
+<p><strong>3D セマンティック占有予測と LiDAR セグメンテーション。</strong>性能と効率の異なるトレードオフに対応するため、TPVFormer-Base と TPVFormer-Small の 2 つのバージョンを構築する。TPVFormer-Base は FCOS3D［44］のチェックポイントで初期化した ResNet101-DCN［15,19］を用い、TPVFormer-Small は ImageNet［16］で事前学習した ResNet-50［19］を採用する。Cylinder3D［55］に従い、交差エントロピー損失と lovasz-softmax［3］損失の両方を用いてネットワークを最適化する。lovasz-softmax 損失については、クラスごとの IoU スコアを最大化するために LiDAR スキャンの実在する点の特徴を入力として用い、一方、交差エントロピー損失ではボクセル特徴を用いて点の分類精度を向上させ、意味的な曖昧さを回避する。3D セマンティック占有予測では、点を 1 つも含まないボクセルに新たに「空」のラベルを割り当てることで、疎な点群からボクセルごとの擬似ラベルを生成し、lovasz-softmax 損失と交差エントロピー損失の両方への入力としてボクセル予測を用いる。</p>
+<p><strong>セマンティックシーン補完。</strong>公平な比較のため、SSC タスクでは MonoScene［5］の設定に従う。モデルのアーキテクチャとしては、マルチスケールの画像特徴を生成する 2D バックボーンとして、事前学習済みの EfficientNetB7［42］に基づく 2D UNet を採用する。これは MonoScene と同じである。最適化には、関係損失（relation loss）を除いて MonoScene の損失を用いる。詳細は付録 B で述べる。</p>
+
+<table><thead><tr><th>手法</th><th>入力モダリティ</th><th>mIoU</th><th>バリア</th><th>自転車</th><th>バス</th><th>乗用車</th><th>工事車両</th><th>オートバイ</th><th>歩行者</th><th>三角コーン</th><th>トレーラー</th><th>トラック</th><th>走行可能路面</th><th>その他の平面</th><th>歩道</th><th>地形</th><th>人工物</th><th>植生</th></tr></thead><tbody>
+<tr><td>MINet ［25］</td><td>LiDAR</td><td style="text-align:right">56.3</td><td style="text-align:right">54.6</td><td style="text-align:right">8.2</td><td style="text-align:right">62.1</td><td style="text-align:right">76.6</td><td style="text-align:right">23.0</td><td style="text-align:right">58.7</td><td style="text-align:right">37.6</td><td style="text-align:right">34.9</td><td style="text-align:right">61.5</td><td style="text-align:right">46.9</td><td style="text-align:right">93.3</td><td style="text-align:right">56.4</td><td style="text-align:right">63.8</td><td style="text-align:right">64.8</td><td style="text-align:right">79.3</td><td style="text-align:right">78.3</td></tr>
+<tr><td>PolarNet ［50］</td><td>LiDAR</td><td style="text-align:right">69.4</td><td style="text-align:right">72.2</td><td style="text-align:right">16.8</td><td style="text-align:right">77.0</td><td style="text-align:right">86.5</td><td style="text-align:right">51.1</td><td style="text-align:right">69.7</td><td style="text-align:right">64.8</td><td style="text-align:right">54.1</td><td style="text-align:right">69.7</td><td style="text-align:right">63.5</td><td style="text-align:right">96.6</td><td style="text-align:right">67.1</td><td style="text-align:right">77.7</td><td style="text-align:right">72.1</td><td style="text-align:right">87.1</td><td style="text-align:right">84.5</td></tr>
+<tr><td>PolarSteam ［9］</td><td>LiDAR</td><td style="text-align:right">73.4</td><td style="text-align:right">71.4</td><td style="text-align:right">27.8</td><td style="text-align:right">78.1</td><td style="text-align:right">82.0</td><td style="text-align:right">61.3</td><td style="text-align:right">77.8</td><td style="text-align:right">75.1</td><td style="text-align:right">72.4</td><td style="text-align:right">79.6</td><td style="text-align:right">63.7</td><td style="text-align:right">96.0</td><td style="text-align:right">66.5</td><td style="text-align:right">76.9</td><td style="text-align:right">73.0</td><td style="text-align:right">88.5</td><td style="text-align:right">84.8</td></tr>
+<tr><td>JS3C-Net ［46］</td><td>LiDAR</td><td style="text-align:right">73.6</td><td style="text-align:right">80.1</td><td style="text-align:right">26.2</td><td style="text-align:right">87.8</td><td style="text-align:right">84.5</td><td style="text-align:right">55.2</td><td style="text-align:right">72.6</td><td style="text-align:right">71.3</td><td style="text-align:right">66.3</td><td style="text-align:right">76.8</td><td style="text-align:right">71.2</td><td style="text-align:right">96.8</td><td style="text-align:right">64.5</td><td style="text-align:right">76.9</td><td style="text-align:right">74.1</td><td style="text-align:right">87.5</td><td style="text-align:right">86.1</td></tr>
+<tr><td>AMVNet ［30］</td><td>LiDAR</td><td style="text-align:right">77.3</td><td style="text-align:right">80.6</td><td style="text-align:right">32.0</td><td style="text-align:right">81.7</td><td style="text-align:right">88.9</td><td style="text-align:right">67.1</td><td style="text-align:right">84.3</td><td style="text-align:right">76.1</td><td style="text-align:right">73.5</td><td style="text-align:right">84.9</td><td style="text-align:right">67.3</td><td style="text-align:right">97.5</td><td style="text-align:right">67.4</td><td style="text-align:right">79.4</td><td style="text-align:right">75.5</td><td style="text-align:right">91.5</td><td style="text-align:right">88.7</td></tr>
+<tr><td>SPVNAS ［43］</td><td>LiDAR</td><td style="text-align:right">77.4</td><td style="text-align:right">80.0</td><td style="text-align:right">30.0</td><td style="text-align:right">91.9</td><td style="text-align:right">90.8</td><td style="text-align:right">64.7</td><td style="text-align:right">79.0</td><td style="text-align:right">75.6</td><td style="text-align:right">70.9</td><td style="text-align:right">81.0</td><td style="text-align:right">74.6</td><td style="text-align:right">97.4</td><td style="text-align:right">69.2</td><td style="text-align:right">80.0</td><td style="text-align:right">76.1</td><td style="text-align:right">89.3</td><td style="text-align:right">87.1</td></tr>
+<tr><td>Cylinder3D++ ［55］</td><td>LiDAR</td><td style="text-align:right">77.9</td><td style="text-align:right">82.8</td><td style="text-align:right">33.9</td><td style="text-align:right">84.3</td><td style="text-align:right">89.4</td><td style="text-align:right">69.6</td><td style="text-align:right">79.4</td><td style="text-align:right">77.3</td><td style="text-align:right">73.4</td><td style="text-align:right">84.6</td><td style="text-align:right">69.4</td><td style="text-align:right">97.7</td><td style="text-align:right">70.2</td><td style="text-align:right">80.3</td><td style="text-align:right">75.5</td><td style="text-align:right">90.4</td><td style="text-align:right">87.6</td></tr>
+<tr><td>AF2S3Net ［12］</td><td>LiDAR</td><td style="text-align:right">78.3</td><td style="text-align:right">78.9</td><td style="text-align:right"><strong>52.2</strong></td><td style="text-align:right">89.9</td><td style="text-align:right">84.2</td><td style="text-align:right"><strong>77.4</strong></td><td style="text-align:right">74.3</td><td style="text-align:right">77.3</td><td style="text-align:right">72.0</td><td style="text-align:right">83.9</td><td style="text-align:right">73.8</td><td style="text-align:right">97.1</td><td style="text-align:right">66.5</td><td style="text-align:right">77.5</td><td style="text-align:right">74.0</td><td style="text-align:right">87.7</td><td style="text-align:right">86.8</td></tr>
+<tr><td>DRINet++ ［48］</td><td>LiDAR</td><td style="text-align:right">80.4</td><td style="text-align:right"><strong>85.5</strong></td><td style="text-align:right">43.2</td><td style="text-align:right">90.5</td><td style="text-align:right"><strong>92.1</strong></td><td style="text-align:right">64.7</td><td style="text-align:right">86.0</td><td style="text-align:right">83.0</td><td style="text-align:right">73.3</td><td style="text-align:right">83.9</td><td style="text-align:right"><strong>75.8</strong></td><td style="text-align:right">97.0</td><td style="text-align:right"><strong>71.0</strong></td><td style="text-align:right"><strong>81.0</strong></td><td style="text-align:right"><strong>77.7</strong></td><td style="text-align:right">91.6</td><td style="text-align:right"><strong>90.2</strong></td></tr>
+<tr><td>LidarMultiNet ［47］</td><td>LiDAR</td><td style="text-align:right"><strong>81.4</strong></td><td style="text-align:right">80.4</td><td style="text-align:right">48.4</td><td style="text-align:right"><strong>94.3</strong></td><td style="text-align:right">90.0</td><td style="text-align:right">71.5</td><td style="text-align:right"><strong>87.2</strong></td><td style="text-align:right"><strong>85.2</strong></td><td style="text-align:right"><strong>80.4</strong></td><td style="text-align:right"><strong>86.9</strong></td><td style="text-align:right">74.8</td><td style="text-align:right"><strong>97.8</strong></td><td style="text-align:right">67.3</td><td style="text-align:right">80.7</td><td style="text-align:right">76.5</td><td style="text-align:right"><strong>92.1</strong></td><td style="text-align:right">89.6</td></tr>
+<tr><td>TPVFormer-Small（提案手法）</td><td>カメラ</td><td style="text-align:right">59.2</td><td style="text-align:right">65.6</td><td style="text-align:right">15.7</td><td style="text-align:right">75.1</td><td style="text-align:right">80.0</td><td style="text-align:right">45.8</td><td style="text-align:right">43.1</td><td style="text-align:right">44.3</td><td style="text-align:right">26.8</td><td style="text-align:right">72.8</td><td style="text-align:right">55.9</td><td style="text-align:right">92.3</td><td style="text-align:right">53.7</td><td style="text-align:right">61.0</td><td style="text-align:right">59.2</td><td style="text-align:right">79.7</td><td style="text-align:right">75.6</td></tr>
+<tr><td>TPVFormer-Base（提案手法）</td><td>カメラ</td><td style="text-align:right">69.4</td><td style="text-align:right">74.0</td><td style="text-align:right">27.5</td><td style="text-align:right">86.3</td><td style="text-align:right">85.5</td><td style="text-align:right">60.7</td><td style="text-align:right">68.0</td><td style="text-align:right">62.1</td><td style="text-align:right">49.1</td><td style="text-align:right">81.9</td><td style="text-align:right">68.4</td><td style="text-align:right">94.1</td><td style="text-align:right">59.5</td><td style="text-align:right">66.5</td><td style="text-align:right">63.5</td><td style="text-align:right">83.8</td><td style="text-align:right">79.9</td></tr>
+</tbody></table>
+<p><strong>表1：nuScenes テストセットにおける LiDAR セグメンテーションの結果。</strong>決定的なモダリティの違いがあるにもかかわらず、我々の TPVFormer-Base は LiDAR ベース手法に匹敵する性能を達成している。</p>
+
+<table><thead><tr><th>手法</th><th>入力モダリティ</th><th>SC IoU</th><th>SSC mIoU</th><th>道路<br />(15.30%)</th><th>歩道<br />(11.13%)</th><th>駐車場<br />(1.12%)</th><th>その他の地面<br />(0.56%)</th><th>建物<br />(14.1%)</th><th>乗用車<br />(3.92%)</th><th>トラック<br />(0.16%)</th><th>自転車<br />(0.03%)</th><th>オートバイ<br />(0.03%)</th><th>その他の車両<br />(0.20%)</th><th>植生<br />(39.3%)</th><th>幹<br />(0.51%)</th><th>地形<br />(9.17%)</th><th>人<br />(0.07%)</th><th>自転車乗り<br />(0.07%)</th><th>オートバイ乗り<br />(0.05%)</th><th>フェンス<br />(3.90%)</th><th>ポール<br />(0.29%)</th><th>交通標識<br />(0.08%)</th></tr></thead><tbody>
+<tr><td>LMSCNet ［41］</td><td>カメラ</td><td style="text-align:right">31.38</td><td style="text-align:right">7.07</td><td style="text-align:right">46.70</td><td style="text-align:right">19.50</td><td style="text-align:right">13.50</td><td style="text-align:right">3.10</td><td style="text-align:right">10.30</td><td style="text-align:right">14.30</td><td style="text-align:right">0.30</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">10.80</td><td style="text-align:right">0.00</td><td style="text-align:right">10.40</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">5.40</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td></tr>
+<tr><td>3DSketch ［10］</td><td>カメラ</td><td style="text-align:right">26.85</td><td style="text-align:right">6.23</td><td style="text-align:right">37.70</td><td style="text-align:right">19.80</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">12.10</td><td style="text-align:right">17.10</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">12.10</td><td style="text-align:right">0.00</td><td style="text-align:right">16.10</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">3.40</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td></tr>
+<tr><td>AICNet ［24］</td><td>カメラ</td><td style="text-align:right">23.93</td><td style="text-align:right">7.09</td><td style="text-align:right">39.30</td><td style="text-align:right">18.30</td><td style="text-align:right">19.80</td><td style="text-align:right">1.60</td><td style="text-align:right">9.60</td><td style="text-align:right">15.30</td><td style="text-align:right">0.70</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">9.60</td><td style="text-align:right">1.90</td><td style="text-align:right">13.50</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">5.00</td><td style="text-align:right">0.10</td><td style="text-align:right">0.00</td></tr>
+<tr><td>JS3C-Net ［46］</td><td>カメラ</td><td style="text-align:right">34.00</td><td style="text-align:right">8.97</td><td style="text-align:right">47.30</td><td style="text-align:right">21.70</td><td style="text-align:right">19.90</td><td style="text-align:right">2.80</td><td style="text-align:right">12.70</td><td style="text-align:right"><strong>20.10</strong></td><td style="text-align:right">0.80</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right"><u>4.10</u></td><td style="text-align:right"><u>14.20</u></td><td style="text-align:right"><strong>3.10</strong></td><td style="text-align:right">12.40</td><td style="text-align:right">0.00</td><td style="text-align:right">0.20</td><td style="text-align:right">0.20</td><td style="text-align:right">8.70</td><td style="text-align:right">1.90</td><td style="text-align:right">0.30</td></tr>
+<tr><td>MonoScene ［5］</td><td>カメラ</td><td style="text-align:right"><u>34.16</u></td><td style="text-align:right"><u>11.08</u></td><td style="text-align:right"><u>54.70</u></td><td style="text-align:right"><u>27.10</u></td><td style="text-align:right"><u>24.80</u></td><td style="text-align:right"><u>5.70</u></td><td style="text-align:right"><u>14.40</u></td><td style="text-align:right">18.80</td><td style="text-align:right"><u>3.30</u></td><td style="text-align:right"><u>0.50</u></td><td style="text-align:right"><strong>0.70</strong></td><td style="text-align:right"><strong>4.40</strong></td><td style="text-align:right"><strong>14.90</strong></td><td style="text-align:right">2.40</td><td style="text-align:right"><u>19.50</u></td><td style="text-align:right"><u>1.00</u></td><td style="text-align:right"><u>1.40</u></td><td style="text-align:right"><strong>0.40</strong></td><td style="text-align:right"><strong>11.10</strong></td><td style="text-align:right"><strong>3.30</strong></td><td style="text-align:right"><strong>2.10</strong></td></tr>
+<tr><td>TPVFormer（提案手法）</td><td>カメラ</td><td style="text-align:right"><strong>34.25</strong></td><td style="text-align:right"><strong>11.26</strong></td><td style="text-align:right"><strong>55.10</strong></td><td style="text-align:right"><strong>27.20</strong></td><td style="text-align:right"><strong>27.40</strong></td><td style="text-align:right"><strong>6.50</strong></td><td style="text-align:right"><strong>14.80</strong></td><td style="text-align:right"><u>19.20</u></td><td style="text-align:right"><strong>3.70</strong></td><td style="text-align:right"><strong>1.00</strong></td><td style="text-align:right"><u>0.50</u></td><td style="text-align:right">2.30</td><td style="text-align:right">13.90</td><td style="text-align:right"><u>2.60</u></td><td style="text-align:right"><strong>20.40</strong></td><td style="text-align:right"><strong>1.10</strong></td><td style="text-align:right"><strong>2.40</strong></td><td style="text-align:right"><u>0.30</u></td><td style="text-align:right"><u>11.00</u></td><td style="text-align:right">2.90</td><td style="text-align:right"><u>1.50</u></td></tr>
+</tbody></table>
+<p><strong>表2：SemanticKITTI テストセットにおけるセマンティックシーン補完の結果。</strong>公平な比較のため、最初の 4 手法については MonoScene［5］で報告された RGB 推論版の性能を用いる。我々は、3D 畳み込みに基づく MonoScene を含む他の手法を IoU と mIoU の両方で大きく上回っている。</p>
+<p class="yakuchu">（訳注：表中の太字は最良値、下線は原表の下線（2 番目の値と思われる）を再現したもの。クラス名の下の括弧内の百分率は原表どおり各クラスの頻度。）</p>
+
+<h3 id="4.3-3d-セマンティック占有予測の結果">4.3　3D セマンティック占有予測の結果</h3>
+<p><strong>主な結果。</strong>図5 に、SOP（セマンティック占有予測）の主な可視化結果を示す。我々の結果は LiDAR セグメンテーションの正解よりもはるかに密で現実的であり、3D シーンのモデル化とセマンティック占有予測における TPV 表現の有効性を裏付けている。さらに、LiDAR 点のみをクエリした場合の予測は正解に非常に近く、いくつかの場合には Cylinder3D による予測を上回る。例えば、Cylinder3D は 1 つ目のシーンの右端にある 2 台のトラックのうち 1 台を予測できていないが、我々の TPVFormer は正しく予測している。</p>
+<p><strong>テスト時の任意解像度。</strong>セグメンテーションヘッドが単純であるため、ネットワークを再学習することなく、テスト時に TPV 平面の解像度を任意に調整できる。図6 は解像度調整の結果を示しており、TPV 平面の解像度を初期の 50x50x4 から 8 倍まで段階的に上げている。解像度が上がるにつれて、TPV 表現が 3D 物体の形状などのより多くの詳細を捉えられることは明らかである。</p>
+<p><strong>さらなる可視化</strong>は付録 C に掲載する。</p>
+
+<a class="pg" data-page="8"></a>
+<table><thead><tr><th colspan="2">損失</th><th colspan="2">mIoU</th></tr><tr><th>CE.</th><th>Lovasz</th><th>ボクセル</th><th>点</th></tr></thead><tbody>
+<tr><td>ボクセル</td><td>ボクセル</td><td style="text-align:right">63.17</td><td style="text-align:right">50.66</td></tr>
+<tr><td>ボクセル</td><td>点</td><td style="text-align:right">63.37</td><td style="text-align:right"><strong>64.80</strong></td></tr>
+<tr><td>点</td><td>ボクセル</td><td style="text-align:right"><strong>64.07</strong></td><td style="text-align:right">64.46</td></tr>
+<tr><td>点</td><td>点</td><td style="text-align:right">49.94</td><td style="text-align:right">64.02</td></tr>
+</tbody></table>
+<p><strong>表3：LiDAR セグメンテーションにおける損失関数への入力としての異なる予測タイプ。</strong>損失の列の「ボクセル」と「点」は、それぞれボクセル予測と点予測を表す。ボクセル予測と点予測の両方で計算した mIoU を報告する。</p>
+
+<table><thead><tr><th>手法</th><th>解像度</th><th>特徴次元</th><th>点 mIoU</th></tr></thead><tbody>
+<tr><td rowspan="2">BEVFormer</td><td>100x100</td><td style="text-align:right">256</td><td style="text-align:right">50.37</td></tr>
+<tr><td>200x200</td><td style="text-align:right">256</td><td style="text-align:right">56.21</td></tr>
+<tr><td rowspan="2">TPVFormer</td><td>100x100x8</td><td style="text-align:right">256</td><td style="text-align:right">64.15</td></tr>
+<tr><td>200x200x16</td><td style="text-align:right">128</td><td style="text-align:right"><strong>68.86</strong></td></tr>
+</tbody></table>
+<p><strong>表4：解像度と特徴次元に関するアブレーション。</strong></p>
+
+<table><thead><tr><th>HCAB 数</th><th>HAB 数</th><th>SC IoU</th><th>SSC mIoU</th></tr></thead><tbody>
+<tr><td style="text-align:right">2</td><td style="text-align:right">4</td><td style="text-align:right">35.55</td><td style="text-align:right">10.49</td></tr>
+<tr><td style="text-align:right">3</td><td style="text-align:right">2</td><td style="text-align:right">35.61</td><td style="text-align:right"><strong>11.36</strong></td></tr>
+<tr><td style="text-align:right">4</td><td style="text-align:right">0</td><td style="text-align:right"><strong>35.79</strong></td><td style="text-align:right">10.82</td></tr>
+</tbody></table>
+<p><strong>表5：セマンティックシーン補完における HCAB ブロックと HAB ブロックの数の違い。</strong>これらの実験では、注意モジュールの総数を一定に保っている。</p>
+
+<h3 id="4.4-lidar-セグメンテーションの結果">4.4　LiDAR セグメンテーションの結果</h3>
+<p>LiDAR セグメンテーションタスクに対する最初のビジョンベース手法として、我々は TPVFormer を LiDAR ベース手法と比較評価する。表1 に示すように、TPVFormer は大半の LiDAR ベース手法に匹敵する mIoU（\( \sim 70\% \)）を達成している。LiDAR ベース手法では点群に 3D 構造情報がすぐに利用できる形で含まれているのに対し、我々の手法は 2D 画像入力のみから完全な 3D シーンを高解像度で再構成する必要があるため、これは自明なことではない。検証セットでの結果は付録 D に含める。</p>
+
+<h3 id="4.5-セマンティックシーン補完の結果">4.5　セマンティックシーン補完の結果</h3>
+<p>表2 に、SemanticKITTI テストセットにおけるセマンティックシーン補完タスクの結果を報告する。我々の TPVFormer を、ボクセル空間での 3D 畳み込みに基づくビジョンベース手法である MonoScene［5］と比較する。また、MonoScene［5］で提供されている 4 つのベースライン手法も含める。TPVFormer は IoU と mIoU の両方で他のすべての手法を上回っており、占有と意味の予測における TPVFormer の有効性を示している。さらに、TPVFormer はパラメータ数と計算量の両面で MonoScene に対して大きな利点を持つ。具体的には、TPVFormer のパラメータ数は MonoScene の 15.7M に対してわずか 6.0M であり、画像 1 枚あたりの FLOPS は MonoScene の 500G に対して 128G である。検証セットでの結果は付録 E で報告する。</p>
+
+<h3 id="4.6-アブレーション研究">4.6　アブレーション研究</h3>
+<p>LiDAR セグメンテーションとセマンティックシーン補完について、それぞれ nuScenes と SemanticKITTI の検証セットで TPVFormer のアブレーションを行う。</p>
+<p><strong>LiDAR セグメンテーションの損失関数。</strong>LiDAR セグメンテーションには、交差エントロピー（CE.）損失と lovasz-softmax 損失［3］の両方を用いる。我々の TPVFormer は 1 回の順伝播で点レベルとボクセルレベルの両方の予測を生成できるため、これらの損失関数への入力として異なる予測タイプを調べる。表3 に示すように、ボクセル予測と点予測の両方を損失関数への入力として用いた場合、両予測から得られる mIoU はいずれも高く、互いに近い値となる。しかし、ボクセル予測または点予測の一方のみを最適化に用いた場合、対応する mIoU はもう一方よりもはるかに高くなる。ボクセルレベルの教師のみが与えられた場合、TPV 表現はボクセル空間で離散化されてしまう可能性があり、そのため点予測の生成に用いる補間が機能しなくなると我々は考える。点レベルの教師のみの場合、TPV はボクセル空間に内在する離散化の戦略を学習できない。</p>
+<p><strong>その他の設計上の選択。</strong>表4 では、その他の設計上の選択についてアブレーションを行い、我々の手法を BEVFormer を適応させたものと比較する。解像度を上げることはより細粒度な構造をモデル化する能力を高める直接的な方法であるため、TPVFormer は特徴次元よりも解像度を優先する。加えて、我々の手法はすべての構成で BEVFormer より優れた性能を示しており、TPV が 3 つの相補的な交差ビューによって細粒度な構造を記述する能力を大幅に向上させることが確認される。</p>
+<p><strong>HCAB ブロックと HAB ブロックの数。</strong>HCAB ブロックと HAB ブロックはそれぞれ画像特徴からの視覚情報と他の TPV クエリからの文脈情報を集約するため、表5 で 2 種類のブロックの比率を調べる。HCAB ブロックの数を増やすにつれて IoU は向上しており、幾何の理解において直接的な視覚的手がかりが重要であることを裏付けている。しかし、mIoU の最大値は HCAB ブロックと HAB ブロックを中程度の数ずつ用いたときに達成されることから、意味の予測は視覚情報と文脈情報の両方に依存している。</p>
+
+<h2 id="5-結論">5　結論</h2>
+<p>本論文では、3D シーンの細粒度な構造を効率的に記述できる三視点ビュー（TPV）表現を提示した。画像特徴を 3D の TPV 空間へ持ち上げるため、注意機構に基づく TPVFormer モデルを提案した。可視化結果により、我々の TPVFormer が学習時に疎な点の教師のみを用いて一貫したセマンティックボクセル占有予測を生成することを示した。また、nuScenes の LiDAR セグメンテーションタスクにおいて、我々のビジョンベース手法が LiDAR ベース手法に匹敵する性能を達成することを初めて実証した。</p>
+<a class="pg" data-page="9"></a>
+<figure><img src="figs/fig7.jpg" loading="lazy" alt="図7" /></figure>
+<p><strong>図7：</strong>nuScenes 検証セット（学習フェーズでは見ていない）での 3D セマンティック占有予測のビデオデモからサンプリングした画像。3D 空間内の全ボクセルについてセマンティック占有を予測している。左上の 6 枚の画像は、前方左、前方、前方右、後方左、後方、後方右のカメラで撮影された、我々のモデルへの入力である。右上の 6 枚の画像は、入力と対応する視点での我々の予測結果を表す。下の 2 枚の画像は予測の全体像を示しており、赤・緑・青の箱は自車両を表す。</p>
+<p class="yakuchu">図中ラベル（凡例）：ego vehicle＝自車両、driveable surface＝走行可能路面、car＝乗用車、bus＝バス、truck＝トラック、terrain＝地形、vegetation＝植生、sidewalk＝歩道、other flat＝その他の平面、pedestrian＝歩行者、bicycle＝自転車、manmade＝人工物、motorcycle＝オートバイ、barrier＝バリア、construction vehicle＝工事車両、trailer＝トレーラー、traffic cone＝三角コーン</p>
+
+<h2 id="a-データセットの詳細">A　データセットの詳細</h2>
+<p><strong>Panoptic nuScenes データセット</strong>［17］は、各 20 秒間の 1000 の走行シーンを収集したもので、キーフレームは 2Hz でアノテーションされている。各サンプルは、水平 FOV 360° をなす 6 台のカメラからの RGB 画像と、32 ビーム LiDAR センサからの点群データを含む。計 1000 シーンは、公式にそれぞれ 700、150、150 シーンの学習・検証・テスト分割に分けられている。</p>
+<p><strong>SemanticKITTI データセット</strong>［2］は大規模な屋外シーンのデータセットであり、\( 256 \times 256 \times 32 \) のグリッドにボクセル化された車載 LiDAR スキャンを含む。各ボクセルの一辺の長さは 0.2m で、21 クラス（19 のセマンティッククラス、1 つの空きクラス、1 つの不明クラス）のいずれかでラベル付けされている。我々の実験では、KITTI odometry ベンチマークの cam2 で撮影された RGB 画像も用いる。ボクセルデータと画像データは公式に 22 のシーケンスとして整理され、学習・検証・テスト用に 10/1/11 シーケンスに分割されている。</p>
+
+<h2 id="b-実装の詳細">B　実装の詳細</h2>
+<p><strong>3D セマンティック占有予測と LiDAR セグメンテーション。</strong>TPVFormer-Base は FCOS3D［44］のチェックポイントで初期化した ResNet101-DCN［15,19］を用い、TPVFormer-Small は ImageNet［16］で事前学習した ResNet-50［19］を採用する。TPV の解像度は base 版と small 版でそれぞれ 200x200x16 と 100x100x8 であり、TPVFormer-Small ではより細かい教師のために TPV 平面を 2 倍にアップサンプリングする。両者は同じ TPV 特徴次元 128 を共有するが、base モデルはマルチスケールの画像特徴と 1600x900 の入力画像解像度を用いるのに対し、small モデルはシングルスケールの画像特徴と 800x450 の入力を用いる。</p>
+<p>学習には AdamW［33］オプティマイザを採用し、初期学習率を 2e-4、重み減衰を 0.01 とする。最初の 500 イテレーションで線形ウォームアップを行うコサイン学習率スケジューラを用い、BEVFormer［28］と同じ画像データ拡張戦略を用いる。すべてのモデルは 8 台の A100 GPU 上でバッチサイズ 8 として 24 エポック学習する。</p>
+<a class="pg" data-page="10"></a>
+<p><strong>セマンティックシーン補完。</strong>マルチスケールの画像特徴を生成する 2D バックボーンとして、事前学習済みの EfficientNetB7［42］に基づく 2D UNet を採用する。これは MonoScene と同じである。さらに、TPV 平面の解像度を 128x128x16 に設定し、MonoScene と同じサイズの 3D ボクセル特徴テンソルを生成する。ただし、我々の TPV 平面は 2D 特徴マップであるのに対し、MonoScene は 3D ボクセル特徴を直接扱う。入力には 1220x370 に切り出した cam2 の RGB 画像を用い、特徴次元は 96 とする。最適化には、TPVFormer が 3D CRP モジュールやダウンサンプリング操作を持たないため、関係損失を除いて MonoScene の損失を用いる。学習については、概ね MonoScene のレシピに従う。具体的には、学習率 2e-4、重み減衰 0.01、コサインスケジューラを用いる。その他の設定は同じに保つ。公平な比較のため、MonoScene の公式コードもコサイン学習率スケジューラで再実行する。</p>
+
+<h2 id="c-3d-セマンティック占有予測の結果">C　3D セマンティック占有予測の結果</h2>
+<p>nuScenes 検証セットでの 3D セマンティック占有予測のビデオデモ<sup>1</sup>を提供し、サンプリングした画像を図7 に示す。図8 は、nuScenes 検証セットの 4 つのサンプルに対する我々のモデルの詳細な可視化結果を示している。各サンプルについて、6 枚のサラウンドカメラ画像、予測されたシーンの上面視、および 3 つの異なる角度から拡大した結果を示す。加えて、小さな物体や希少な物体の予測を円で強調し、さらに矢印付きの破線で RGB 画像中の対応する実物と結び付けている。具体的には、自転車、オートバイ、歩行者をそれぞれ赤、青、黄色の円で強調している。これらの物体の中には RGB 画像ではほとんど見えないものもあるが、それでも我々のモデルはそれらの予測に成功していることに注意されたい。</p>
+<blockquote><p>脚注1：<a href="https://github.com/wzzheng/TPVFormer">https://github.com/wzzheng/TPVFormer</a>。</p></blockquote>
+
+<figure><img src="figs/fig8.jpg" loading="lazy" alt="図8" /></figure>
+<p><strong>図8：</strong>3D セマンティック占有予測のために提案する TPVFormer のさらなる可視化。</p>
+
+<h2 id="d-lidar-セグメンテーションの結果">D　LiDAR セグメンテーションの結果</h2>
+<p>表6 に、nuScenes 検証セットにおける LiDAR セグメンテーションでの TPVFormer の性能を報告する。公平な比較のため、BEVFormer の時間モジュールを自己注意モジュールに置き換え、特徴次元を 256 として、BEVFormer-Base と TPVFormer-Base のモデルサイズを同程度にする。TPVFormer-Base の mIoU は、決定的なモダリティの違いがあるにもかかわらず LiDAR ベース手法と同等である。さらに、我々の TPVFormer-Base は BEVFormer-Base よりも 12.7% 高い mIoU を達成しており、シーンの細粒度な 3D 構造のモデル化における TPV の有効性を示している。</p>
+
+<h2 id="e-セマンティックシーン補完の結果">E　セマンティックシーン補完の結果</h2>
+<p>表7 に、SemanticKITTI 検証セットでのセマンティックシーン補完の性能を示す。TPVFormer はシーン補完の IoU では最高値を達成していないものの、セマンティックシーン補完の mIoU では明確な差をつけて他の手法を上回っている。公平な比較のため、我々の環境で公式コードを用いて MonoScene［5］を再現し、我々のレシピに従ってコサイン学習率を用いた場合の性能も報告する。</p>
+<a class="pg" data-page="11"></a>
+<table><thead><tr><th>手法</th><th>入力モダリティ</th><th>mIoU</th><th>バリア</th><th>自転車</th><th>バス</th><th>乗用車</th><th>工事車両</th><th>オートバイ</th><th>歩行者</th><th>三角コーン</th><th>トレーラー</th><th>トラック</th><th>走行可能路面</th><th>その他の平面</th><th>歩道</th><th>地形</th><th>人工物</th><th>植生</th></tr></thead><tbody>
+<tr><td>RangeNet++ ［36］</td><td>LiDAR</td><td style="text-align:right">65.5</td><td style="text-align:right">66.0</td><td style="text-align:right">21.3</td><td style="text-align:right">77.2</td><td style="text-align:right">80.9</td><td style="text-align:right">30.2</td><td style="text-align:right">66.8</td><td style="text-align:right">69.6</td><td style="text-align:right">52.1</td><td style="text-align:right">54.2</td><td style="text-align:right">72.3</td><td style="text-align:right">94.1</td><td style="text-align:right">66.6</td><td style="text-align:right">63.5</td><td style="text-align:right">70.1</td><td style="text-align:right">83.1</td><td style="text-align:right">79.8</td></tr>
+<tr><td>PolarNet ［50］</td><td>LiDAR</td><td style="text-align:right">71.0</td><td style="text-align:right">74.7</td><td style="text-align:right">28.2</td><td style="text-align:right">85.3</td><td style="text-align:right">90.9</td><td style="text-align:right">35.1</td><td style="text-align:right">77.5</td><td style="text-align:right">71.3</td><td style="text-align:right">58.8</td><td style="text-align:right">57.4</td><td style="text-align:right">76.1</td><td style="text-align:right">96.5</td><td style="text-align:right">71.1</td><td style="text-align:right">74.7</td><td style="text-align:right">74.0</td><td style="text-align:right">87.3</td><td style="text-align:right">85.7</td></tr>
+<tr><td>Salsanext ［14］</td><td>LiDAR</td><td style="text-align:right">72.2</td><td style="text-align:right">74.8</td><td style="text-align:right">34.1</td><td style="text-align:right">85.9</td><td style="text-align:right">88.4</td><td style="text-align:right">42.2</td><td style="text-align:right">72.4</td><td style="text-align:right">72.2</td><td style="text-align:right">63.1</td><td style="text-align:right">61.3</td><td style="text-align:right">76.5</td><td style="text-align:right">96.0</td><td style="text-align:right">70.8</td><td style="text-align:right">71.2</td><td style="text-align:right">71.5</td><td style="text-align:right">86.7</td><td style="text-align:right">84.4</td></tr>
+<tr><td>Cylinder3D++ ［55］</td><td>LiDAR</td><td style="text-align:right"><strong>76.1</strong></td><td style="text-align:right"><strong>76.4</strong></td><td style="text-align:right"><strong>40.3</strong></td><td style="text-align:right"><strong>91.2</strong></td><td style="text-align:right"><strong>93.8</strong></td><td style="text-align:right"><strong>51.3</strong></td><td style="text-align:right"><strong>78.0</strong></td><td style="text-align:right"><strong>78.9</strong></td><td style="text-align:right"><strong>64.9</strong></td><td style="text-align:right"><strong>62.1</strong></td><td style="text-align:right"><strong>84.4</strong></td><td style="text-align:right"><strong>96.8</strong></td><td style="text-align:right"><strong>71.6</strong></td><td style="text-align:right"><strong>76.4</strong></td><td style="text-align:right"><strong>75.4</strong></td><td style="text-align:right"><strong>90.5</strong></td><td style="text-align:right"><strong>87.4</strong></td></tr>
+<tr><td>BEVFormer-Base ［28］</td><td>カメラ</td><td style="text-align:right">56.2</td><td style="text-align:right">54.0</td><td style="text-align:right">22.8</td><td style="text-align:right">76.7</td><td style="text-align:right">74.0</td><td style="text-align:right">45.8</td><td style="text-align:right">53.1</td><td style="text-align:right">44.5</td><td style="text-align:right">24.7</td><td style="text-align:right">54.7</td><td style="text-align:right">65.5</td><td style="text-align:right">88.5</td><td style="text-align:right">58.1</td><td style="text-align:right">50.5</td><td style="text-align:right">52.8</td><td style="text-align:right">71.0</td><td style="text-align:right">63.0</td></tr>
+<tr><td>TPVFormer-Small（提案手法）</td><td>カメラ</td><td style="text-align:right">59.3</td><td style="text-align:right">64.9</td><td style="text-align:right">27.0</td><td style="text-align:right">83.0</td><td style="text-align:right">82.8</td><td style="text-align:right">38.3</td><td style="text-align:right">27.4</td><td style="text-align:right">44.9</td><td style="text-align:right">24.0</td><td style="text-align:right">55.4</td><td style="text-align:right">73.6</td><td style="text-align:right">91.7</td><td style="text-align:right">60.7</td><td style="text-align:right">59.8</td><td style="text-align:right">61.1</td><td style="text-align:right">78.2</td><td style="text-align:right">76.5</td></tr>
+<tr><td>TPVFormer-Base（提案手法）</td><td>カメラ</td><td style="text-align:right">68.9</td><td style="text-align:right">70.0</td><td style="text-align:right">40.9</td><td style="text-align:right">93.7</td><td style="text-align:right">85.6</td><td style="text-align:right">49.8</td><td style="text-align:right">68.4</td><td style="text-align:right">59.7</td><td style="text-align:right">38.2</td><td style="text-align:right">65.3</td><td style="text-align:right">83.0</td><td style="text-align:right">93.3</td><td style="text-align:right">64.4</td><td style="text-align:right">64.3</td><td style="text-align:right">64.5</td><td style="text-align:right">81.6</td><td style="text-align:right">79.3</td></tr>
+</tbody></table>
+<p><strong>表6：nuScenes 検証セットにおける LiDAR セグメンテーションの結果。</strong>決定的なモダリティの違いがあるにもかかわらず、我々の TPVFormer-Base は LiDAR ベース手法に匹敵する性能を達成している。さらに、BEVFormer と TPVFormer の mIoU の差は、シーンの細粒度な 3D 構造のモデル化における TPV の有効性を明確に証明している。</p>
+
+<table><thead><tr><th>手法</th><th>入力モダリティ</th><th>SC IoU</th><th>SSC mIoU</th><th>道路<br />(15.30%)</th><th>歩道<br />(11.13%)</th><th>駐車場<br />(1.12%)</th><th>その他の地面<br />(0.56%)</th><th>建物<br />(14.1%)</th><th>乗用車<br />(3.92%)</th><th>トラック<br />(0.16%)</th><th>自転車<br />(0.03%)</th><th>オートバイ<br />(0.03%)</th><th>その他の車両<br />(0.20%)</th><th>植生<br />(39.3%)</th><th>幹<br />(0.51%)</th><th>地形<br />(9.17%)</th><th>人<br />(0.07%)</th><th>自転車乗り<br />(0.07%)</th><th>オートバイ乗り<br />(0.05%)</th><th>フェンス<br />(3.90%)</th><th>ポール<br />(0.29%)</th><th>交通標識<br />(0.08%)</th></tr></thead><tbody>
+<tr><td>LMSCNet ［41］</td><td>カメラ</td><td style="text-align:right">28.61</td><td style="text-align:right">6.70</td><td style="text-align:right">40.68</td><td style="text-align:right">18.22</td><td style="text-align:right">4.38</td><td style="text-align:right">0.00</td><td style="text-align:right">10.31</td><td style="text-align:right">18.33</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">13.66</td><td style="text-align:right">0.02</td><td style="text-align:right">20.54</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">1.21</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td></tr>
+<tr><td>3DSketch ［10］</td><td>カメラ</td><td style="text-align:right">33.30</td><td style="text-align:right">7.50</td><td style="text-align:right">41.32</td><td style="text-align:right">21.63</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right"><u>14.81</u></td><td style="text-align:right">18.59</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right"><strong>19.09</strong></td><td style="text-align:right">0.00</td><td style="text-align:right">26.40</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.73</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td></tr>
+<tr><td>AICNet ［24］</td><td>カメラ</td><td style="text-align:right">29.59</td><td style="text-align:right">8.31</td><td style="text-align:right">43.55</td><td style="text-align:right">20.55</td><td style="text-align:right">11.97</td><td style="text-align:right">0.07</td><td style="text-align:right">12.94</td><td style="text-align:right">14.71</td><td style="text-align:right">4.53</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">15.37</td><td style="text-align:right"><u>2.90</u></td><td style="text-align:right">28.71</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">2.52</td><td style="text-align:right">0.06</td><td style="text-align:right">0.00</td></tr>
+<tr><td>JS3C-Net ［46］</td><td>カメラ</td><td style="text-align:right"><strong>38.98</strong></td><td style="text-align:right">10.31</td><td style="text-align:right">50.49</td><td style="text-align:right">23.74</td><td style="text-align:right">11.94</td><td style="text-align:right">0.07</td><td style="text-align:right"><strong>15.03</strong></td><td style="text-align:right"><strong>24.65</strong></td><td style="text-align:right">4.41</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right"><strong>6.15</strong></td><td style="text-align:right"><u>18.11</u></td><td style="text-align:right"><strong>4.33</strong></td><td style="text-align:right">26.86</td><td style="text-align:right">0.67</td><td style="text-align:right">0.27</td><td style="text-align:right">0.00</td><td style="text-align:right">3.94</td><td style="text-align:right">3.77</td><td style="text-align:right">1.45</td></tr>
+<tr><td>MonoScene<sup>*</sup> ［5］</td><td>カメラ</td><td style="text-align:right"><u>36.86</u></td><td style="text-align:right"><u>11.08</u></td><td style="text-align:right"><strong>56.52</strong></td><td style="text-align:right"><strong>26.72</strong></td><td style="text-align:right">14.27</td><td style="text-align:right">0.46</td><td style="text-align:right">14.09</td><td style="text-align:right">23.26</td><td style="text-align:right"><u>6.98</u></td><td style="text-align:right"><u>0.61</u></td><td style="text-align:right"><u>0.45</u></td><td style="text-align:right">1.48</td><td style="text-align:right">17.89</td><td style="text-align:right">2.81</td><td style="text-align:right"><u>29.64</u></td><td style="text-align:right"><strong>1.86</strong></td><td style="text-align:right"><strong>1.20</strong></td><td style="text-align:right">0.00</td><td style="text-align:right">5.84</td><td style="text-align:right"><strong>4.14</strong></td><td style="text-align:right"><strong>2.25</strong></td></tr>
+<tr><td>MonoScene<sup>**</sup> ［5］</td><td>カメラ</td><td style="text-align:right">36.13</td><td style="text-align:right">10.98</td><td style="text-align:right">56.30</td><td style="text-align:right"><u>25.89</u></td><td style="text-align:right"><u>15.91</u></td><td style="text-align:right"><u>0.75</u></td><td style="text-align:right">13.47</td><td style="text-align:right">23.31</td><td style="text-align:right">5.36</td><td style="text-align:right"><strong>0.72</strong></td><td style="text-align:right"><strong>0.91</strong></td><td style="text-align:right">3.77</td><td style="text-align:right">17.70</td><td style="text-align:right">2.45</td><td style="text-align:right">27.12</td><td style="text-align:right"><u>1.71</u></td><td style="text-align:right"><u>1.08</u></td><td style="text-align:right">0.00</td><td style="text-align:right"><strong>6.34</strong></td><td style="text-align:right"><u>3.79</u></td><td style="text-align:right"><u>2.03</u></td></tr>
+<tr><td>TPVFormer（提案手法）</td><td>カメラ</td><td style="text-align:right">35.61</td><td style="text-align:right"><strong>11.36</strong></td><td style="text-align:right"><u>56.50</u></td><td style="text-align:right">25.87</td><td style="text-align:right"><strong>20.60</strong></td><td style="text-align:right"><strong>0.85</strong></td><td style="text-align:right">13.88</td><td style="text-align:right"><u>23.81</u></td><td style="text-align:right"><strong>8.08</strong></td><td style="text-align:right">0.36</td><td style="text-align:right">0.05</td><td style="text-align:right"><u>4.35</u></td><td style="text-align:right">16.92</td><td style="text-align:right">2.26</td><td style="text-align:right"><strong>30.38</strong></td><td style="text-align:right">0.51</td><td style="text-align:right">0.89</td><td style="text-align:right">0.00</td><td style="text-align:right"><u>5.94</u></td><td style="text-align:right">3.14</td><td style="text-align:right">1.52</td></tr>
+</tbody></table>
+<p><strong>表7：SemanticKITTI 検証セットにおけるセマンティックシーン補完の結果。</strong>公平な比較のため、最初の 4 手法については MonoScene［5］で報告された RGB 推論版の性能を用いる。<sup>*</sup> は公式コードを用いて再現した結果を表す。<sup>**</sup> はコサイン学習率スケジュールを用いた結果を表す。</p>
+<p class="yakuchu">（訳注：表中の太字・下線は原表の強調を再現したもの。）</p>
+
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した（各項目末尾の、引用箇所のページを示す逆参照番号は省略した）。</p>
+<ol class="refs">
+<li>Adil Kaan Akan and Fatma Güney. Stretchbev: Stretching future instance prediction spatially and temporally. <em>arXiv preprint arXiv:2203.13641</em>, 2022.</li>
+<li>Jens Behley, Martin Garbade, Andres Milioto, Jan Quenzel, Sven Behnke, Cyrill Stachniss, and Jurgen Gall. Semantickitti: A dataset for semantic scene understanding of lidar sequences. In <em>ICCV</em>, pages 9297–9307, 2019.</li>
+<li>Maxim Berman, Amal Rannen Triki, and Matthew B Blaschko. The lovász-softmax loss: A tractable surrogate for the optimization of the intersection-over-union measure in neural networks. In <em>CVPR</em>, pages 4413–4421, 2018.</li>
+<li>Holger Caesar, Varun Bankiti, Alex H Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>CVPR</em>, 2020.</li>
+<li>Anh-Quan Cao and Raoul de Charette. Monoscene: Monocular 3d semantic scene completion. In <em>CVPR</em>, pages 3991–4001, 2022.</li>
+<li>Rohan Chabra, Jan E Lenssen, Eddy Ilg, Tanner Schmidt, Julian Straub, Steven Lovegrove, and Richard Newcombe. Deep local shapes: Learning local sdf priors for detailed 3d reconstruction. In <em>ECCV</em>, pages 608–625, 2020.</li>
+<li>Eric R Chan, Connor Z Lin, Matthew A Chan, Koki Nagano, Boxiao Pan, Shalini De Mello, Orazio Gallo, Leonidas J Guibas, Jonathan Tremblay, Sameh Khamis, et al. Efficient geometry-aware 3d generative adversarial networks. In <em>CVPR</em>, pages 16123–16133, 2022.</li>
+<li>Anpei Chen, Zexiang Xu, Andreas Geiger, Jingyi Yu, and Hao Su. Tensorf: Tensorial radiance fields. <em>arXiv preprint arXiv:2203.09517</em>, 2022.</li>
+<li>Qi Chen, Sourabh Vora, and Oscar Beijbom. Polarstream: Streaming object detection and segmentation with polar pillars. <em>NeurIPS</em>, 34:26871–26883, 2021.</li>
+<li>Xiaokang Chen, Kwan-Yee Lin, Chen Qian, Gang Zeng, and Hongsheng Li. 3d sketch-aware semantic scene completion via semi-supervised structure prior. In <em>CVPR</em>, pages 4193–4202, 2020.</li>
+<li>Yinbo Chen, Sifei Liu, and Xiaolong Wang. Learning continuous image representation with local implicit image function. In <em>CVPR</em>, pages 8628–8638, 2021.</li>
+<li>Ran Cheng, Ryan Razani, Ehsan Taghavi, Enxu Li, and Bingbing Liu. 2-s3net: Attentive feature fusion with adaptive feature selection for sparse semantic segmentation network. In <em>CVPR</em>, pages 12547–12556, 2021.</li>
+<li>Christopher Choy, JunYoung Gwak, and Silvio Savarese. 4d spatio-temporal convnets: Minkowski convolutional neural networks. In <em>CVPR</em>, pages 3075–3084, 2019.</li>
+<li>Tiago Cortinhal, George Tzelepis, and Eren Erdal Aksoy. Salsanext: Fast, uncertainty-aware semantic segmentation of lidar point clouds. In <em>International Symposium on Visual Computing</em>, pages 207–222. Springer, 2020.</li>
+<li>Jifeng Dai, Haozhi Qi, Yuwen Xiong, Yi Li, Guodong Zhang, Han Hu, and Yichen Wei. Deformable convolutional networks. In <em>ICCV</em>, 2017.</li>
+<li>Jia Deng, Wei Dong, Richard Socher, Li-Jia Li, Kai Li, and Li Fei-Fei. Imagenet: A large-scale hierarchical image database. In <em>CVPR</em>, pages 248–255, 2009.</li>
+<li>Whye Kit Fong, Rohit Mohan, Juana Valeria Hurtado, Lubing Zhou, Holger Caesar, Oscar Beijbom, and Abhinav Valada. Panoptic nuscenes: A large-scale benchmark for lidar panoptic segmentation and tracking. <em>arXiv preprint arXiv:2109.03805</em>, 2021.</li>
+<li>Vitor Guizilini, Igor Vasiljevic, Rares Ambrus, Greg Shakhnarovich, and Adrien Gaidon. Full surround monodepth from multiple cameras. <em>arXiv preprint arXiv:2104.00152</em>, 2021.</li>
+</ol>
+<a class="pg" data-page="12"></a>
+<ol class="refs" start="19">
+<li>Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In <em>CVPR</em>, 2016.</li>
+<li>Anthony Hu, Zak Murez, Nikhil Mohan, Sofía Dudas, Jeffrey Hawke, Vijay Badrinarayanan, Roberto Cipolla, and Alex Kendall. Fiery: Future instance prediction in bird's-eye view from surround monocular cameras. In <em>ICCV</em>, pages 15273–15282, 2021.</li>
+<li>Junjie Huang, Guan Huang, Zheng Zhu, and Dalong Du. Bevdet: High-performance multi-camera 3d object detection in bird-eye-view. <em>arXiv preprint arXiv:2112.11790</em>, 2021.</li>
+<li>Yanqin Jiang, Li Zhang, Zhenwei Miao, Xiatian Zhu, Jin Gao, Weiming Hu, and Yu-Gang Jiang. Polarformer: Multi-camera 3d object detection with polar transformers. <em>arXiv preprint arXiv:2206.15398</em>, 2022.</li>
+<li>Alex H Lang, Sourabh Vora, Holger Caesar, Lubing Zhou, Jiong Yang, and Oscar Beijbom. Pointpillars: Fast encoders for object detection from point clouds. In <em>CVPR</em>, 2019.</li>
+<li>Jie Li, Kai Han, Peng Wang, Yu Liu, and Xia Yuan. Anisotropic convolutional networks for 3d semantic scene completion. In <em>CVPR</em>, pages 3351–3359, 2020.</li>
+<li>Shijie Li, Xieyuanli Chen, Yun Liu, Dengxin Dai, Cyrill Stachniss, and Juergen Gall. Multi-scale interaction for real-time lidar data segmentation on an embedded platform. <em>RA-L</em>, 7(2):738–745, 2021.</li>
+<li>Yanwei Li, Yilun Chen, Xiaojuan Qi, Zeming Li, Jian Sun, and Jiaya Jia. Unifying voxel-based representation with transformer for 3d object detection. In <em>Advances in Neural Information Processing Systems</em>, 2022.</li>
+<li>Yinhao Li, Zheng Ge, Guanyi Yu, Jinrong Yang, Zengran Wang, Yukang Shi, Jianjian Sun, and Zeming Li. Bevdepth: Acquisition of reliable depth for multi-view 3d object detection. <em>arXiv preprint arXiv:2206.10092</em>, 2022.</li>
+<li>Zhiqi Li, Wenhai Wang, Hongyang Li, Enze Xie, Chonghao Sima, Tong Lu, Qiao Yu, and Jifeng Dai. Bevformer: Learning bird's-eye-view representation from multi-camera images via spatiotemporal transformers. In <em>ECCV</em>, 2022.</li>
+<li>Tingting Liang, Hongwei Xie, Kaicheng Yu, Zhongyu Xia, Zhiwei Lin, Yongtao Wang, Tao Tang, Bing Wang, and Zhi Tang. Bevfusion: A simple and robust lidar-camera fusion framework. <em>arXiv preprint arXiv:2205.13790</em>, 2022.</li>
+<li>Venice Erin Liong, Thi Ngoc Tho Nguyen, Sergi Widjaja, Dhananjai Sharma, and Zhuang Jie Chong. Amvnet: Assertion-based multi-view fusion network for lidar semantic segmentation. <em>arXiv preprint arXiv:2012.04934</em>, 2020.</li>
+<li>Yingfei Liu, Tiancai Wang, Xiangyu Zhang, and Jian Sun. Petr: Position embedding transformation for multi-view 3d object detection. <em>arXiv preprint arXiv:2203.05625</em>, 2022.</li>
+<li>Zhijian Liu, Haotian Tang, Alexander Amini, Xinyu Yang, Huizi Mao, Daniela Rus, and Song Han. Bevfusion: Multi-task multi-sensor fusion with unified bird's-eye view representation. <em>arXiv preprint arXiv:2205.13542</em>, 2022.</li>
+<li>Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. In <em>ICLR</em>, 2019.</li>
+<li>Lars Mescheder, Michael Oechsle, Michael Niemeyer, Sebastian Nowozin, and Andreas Geiger. Occupancy networks: Learning 3d reconstruction in function space. In <em>CVPR</em>, pages 4460–4470, 2019.</li>
+<li>B Mildenhall, PP Srinivasan, M Tancik, JT Barron, R Ramamoorthi, and R Ng. Nerf: Representing scenes as neural radiance fields for view synthesis. In <em>ECCV</em>, 2020.</li>
+<li>Andres Milioto, Ignacio Vizzo, Jens Behley, and Cyrill Stachniss. Rangenet++: Fast and accurate lidar semantic segmentation. In <em>IROS</em>, pages 4213–4220. IEEE, 2019.</li>
+<li>Jeong Joon Park, Peter Florence, Julian Straub, Richard Newcombe, and Steven Lovegrove. Deepsdf: Learning continuous signed distance functions for shape representation. In <em>CVPR</em>, pages 165–174, 2019.</li>
+<li>Jonah Philion and Sanja Fidler. Lift, splat, shoot: Encoding images from arbitrary camera rigs by implicitly unprojecting to 3d. In <em>ECCV</em>, pages 194–210, 2020.</li>
+<li>Cody Reading, Ali Harakeh, Julia Chae, and Steven L Waslander. Categorical depth distribution network for monocular 3d object detection. In <em>CVPR</em>, 2021.</li>
+<li>Christian Reiser, Songyou Peng, Yiyi Liao, and Andreas Geiger. Kilonerf: Speeding up neural radiance fields with thousands of tiny mlps. In <em>ICCV</em>, pages 14335–14345, 2021.</li>
+<li>Luis Roldao, Raoul de Charette, and Anne Verroust-Blondet. Lmscnet: Lightweight multiscale 3d semantic completion. In <em>2020 International Conference on 3D Vision (3DV)</em>, pages 111–119. IEEE, 2020.</li>
+<li>Mingxing Tan and Quoc Le. Efficientnet: Rethinking model scaling for convolutional neural networks. In <em>ICML</em>, pages 6105–6114, 2019.</li>
+<li>Haotian Tang, Zhijian Liu, Shengyu Zhao, Yujun Lin, Ji Lin, Hanrui Wang, and Song Han. Searching efficient 3d architectures with sparse point-voxel convolution. In <em>ECCV</em>, pages 685–702, 2020.</li>
+<li>Tai Wang, Xinge Zhu, Jiangmiao Pang, and Dahua Lin. Fcos3d: Fully convolutional one-stage monocular 3d object detection. In <em>ICCV</em>, 2021.</li>
+<li>Yi Wei, Linqing Zhao, Wenzhao Zheng, Zheng Zhu, Yongming Rao, Guan Huang, Jiwen Lu, and Jie Zhou. Surrounddepth: Entangling surrounding views for self-supervised multi-camera depth estimation. In <em>CoRL</em>, 2022.</li>
+<li>Xu Yan, Jiantao Gao, Jie Li, Ruimao Zhang, Zhen Li, Rui Huang, and Shuguang Cui. Sparse single sweep lidar point cloud segmentation via learning contextual shape priors from scene completion. In <em>AAAI</em>, volume 35, pages 3101–3109, 2021.</li>
+<li>Dongqiangzi Ye, Zixiang Zhou, Weijia Chen, Yufei Xie, Yu Wang, Panqu Wang, and Hassan Foroosh. Lidarmultinet: Towards a unified multi-task network for lidar perception. <em>arXiv preprint arXiv:2209.09385</em>, 2022.</li>
+<li>Maosheng Ye, Rui Wan, Shuangjie Xu, Tongyi Cao, and Qifeng Chen. Drinet++: Efficient voxel-as-point point cloud segmentation. <em>arXiv preprint arXiv: 2111.08318</em>, 2021.</li>
+<li>Yunpeng Zhang, Wenzhao Zheng, Zheng Zhu, Guan Huang, Jie Zhou, and Jiwen Lu. A simple baseline for multi-camera 3d object detection. <em>arXiv preprint arXiv:2208.10035</em>, 2022.</li>
+</ol>
+<a class="pg" data-page="13"></a>
+<ol class="refs" start="50">
+<li>Yang Zhang, Zixiang Zhou, Philip David, Xiangyu Yue, Zerong Xi, Boqing Gong, and Hassan Foroosh. Polarnet: An improved grid representation for online lidar point clouds semantic segmentation. In <em>CVPR</em>, pages 9601–9610, 2020.</li>
+<li>Yunpeng Zhang, Zheng Zhu, Wenzhao Zheng, Junjie Huang, Guan Huang, Jie Zhou, and Jiwen Lu. Beverse: Unified perception and prediction in birds-eye-view for vision-centric autonomous driving. <em>arXiv preprint arXiv:2205.09743</em>, 2022.</li>
+<li>Yin Zhou and Oncel Tuzel. Voxelnet: End-to-end learning for point cloud based 3d object detection. In <em>CVPR</em>, pages 4490–4499, 2018.</li>
+<li>Xizhou Zhu, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang, and Jifeng Dai. Deformable {detr}: Deformable transformers for end-to-end object detection. In <em>ICLR</em>, 2021.</li>
+<li>Xinge Zhu, Hui Zhou, Tai Wang, Fangzhou Hong, Yuexin Ma, Wei Li, Hongsheng Li, and Dahua Lin. Cylindrical and asymmetrical 3d convolution networks for lidar segmentation. In <em>CVPR</em>, pages 9939–9948, 2021.</li>
+<li>Xinge Zhu, Hui Zhou, Tai Wang, Fangzhou Hong, Yuexin Ma, Wei Li, Hongsheng Li, and Dahua Lin. Cylindrical and asymmetrical 3d convolution networks for lidar segmentation. In <em>CVPR</em>, pages 9939–9948, 2021.</li>
+</ol>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>

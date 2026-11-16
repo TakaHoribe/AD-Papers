@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>DETR3D 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="DETR3D: 3D Object Detection from Multi-view Images via 3D-to-2D Queries" />
+  <meta name="short-name" content="DETR3D" />
+  <meta name="authors" content="Yue Wang, Vitor Guizilini, Tianyuan Zhang, Yilun Wang, Hang Zhao, Justin Solomon（MIT、Toyota Research Institute、CMU、Li Auto、Tsinghua University）" />
+  <meta name="source-pdf" content="06_DETR3D_2110.06922.pdf" />
+  <meta name="source-pages" content="12" />
+  <meta name="pdf-href" content="06_DETR3D_2110.06922.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="多視点カメラ画像から 3D 物体検出を行う手法。疎な 3D 物体クエリから参照点を各カメラに逆投影して 2D 特徴を取得し、集合対集合損失で学習することで、深度推定や NMS を不要にして nuScenes で最先端性能を達成した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">DETR3D 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="06_DETR3D_2110.06922.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#detr3d-3d-object-detection-from-multi-view-images-via-3d-to-2d-queries" id="toc-detr3d-3d-object-detection-from-multi-view-images-via-3d-to-2d-queries">DETR3D: 3D Object Detection from Multi-view Images via 3D-to-2D Queries</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a></li>
+<li><a href="#3-多視点-3d-物体検出" id="toc-3-多視点-3d-物体検出">3　多視点 3D 物体検出</a><ul>
+<li><a href="#3.1-概要" id="toc-3.1-概要">3.1　概要</a></li>
+<li><a href="#3.2-特徴学習" id="toc-3.2-特徴学習">3.2　特徴学習</a></li>
+<li><a href="#3.3-検出ヘッド" id="toc-3.3-検出ヘッド">3.3　検出ヘッド</a></li>
+<li><a href="#3.4-損失" id="toc-3.4-損失">3.4　損失</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a><ul>
+<li><a href="#4.1-実装の詳細" id="toc-4.1-実装の詳細">4.1　実装の詳細</a></li>
+<li><a href="#4.2-既存研究との比較" id="toc-4.2-既存研究との比較">4.2　既存研究との比較</a></li>
+<li><a href="#4.3-重複領域における比較" id="toc-4.3-重複領域における比較">4.3　重複領域における比較</a></li>
+<li><a href="#4.4-疑似-lidar-手法との比較" id="toc-4.4-疑似-lidar-手法との比較">4.4　疑似 LiDAR 手法との比較</a></li>
+<li><a href="#4.5-アブレーションと分析" id="toc-4.5-アブレーションと分析">4.5　アブレーションと分析</a></li>
+</ul></li>
+<li><a href="#5-結論" id="toc-5-結論">5　結論</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="detr3d-3d-object-detection-from-multi-view-images-via-3d-to-2d-queries">DETR3D: 3D Object Detection from Multi-view Images via 3D-to-2D Queries</h1>
+<p>Yue Wang（Massachusetts Institute of Technology、yuewang@csail.mit.edu）、Vitor Guizilini*（Toyota Research Institute、vitor.guizilini@tri.global）、Tianyuan Zhang*（Carnegie Mellon University、tianyuaz@andrew.cmu.edu）、Yilun Wang（Li Auto、yilunw@cs.stanford.edu）、Hang Zhao ¶（Tsinghua University、hangzhao@mail.tsinghua.edu.cn）、Justin Solomon ¶（Massachusetts Institute of Technology、jsolomon@mit.edu）<br />
+*：同等の貢献。¶：本プロジェクトの共同指導。<br />
+arXiv:2110.06922v1 [cs.CV]、2021年10月13日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>06_DETR3D_2110.06922.pdf</code>（全 12 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p>本論文では、マルチカメラによる 3D 物体検出のためのフレームワークを提案する。単眼画像から 3D バウンディングボックスを直接推定したり、深度予測ネットワークを用いて 2D 情報から 3D 物体検出の入力を生成したりする既存研究とは対照的に、本手法は予測を 3D 空間内で直接操作する。本アーキテクチャは複数のカメラ画像から 2D 特徴を抽出し、次に疎な 3D 物体クエリの集合を用いてこれらの 2D 特徴を索引付けし、カメラ変換行列を用いて 3D 位置を多視点画像に結び付ける。最後に、本モデルは物体クエリごとにバウンディングボックスを予測し、正解と予測の食い違いを集合対集合損失（set-to-set loss）で測る。このトップダウン方式は、ピクセルごとの深度推定の後に物体のバウンディングボックス予測を行うボトムアップ方式よりも優れた性能を示す。これは、深度予測モデルがもたらす誤差の累積に悩まされないためである。さらに、本手法は非最大値抑制のような後処理を必要とせず、推論速度を大幅に向上させる。本手法は nuScenes 自動運転ベンチマークにおいて最先端の性能を達成する。</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>視覚情報からの 3D 物体検出は、低コストな自動運転システムにとって長年の課題である。LiDAR のようなモダリティで収集された点群からの物体検出は、可視物体の 3D 構造に関する情報の恩恵を受けられるが、カメラベースの設定はさらに不良設定である。RGB 画像に含まれる 2D 情報のみから 3D バウンディングボックスの予測を生成しなければならないからである。</p>
+<p>既存の手法［1, 2］は通常、検出パイプラインを純粋に 2D の計算から構築する。すなわち、2D タスク向けに設計された物体検出パイプライン（例えば CenterNet［1］、FCOS［3］）を用いて、物体の姿勢や速度といった 3D 情報を、3D シーン構造やセンサ構成を考慮せずに予測する。これらの手法は、カメラ間で予測を融合し冗長なボックスを除去するためにいくつかの後処理ステップを必要とし、効率と有効性の間に急峻なトレードオフを生じる。これらの 2D ベースの手法に代わるものとして、［4, 5, 6］のような 3D 再構成手法を適用してカメラ画像からシーンの疑似 LiDAR（pseudo-LiDAR）や距離画像入力を作成することで、物体検出パイプラインにより多くの 3D 計算を取り込む手法もある。そうすれば、そのデータがあたかも 3D センサから直接収集されたかのように 3D 物体検出手法を適用できる。しかしこの戦略は誤差の累積［7］を被る。推定精度の低い深度値は 3D 物体検出の性能に強い悪影響を与え、3D 物体検出自体もまた独自の誤差を示しうる。</p>
+
+<a class="pg" data-page="2"></a>
+<p>本論文では、自動運転のための 2D 観測と 3D 予測の間の、より洗練された橋渡しを提案する。これは密な深度予測のためのモジュールに依存しない。DETR3D（Multi-View 3D Detection）と名付けた本フレームワークは、この問題にトップダウン方式で取り組む。本手法は、カメラ変換行列を用いた幾何学的逆投影によって 2D 特徴抽出と 3D 物体予測を結び付ける。本手法は、データセット全体で共有され、エンドツーエンドで学習される疎な物体事前情報（object prior）の集合から出発する。シーン固有の情報を集めるために、これらの物体事前情報からデコードされた参照点の集合を各カメラに逆投影し、ResNet バックボーン［8］によって抽出された対応する画像特徴を取得する。参照点の画像特徴から集められた特徴は、次にマルチヘッド自己注意層［9］を通じて互いに相互作用する。一連の自己注意層の後、すべての層からバウンディングボックスのパラメータを読み出し、DETR［10］に着想を得た集合対集合損失を用いて性能を評価する。</p>
+<p>本アーキテクチャは、点群の再構成や画像からの明示的な深度予測を行わないため、深度推定の誤差に対して頑健である。さらに、本手法は非最大値抑制（NMS）のようないかなる後処理も必要とせず、効率を改善し、出力を整理するための人手で設計された手法への依存を減らす。nuScenes データセットにおいて、本手法（NMS なし）は先行研究（NMS あり）と同等である。カメラの重複領域では、本手法は他の手法を大幅に上回る。</p>
+<p><strong>貢献。</strong>主要な貢献を以下にまとめる。</p>
+<ul>
+<li>RGB 画像からの簡素化された 3D 物体検出モデルを提示する。異なるカメラ視点からの物体予測を最終段で統合する既存研究とは異なり、本手法はすべてのカメラ視点の情報を計算の各層で融合する。我々の知る限り、これはマルチカメラ検出を 3D 集合対集合予測として定式化する最初の試みである。</li>
+<li>逆方向の幾何学的投影によって 2D 特徴抽出と 3D バウンディングボックス予測を結び付けるモジュールを導入する。このモジュールは副次的なネットワークによる不正確な深度予測の影響を受けず、3D 情報を利用可能なすべてのフレームに逆投影することで、複数のカメラからの情報をシームレスに利用する。</li>
+<li>Object DGCNN［11］と同様に、本手法は画像ごとまたは全体の NMS のような後処理を必要とせず、既存の NMS ベースの手法と同等の性能を持つ。カメラの重複領域では、本手法は他の手法を大きな差で上回る。</li>
+<li>再現性と今後の研究を促進するため、コードを公開する<sup>1</sup>。</li>
+</ul>
+<blockquote><p>脚注1：<a href="https://github.com/WangYueFt/detr3d">https://github.com/WangYueFt/detr3d</a></p></blockquote>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<p><strong>2D 物体検出。</strong>RCNN［12］は深層学習を用いた物体検出の先駆けとなった。これは事前に選択された物体候補（object proposal）の集合を畳み込みニューラルネットワーク（CNN）に入力し、それに応じてバウンディングボックスのパラメータを予測する。この手法は驚くべき性能を示すものの、物体候補ごとに ConvNet の順伝播を行うため、他の手法より 1 桁遅い。この問題を解決するため、Fast RCNN［13］は画像全体を 1 回の順伝播で処理する共有の学習可能な CNN を導入した。性能と速度をさらに改善するため、Faster RCNN［13］は画像全体の畳み込み特徴を検出ネットワークと共有する領域提案ネットワーク（RPN）を組み込み、ほぼコストのかからない領域提案を可能にした。Mask RCNN［14］はマスク予測の分岐を組み込み、インスタンスセグメンテーションを並行して行えるようにした。これらの手法は通常、多段階の精緻化を伴い、実用上は低速になりうる。これらの多段階手法とは異なり、SSD［15］と YOLO［16］は密な予測を 1 回のショットで行う。これらは上記の手法より大幅に高速であるが、依然として冗長なボックス予測を除去するために NMS に依存している。これらの手法は、事前定義されたアンカーに対してバウンディングボックスを予測する。CenterNet［1］と FCOS［3］は、アンカーごとの予測からピクセルごとの予測へと移行することでパラダイムを変え、一般的な物体検出パイプラインを大幅に簡素化した。</p>
+<a class="pg" data-page="3"></a>
+<p><strong>集合ベースの物体検出。</strong>DETR［10］は物体検出を集合対集合の問題として定式化する。これは Transformer［9］を用いて特徴と物体の相互作用を捉える。DETR は予測を正解ボックスの集合に割り当てることを学習するため、冗長なボックスを除去するための後処理を必要としない。しかし DETR の重大な欠点の一つは、相当な学習時間を要することである。Deformable DETR［17］は DETR の収束の遅さを分析し、特徴を局所化して学習を加速する変形可能自己注意モジュールを提案した。同時期に、［18］は DETR の収束の遅さを集合ベースの損失と Transformer のクロス注意機構に帰した。彼らはこれらの問題点を克服するため、TSP-FCOS と TSP-RCNN の 2 つの変種を提案した。SparseR-CNN［19］は集合予測を RCNN 型のパイプラインに組み込み、NMS なしで多段階物体検出を上回る性能を示した。OneNet［20］は興味深い現象を調べた。すなわち、密な予測に基づく物体検出器は、最小コストの集合損失を備えれば NMS 不要にできるというものである。3D の領域では、Object DGCNN［11］が点群からの 3D 物体検出を研究している。これは 3D 物体検出を動的グラフ上のメッセージパッシングとしてモデル化し、DGCNN のフレームワークを物体の集合の予測へと一般化したものである。DETR と同様に、Object DGCNN も NMS 不要である。</p>
+
+<figure><img src="figs/fig1.jpg" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：</strong>本手法の概要。モデルへの入力は多視点画像の集合であり、ResNet と FPN によってエンコードされる。次に、本モデルは疎な物体クエリの集合に対して処理を行い、各クエリは 3D 参照点にデコードされる。3D 参照点を画像空間に投影することで 2D 特徴が変換され、物体クエリを精緻化する。本モデルはクエリごとに予測を行い、集合対集合損失を用いる。</p>
+<p class="yakuchu">図中ラベル：Multi-view Images with Camera Extrinsics &amp; intrinsics＝カメラ外部・内部パラメータ付きの多視点画像、Image Feature Extraction＝画像特徴抽出、Object Queries＝物体クエリ、2D-to-3D Feature Transformation＝2D から 3D への特徴変換、Bipartite Matching &amp; Loss Computation＝二部マッチングと損失計算、Pred＝予測、Box＝ボックス、None＝なし（対象なし）。凡例：赤点線＝2D 特徴を集約して物体クエリを精緻化する、青点線＝サブネットワークを用いて参照点を予測する、緑点線＝この 3D 参照点を画像空間に変換する、橙点線＝変換された点を用いて画像特徴を索引付けする</p>
+
+<p><strong>単眼 3D 物体検出。</strong>RGB 画像からの 3D 検出の初期の手法は Mono3D［21］であり、学習時にシーンの制約と追加の事前情報を用いながら、意味的手がかりと形状の手がかりを使って 3D 候補の集まりから選択する。［22］は単眼 3D 検出に鳥瞰図（BEV）を用い、［23］は 2D–3D 投影誤差の最小化を通じて 2D 検出を 3D バウンディングボックス回帰に活用する。3D 計算の出発点として 2D 検出器を用いることは、近年では標準的なアプローチとなっている［24, 25］。他の研究では、最先端の 3D 物体検出性能を実現するために、微分可能レンダリング［26］や 3D キーポイント検出［27, 28, 1］の進展も探求されている。これらの手法はすべて単眼の設定で動作し、複数カメラへの拡張は、各フレームを独立に処理した後に後処理段階で出力を統合することによって行われる。</p>
+
+<h2 id="3-多視点-3d-物体検出">3　多視点 3D 物体検出</h2>
+<h3 id="3.1-概要">3.1　概要</h3>
+<p>本アーキテクチャは、射影行列（内部パラメータと相対的な外部パラメータの組み合わせ）が既知であるカメラの集合から収集された RGB 画像を入力とし、シーン内の物体に対する 3D バウンディングボックスのパラメータの集合を出力する。過去のアプローチとは対照的に、本アーキテクチャはいくつかの高レベルな要件に基づいて構築される。</p>
+<ul>
+<li>画像平面で純粋に 2D の計算を行うのではなく、アーキテクチャ内の中間計算に 3D 情報を取り込む。</li>
+<li>密な 3D シーン形状を推定せず、それに伴う再構成誤差を回避する。</li>
+<li>NMS のような後処理ステップを回避する。</li>
+</ul>
+
+<a class="pg" data-page="4"></a>
+<p>これらの要件に、新たな集合予測モジュールを用いて対処する。このモジュールは 2D と 3D の計算を交互に行うことで、2D 特徴抽出と 3D ボックス予測を結び付ける。本モデルは図1に示す 3 つの重要な構成要素を含む。第一に、2D ビジョンにおける一般的な慣行に従い、共有の ResNet［8］バックボーンを用いてカメラ画像から特徴を抽出する。任意で、これらの特徴は特徴ピラミッドネットワーク（FPN）［29］によって強化される（§3.2）。第二に、検出ヘッド（§3.3）――本論文の主要な貢献――が、計算された 2D 特徴を幾何学を考慮した方法で 3D バウンディングボックス予測の集合に結び付ける（§3.3）。検出ヘッドの各層は、データから学習された疎な物体クエリの集合から出発する。各物体クエリは 3D 位置をエンコードしており、それがカメラ平面に投影され、双線形補間によって画像特徴を集めるために用いられる。次に、DETR［10］と同様に、マルチヘッド注意［9］を用いて物体間の相互作用を取り込むことで物体クエリを精緻化する。この層は複数回繰り返され、特徴サンプリングと物体クエリの精緻化を交互に行う。最後に、集合対集合損失［30, 10］を評価してネットワークを学習する（§3.4）。</p>
+
+<h3 id="3.2-特徴学習">3.2　特徴学習</h3>
+<p>本モデルは、画像の集合 \( \mathcal{I} = \{\mathbf{im}_1, \ldots, \mathbf{im}_K\} \subset \mathbb{R}^{\mathrm{H_{im}} \times \mathrm{W_{im}} \times 3} \)（周囲のカメラで撮影されたもの）、カメラ行列 \( \mathcal{T} = \{T_1, \ldots, T_K\} \subset \mathbb{R}^{3 \times 4} \)、正解バウンディングボックス \( \mathcal{B} = \{\boldsymbol{b}_1, \ldots, \boldsymbol{b}_j, \ldots, \boldsymbol{b}_M\} \subset \mathbb{R}^9 \)、およびカテゴリラベル \( \mathcal{C} = \{c_1, \ldots, c_j, \ldots, c_M\} \subset \mathbb{Z} \) から出発する。各 \( \boldsymbol{b}_j \) は鳥瞰図（BEV）における位置、サイズ、方位角、速度を含む。本モデルは、これらの画像からこれらのボックスとそのラベルを予測することを目指す。通常は高価な LiDAR で取得される点群は<em>使用しない</em>。</p>
+<p>これらの画像は ResNet［8］と FPN［29］によって 4 つの特徴の集合 \( \mathcal{F}_1, \mathcal{F}_2, \mathcal{F}_3, \mathcal{F}_4 \) にエンコードされる。各集合 \( \mathcal{F}_k = \{\boldsymbol{f}_{k1}, \ldots, \boldsymbol{f}_{k6}\} \subset \mathbb{R}^{H \times W \times C} \) は 6 枚の画像の特徴のある一つのレベルに対応する。これらのマルチスケール特徴は、さまざまなサイズの物体を認識するための豊富な情報を提供する。次に、新たな集合予測モジュールを用いてこれらの 2D 特徴を 3D に変換する本アプローチを詳述する。</p>
+
+<h3 id="3.3-検出ヘッド">3.3　検出ヘッド</h3>
+<p>カメラ入力から物体を検出する既存の手法は通常ボトムアップ方式を採用しており、画像ごとに密なバウンディングボックスの集合を予測し、画像間で冗長なボックスを除去し、後処理ステップでカメラ間の予測を集約する。このパラダイムには 2 つの重大な欠点がある。密なバウンディングボックス予測には正確な深度知覚が必要であり、それ自体が困難な問題であること、そして NMS ベースの冗長性除去と集約は並列化できない操作であり、推論に大きなオーバーヘッドをもたらすことである。これらの問題に、以下で説明するトップダウン型の物体検出ヘッドを用いて対処する。</p>
+<p>［11, 17］と同様に、DETR3D は<em>反復的</em>であり、集合ベースの計算を行う \( L \) 個の層を用いて 2D 特徴マップからバウンディングボックスの推定値を生成する。各層は以下のステップを含む。</p>
+<ol>
+<li>物体クエリに対応するバウンディングボックス中心の集合を予測する。</li>
+<li>カメラ変換行列を用いて、これらの中心をすべての特徴マップに投影する。</li>
+<li>双線形補間によって特徴をサンプリングし、それらを物体クエリに取り込む。</li>
+<li>マルチヘッド注意を用いて物体間の相互作用を記述する。</li>
+</ol>
+<p>DETR［10］に動機付けられ、各層 \( \ell \in \{0, \ldots, L-1\} \) は<em>物体クエリ</em>の集合 \( \mathcal{Q}_\ell = \{\boldsymbol{q}_{\ell 1}, \ldots, \boldsymbol{q}_{\ell M^*}\} \subset \mathbb{R}^C \) に対して処理を行い、新たな集合 \( \mathcal{Q}_{\ell+1} \) を生成する。参照点 \( \boldsymbol{c}_{\ell i} \in \mathbb{R}^3 \) は物体クエリ \( \boldsymbol{q}_{\ell i} \) から次のようにデコードされる。</p>
+<p>\[ \boldsymbol{c}_{\ell i} = \Phi^{\mathrm{ref}}(\boldsymbol{q}_{\ell i}), \tag{1} \]</p>
+<p>ここで \( \Phi^{\mathrm{ref}} \) はニューラルネットワークである。\( \boldsymbol{c}_{\ell i} \) は \( i \) 番目のボックスの中心に関する仮説とみなせる。次に、最終的なバウンディングボックスを精緻化・予測するために、\( \boldsymbol{c}_{\ell i} \) に対応する画像特徴を取得する。そして、\( \boldsymbol{c}_{\ell i} \)（より正確にはその同次座標表現 \( \boldsymbol{c}^*_{\ell i} \)）を、カメラ変換行列を用いて各画像に投影する。</p>
+<p>\[ \boldsymbol{c}^*_{\ell i} = \boldsymbol{c}_{\ell i} \oplus 1 \qquad \boldsymbol{c}_{\ell m i} = T_m \boldsymbol{c}^*_{\ell i}, \tag{2} \]</p>
+<p>ここで \( \oplus \) は連結を表し、\( \boldsymbol{c}_{\ell m i} \) は参照点の \( m \) 番目のカメラへの投影である。特徴マップのサイズの影響を除き、異なるレベル間で特徴を集めるために、\( \boldsymbol{c}_{\ell m i} \) を \( [-1, 1] \) に正規化する。次に、画像特徴は次のように集められる。</p>
+<p>\[ \boldsymbol{f}_{\ell k m i} = f^{\mathrm{bilinear}}(\mathcal{F}_{km}, \boldsymbol{c}_{\ell m i}), \tag{3} \]</p>
+<p>ここで \( \boldsymbol{f}_{\ell k m i} \) は、\( \ell \) 番目の層における \( m \) 番目のカメラの \( k \) 番目のレベルから得られる \( i \) 番目の点の特徴である。</p>
+<a class="pg" data-page="5"></a>
+<p>ある参照点が必ずしもすべてのカメラ画像で可視であるとは限らないため、無効な点を除外するための何らかのヒューリスティックが必要である。そのために、参照点が画像平面の外側に投影されるかどうかに基づいて決定される二値 \( \sigma_{\ell k m i} \) を定義する。最終的な特徴 \( \boldsymbol{f}_{\ell i} \) と次の層の物体クエリ \( \boldsymbol{q}_{(\ell+1)i} \) は次式で与えられる。</p>
+<p>\[ \boldsymbol{f}_{\ell i} = \frac{1}{\sum_k \sum_m \sigma_{\ell k m i} + \epsilon} \sum_k \sum_m \boldsymbol{f}_{\ell k m i} \sigma_{\ell k m i} \quad \text{and} \quad \boldsymbol{q}_{(\ell+1)i} = \boldsymbol{f}_{\ell i} + \boldsymbol{q}_{\ell i}, \tag{4} \]</p>
+<p>ここで \( \epsilon \) はゼロ除算を避けるための小さな数である。最後に、各物体クエリ \( \boldsymbol{q}_{\ell i} \) に対して、2 つのニューラルネットワーク \( \Phi^{\mathrm{reg}}_\ell \) と \( \Phi^{\mathrm{cls}}_\ell \) を用いて、バウンディングボックス \( \hat{\boldsymbol{b}}_{\ell i} \) とそのカテゴリラベル \( \hat{c}_{\ell i} \) を予測する。</p>
+<p>\[ \hat{\boldsymbol{b}}_{\ell i} = \Phi^{\mathrm{reg}}_\ell(\boldsymbol{q}_{\ell i}) \quad \text{and} \quad \hat{c}_{\ell i} = \Phi^{\mathrm{cls}}_\ell(\boldsymbol{q}_{\ell i}). \tag{5} \]</p>
+<p>学習中は、すべての層からの予測 \( \hat{\mathcal{B}}_\ell = \{\hat{\boldsymbol{b}}_{\ell 1}, \ldots, \hat{\boldsymbol{b}}_{\ell j}, \ldots, \hat{\boldsymbol{b}}_{\ell M^*}\} \subset \mathbb{R}^9 \) および \( \hat{\mathcal{C}}_\ell = \{\hat{c}_{\ell 1}, \ldots, \hat{c}_{\ell j}, \ldots, \hat{c}_{\ell M}\} \subset \mathbb{Z} \) に対して損失を計算する。推論時には、最後の層からの出力のみを用いる。<span class="yakuchu">（訳注：\( \hat{\mathcal{C}}_\ell \) の最後の添え字は原文では \( M \) だが、予測数に合わせるなら \( M^* \) と考えられる。）</span></p>
+
+<h3 id="3.4-損失">3.4　損失</h3>
+<p>［30, 10］に従い、予測集合 \( (\hat{\mathcal{B}}_\ell, \hat{\mathcal{C}}_\ell) \) と正解集合 \( (\mathcal{B}, \mathcal{C}) \) の食い違いを測るために集合対集合損失を用いる。この損失は 2 つの部分からなる。クラスラベルに対する focal loss［31］と、バウンディングボックスのパラメータに対する \( L^1 \) 損失である。表記の簡便のため、\( \hat{\mathcal{B}}_\ell \) と \( \hat{\mathcal{C}}_\ell \) の添え字 \( \ell \) を省略する。正解ボックスの数 \( M \) は通常、予測の数 \( M^* \) より小さいため、計算を容易にするために正解ボックスの集合を \( \varnothing \)（物体なし）で \( M^* \) 個まで埋める。正解と予測の対応付けは、二部マッチング問題 \( \sigma^* = \arg\min_{\sigma \in \mathcal{P}} \sum_{j=1}^{M} -1_{\{c_j \neq \varnothing\}} \hat{p}_{\sigma(j)}(c_j) + 1_{\{c_j = \varnothing\}} \mathcal{L}_{\mathrm{box}}(\boldsymbol{b}_j, \hat{\boldsymbol{b}}_{\sigma(j)}) \) によって確立する。ここで \( \mathcal{P} \) は置換の集合を表し、\( \hat{p}_{\sigma(j)}(c_j) \) はインデックス \( \sigma(j) \) の予測がクラス \( c_j \) である確率、\( \mathcal{L}_{\mathrm{box}} \) はバウンディングボックスのパラメータに対する \( L_1 \) 損失である。［30, 10］と同様に、この割り当て問題を解くためにハンガリアンアルゴリズム［32］を用い、集合対集合損失 \( \mathcal{L}_{\mathrm{sup}} = \sum_{j=1}^{N} -\log \hat{p}_{\sigma^*(j)}(c_j) + 1_{\{c_j = \varnothing\}} \mathcal{L}_{\mathrm{box}}(\boldsymbol{b}_j, \hat{\boldsymbol{b}}_{\sigma^*(j)}) \) を得る。<span class="yakuchu">（訳注：DETR［10］の定式化では、ボックス損失の指示関数は \( 1_{\{c_j \neq \varnothing\}} \)（物体がある場合にのみボックス損失を課す）である。原文の \( 1_{\{c_j = \varnothing\}} \) は誤植の可能性がある。）</span></p>
+
+<h2 id="4-実験">4　実験</h2>
+<p>結果を次のように示す。まず §4.1 でデータセット、評価指標、実装を詳述する。次に §4.2 で本手法を既存研究と比較する。§4.3 でカメラ重複領域における各モデルの性能をベンチマークする。§4.4 で順方向予測モデルと比較する。そして §4.5 で追加の分析とアブレーションを示す。</p>
+
+<h3 id="4.1-実装の詳細">4.1　実装の詳細</h3>
+<p><strong>データセット。</strong>本手法を nuScenes データセット［33］で検証する。nuScenes は 1,000 シーケンスからなり、各シーケンスはおよそ 20 秒の長さで、サンプリングレートは 20 フレーム/秒である。各サンプルは 6 台のカメラ <code>[front_left, front, front_right, back_left, back, back_right]</code> からの画像を含む。内部パラメータと外部パラメータを含むカメラパラメータが利用可能である。nuScenes は 0.5 秒ごとにアノテーションを提供しており、学習用、検証用、テスト用にそれぞれ合計 28k、6k、6k のアノテーション付きサンプルがある。全 23 クラスのうち 10 クラスが評価指標の計算に利用できる。</p>
+<p><strong>評価指標。</strong>nuScenes が提供する公式の評価プロトコルに従う。平均並進誤差（ATE）、平均スケール誤差（ASE）、平均向き誤差（AOE）、平均速度誤差（AVE）、平均属性誤差（AAE）を評価する。これらの指標は真陽性指標（TP 指標）であり、物理単位で計算される。加えて、平均適合率の平均（mAP）を測定する。検出タスクのあらゆる側面を捉えるため、統合されたスカラー指標である nuScenes Detection Score（NDS）［33］が \( \mathrm{NDS} = \frac{1}{10}[5\mathrm{mAP} + \sum_{\mathrm{mTP} \in \mathbb{TP}} (1 - \min(1, \mathrm{mTP}))] \) として定義されている。</p>
+<p><strong>モデル。</strong>本モデルは ResNet［8］特徴抽出器、FPN、および DETR3D 検出ヘッドからなる。第 3 ステージと第 4 ステージに変形可能畳み込み［34］を用いた ResNet101 を使用する。FPN［29］は ResNet が出力する特徴を受け取り、入力画像サイズの 1/8、1/16、1/32、1/64 のサイズを持つ 4 つの特徴マップを生成する。DETR3D 検出ヘッドは 6 層からなり、各層は特徴精緻化ステップとマルチヘッド注意層の組み合わせである。DETR3D 検出ヘッドの隠れ次元は 256 である。最後に、2 つのサブネットワークが物体クエリごとにバウンディングボックスのパラメータとクラスラベルを予測する。各サブネットワークは隠れ次元 256 の 2 つの全結合層からなる。検出ヘッドでは LayerNorm［35］を用いる。</p>
+
+<a class="pg" data-page="6"></a>
+<p><strong>学習と推論。</strong>パイプライン全体の学習には AdamW［36］を用いる。重み減衰は \( 10^{-4} \) である。初期学習率は \( 10^{-4} \) とし、第 8 エポックと第 11 エポックでそれぞれ \( 10^{-5} \) と \( 10^{-6} \) に減少させる。モデルは 8 基の RTX 3090 GPU で合計 12 エポック学習し、GPU あたりのバッチサイズは 1 である。学習手順にはおよそ 18 時間を要する。推論時には NMS のようないかなる後処理も用いない。評価には nuScenes 評価ツールキットを用いる。</p>
+
+<table><thead><tr><th>手法</th><th>NDS ↑</th><th>mAP ↑</th><th>mATE ↓</th><th>mASE ↓</th><th>mAOE ↓</th><th>mAVE ↓</th><th>mAAE ↓</th><th>NMS</th></tr></thead><tbody>
+<tr><td>CenterNet ∗</td><td style="text-align:right">0.328</td><td style="text-align:right">0.306</td><td style="text-align:right">0.716</td><td style="text-align:right">0.264</td><td style="text-align:right">0.609</td><td style="text-align:right">1.426</td><td style="text-align:right">0.658</td><td>✓</td></tr>
+<tr><td>FCOS3D</td><td style="text-align:right">0.373</td><td style="text-align:right">0.299</td><td style="text-align:right">0.785</td><td style="text-align:right">0.268</td><td style="text-align:right">0.557</td><td style="text-align:right">1.396</td><td style="text-align:right">0.154</td><td>✓</td></tr>
+<tr><td>FCOS3D ‡</td><td style="text-align:right">0.393</td><td style="text-align:right">0.321</td><td style="text-align:right">0.746</td><td style="text-align:right">0.265</td><td style="text-align:right">0.503</td><td style="text-align:right">1.351</td><td style="text-align:right">0.160</td><td>✓</td></tr>
+<tr><td>FCOS3D §</td><td style="text-align:right">0.402</td><td style="text-align:right">0.326</td><td style="text-align:right">0.743</td><td style="text-align:right">0.259</td><td style="text-align:right">0.441</td><td style="text-align:right">1.341</td><td style="text-align:right">0.163</td><td>✓</td></tr>
+<tr><td>FCOS3D ¶</td><td style="text-align:right">0.415</td><td style="text-align:right">0.343</td><td style="text-align:right">0.725</td><td style="text-align:right">0.263</td><td style="text-align:right">0.422</td><td style="text-align:right">1.292</td><td style="text-align:right">0.153</td><td>✓</td></tr>
+<tr><td>DETR3D (Ours)</td><td style="text-align:right">0.374</td><td style="text-align:right">0.303</td><td style="text-align:right">0.860</td><td style="text-align:right">0.278</td><td style="text-align:right">0.437</td><td style="text-align:right">0.967</td><td style="text-align:right">0.235</td><td>-</td></tr>
+<tr><td>DETR3D (Ours) †</td><td style="text-align:right">0.425</td><td style="text-align:right">0.346</td><td style="text-align:right">0.773</td><td style="text-align:right">0.268</td><td style="text-align:right">0.383</td><td style="text-align:right">0.842</td><td style="text-align:right">0.216</td><td>-</td></tr>
+<tr><td>DETR3D (Ours) #</td><td style="text-align:right">0.434</td><td style="text-align:right">0.349</td><td style="text-align:right">0.716</td><td style="text-align:right">0.268</td><td style="text-align:right">0.379</td><td style="text-align:right">0.842</td><td style="text-align:right">0.200</td><td>-</td></tr>
+</tbody></table>
+<p><strong>表1：</strong>検証セットにおける最近の研究との比較。本手法は NMS の使用有無に対して頑健である。∗：CenterNet はカスタマイズされたバックボーン DLA［38］を用いる。‡：このモデルは深度の重み 1.0 で学習され、FCOS3D のチェックポイントから初期化されている。そのチェックポイントは同じデータセットで深度の重み 0.2 で学習されたものである。§：テスト時拡張あり。¶：テスト時拡張、より多くのエポック、およびモデルアンサンブルあり。詳細は［2］を参照。†：本モデルも FCOS3D のバックボーンから初期化されている。検出ヘッドはランダムに初期化される。#：CBGS［39］を用いて学習。</p>
+
+<table><thead><tr><th>手法</th><th>NDS ↑</th><th>mAP ↑</th><th>mATE ↓</th><th>mASE ↓</th><th>mAOE ↓</th><th>mAVE ↓</th><th>mAAE ↓</th><th>NMS</th></tr></thead><tbody>
+<tr><td>Mono3D</td><td style="text-align:right">0.429</td><td style="text-align:right">0.366</td><td style="text-align:right">0.642</td><td style="text-align:right">0.252</td><td style="text-align:right">0.523</td><td style="text-align:right">1.591</td><td style="text-align:right">0.119</td><td>N/A</td></tr>
+<tr><td>DHNet</td><td style="text-align:right">0.437</td><td style="text-align:right">0.363</td><td style="text-align:right">0.667</td><td style="text-align:right">0.259</td><td style="text-align:right">0.402</td><td style="text-align:right">1.589</td><td style="text-align:right">0.120</td><td>N/A</td></tr>
+<tr><td>PGD［40］</td><td style="text-align:right">0.448</td><td style="text-align:right">0.386</td><td style="text-align:right">0.626</td><td style="text-align:right">0.245</td><td style="text-align:right">0.451</td><td style="text-align:right">1.509</td><td style="text-align:right">0.127</td><td>✓</td></tr>
+<tr><td>DD3D［37］†</td><td style="text-align:right">0.477</td><td style="text-align:right">0.418</td><td style="text-align:right">0.572</td><td style="text-align:right">0.249</td><td style="text-align:right">0.368</td><td style="text-align:right">1.014</td><td style="text-align:right">0.124</td><td>✓</td></tr>
+<tr><td>DETR3D (Ours) #</td><td style="text-align:right">0.479</td><td style="text-align:right">0.412</td><td style="text-align:right">0.641</td><td style="text-align:right">0.255</td><td style="text-align:right">0.394</td><td style="text-align:right">0.845</td><td style="text-align:right">0.133</td><td>-</td></tr>
+</tbody></table>
+<p><strong>表2：</strong>リーダーボード上のテストセットにおける上位の研究との比較。#：DD3D のチェックポイントから初期化。†：追加データで事前学習されたバックボーンから初期化。</p>
+
+<h3 id="4.2-既存研究との比較">4.2　既存研究との比較</h3>
+<p>従来の最先端手法である CenterNet［1］および FCOS3D［2］と比較する。CenterNet は、高解像度の特徴マップで密な予測を行うアンカーフリーの 2D 検出手法である。FCOS3D は FCOS［3］のパイプラインを用いてピクセルごとの予測を行う。これらの手法はいずれも 3D 物体検出を 2D の問題に変換しており、その過程でシーンの幾何とセンサ構成を無視している。多視点の物体検出を行うために、これらの手法は各画像を独立に処理し、各視点内の冗長なボックスと重複領域の冗長なボックスを除去するために、それぞれ画像ごとの NMS と全体の NMS の両方を用いなければならない。表1に示すように、本手法はいかなる後処理も用いないにもかかわらず、これらの手法を上回る。本手法は mATE の点では FCOS3D より劣る。これは、FCOS3D がバウンディングボックスの深度を直接予測しており、それが物体の並進に対する強い教師信号となるためと推測される。また、FCOS3D は異なるバウンディングボックスのパラメータに対して分離されたヘッドを用いており、これが性能を向上させうる。</p>
+<p>テストセット（表2）では、本手法は 2021 年 10 月 13 日時点で既存のすべての手法を上回る。公平な比較のため、本手法は DD3D［37］と同じバックボーンを用いている。</p>
+
+<h3 id="4.3-重複領域における比較">4.3　重複領域における比較</h3>
+<p>大きな課題は、物体が見切れやすい重複領域にある。本手法はすべてのカメラを同時に考慮するのに対し、FCOS3D はカメラごとに個別にバウンディングボックスを予測する。融合された推論の利点をさらに示すため、カメラの重複領域に入るボックスについて評価指標を計算する。評価指標を計算するために、3D 中心が複数のカメラから可視であるボックスを選択する。検証セットでは、そのようなボックスは 18,147 個あり、全体の 9.7% である。表3に結果を示す。この設定において、本手法は NDS スコアの点で FCOS3D を顕著に上回る。これは、本手法の統合的な予測アプローチがより効果的であることを裏付けている。</p>
+<a class="pg" data-page="7"></a>
+<table><thead><tr><th>手法</th><th>NDS ↑</th><th>mAP ↑</th><th>mATE ↓</th><th>mASE ↓</th><th>mAOE ↓</th><th>mAVE ↓</th><th>mAAE ↓</th><th>NMS</th></tr></thead><tbody>
+<tr><td>FCOS3D</td><td style="text-align:right">0.317</td><td style="text-align:right">0.213</td><td style="text-align:right">0.841</td><td style="text-align:right">0.276</td><td style="text-align:right">0.604</td><td style="text-align:right">1.122</td><td style="text-align:right">0.173</td><td>✓</td></tr>
+<tr><td>FCOS3D‡</td><td style="text-align:right">0.329</td><td style="text-align:right">0.229</td><td style="text-align:right">0.816</td><td style="text-align:right">0.272</td><td style="text-align:right">0.571</td><td style="text-align:right">1.084</td><td style="text-align:right">0.195</td><td>✓</td></tr>
+<tr><td>DETR3D (Ours)</td><td style="text-align:right">0.356</td><td style="text-align:right">0.231</td><td style="text-align:right">0.825</td><td style="text-align:right">0.280</td><td style="text-align:right">0.400</td><td style="text-align:right">0.863</td><td style="text-align:right">0.223</td><td>-</td></tr>
+<tr><td>DETR3D (Ours) †</td><td style="text-align:right">0.384</td><td style="text-align:right">0.268</td><td style="text-align:right">0.807</td><td style="text-align:right">0.273</td><td style="text-align:right">0.453</td><td style="text-align:right">0.788</td><td style="text-align:right">0.184</td><td>-</td></tr>
+</tbody></table>
+<p><strong>表3：</strong>重複領域における比較。‡：このモデルは深度の重み 1.0 で学習され、FCOS3D のチェックポイントから初期化されている。そのチェックポイントは同じデータセットで深度の重み 0.2 で学習されたものである。詳細は［2］を参照。†：本モデルも FCOS3D のバックボーンから初期化されている。検出ヘッドはランダムに初期化される。</p>
+
+<table><thead><tr><th>手法</th><th>NDS ↑</th><th>mAP ↑</th><th>mATE ↓</th><th>mASE ↓</th><th>mAOE ↓</th><th>mAVE ↓</th><th>mAAE ↓</th><th>NMS</th></tr></thead><tbody>
+<tr><td>pseudo-LiDAR</td><td style="text-align:right">0.160</td><td style="text-align:right">0.048</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td>✓</td></tr>
+<tr><td>DETR3D (Ours)</td><td style="text-align:right">0.374</td><td style="text-align:right">0.303</td><td style="text-align:right">0.860</td><td style="text-align:right">0.278</td><td style="text-align:right">0.437</td><td style="text-align:right">0.967</td><td style="text-align:right">0.235</td><td>-</td></tr>
+</tbody></table>
+<p><strong>表4：</strong>疑似 LiDAR 手法との比較。</p>
+
+<h3 id="4.4-疑似-lidar-手法との比較">4.4　疑似 LiDAR 手法との比較</h3>
+<p>3D 物体検出を行う別の方法は、深度予測モデルを用いて多視点画像から疑似 LiDAR 点群を生成することである。nuScenes データセットでは、直接比較できる公開された疑似 LiDAR の研究が存在しない。そこで、本アプローチが明示的な深度予測よりも効果的であることを検証するために、ベースラインを自ら実装する。事前学習済みの PackNet［6］ネットワークを用いて 6 台すべてのカメラから密な深度マップを予測し、次にカメラ変換を用いてこれらの深度マップを点群に変換する。速度による教師あり学習を伴う自己教師あり PackNet モデル（元論文と同様）も実験したが、正解深度による教師あり学習の方がより現実的な点群が得られることがわかったため、教師ありモデルをベースラインとして用いた。3D 検出には、最近提案された CenterPoint アーキテクチャ［41］を用いる。概念的には、このパイプラインは疑似 LiDAR［42］の一変種である。表4に結果を示す。深度推定値が最先端のモデルによって生成された場合でも、この疑似 LiDAR 手法は本手法を大幅に下回ると結論付けられる。一つの考えられる説明は、疑似 LiDAR 物体検出器が不正確な深度予測によってもたらされる誤差の累積に悩まされることである。そして深度予測は、学習データに過学習し、他の分布にはうまく汎化しないことが知られている［7］。</p>
+
+<h3 id="4.5-アブレーションと分析">4.5　アブレーションと分析</h3>
+<p>図2に物体クエリの精緻化の可視化を示す。各層で物体クエリからデコードされたバウンディングボックスを可視化している。モデルのより深い層に進むにつれて、予測されたバウンディングボックスは正解に近づく。また、最も左の図は、すべてのデータで共有される学習済みの物体クエリ事前情報を示している。<span class="yakuchu">（訳注：掲載されている図2は Layer 1〜5 と正解の 6 枚であり、物体クエリ事前情報を示す図は含まれていない。）</span>表5には定量的な結果も示しており、反復的な精緻化が実際に性能を大幅に改善することがわかる。これは、提案アーキテクチャを十分に活用するためには反復的な精緻化が有益かつ必要であることを示唆している。さらに、表6に物体クエリの数に関するアブレーションを示す。クエリ数を増やすと、900 で飽和するまで性能は一貫して向上する。最後に、表7に異なるバックボーンでの結果を示す。</p>
+<p>モデル性能の直感的な理解を助けるため、図3に定性的な結果も示す。予測されたバウンディングボックスを 6 台のカメラと BEV 視点に投影している。全体として、本手法は妥当な結果を生成し、比較的小さな物体さえも検出する。しかし、本手法は依然として大きな並進誤差を示す（表4.2 の結果と一致する）<span class="yakuchu">（訳注：「表4.2」は原文のまま。§4.2 および表1を指すと思われる。）</span>。本モデルは明示的な深度予測を回避しているものの、深度推定は依然としてこの問題の中核的な課題である。</p>
+
+<h2 id="5-結論">5　結論</h2>
+<a class="pg" data-page="8"></a>
+<p>2D 画像から 3D 情報を復元するという不良設定な逆問題に取り組むための新たなパラダイムを提案する。この設定では、データから学習された事前情報なしにモデルが効果的な予測を行うために不可欠な情報が、入力信号に欠けている。他の手法が 2D 計算のみで動作するか、追加の深度ネットワークを用いてシーンを再構成するのに対し、本手法は 3D 空間で動作し、必要に応じて逆投影を用いて画像特徴を取得する。本アプローチの利点は 2 つある。（1）誤差の累積の原因となりうる中間表現（例えば予測された深度マップや点群）の必要性を排除する。（2）同じ 3D 点を利用可能なすべてのフレームに投影することで、複数のカメラからの情報を利用する。</p>
+<p>本研究の自動運転向け 3D 物体検出への直接的な応用を超えて、今後の研究に値するいくつかの方向性がある。例えば、単一点の投影では取得される画像特徴マップにおける受容野が限られるため、物体クエリごとに複数の点をサンプリングすれば、物体の精緻化により多くの情報を取り込めるだろう。さらに、新しい検出ヘッドは入力に依存しないため、LiDAR/RADAR のような他のモダリティを含めれば、性能と頑健性が向上するだろう。最後に、本パイプラインを屋内ナビゲーションや物体操作のような他の領域に一般化すれば、応用範囲が広がり、さらなる改善のための新たな方法が明らかになるだろう。</p>
+
+<table><thead><tr><th>層 ↑</th><th>NDS ↑</th><th>mAP ↑</th><th>mATE ↓</th><th>mASE ↓</th><th>mAOE ↓</th><th>mAVE ↓</th><th>mAAE ↓</th></tr></thead><tbody>
+<tr><td style="text-align:right">0</td><td style="text-align:right">0.380</td><td style="text-align:right">0.302</td><td style="text-align:right">0.855</td><td style="text-align:right">0.280</td><td style="text-align:right">0.435</td><td style="text-align:right">0.910</td><td style="text-align:right">0.231</td></tr>
+<tr><td style="text-align:right">1</td><td style="text-align:right">0.410</td><td style="text-align:right">0.335</td><td style="text-align:right">0.791</td><td style="text-align:right">0.275</td><td style="text-align:right">0.408</td><td style="text-align:right">0.887</td><td style="text-align:right">0.217</td></tr>
+<tr><td style="text-align:right">2</td><td style="text-align:right">0.420</td><td style="text-align:right">0.343</td><td style="text-align:right">0.782</td><td style="text-align:right">0.271</td><td style="text-align:right">0.395</td><td style="text-align:right">0.851</td><td style="text-align:right">0.214</td></tr>
+<tr><td style="text-align:right">3</td><td style="text-align:right">0.420</td><td style="text-align:right">0.346</td><td style="text-align:right">0.778</td><td style="text-align:right">0.268</td><td style="text-align:right">0.390</td><td style="text-align:right">0.874</td><td style="text-align:right">0.218</td></tr>
+<tr><td style="text-align:right">4</td><td style="text-align:right">0.424</td><td style="text-align:right">0.346</td><td style="text-align:right">0.777</td><td style="text-align:right">0.268</td><td style="text-align:right">0.389</td><td style="text-align:right">0.855</td><td style="text-align:right">0.217</td></tr>
+<tr><td style="text-align:right">5</td><td style="text-align:right">0.425</td><td style="text-align:right">0.346</td><td style="text-align:right">0.773</td><td style="text-align:right">0.268</td><td style="text-align:right">0.383</td><td style="text-align:right">0.842</td><td style="text-align:right">0.216</td></tr>
+</tbody></table>
+<p><strong>表5：</strong>異なる層からの検出結果の評価。</p>
+
+<figure><img src="figs/fig2.jpg" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：</strong>DETR3D ヘッドの第 1 層から第 5 層までの検出結果。BEV においてバウンディングボックスを可視化し、<code>lidar_top</code> からの点群を重ねている。より深い層では予測が正解に近づく。</p>
+<p class="yakuchu">図中ラベル：Layer 1〜5＝第 1〜5 層、Ground-truth＝正解、LIDAR_TOP＝ルーフ上部 LiDAR（センサ名）</p>
+<a class="pg" data-page="9"></a>
+<table><thead><tr><th>クエリ数</th><th>30</th><th>100</th><th>300</th><th>600</th><th>900</th><th>1200</th><th>1500</th></tr></thead><tbody>
+<tr><td>mAP ↑</td><td style="text-align:right">0.201</td><td style="text-align:right">0.313</td><td style="text-align:right">0.338</td><td style="text-align:right">0.347</td><td style="text-align:right">0.346</td><td style="text-align:right">0.340</td><td style="text-align:right">0.346</td></tr>
+<tr><td>NDS ↑</td><td style="text-align:right">0.331</td><td style="text-align:right">0.408</td><td style="text-align:right">0.415</td><td style="text-align:right">0.420</td><td style="text-align:right">0.425</td><td style="text-align:right">0.415</td><td style="text-align:right">0.420</td></tr>
+</tbody></table>
+<p><strong>表6：</strong>クエリ数を変えた場合の結果。</p>
+
+<table><thead><tr><th>バックボーン ↑</th><th>NDS ↑</th><th>mAP ↑</th><th>mATE ↓</th><th>mASE ↓</th><th>mAOE ↓</th><th>mAVE ↓</th><th>mAAE ↓</th></tr></thead><tbody>
+<tr><td>ResNet50</td><td style="text-align:right">0.373</td><td style="text-align:right">0.302</td><td style="text-align:right">0.811</td><td style="text-align:right">0.282</td><td style="text-align:right">0.493</td><td style="text-align:right">0.979</td><td style="text-align:right">0.212</td></tr>
+<tr><td>ResNet101</td><td style="text-align:right">0.425</td><td style="text-align:right">0.346</td><td style="text-align:right">0.773</td><td style="text-align:right">0.268</td><td style="text-align:right">0.383</td><td style="text-align:right">0.842</td><td style="text-align:right">0.216</td></tr>
+<tr><td>DLA34</td><td style="text-align:right">0.394</td><td style="text-align:right">0.312</td><td style="text-align:right">0.829</td><td style="text-align:right">0.276</td><td style="text-align:right">0.450</td><td style="text-align:right">0.844</td><td style="text-align:right">0.221</td></tr>
+</tbody></table>
+<p><strong>表7：</strong>異なるバックボーンでの結果。</p>
+
+<figure><img src="figs/fig3.jpg" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：</strong>DETR3D の予測を BEV と画像視点の両方で可視化したもの。本モデルはかなり小さな物体や、正解としてアノテーションされていなかった物体（<code>CAM_BACK_LEFT</code> の車）さえも検出できる。失敗例としては、<code>CAM_FRONT</code> の遠方前方の車が検出されなかったことが挙げられる。</p>
+<p class="yakuchu">図中ラベル：Prediction＝予測、Ground-truth＝正解、LIDAR_TOP／CAM_FRONT_LEFT／CAM_FRONT／CAM_FRONT_RIGHT／CAM_BACK_LEFT／CAM_BACK／CAM_BACK_RIGHT＝センサ名（それぞれルーフ上部 LiDAR、左前・前・右前・左後・後・右後カメラ）</p>
+
+<a class="pg" data-page="10"></a>
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>X. Zhou, D. Wang, and P. Krähenbühl. Objects as points. <em>ArXiv</em>, abs/1904.07850, 2019.</li>
+<li>T. Wang, X. Zhu, J. Pang, and D. Lin. FCOS3D: Fully convolutional one-stage monocular 3d object detection. <em>arXiv:2104.10956</em>, 2021.</li>
+<li>Z. Tian, C. Shen, H. Chen, and T. He. FCOS: Fully convolutional one-stage object detection. In <em>Proc. Int. Conf. Computer Vision (ICCV)</em>, 2019.</li>
+<li>C. Godard, O. Mac Aodha, M. Firman, and G. J. Brostow. Digging into self-supervised monocular depth prediction. In <em>ICCV</em>, 2019.</li>
+<li>J. H. Lee, M.-K. Han, D. W. Ko, and I. H. Suh. From big to small: Multi-scale local planar guidance for monocular depth estimation. <em>arXiv:1907.10326</em>, 2019.</li>
+<li>V. Guizilini, R. Ambrus, S. Pillai, A. Raventos, and A. Gaidon. 3d packing for self-supervised monocular depth estimation. In <em>IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2020.</li>
+<li>A. Simonelli, S. Rota Bulò, L. Porzi, P. Kontschieder, and E. Ricci. Demystifying pseudo-lidar for monocular 3d object detection, 12 2020.</li>
+<li>K. He, X. Zhang, S. Ren, and J. Sun. Deep residual learning for image recognition. In <em>The IEEE Conference on Computer Vision and Pattern Recognition Recognition (CVPR)</em>, 2016.</li>
+<li>A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, Ł. Kaiser, and I. Polosukhin. Attention is all you need. In <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 2017.</li>
+<li>N. Carion, F. Massa, G. Synnaeve, N. Usunier, A. Kirillov, and S. Zagoruyko. End-to-end object detection with transformers. In <em>ECCV</em>, 2020.</li>
+<li>Anonymous. Object dgcnn: 3d object detection using dynamic graphs. 2021.</li>
+<li>R. Girshick, J. Donahue, T. Darrell, and J. Malik. Rich feature hierarchies for accurate object detection and semantic segmentation. In <em>The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2014.</li>
+<li>S. Ren, K. He, R. Girshick, and J. Sun. Faster R-CNN: Towards real-time object detection with region proposal networks. In <em>Neural Information Processing Systems (NeurIPS)</em>, 2015.</li>
+<li>K. He, G. Gkioxari, P. Dollár, and R. Girshick. Mask R-CNN. In <em>The International Conference on Computer Vision (ICCV)</em>, 2017.</li>
+<li>W. Liu, D. Anguelov, D. Erhan, C. Szegedy, S. Reed, C.-Y. Fu, and A. C. Berg. SSD: Single shot multibox detector. In <em>The European Conference on Computer Vision (ECCV)</em>, 2016.</li>
+<li>J. Redmon, S. K. Divvala, R. B. Girshick, and A. Farhadi. You only look once: Unified, real-time object detection. In <em>The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2016.</li>
+<li>X. Zhu, W. Su, L. Lu, B. Li, X. Wang, and J. Dai. Deformable {detr}: Deformable transformers for end-to-end object detection. In <em>International Conference on Learning Representations</em>, 2021. URL <a href="https://openreview.net/forum?id=gZ9hCDWe6ke">https://openreview.net/forum?id=gZ9hCDWe6ke</a>.</li>
+<li>Z. Sun, S. Cao, Y. Yang, and K. Kitani. Rethinking transformer-based set prediction for object detection. <em>ArXiv</em>, abs/2011.10881, 2020.</li>
+<li>P. Sun, R. Zhang, Y. Jiang, T. Kong, C. Xu, W. Zhan, M. Tomizuka, L. Li, Z. Yuan, C. Wang, and P. Luo. SparseR-CNN: End-to-end object detection with learnable proposals. <em>arXiv:2011.12450</em>, 2020.</li>
+<li>P. Sun, Y. Jiang, E. Xie, Z. Yuan, C. Wang, and P. Luo. OneNet: Towards end-to-end one-stage object detection. <em>arXiv: 2012.05780</em>, 2020.</li>
+</ol>
+<a class="pg" data-page="11"></a>
+<ol class="refs" start="21">
+<li>X. Chen, K. Kundu, Z. Zhang, H. Ma, S. Fidler, and R. Urtasun. Monocular 3d object detection for autonomous driving. In <em>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition</em>, pages 2147–2156, 2016.</li>
+<li>T. Roddick, A. Kendall, and R. Cipolla. Orthographic feature transform for monocular 3d object detection. <em>arXiv:1811.08188</em>, 2018.</li>
+<li>A. Mousavian, D. Anguelov, J. Flynn, and J. Kosecka. 3d bounding box estimation using deep learning and geometry. In <em>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition</em>, pages 7074–7082, 2017.</li>
+<li>W. Kehl, F. Manhardt, F. Tombari, S. Ilic, and N. Navab. Ssd-6d: Making rgb-based 3d detection and 6d pose estimation great again. In <em>Proceedings of the IEEE international conference on computer vision</em>, pages 1521–1529, 2017.</li>
+<li>J. Ku, A. D. Pon, and S. L. Waslander. Monocular 3d object detection leveraging accurate proposals and shape reconstruction. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 11867–11876, 2019.</li>
+<li>D. Beker, H. Kato, M. A. Morariu, T. Ando, T. Matsuoka, W. Kehl, and A. Gaidon. Monocular differentiable rendering for self-supervised 3d object detection. <em>arXiv:2009.14524</em>, 2020.</li>
+<li>I. Barabanau, A. Artemov, E. Burnaev, and V. Murashkin. Monocular 3d object detection via geometric reasoning on keypoints. <em>arXiv:1905.05618</em>, 2019.</li>
+<li>Z. Liu, Z. Wu, and R. Tóth. Smoke: single-stage monocular 3d object detection via keypoint estimation. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops</em>, pages 996–997, 2020.</li>
+<li>T.-Y. Lin, P. Dollár, R. Girshick, K. He, B. Hariharan, and S. Belongie. Feature pyramid networks for object detection. In <em>The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2017.</li>
+<li>R. Stewart, M. Andriluka, and A. Y. Ng. End-to-end people detection in crowded scenes. In <em>2016 IEEE Conference on Computer Vision and Pattern Recognition CVPR</em>, pages 2325–2333. IEEE Computer Society, 2016. doi:10.1109/CVPR.2016.255. URL <a href="https://doi.org/10.1109/CVPR.2016.255">https://doi.org/10.1109/CVPR.2016.255</a>.</li>
+<li>T.-Y. Lin, P. Goyal, R. Girshick, K. He, and P. Dollár. Focal Loss for Dense Object Detection. In <em>The International Conference on Computer Vision (ICCV)</em>, 2017.</li>
+<li>H. W. Kuhn and B. Yaw. The hungarian method for the assignment problem. <em>Naval Res. Logist. Quart</em>, pages 83–97, 1955.</li>
+<li>H. Caesar, V. Bankiti, A. H. Lang, S. Vora, V. E. Liong, Q. Xu, A. Krishnan, Y. Pan, G. Baldan, and O. Beijbom. nuscenes: A multimodal dataset for autonomous driving. <em>arXiv:1903.11027</em>, 2019.</li>
+<li>J. Dai, H. Qi, Y. Xiong, Y. Li, G. Zhang, H. Hu, and Y. Wei. Deformable convolutional networks. In <em>The International Conference on Computer Vision (ICCV)</em>, 2017.</li>
+<li>L. J. Ba, J. R. Kiros, and G. E. Hinton. Layer normalization. <em>CoRR</em>, 2016.</li>
+<li>I. Loshchilov and F. Hutter. Decoupled weight decay regularization. In <em>International Conference on Learning Representations</em>, 2019. URL <a href="https://openreview.net/forum?id=Bkg6RiCqY7">https://openreview.net/forum?id=Bkg6RiCqY7</a>.</li>
+<li>D. Park, R. Ambrus, V. Guizilini, J. Li, and A. Gaidon. Is pseudo-lidar needed for monocular 3d object detection? In <em>IEEE/CVF International Conference on Computer Vision (ICCV)</em>, 2021.</li>
+<li>F. Yu, D. Wang, E. Shelhamer, and T. Darrell. Deep layer aggregation. In <em>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, June 2018.</li>
+</ol>
+<a class="pg" data-page="12"></a>
+<ol class="refs" start="39">
+<li>B. Zhu, Z. Jiang, X. Zhou, Z. Li, and G. Yu. Class-balanced Grouping and Sampling for Point Cloud 3D Object Detection. <em>arXiv e-prints</em>, art. arXiv:1908.09492, Aug 2019.</li>
+<li>T. Wang, X. ZHU, J. Pang, and D. Lin. Probabilistic and geometric depth: Detecting objects in perspective. In <em>5th Annual Conference on Robot Learning</em>, 2021. URL <a href="https://openreview.net/forum?id=bEito8UUUmf">https://openreview.net/forum?id=bEito8UUUmf</a>.</li>
+<li>T. Yin, X. Zhou, and P. Krähenbühl. Center-based 3d object detection and tracking. <em>CVPR</em>, 2021.</li>
+<li>Y. Wang, W.-L. Chao, D. Garg, B. Hariharan, M. Campbell, and K. Weinberger. Pseudo-lidar from visual depth estimation: Bridging the gap in 3d object detection for autonomous driving. In <em>CVPR</em>, 2019.</li>
+</ol>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>

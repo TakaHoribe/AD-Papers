@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Lift-Splat-Shoot 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="Lift, Splat, Shoot: Encoding Images from Arbitrary Camera Rigs by Implicitly Unprojecting to 3D" />
+  <meta name="short-name" content="Lift-Splat-Shoot" />
+  <meta name="authors" content="Jonah Philion, Sanja Fidler（NVIDIA, University of Toronto, Vector Institute）" />
+  <meta name="source-pdf" content="05_Lift_Splat_Shoot_2008.05711.pdf" />
+  <meta name="source-pages" content="17" />
+  <meta name="pdf-href" content="05_Lift_Splat_Shoot_2008.05711.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="任意台数のカメラ画像を各画素の奥行き分布つき特徴の視錐台へ「持ち上げ（Lift）」、鳥瞰図（BEV）グリッドへ「投げ落とし（Splat）」てシーン表現をエンドツーエンドに学習する手法。nuScenes・Lyft の BEV セグメンテーションで既存手法を上回り、テンプレート軌道を BEV コストマップへ「撃ち込む（Shoot）」解釈可能な動作計画も示す。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">Lift-Splat-Shoot 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="05_Lift_Splat_Shoot_2008.05711.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+    <div class="page" data-page="13" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">13</div></div>
+    <div class="page" data-page="14" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">14</div></div>
+    <div class="page" data-page="15" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">15</div></div>
+    <div class="page" data-page="16" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">16</div></div>
+    <div class="page" data-page="17" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">17</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#lift-splat-shoot-encoding-images-from-arbitrary-camera-rigs-by-implicitly-unprojecting-to-3d" id="toc-lift-splat-shoot-encoding-images-from-arbitrary-camera-rigs-by-implicitly-unprojecting-to-3d">Lift, Splat, Shoot: Encoding Images from Arbitrary Camera Rigs by Implicitly Unprojecting to 3D</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a><ul>
+<li><a href="#2.1-単眼物体検出" id="toc-2.1-単眼物体検出">2.1　単眼物体検出</a></li>
+<li><a href="#2.2-鳥瞰図座標系での推論" id="toc-2.2-鳥瞰図座標系での推論">2.2　鳥瞰図座標系での推論</a></li>
+</ul></li>
+<li><a href="#3-手法" id="toc-3-手法">3　手法</a><ul>
+<li><a href="#3.1-lift潜在的な奥行き分布" id="toc-3.1-lift潜在的な奥行き分布">3.1　Lift：潜在的な奥行き分布</a></li>
+<li><a href="#3.2-splatピラープーリング" id="toc-3.2-splatピラープーリング">3.2　Splat：ピラープーリング</a></li>
+<li><a href="#3.3-shoot動作計画" id="toc-3.3-shoot動作計画">3.3　Shoot：動作計画</a></li>
+</ul></li>
+<li><a href="#4-実装" id="toc-4-実装">4　実装</a><ul>
+<li><a href="#4.1-アーキテクチャの詳細" id="toc-4.1-アーキテクチャの詳細">4.1　アーキテクチャの詳細</a></li>
+<li><a href="#4.2-視錐台プーリングの累積和トリック" id="toc-4.2-視錐台プーリングの累積和トリック">4.2　視錐台プーリングの累積和トリック</a></li>
+</ul></li>
+<li><a href="#5-実験と結果" id="toc-5-実験と結果">5　実験と結果</a><ul>
+<li><a href="#5.1-ベースラインの説明" id="toc-5.1-ベースラインの説明">5.1　ベースラインの説明</a></li>
+<li><a href="#5.2-セグメンテーション" id="toc-5.2-セグメンテーション">5.2　セグメンテーション</a></li>
+<li><a href="#5.3-頑健性" id="toc-5.3-頑健性">5.3　頑健性</a></li>
+<li><a href="#5.4-ゼロショットでのカメラリグ転移" id="toc-5.4-ゼロショットでのカメラリグ転移">5.4　ゼロショットでのカメラリグ転移</a></li>
+<li><a href="#5.5-オラクルの奥行きとのベンチマーク比較" id="toc-5.5-オラクルの奥行きとのベンチマーク比較">5.5　オラクルの奥行きとのベンチマーク比較</a></li>
+<li><a href="#5.6-動作計画" id="toc-5.6-動作計画">5.6　動作計画</a></li>
+</ul></li>
+<li><a href="#6-結論" id="toc-6-結論">6　結論</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="lift-splat-shoot-encoding-images-from-arbitrary-camera-rigs-by-implicitly-unprojecting-to-3d">Lift, Splat, Shoot: Encoding Images from Arbitrary Camera Rigs by Implicitly Unprojecting to 3D</h1>
+<p>Jonah Philion、Sanja Fidler<br />
+NVIDIA、University of Toronto、Vector Institute<br />
+arXiv:2008.05711v1 [cs.CV]、2020年8月13日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>05_Lift_Splat_Shoot_2008.05711.pdf</code>（全 17 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<figure><img src="figs/fig1.jpg" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：</strong>我々は、マルチビューのカメラデータ（左）が与えられたとき、鳥瞰図（bird's-eye-view; BEV）座標系（右）で直接セマンティクスを推論するモデルを提案する。車両セグメンテーション（青）、走行可能領域（オレンジ）、車線セグメンテーション（緑）を示す。これらの BEV 予測は、その後入力画像上に投影し戻されている（左の点）。</p>
+
+<h2 id="要旨">要旨</h2>
+<p>自動運転車における知覚の目的は、複数のセンサからセマンティックな表現を抽出し、それらの表現を単一の「鳥瞰図」座標系に融合して、動作計画（motion planning）で利用できるようにすることである。我々は、任意の台数のカメラから得た画像データが与えられたとき、シーンの鳥瞰図表現を直接抽出する新しいエンドツーエンドのアーキテクチャを提案する。本手法の中核となるアイデアは、各画像を個別にカメラごとの特徴の視錐台（frustum）へと「持ち上げ（lift）」、続いてすべての視錐台をラスタ化された鳥瞰図グリッドへと「スプラット（splat）」することである。カメラリグ全体で学習することにより、我々のモデルが画像の表現方法だけでなく、すべてのカメラからの予測をシーンの単一のまとまった表現へと融合する方法をも学習でき、しかもキャリブレーション誤差に対して頑健であることを示す証拠を提示する。物体セグメンテーションや地図セグメンテーションといった標準的な鳥瞰図タスクにおいて、我々のモデルはすべてのベースラインおよび先行研究を上回る。動作計画のための密な表現を学習するという目標を追求し、我々のモデルが推論した表現によって、テンプレート軌道をネットワークが出力する鳥瞰図コストマップへ「シュート（shoot）」することで、解釈可能なエンドツーエンドの動作計画が可能になることを示す。我々は本手法を、LiDAR によるオラクルの奥行きを用いるモデルと比較評価する。コード付きのプロジェクトページ：<a href="https://nv-tlabs.github.io/lift-splat-shoot">https://nv-tlabs.github.io/lift-splat-shoot</a>。</p>
+
+<a class="pg" data-page="2"></a>
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>コンピュータビジョンのアルゴリズムは一般に、画像を入力として受け取り、分類［19,30,16,17］のように座標系に依存しない予測か、物体検出、セマンティックセグメンテーション、パノプティックセグメンテーション［7,1,15,36］のように入力画像と同じ座標系での予測のいずれかを出力する。</p>
+<p>このパラダイムは、そのままでは自動運転における知覚の設定に合致しない。自動運転では、それぞれ異なる座標系を持つ複数のセンサが入力として与えられ、知覚モデルは最終的に、図2に示すように、下流のプランナーが利用するための新しい座標系、すなわち自車（ego car）の座標系で予測を生成することを求められる。</p>
+<p>単一画像のパラダイムをマルチビューの設定へ拡張するための、単純で実用的な戦略は数多く存在する。たとえば \(n\) 台のカメラからの 3D 物体検出の問題では、単一画像用の検出器をすべての入力画像に個別に適用し、その後、物体が検出されたカメラの内部パラメータと外部パラメータに従って各検出結果を回転・並進させて自車座標系へ移すことができる。単一ビューのパラダイムをマルチビューの設定へとこのように拡張すると、次の 3 つの有用な対称性が組み込まれる。</p>
+<ol>
+<li><strong>並進同変性</strong>：画像内のピクセル座標がすべてシフトすると、出力も同じ量だけシフトする。全畳み込み型の単一画像物体検出器はおおよそこの性質を持ち、マルチビューへの拡張はこの性質をそれらから受け継ぐ［11］［6］。</li>
+<li><strong>置換不変性</strong>：最終的な出力は \(n\) 台のカメラの特定の順序に依存しない。</li>
+<li><strong>自車座標系の等長変換同変性</strong>：画像を撮影したカメラが自車に対してどこに配置されていようと、与えられた画像の中では同じ物体が検出される。この性質の同値な言い方として、自車座標系の定義を回転・並進させることができ、出力もそれとともに回転・並進する。</li>
+</ol>
+<p>上記の単純なアプローチの欠点は、単一画像検出器による後処理済みの検出結果を用いると、自車座標系でなされた予測からセンサ入力に至るまで遡って微分することができなくなる点である。その結果、モデルはカメラ間で情報を融合する最良の方法をデータ駆動的に学習することができない。また、下流のプランナーからのフィードバックを用いて知覚システムを自動的に改善するために誤差逆伝播を利用することもできない。</p>
+<a class="pg" data-page="3"></a>
+<p>我々は、上で挙げた 3 つの対称性を設計上保持しつつ、エンドツーエンドで微分可能でもある「Lift-Splat」と名付けたモデルを提案する。第3節では、我々のモデルが文脈特徴の視錐台状の点群を生成することで画像を 3D へ「持ち上げ（lift）」、動作計画という下流タスクにとって都合のよい参照平面上へすべての視錐台を「スプラット（splat）」する方法を説明する。第3.3節では、解釈可能なエンドツーエンドの動作計画のために、提案軌道をこの参照平面へ「シュート（shoot）」する手法を提案する。第4節では、lift-splat モデルをカメラリグ全体で効率的に学習するための実装上の詳細を示す。第5節では、我々のモデルが、起こりうる入力の分布から得られる情報を融合するための効果的な仕組みを学習することを示す実験的証拠を提示する。</p>
+
+<figure><img src="figs/fig2.jpg" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：</strong>（左、SegNet［1］より）従来、セマンティックセグメンテーションのようなコンピュータビジョンのタスクでは、入力画像と同じ座標系で予測を行う。（右、Neural Motion Planner［41］より）これに対して、自動運転における計画は一般に鳥瞰図座標系で行われる。我々のモデルは、マルチビュー画像からのエンドツーエンドの計画のために、与えられた鳥瞰図座標系で直接予測を行う。</p>
+<p class="yakuchu">図中ラベル：Input＝入力、RGB Image＝RGB 画像、Convolutional Encoder-Decoder＝畳み込みエンコーダ・デコーダ、Pooling Indices＝プーリングのインデックス、Conv + Batch Normalisation + ReLU＝畳み込み＋バッチ正規化＋ReLU、Pooling＝プーリング、Upsampling＝アップサンプリング、Output＝出力、Segmentation＝セグメンテーション、image plane -&gt; image plane＝画像平面→画像平面、bird's-eye-view -&gt; bird's-eye-view＝鳥瞰図→鳥瞰図</p>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<p>複数のカメラからの画像データからまとまった表現を学習する我々のアプローチは、センサフュージョンおよび単眼物体検出における近年の研究を土台としている。Nutonomy［2］、Lyft［13］、Waymo［35］、Argo［3］による大規模なマルチモーダルデータセットにより、カメラ入力のみを条件として、自車周辺の 360° のシーン全体の完全な表現学習が最近になって可能になった。我々は Lift-Splat アーキテクチャによってその可能性を探る。</p>
+
+<h3 id="2.1-単眼物体検出">2.1　単眼物体検出</h3>
+<p>単眼物体検出器は、画像平面から所与の 3 次元参照座標系への変換をどのようにモデル化するかによって特徴づけられる。標準的な手法は、成熟した 2D 物体検出器を画像平面で適用し、続いて 2D ボックスを 3D ボックスへ回帰する第 2 のネットワークを学習するものである［12,26,31,27］。nuScenes ベンチマークにおける現在の最先端の 3D 物体検出器［31］は、誤った奥行きに起因する誤差と誤ったバウンディングボックスに起因する誤差とを切り分けようとする損失を用いて、標準的な 2D 検出器に奥行きも予測させるよう学習するアーキテクチャを用いている。これらのアプローチが 3D 物体検出ベンチマークで優れた性能を達成するのは、画像平面での検出によって、単眼の奥行き予測を覆う根本的な曖昧さの霧が切り離されるためである。</p>
+<p>近年実験的に成功を収めているアプローチとして、単眼の奥行き予測を行うネットワークと鳥瞰図での検出を行うネットワークとを別々に学習するものがある［39］［40］。これらのアプローチは「疑似 LiDAR（pseudolidar）」の名で呼ばれる。疑似 LiDAR が実験的に成功している直観的な理由は、疑似 LiDAR によって、検出結果が最終的に評価される座標系であり、かつ画像平面と比べてユークリッド距離がより意味を持つ座標系で動作する鳥瞰図ネットワークを学習できるようになるからである。</p>
+
+<a class="pg" data-page="4"></a>
+<figure><img src="figs/fig3.jpg" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：</strong>我々のモデルの「lift」ステップを可視化したもの。各ピクセルについて、奥行きに関するカテゴリ分布 \(\alpha \in \triangle^{D-1}\)（左）と文脈ベクトル \(\mathbf{c} \in \mathbb{R}^C\)（左上）を予測する。光線上の各点における特徴は、\(\alpha\) と \(\mathbf{c}\) の外積によって決まる（右）。</p>
+<p class="yakuchu">図中ラベル：depth distribution α＝奥行き分布 α、feature c＝特徴 c、per-pixel outer product＝ピクセルごとの外積</p>
+
+<p>単眼物体検出器の第 3 のカテゴリは、利用可能なすべてのカメラへの投影に基づいて特徴を取得する 3 次元物体プリミティブを用いる。Mono3D［4］は、地面上に 3 次元の候補を生成し、それらを利用可能な画像へ投影してスコア付けすることで、KITTI において最先端の単眼物体検出を達成した。Orthographic Feature Transform［29］は Mono3D を発展させ、固定されたボクセルの立方体を画像へ投影して特徴を収集し、続いてボクセル内の特徴を条件として 3D で検出を行う第 2 の「BEV」CNN を学習する。我々のモデルが対処する、これらのモデルの潜在的な性能上のボトルネックは、あるピクセルが、そのピクセルにおける物体の奥行きとは無関係に、すべてのボクセルへ同じ特徴を寄与してしまう点である。</p>
+
+<h3 id="2.2-鳥瞰図座標系での推論">2.2　鳥瞰図座標系での推論</h3>
+<p>鳥瞰図座標系で直接推論を行うために外部パラメータと内部パラメータを用いるモデルは、近年大きな関心を集めている。MonoLayout［21］は単一画像から鳥瞰図での推論を行い、もっともらしい隠れた物体をモデルが補完（inpaint）するよう促すために敵対的損失を用いる。同時期の研究である Pyramid Occupancy Networks［28］は、画像表現を鳥瞰図表現へ変換するトランスフォーマーアーキテクチャを提案している。同じく同時期の研究である FISHING Net［9］は、現在のタイムステップにおける物体のセグメンテーションと将来予測の両方を行うマルチビューアーキテクチャを提案している。第5節で、我々のモデルが先行研究を実験的に上回ることを示す。これらのアーキテクチャは、我々のものと同様に、機械学習グラフィックス分野の「マルチプレーン」画像［34,32,38,20］に類似したデータ構造を用いている。</p>
+
+<h2 id="3-手法">3　手法</h2>
+<p>本節では、任意のカメラリグで撮影された画像データからシーンの鳥瞰図表現を学習するための我々のアプローチを示す。我々は、第1節で挙げた対称性を尊重するようにモデルを設計する。</p>
+<a class="pg" data-page="5"></a>
+<p>形式的には、それぞれ外部パラメータ行列 \(\mathbf{E}_k \in \mathbb{R}^{3\times 4}\) と内部パラメータ行列 \(\mathbf{I}_k \in \mathbb{R}^{3\times 3}\) を伴う \(n\) 枚の画像 \(\{\mathbf{X}_k \in \mathbb{R}^{3\times H\times W}\}_n\) が与えられ、BEV 座標系におけるシーンのラスタ化された表現 \(\mathbf{y} \in \mathbb{R}^{C\times X\times Y}\) を求めることを目指す。外部パラメータ行列と内部パラメータ行列は合わせて、\(n\) 台の各カメラについて、参照座標 \((x,y,z)\) から局所ピクセル座標 \((h,w,d)\) への写像を定める。学習時にもテスト時にも、いかなる奥行きセンサへのアクセスも必要としない。</p>
+
+<h3 id="3.1-lift潜在的な奥行き分布">3.1　Lift：潜在的な奥行き分布</h3>
+<p>我々のモデルの第 1 段階は、カメラリグ内の各画像に対して独立に動作する。この段階の目的は、各画像を局所的な 2 次元座標系から、すべてのカメラで共有される 3 次元座標系へと「持ち上げる（lift）」ことである。</p>
+<p>単眼センサフュージョンの難しさは、参照座標系の座標へ変換するには奥行きが必要であるにもかかわらず、各ピクセルに対応する「奥行き」が本質的に曖昧であることにある。我々の提案する解決策は、各ピクセルについて、取りうるすべての奥行きにおける表現を生成することである。</p>
+<p>\(\mathbf{X} \in \mathbb{R}^{3\times H\times W}\) を外部パラメータ \(\mathbf{E}\) と内部パラメータ \(\mathbf{I}\) を伴う画像とし、\(p\) を画像座標 \((h,w)\) を持つ画像内のピクセルとする。各ピクセルに \(|D|\) 個の点 \(\{(h,w,d) \in \mathbb{R}^3 \mid d \in D\}\) を対応付ける。ここで \(D\) は離散的な奥行きの集合であり、たとえば \(\{d_0 + \Delta, ..., d_0 + |D|\Delta\}\) で定義される。この変換には学習可能なパラメータが一切ないことに注意されたい。我々は単に、与えられた画像に対してサイズ \(D \cdot H \cdot W\) の大きな点群を作成する。この構造は、マルチビュー合成の分野［38,32］がマルチプレーン画像と呼んできたものと等価であるが、我々の場合は各平面の特徴が \((r,g,b,\alpha)\) の値ではなく抽象的なベクトルである点が異なる。</p>
+<p>点群内の各点の文脈ベクトルは、注意機構と離散的な奥行き推論の概念に合致するようにパラメータ化される。ピクセル \(p\) において、ネットワークはすべてのピクセルについて文脈 \(\mathbf{c} \in \mathbb{R}^C\) と奥行きに関する分布 \(\alpha \in \triangle^{|D|-1}\) を予測する。そして点 \(p_d\) に対応する特徴 \(\mathbf{c}_d \in \mathbb{R}^C\) を、ピクセル \(p\) の文脈ベクトルを \(\alpha_d\) でスケーリングしたものとして定義する。</p>
+<p>\[ \mathbf{c}_d = \alpha_d \mathbf{c}. \tag{1} \]</p>
+<p>もしネットワークが \(\alpha\) としてワンホットベクトルを予測したとすると、点 \(p_d\) における文脈は、疑似 LiDAR［39］のように単一の奥行き \(d^*\) に対してのみ非ゼロとなることに注意されたい。ネットワークが奥行きについて一様分布を予測した場合には、OFT［29］のように、ピクセル \(p\) に割り当てられた各点 \(p_d\) に対して奥行きと無関係に同じ表現を予測することになる。したがって我々のネットワークは理論上、画像からの文脈を鳥瞰図表現の特定の位置に配置するか、それとも（たとえば奥行きが曖昧な場合に）空間の光線全体に文脈を広げるかを選択することができる。</p>
+<p>要約すると、理想的には、任意の空間位置で問い合わせることができ文脈ベクトルを返す関数 \(g_c : (x,y,z) \in \mathbb{R}^3 \to c \in \mathbb{R}^C\) を各画像について生成したい。離散的な畳み込みを活用するため、我々は空間を離散化することを選ぶ。カメラの場合、カメラから見える空間の体積は視錐台に対応する。図3に視覚的な説明を示す。</p>
+
+<h3 id="3.2-splatピラープーリング">3.2　Splat：ピラープーリング</h3>
+<a class="pg" data-page="6"></a>
+<p>「lift」ステップが出力する大きな点群を変換するために、我々は pointpillars［18］のアーキテクチャに従う。「ピラー（pillar）」とは高さが無限大のボクセルである。すべての点を最も近いピラーに割り当て、和プーリング（sum pooling）を行って、鳥瞰図推論のための標準的な CNN で処理できる \(C \times H \times W\) のテンソルを作成する。lift-splat アーキテクチャ全体の概要を図4に示す。</p>
+
+<figure><img src="figs/fig4.jpg" loading="lazy" alt="図4" /></figure>
+<p><strong>図4：Lift-Splat-Shoot の概要。</strong>我々のモデルは、\(n\) 枚の画像（左）とそれらに対応する外部パラメータおよび内部パラメータを入力として受け取る。「lift」ステップでは、個々の画像ごとに視錐台状の点群が生成される（中央左）。続いて外部パラメータと内部パラメータを用いて、各視錐台を鳥瞰図平面上へスプラットする（中央右）。最後に、鳥瞰図 CNN が鳥瞰図表現を処理し、BEV セマンティックセグメンテーションまたは計画を行う（右）。</p>
+<p class="yakuchu">図中ラベル：Per-Image CNN + Lift＝画像ごとの CNN＋Lift、Extrinsics + Splat＝外部パラメータ＋Splat、Bird's-Eye-View CNN＝鳥瞰図 CNN、xN＝×N</p>
+
+<p>OFT［29］がプーリングステップを高速化するために積分画像を用いるのと同様に、我々は和プーリングを高速化するために類似の手法を適用する。生成される点群のサイズを考えると、効率性はモデルの学習にとって極めて重要である。各ピラーをパディングしてから和プーリングを行う代わりに、パッキングを用い、和プーリングに「cumsum トリック」を活用することでパディングを回避する。第4.2節で説明するように、この演算は効率的に計算できる解析的な勾配を持ち、autograd を高速化できる。</p>
+
+<h3 id="3.3-shoot動作計画">3.3　Shoot：動作計画</h3>
+<p>我々の Lift-Splat モデルの重要な側面は、カメラのみの入力から動作計画のためのコストマップをエンドツーエンドで学習できることである。テスト時には、推論されたコストマップを用いた計画は、さまざまな軌道を「シュート（shoot）」し、それらのコストをスコア付けし、その後最もコストの低い軌道に従って行動することで実現できる［25］。第5.6節では、エンドツーエンドで解釈可能な動作計画を可能にする我々のモデルの能力を検証し、その性能を LiDAR ベースのエンドツーエンドのニューラル動作プランナーと比較する。</p>
+<p>我々は「計画」を、センサ観測を条件とした、自車に対する \(K\) 個のテンプレート軌道</p>
+<p>\[ \mathcal{T} = \{\tau_i\}_K = \{\{x_j, y_j, t_j\}_T\}_K \]</p>
+<p>上の分布 \(p(\tau|o)\) を予測することとして定式化する。我々のアプローチは、最近提案された Neural Motion Planner（NMP）［41］に着想を得ている。NMP は、点群と高精度地図を条件として、提案された軌道のスコア付けに使用できるコストボリュームを生成するアーキテクチャである。</p>
+<a class="pg" data-page="7"></a>
+<figure><img src="figs/fig5.jpg" loading="lazy" alt="図5" /></figure>
+<p><strong>図5：</strong>学習時およびテスト時に我々がコストマップ上へ「シュート」する 1K 個の軌道テンプレートを可視化したもの。学習時には、各テンプレート軌道のコストが計算され、テンプレート上の 1K 次元のボルツマン分布として解釈される。テスト時には、この分布の argmax を選び、選ばれたテンプレートに従って行動する。</p>
+<p class="yakuchu">図中ラベル：x (meters)＝x（メートル）、y (meters)＝y（メートル）</p>
+
+<p>NMP で提案されたハードマージン損失の代わりに、我々は計画を \(K\) 個のテンプレート軌道の集合に対する分類として定式化する。計画問題のコストボリューム的な性質を活用するため、\(K\) 個のテンプレート軌道上の分布が次の形をとるように強制する。</p>
+<p>\[ p(\tau_i|o) = \frac{\exp\left(-\sum\limits_{x_i,y_i \in \tau_i} c_o(x_i,y_i)\right)}{\sum\limits_{\tau \in \mathcal{T}} \exp\left(-\sum\limits_{x_i,y_i \in \tau} c_o(x_i,y_i)\right)} \tag{2} \]</p>
+<p>ここで \(c_o(x,y)\) は、観測 \(o\) が与えられたときに予測されたコストマップを位置 \(x,y\) で参照することで定義され、したがってエキスパート軌道の対数確率を最適化することによってデータからエンドツーエンドで学習できる。ラベルについては、正解軌道が与えられたとき、テンプレート軌道 \(\mathcal{T}\) の中から L2 距離での最近傍を計算し、交差エントロピー損失で学習する。この \(p(\tau_i|o)\) の定義により、NMP［41］のようにハードマージン損失を定義することなく、解釈可能な空間的コスト関数を学習することができる。</p>
+<p>実際には、多数のエキスパート軌道に対して K-Means を実行することで、テンプレート軌道の集合を決定する。我々の実験で用いる、コストマップ上への「シュート」に使用されるテンプレート軌道の集合を図5に可視化する。</p>
+
+<h2 id="4-実装">4　実装</h2>
+<h3 id="4.1-アーキテクチャの詳細">4.1　アーキテクチャの詳細</h3>
+<p>我々のモデルのニューラルアーキテクチャは OFT［29］に類似している。OFT と同様に、我々のモデルは 2 つの大きなネットワークバックボーンを持つ。一方のバックボーンは、各画像から生成された点群を特徴量化するために、各画像に対して個別に動作する。もう一方のバックボーンは、点群が参照座標系のピラーへスプラットされた後に、その点群に対して動作する。2 つのネットワークは、第3節で定義し図4で可視化した我々の lift-splat 層によって結合される。</p>
+<a class="pg" data-page="8"></a>
+<p>各画像に独立に動作するネットワークについては、ベースラインを含むすべてのモデルのすべての実験において、Imagenet［30］で事前学習された EfficientNet-B0［37］の層を利用する。EfficientNet は、資源が限られた条件下で網羅的なアーキテクチャ探索によって見出されたネットワークアーキテクチャであり、深さ、幅、解像度が比例してスケールアップされている。我々は、EfficientNet が、収束までにより多くの最適化ステップを要するという小さな不都合はあるものの、すべてのモデルにわたって ResNet-18/34/50［8］と比べて高い性能を可能にすることを見出した。</p>
+<p>鳥瞰図ネットワークには、PointPillars［18］と同様の ResNet ブロックの組み合わせを用いる。具体的には、カーネル 7・ストライド 2 の畳み込みに続いてバッチ正規化（batchnorm）［10］と ReLU［22］を適用した後、ResNet-18 の最初の 3 つのメタ層を通して、異なる解像度の 3 つの鳥瞰図表現 \(x_1, x_2, x_3\) を得る。続いて \(x_3\) をスケール係数 4 でアップサンプリングし、\(x_1\) と連結し、resnet ブロックを適用し、最後に 2 倍のアップサンプリングを行って、元の入力鳥瞰図疑似画像の解像度に戻す。最終的なネットワークの学習可能なパラメータ数は 14.3M である。</p>
+<p>我々のモデルの「解像度」を決めるハイパーパラメータがいくつかある。まず、入力画像のサイズ \(H \times W\) がある。以下のすべての実験において、入力画像をサイズ \(128 \times 352\) にリサイズ・クロップし、それに応じて外部パラメータと内部パラメータを調整する。ネットワークのもう 1 つの重要なハイパーパラメータは、鳥瞰図グリッド \(X \times Y\) の解像度のサイズである。我々の実験では、\(x\) と \(y\) の両方について -50 メートルから 50 メートルまで、0.5 メートル × 0.5 メートルのセルでビンを設定する。したがって得られるグリッドは \(200 \times 200\) となる。最後に、ネットワークが予測する奥行きの解像度を決める \(D\) の選択がある。我々は \(D\) を 4.0 メートルから 45.0 メートルまで 1.0 メートル間隔に制限する。これらのハイパーパラメータとアーキテクチャ設計の選択により、モデルの順伝播は Titan V GPU 上で 35 hz で動作する。</p>
+
+<h3 id="4.2-視錐台プーリングの累積和トリック">4.2　視錐台プーリングの累積和トリック</h3>
+<p>センサリグ全体のデータから学習するには、学習の効率性が極めて重要である。第3節でピラー間のプーリングとして最大値プーリングではなく和プーリングを選んだのは、我々の「累積和（cumulative sum）」トリックによって、パディングに起因する過剰なメモリ使用を避けられるからである。「累積和トリック」とは、すべての点をビン ID に従ってソートし、すべての特徴について累積和を計算し、その後ビン区間の境界における累積和の値を差し引くことによって和プーリングを実行できるという観察である。3 つのステップすべてを autograd で逆伝播させる代わりに、モジュール全体としての解析的な勾配を導出でき、学習が 2 倍高速化される。この層は、\(n\) 枚の画像が生成する視錐台を、カメラ台数 \(n\) に依存しない固定次元の \(C \times H \times W\) テンソルへと変換する処理を担うため、「視錐台プーリング（Frustum Pooling）」と呼ぶ。コードはプロジェクトページで入手できる。</p>
+<h2 id="5-実験と結果">5　実験と結果</h2>
+<a class="pg" data-page="9"></a>
+<p>我々の手法を評価するために、nuScenes［2］と Lyft Level 5［13］データセットを用いる。nuScenes は、それぞれ長さ 20 秒の 1k シーンから得られた点群データと画像データからなる大規模データセットである。両データセットのカメラリグは 6 台のカメラで構成され、それぞれおおよそ前方、左前方、右前方、左後方、右後方、後方を向いている。すべてのデータセットにおいて、カメラの視野の間にはわずかな重なりがある。カメラの外部パラメータと内部パラメータは、両データセットを通じて変動する。我々のモデルはカメラキャリブレーションを条件とするため、これらの変動に対処することができる。</p>
+<p>我々は、物体ベースのセグメンテーションタスク 2 つと、地図ベースのタスク 2 つを定義する。物体セグメンテーションタスクでは、3D バウンディングボックスを鳥瞰図平面へ投影することで、鳥瞰図における正解ターゲットを得る。nuScenes における乗用車（Car）セグメンテーションは、クラス <code>vehicle.car</code> のすべてのバウンディングボックスを指し、nuScenes における車両（Vehicle）セグメンテーションは、メタカテゴリ <code>vehicle</code> のすべてのバウンディングボックスを指す。Lyft における乗用車セグメンテーションはクラス <code>car</code> のすべてのバウンディングボックスを指し、nuScenes における車両セグメンテーションは、クラスが \(\in\) { <code>car, truck, other_vehicle, bus, bicycle</code> } であるすべてのバウンディングボックスを指す<span class="yakuchu">（訳注：文脈上、この「nuScenes」は「Lyft」の誤りと考えられる）</span>。地図作成については、提供されている 6 自由度（6 DOF）の自己位置推定を用いて nuScenes の地図レイヤを自車座標系へ変換し、ラスタ化する。</p>
+<p>すべての物体セグメンテーションタスクについて、正例重み 1.0 の二値交差エントロピーで学習する。車線セグメンテーションについては正例重みを 5.0 に設定し、道路セグメンテーションについては正例重み 1.0 を用いる［24］。すべての場合において、学習率 \(1e-3\)、重み減衰 \(1e-7\) の Adam［14］を用いて 300k ステップ学習する。PyTorch フレームワーク［23］を使用する。</p>
+<p>Lyft データセットには標準的な学習／検証の分割が付属していない。nuScenes とおおよそ同じサイズの検証セット（Lyft は 6048 サンプル、nuScenes は 6019 サンプル）を得るために、Lyft のシーンのうち 48 シーンを検証用に分離する。</p>
+
+<h3 id="5.1-ベースラインの説明">5.1　ベースラインの説明</h3>
+<p>通常の CNN とは異なり、我々のモデルは初期化の時点で 3 次元構造を備えている。標準的なモジュールで構成された CNN と比較することで、この構造が良好な性能にとって決定的に重要であることを示す。我々は MonoLayout［21］に類似したアーキテクチャに従う。MonoLayout も画像のみから鳥瞰図ラベルを出力する CNN を学習するが、アーキテクチャの設計において帰納バイアスを活用せず、単一カメラのみで学習する。このアーキテクチャは、すべての画像から独立に特徴を抽出する EfficientNet-B0 バックボーンを持つ。表現を連結し、双線形補間を行って、我々のモデルの出力と同様の \(\mathbb{R}^{X\times Y}\) テンソルへとアップサンプリングする。我々のモデルとおおよそ同じパラメータ数を持つようにネットワークを設計する。このベースラインの性能が低いことは、マルチビューの設定において第1節の対称性 3 をモデルに明示的に組み込むことがいかに重要であるかを示している。</p>
+<p>我々のモデルが有用な暗黙的奥行きを予測していることを示すために、事前学習済み CNN の重みを凍結した我々のモデル、および OFT［29］と比較する。表1と表2に示すように、我々はすべてのタスクでこれらのベースラインを上回る。また、同じセグメンテーションタスクでベンチマークを行っている同時期の研究［9］［28］も上回る。結果として、このアーキテクチャは、下流タスクにとって効果的な奥行き分布と効果的な文脈表現の両方を学習している。</p>
+
+<a class="pg" data-page="10"></a>
+<table>
+<thead>
+<tr><th rowspan="2"></th><th colspan="2">nuScenes</th><th colspan="2">Lyft</th></tr>
+<tr><th>乗用車（Car）</th><th>車両（Vehicles）</th><th>乗用車（Car）</th><th>車両（Vehicles）</th></tr>
+</thead>
+<tbody>
+<tr><td>CNN</td><td style="text-align:right">22.78</td><td style="text-align:right">24.25</td><td style="text-align:right">30.71</td><td style="text-align:right">31.91</td></tr>
+<tr><td>Frozen Encoder（凍結エンコーダ）</td><td style="text-align:right">25.51</td><td style="text-align:right">26.83</td><td style="text-align:right">35.28</td><td style="text-align:right">32.42</td></tr>
+<tr><td>OFT</td><td style="text-align:right">29.72</td><td style="text-align:right">30.05</td><td style="text-align:right">39.48</td><td style="text-align:right">40.43</td></tr>
+<tr><td>Lift-Splat（Us）</td><td style="text-align:right"><strong>32.06</strong></td><td style="text-align:right"><strong>32.07</strong></td><td style="text-align:right"><strong>43.09</strong></td><td style="text-align:right"><strong>44.64</strong></td></tr>
+<tr><td>PON<sup>*</sup>［28］</td><td style="text-align:right">24.7</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td></tr>
+<tr><td>FISHING<sup>*</sup>［9］</td><td style="text-align:right">-</td><td style="text-align:right">30.0</td><td style="text-align:right">-</td><td style="text-align:right">56.0</td></tr>
+</tbody>
+</table>
+<p><strong>表1：</strong>BEV 座標系におけるセグメンテーション IOU</p>
+
+<table>
+<thead>
+<tr><th></th><th>走行可能領域（Drivable Area）</th><th>車線境界（Lane Boundary）</th></tr>
+</thead>
+<tbody>
+<tr><td>CNN</td><td style="text-align:right">68.96</td><td style="text-align:right">16.51</td></tr>
+<tr><td>Frozen Encoder（凍結エンコーダ）</td><td style="text-align:right">61.62</td><td style="text-align:right">16.95</td></tr>
+<tr><td>OFT</td><td style="text-align:right">71.69</td><td style="text-align:right">18.07</td></tr>
+<tr><td>Lift-Splat（Us）</td><td style="text-align:right"><strong>72.94</strong></td><td style="text-align:right"><strong>19.96</strong></td></tr>
+<tr><td>PON<sup>*</sup>［28］</td><td style="text-align:right">60.4</td><td style="text-align:right">-</td></tr>
+</tbody>
+</table>
+<p><strong>表2：</strong>BEV 座標系における地図 IOU</p>
+
+<h3 id="5.2-セグメンテーション">5.2　セグメンテーション</h3>
+<p>我々の Lift-Splat モデルが、鳥瞰図座標系での教師信号が与えられれば、セマンティックな 3D 表現を学習できることを示す。物体セグメンテーションタスクの結果を表1に、地図セグメンテーションタスクの結果を表2に示す。すべてのベンチマークにおいて、我々はベースラインを上回る。暗黙的に 3D へ逆投影することによる性能向上の程度は、特に物体セグメンテーションにおいて大きいと我々は考える。同時期の 2 つの研究［9］［28］が報告している IOU スコアも掲載しているが、これらの論文はいずれも鳥瞰図グリッドの定義が異なり、Lyft データセットの検証分割も異なるため、真の意味での比較はまだできない。</p>
+
+<h3 id="5.3-頑健性">5.3　頑健性</h3>
+<p>鳥瞰図 CNN はカメラ間で情報を融合する方法をデータから学習するため、外部パラメータに偏りがある、あるいはカメラが故障するといった、自動運転で生じる単純なノイズモデルに対して頑健になるようにモデルを学習させることができる。図6では、学習中にカメラをドロップすることで、我々のモデルがテスト時にドロップされたカメラをよりうまく扱えるようになることを確認する。実際、6 台すべてのカメラが存在する場合に最も性能が高いモデルは、学習中にすべてのサンプルから 1 台のカメラをランダムにドロップして学習したモデルである。センサドロップアウトは、ほかのドロップアウトの変種［33］［5］と同様に、異なるカメラ上の画像間の相関をモデルに学習させるのだと我々は考える。図6の左では、ノイズを含む外部パラメータでモデルを学習させることで、テスト時の性能が向上しうることを示す。テスト時のノイズが小さい場合には、BEV CNN がスプラットの位置をより確信をもって信頼できるため、外部パラメータにノイズを一切加えずに学習したモデルが最も良い性能を示す。外部パラメータのノイズが大きい場合でも、我々のモデルは良好な性能を維持する。</p>
+<p>図7では、nuScenes における乗用車セグメンテーションの性能に対する各カメラの「重要度」を測定する。nuScenes でカメラを失うことは、車の周辺領域の特定の部分にセンサ計測が一切ないことを意味し、その結果、性能はセンサリグ全体を用いた場合の性能によって厳密に上から抑えられることに注意されたい。カメラの欠落によりネットワークが補完（inpaint）を行う定性的な例を図8に示す。このようにして各カメラの重要度を測定し、安全のためにセンサの冗長性がどこでより重要となるかを示唆する。</p>
+<a class="pg" data-page="11"></a>
+<figure><img src="figs/fig6_a.png" loading="lazy" alt="図6(a)" /></figure>
+<p>（a）テスト時の外部パラメータノイズ</p>
+<figure><img src="figs/fig6_b.png" loading="lazy" alt="図6(b)" /></figure>
+<p>（b）テスト時のカメラドロップアウト</p>
+<p><strong>図6：</strong>一般的なセンサ誤差の発生源に対して耐性を持つように我々のネットワークを学習させることが可能であることを示す。左では、外部パラメータに大きなノイズを加えて学習することで（青）、ネットワークがテスト時の外部パラメータノイズに対してより頑健になることを示す。右では、学習中に各バッチからカメラをランダムにドロップすることで（赤）、テスト時のセンサドロップアウトに対する頑健性が高まることを示す。</p>
+<p class="yakuchu">図中ラベル：Extrinsic Parameter Noise＝外部パラメータノイズ、Num Cameras＝カメラ台数、凡例（a）の 0.5／0.2／0.1／0.0 は学習時に加えた外部パラメータノイズの大きさ、凡例（b）の 6／5／4／3 は学習時に用いたカメラ台数を表すと考えられる</p>
+
+<figure><img src="figs/fig7.png" loading="lazy" alt="図7" /></figure>
+<p><strong>図7：</strong>各カメラが欠落しているときの乗用車セグメンテーションの intersection-over-union（IoU）を測定する。nuScenes のカメラリグの後方カメラはより広い視野を持つため、このカメラを失うと、カメラリグ全体が与えられた場合の性能（右側の「full」とラベル付けされたもの）と比べて最大の性能低下が生じるのは直観的である。</p>
+<p class="yakuchu">図中ラベル：Car Segmentation＝乗用車セグメンテーション、CAM BACK＝後方カメラ、CAM FRONT＝前方カメラ、CAM BACK LEFT＝左後方カメラ、CAM FRONT RIGHT＝右前方カメラ、CAM BACK RIGHT＝右後方カメラ、CAM FRONT LEFT＝左前方カメラ、full＝全カメラ（横軸は欠落させたカメラを示す）</p>
+
+<table>
+<thead>
+<tr><th></th><th>IOU</th></tr>
+</thead>
+<tbody>
+<tr><td>\(4\)</td><td style="text-align:right">26.53</td></tr>
+<tr><td>\(4 + 1_{fl}\)</td><td style="text-align:right">27.35</td></tr>
+<tr><td>\(4 + 1_{bl}\)</td><td style="text-align:right">27.27</td></tr>
+<tr><td>\(4 + 1_{bl} + 1_{fl}\)</td><td style="text-align:right"><strong>27.94</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表3：</strong>nuScenes データセットの 6 台のカメラのうち 4 台のみの画像で学習する。その後、新しいカメラ（\(1_{bl}\) は「左後方」カメラ、\(1_{fl}\) は「左前方」カメラに対応する）を加えて評価し、学習中に見ていないセンサを追加するにつれてモデルの性能が厳密に向上することを見出した。</p>
+
+<h3 id="5.4-ゼロショットでのカメラリグ転移">5.4　ゼロショットでのカメラリグ転移</h3>
+<p>次に、Lift-Splat の汎化能力を検証する。最初の実験では、nuScenes カメラリグのうち一部のカメラの画像のみで学習し、テスト時には残りの 2 台のカメラの画像にもアクセスできる場合の、我々のモデルの性能を測定する。表3では、再学習を一切行わなくても、テスト時に追加のカメラが利用可能になると、乗用車セグメンテーションにおける我々のモデルの性能が向上することを示す。</p>
+<p>上記の実験をさらに一歩進め、nuScenes データのみで学習した場合に、我々のモデルが Lyft のカメラリグにどの程度よく汎化するかを検証する。転移の定性的な結果を図9に、ベースラインの汎化性能とのベンチマーク比較を表4に示す。</p>
+
+<a class="pg" data-page="12"></a>
+<figure><img src="figs/fig8.jpg" loading="lazy" alt="図8" /></figure>
+<p><strong>図8：</strong>ある単一のタイムスタンプについて、各カメラを 1 台ずつ取り除き、カメラの喪失がネットワークの予測にどのように影響するかを可視化する。どの場合でも、欠落したカメラがカバーしていた領域はよりぼやけたものになる。前方カメラを取り除いた場合（上段中央）、ネットワークは自車前方の車線と走行可能領域を外挿し、また右上のカメラで角しか見えていない車の車体を外挿する。</p>
+
+<table>
+<thead>
+<tr><th></th><th>Lyft 乗用車（Lyft Car）</th><th>Lyft 車両（Lyft Vehicle）</th></tr>
+</thead>
+<tbody>
+<tr><td>CNN</td><td style="text-align:right">7.00</td><td style="text-align:right">8.06</td></tr>
+<tr><td>Frozen Encoder（凍結エンコーダ）</td><td style="text-align:right">15.08</td><td style="text-align:right">15.82</td></tr>
+<tr><td>OFT</td><td style="text-align:right">16.25</td><td style="text-align:right">16.27</td></tr>
+<tr><td>Lift-Splat（Us）</td><td style="text-align:right"><strong>21.35</strong></td><td style="text-align:right"><strong>22.59</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表4：</strong>nuScenes でモデルを学習し、Lyft で評価する。Lyft のカメラは nuScenes のカメラとはまったく異なるが、我々のモデルはベースラインよりもはるかに良く汎化することに成功している。我々のモデルが、表1と表2の標準ベンチマークよりも差を広げていることに注意されたい。</p>
+
+<h3 id="5.5-オラクルの奥行きとのベンチマーク比較">5.5　オラクルの奥行きとのベンチマーク比較</h3>
+<p>我々のモデルを、LIDAR 点群から得られる真の奥行きを用いる pointpillars［18］アーキテクチャと比較する。表5に示すように、すべてのタスクにわたって、我々のアーキテクチャは LIDAR の単一スキャンで学習した pointpillars よりもわずかに性能が劣る。しかし、少なくとも走行可能領域のセグメンテーションにおいては、LIDAR の性能に迫っていることを指摘しておく。一般に現実世界では、すべての車線が LiDAR スキャンで見えるわけではない。今後、より幅広い環境で性能を測定したいと考えている。</p>
+<p>我々のモデルが LIDAR とどのように異なるかについての洞察を得るために、自車からの距離と気象条件という 2 つの制御変量に応じて、乗用車セグメンテーションの性能がどのように変化するかをプロットする。シーンの天候は、nuScenes データセットのすべてのシーントークンに付随する説明文字列から判定する。結果を図10に示す。予想どおり、夜間のシーンでは我々のモデルの性能が pointpillars よりも大幅に劣ることがわかる。また、両モデルとも奥行きが増すにつれておおよそ線形に性能が低下することもわかる。</p>
+
+<h3 id="5.6-動作計画">5.6　動作計画</h3>
+<a class="pg" data-page="13"></a>
+<p>最後に、Lift-Splat が出力する表現をコスト関数となるように学習させることで、計画を行う我々のモデルの能力を評価する。我々が生成する軌道は長さ 5 秒で、0.25 秒間隔である。テンプレートを得るために、nuScenes の学習セットに含まれるすべての自車軌道に対して \(K = 1000\) の K-Means を当てはめる。テスト時には、L2 ノルムのもとで正解軌道に最も近いテンプレートをネットワークがどの程度うまく予測できるかを測定する。この実験の正解ターゲットは正解の 3D バウンディングボックスよりも桁違いに安価に取得できるため、このタスクは自動運転にとって重要な実験である。また、このタスクはカメラベースのアプローチと LiDAR ベースのアプローチの性能をベンチマーク比較するうえでも重要である。というのも、カメラのみによる 3D 物体検出の上限は確かに LiDAR のみによるものによって上から抑えられるが、カメラのみを用いる最適なプランナーは、原理的には LiDAR のみから学習した最適なプランナーの性能を上から抑えるはずだからである。</p>
+
+<figure><img src="figs/fig9.jpg" loading="lazy" alt="図9" /></figure>
+<p><strong>図9：</strong>テスト時にまったく新しいカメラリグが与えられたときに我々のモデルがどのように動作するかを定性的に示す。道路セグメンテーションをオレンジ、車線セグメンテーションを緑、車両セグメンテーションを青で示す。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2"></th><th rowspan="2">走行可能領域（Drivable Area）</th><th rowspan="2">車線境界（Lane Boundary）</th><th colspan="2">nuScenes</th><th colspan="2">Lyft</th></tr>
+<tr><th>乗用車（Car）</th><th>車両（Vehicle）</th><th>乗用車（Car）</th><th>車両（Vehicle）</th></tr>
+</thead>
+<tbody>
+<tr><td>Oracle Depth（1 scan）</td><td style="text-align:right">74.91</td><td style="text-align:right">25.12</td><td style="text-align:right">40.26</td><td style="text-align:right">44.48</td><td style="text-align:right">74.96</td><td style="text-align:right">76.16</td></tr>
+<tr><td>Oracle Depth（\(\gt\) 1 scan）</td><td style="text-align:right">76.96</td><td style="text-align:right">26.80</td><td style="text-align:right">45.36</td><td style="text-align:right">49.51</td><td style="text-align:right">75.42</td><td style="text-align:right">76.49</td></tr>
+<tr><td>Lift-Splat（Us）</td><td style="text-align:right">70.81</td><td style="text-align:right">19.58</td><td style="text-align:right">32.06</td><td style="text-align:right">32.07</td><td style="text-align:right">43.09</td><td style="text-align:right">44.64</td></tr>
+</tbody>
+</table>
+<p><strong>表5：</strong>LiDAR によるオラクルの奥行きを用いるモデルと比較すると、まだ改善の余地がある。LiDAR を上回るのに必要な奥行き推定を得るには、カメラリグからの動画による推論がおそらく必要である。<span class="yakuchu">（訳注：Oracle Depth（1 scan）＝オラクル奥行き（LiDAR 1 スキャン）、Oracle Depth（&gt; 1 scan）＝オラクル奥行き（LiDAR 複数スキャン）。なお Lift-Splat の走行可能領域 70.81・車線境界 19.58 は、表2の値 72.94・19.96 と一致していない。原文のまま掲載した）</span></p>
+
+<p>計画実験の定性的な結果を図11に示す。pointpillars とのベンチマーク比較による実験結果を表6に示す。出力された軌道は、道路境界に沿って進む、横断歩道やブレーキをかけている車両の後ろで停止するといった望ましい振る舞いを示している。</p>
+
+<h2 id="6-結論">6　結論</h2>
+<a class="pg" data-page="14"></a>
+<p>本研究では、任意のカメラリグから鳥瞰図表現を推論するよう設計されたアーキテクチャを提示した。我々のモデルは、学習時にもテスト時にも正解の奥行きデータに一切アクセスすることなく、鳥瞰図座標系でセマンティクスを表現するモデルの能力を検証するよう設計された一連のベンチマークセグメンテーションタスクにおいて、ベースラインを上回る。我々は、単純なキャリブレーションノイズのモデルに対してネットワークを頑健にするための、モデルの学習方法を提示した。最後に、このモデルが、軌道シューティングのパラダイムに従うエンドツーエンドの動作計画を可能にすることを示した。点群からの正解奥行きデータのみを用いる類似ネットワークの性能に並び、さらには上回るためには、今後の研究では、本研究で扱った単一のタイムステップではなく、複数のタイムステップの画像を条件とする必要があるだろう。</p>
+
+<figure><img src="figs/fig10_a.png" loading="lazy" alt="図10(a)" /></figure>
+<p>（a）距離に対する IOU</p>
+<figure><img src="figs/fig10_b.png" loading="lazy" alt="図10(b)" /></figure>
+<p>（b）天候に対する IOU</p>
+<p><strong>図10：</strong>我々のモデルの性能が奥行きと天候によってどのように変化するかを比較する。予想どおり、夜間には我々のモデルの性能は pointpillars と比べて低下する。</p>
+<p class="yakuchu">図中ラベル：Camera＝カメラ、Lidar＝LiDAR、Distance (m)＝距離（m）、rain＝雨、night＝夜間、other＝その他</p>
+
+<figure><img src="figs/fig11.jpg" loading="lazy" alt="図11" /></figure>
+<p><strong>図11：</strong>1k 個のテンプレートのうち上位 10 位までにランク付けされた軌道を表示する。動画シーケンスはプロジェクトページで提供している。我々のモデルは、単一のタイムスタンプの観測から二峰性の分布やカーブを予測する。我々のモデルは車の速度にアクセスできないため、横断歩道やブレーキランプの近くで低速の軌道を予測することは注目に値する。</p>
+
+<table>
+<thead>
+<tr><th></th><th>Top 5</th><th>Top 10</th><th>Top 20</th></tr>
+</thead>
+<tbody>
+<tr><td>Lidar（1 scan）</td><td style="text-align:right">19.27</td><td style="text-align:right">28.88</td><td style="text-align:right">41.93</td></tr>
+<tr><td>Lidar（10 scans）</td><td style="text-align:right">24.99</td><td style="text-align:right">35.39</td><td style="text-align:right">49.84</td></tr>
+<tr><td>Lift-Splat（Us）</td><td style="text-align:right">15.52</td><td style="text-align:right">19.94</td><td style="text-align:right">27.99</td></tr>
+</tbody>
+</table>
+<p><strong>表6：</strong>計画は 1K 個のテンプレート軌道の集合の中での分類として定式化されているため、top-5、top-10、top-20 の正解率を測定する。我々のモデルは、汎化の点でまだ LiDAR ベースのアプローチに遅れをとっていることがわかる。我々のモデルが出力する軌道の定性的な例を図11に示す。</p>
+<a class="pg" data-page="15"></a>
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>Badrinarayanan, V., Kendall, A., Cipolla, R.: Segnet: A deep convolutional encoder-decoder architecture for image segmentation. CoRR <strong>abs/1511.00561</strong> (2015), <a href="http://arxiv.org/abs/1511.00561">http://arxiv.org/abs/1511.00561</a></li>
+<li>Caesar, H., Bankiti, V., Lang, A.H., Vora, S., Liong, V.E., Xu, Q., Krishnan, A., Pan, Y., Baldan, G., Beijbom, O.: nuscenes: A multimodal dataset for autonomous driving. CoRR <strong>abs/1903.11027</strong> (2019), <a href="http://arxiv.org/abs/1903.11027">http://arxiv.org/abs/1903.11027</a></li>
+<li>Chang, M.F., Ramanan, D., Hays, J., Lambert, J., Sangkloy, P., Singh, J., Bak, S., Hartnett, A., Wang, D., Carr, P., et al.: Argoverse: 3d tracking and forecasting with rich maps. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (Jun 2019)</li>
+<li>Chen, X., Kundu, K., Zhang, Z., Ma, H., Fidler, S., Urtasun, R.: Monocular 3d object detection for autonomous driving. In: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR). pp. 2147–2156 (06 2016)</li>
+<li>Ghiasi, G., Lin, T., Le, Q.V.: Dropblock: A regularization method for convolutional networks. CoRR <strong>abs/1810.12890</strong> (2018), <a href="http://arxiv.org/abs/1810.12890">http://arxiv.org/abs/1810.12890</a></li>
+<li>Goodfellow, I., Bengio, Y., Courville, A.: Deep Learning. MIT Press (2016), <a href="http://www.deeplearningbook.org">http://www.deeplearningbook.org</a></li>
+<li>He, K., Gkioxari, G., Dollár, P., Girshick, R.B.: Mask R-CNN. CoRR <strong>abs/1703.06870</strong> (2017), <a href="http://arxiv.org/abs/1703.06870">http://arxiv.org/abs/1703.06870</a></li>
+<li>He, K., Zhang, X., Ren, S., Sun, J.: Deep residual learning for image recognition. CoRR <strong>abs/1512.03385</strong> (2015), <a href="http://arxiv.org/abs/1512.03385">http://arxiv.org/abs/1512.03385</a></li>
+<li>Hendy, N., Sloan, C., Tian, F., Duan, P., Charchut, N., Xie, Y., Wang, C., Philbin, J.: Fishing net: Future inference of semantic heatmaps in grids (2020)</li>
+<li>Ioffe, S., Szegedy, C.: Batch normalization: Accelerating deep network training by reducing internal covariate shift. CoRR <strong>abs/1502.03167</strong> (2015), <a href="http://arxiv.org/abs/1502.03167">http://arxiv.org/abs/1502.03167</a></li>
+<li>Kayhan, O.S., Gemert, J.C.v.: On translation invariance in cnns: Convolutional layers can exploit absolute spatial location. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (June 2020)</li>
+<li>Kehl, W., Manhardt, F., Tombari, F., Ilic, S., Navab, N.: SSD-6D: making rgb-based 3d detection and 6d pose estimation great again. CoRR <strong>abs/1711.10006</strong> (2017)</li>
+<li>Kesten, R., Usman, M., Houston, J., Pandya, T., Nadhamuni, K., Ferreira, A., Yuan, M., Low, B., Jain, A., Ondruska, P., Omari, S., Shah, S., Kulkarni, A., Kazakova, A., Tao, C., Platinsky, L., Jiang, W., Shet, V.: Lyft level 5 av dataset 2019. urlhttps://level5.lyft.com/dataset/ (2019)</li>
+<li>Kingma, D.P., Ba, J.: Adam: A method for stochastic optimization. CoRR <strong>abs/1412.6980</strong> (2014)</li>
+<li>Kirillov, A., He, K., Girshick, R.B., Rother, C., Dollár, P.: Panoptic segmentation. CoRR <strong>abs/1801.00868</strong> (2018), <a href="http://arxiv.org/abs/1801.00868">http://arxiv.org/abs/1801.00868</a></li>
+<li>Krizhevsky, A.: Learning multiple layers of features from tiny images (2009)</li>
+<li>Krizhevsky, A., Sutskever, I., Hinton, G.E.: Imagenet classification with deep convolutional neural networks. In: Pereira, F., Burges, C.J.C., Bottou, L., Weinberger, K.Q. (eds.) Advances in Neural Information Processing Systems 25, pp. 1097–1105. Curran Associates, Inc. (2012), <a href="http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf">http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf</a></li>
+</ol>
+<a class="pg" data-page="16"></a>
+<ol class="refs" start="18">
+<li>Lang, A.H., Vora, S., Caesar, H., Zhou, L., Yang, J., Beijbom, O.: Pointpillars: Fast encoders for object detection from point clouds. CoRR <strong>abs/1812.05784</strong> (2018)</li>
+<li>Lecun, Y., Bottou, L., Bengio, Y., Haffner, P.: Gradient-based learning applied to document recognition. In: Proceedings of the IEEE. pp. 2278–2324 (1998)</li>
+<li>Lombardi, S., Simon, T., Saragih, J., Schwartz, G., Lehrmann, A., Sheikh, Y.: Neural volumes. ACM Transactions on Graphics <strong>38</strong>(4), 114 (Jul 2019). https://doi.org/10.1145/3306346.3323020, <a href="http://dx.doi.org/10.1145/3306346.3323020">http://dx.doi.org/10.1145/3306346.3323020</a></li>
+<li>Mani, K., Daga, S., Garg, S., Shankar, N.S., Jatavallabhula, K.M., Krishna, K.M.: Monolayout: Amodal scene layout from a single image. ArXiv <strong>abs/2002.08394</strong> (2020)</li>
+<li>Nair, V., Hinton, G.E.: Rectified linear units improve restricted boltzmann machines. In: ICML (2010)</li>
+<li>Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., Killeen, T., Lin, Z., Gimelshein, N., Antiga, L., Desmaison, A., Köpf, A., Yang, E., DeVito, Z., Raison, M., Tejani, A., Chilamkurthy, S., Steiner, B., Fang, L., Bai, J., Chintala, S.: Pytorch: An imperative style, high-performance deep learning library. In: NeurIPS (2019)</li>
+<li>Philion, J.: Fastdraw: Addressing the long tail of lane detection by adapting a sequential prediction network. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (June 2019)</li>
+<li>Philion, J., Kar, A., Fidler, S.: Learning to evaluate perception models using planner-centric metrics. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (June 2020)</li>
+<li>Poirson, P., Ammirato, P., Fu, C., Liu, W., Kosecka, J., Berg, A.C.: Fast single shot detection and pose estimation. CoRR <strong>abs/1609.05590</strong> (2016)</li>
+<li>Qin, Z., Wang, J., Lu, Y.: Monogrnet: A geometric reasoning network for monocular 3d object localization. Proceedings of the AAAI Conference on Artificial Intelligence <strong>33</strong>, 8851–8858 (07 2019). https://doi.org/10.1609/aaai.v33i01.33018851</li>
+<li>Roddick, T., Cipolla, R.: Predicting semantic map representations from images using pyramid occupancy networks. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (June 2020)</li>
+<li>Roddick, T., Kendall, A., Cipolla, R.: Orthographic feature transform for monocular 3d object detection. CoRR <strong>abs/1811.08188</strong> (2018)</li>
+<li>Russakovsky, O., Deng, J., Su, H., Krause, J., Satheesh, S., Ma, S., Huang, Z., Karpathy, A., Khosla, A., Bernstein, M., Berg, A.C., Fei-Fei, L.: Imagenet large scale visual recognition challenge (2014)</li>
+<li>Simonelli, A., Bulò, S.R., Porzi, L., López-Antequera, M., Kontschieder, P.: Disentangling monocular 3d object detection. CoRR <strong>abs/1905.12365</strong> (2019)</li>
+<li>Srinivasan, P.P., Mildenhall, B., Tancik, M., Barron, J.T., Tucker, R., Snavely, N.: Lighthouse: Predicting lighting volumes for spatially-coherent illumination (2020)</li>
+<li>Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., Salakhutdinov, R.: Dropout: A simple way to prevent neural networks from overfitting. Journal of Machine Learning Research <strong>15</strong>, 1929–1958 (2014)</li>
+<li>Su, H., Jampani, V., Sun, D., Maji, S., Kalogerakis, E., Yang, M., Kautz, J.: Splatnet: Sparse lattice networks for point cloud processing. CoRR <strong>abs/1802.08275</strong> (2018), <a href="http://arxiv.org/abs/1802.08275">http://arxiv.org/abs/1802.08275</a></li>
+<li>Sun, P., Kretzschmar, H., Dotiwalla, X., Chouard, A., Patnaik, V., Tsui, P., Guo, J., Zhou, Y., Chai, Y., Caine, B., Vasudevan, V., Han, W., Ngiam, J., Zhao, H., Timofeev, A., Ettinger, S., Krivokon, M., Gao, A., Joshi, A., Zhang, Y., Shlens, J., Chen, Z., Anguelov, D.: Scalability in perception for autonomous driving: Waymo open dataset (2019)</li>
+</ol>
+<a class="pg" data-page="17"></a>
+<ol class="refs" start="36">
+<li>Takikawa, T., Acuna, D., Jampani, V., Fidler, S.: Gated-scnn: Gated shape cnns for semantic segmentation. In: Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) (October 2019)</li>
+<li>Tan, M., Le, Q.V.: Efficientnet: Rethinking model scaling for convolutional neural networks. CoRR <strong>abs/1905.11946</strong> (2019), <a href="http://arxiv.org/abs/1905.11946">http://arxiv.org/abs/1905.11946</a></li>
+<li>Tucker, R., Snavely, N.: Single-view view synthesis with multiplane images (2020)</li>
+<li>Wang, Y., Chao, W., Garg, D., Hariharan, B., Campbell, M., Weinberger, K.Q.: Pseudo-lidar from visual depth estimation: Bridging the gap in 3d object detection for autonomous driving. CoRR <strong>abs/1812.07179</strong> (2018)</li>
+<li>You, Y., Wang, Y., Chao, W., Garg, D., Pleiss, G., Hariharan, B., Campbell, M., Weinberger, K.Q.: Pseudo-lidar++: Accurate depth for 3d object detection in autonomous driving. CoRR <strong>abs/1906.06310</strong> (2019)</li>
+<li>Zeng, W., Luo, W., Suo, S., Sadat, A., Yang, B., Casas, S., Urtasun, R.: End-to-end interpretable neural motion planner. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) pp. 8652–8661 (2019)</li>
+</ol>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>

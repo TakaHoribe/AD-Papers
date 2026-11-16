@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill)" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>BEVFusion 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="BEVFusion: Multi-Task Multi-Sensor Fusion with Unified Bird&#39;s-Eye View Representation" />
+  <meta name="short-name" content="BEVFusion" />
+  <meta name="authors" content="Zhijian Liu, Haotian Tang, Alexander Amini, Xinyu Yang, Huizi Mao, Daniela L. Rus, Song Han（MIT, OmniML）" />
+  <meta name="source-pdf" content="09_BEVFusion_2205.13542.pdf" />
+  <meta name="source-pages" content="8" />
+  <meta name="pdf-href" content="09_BEVFusion_2205.13542.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="カメラと LiDAR の特徴を共有の鳥瞰図（BEV）空間で統合するマルチタスク・マルチセンサ融合フレームワーク。BEV プーリングを 40 倍以上高速化し、nuScenes の 3D 物体検出と BEV 地図セグメンテーションで最高性能を達成した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; }
+body{font-family:'Noto Sans JP','Noto Sans CJK JP','Yu Gothic','Meiryo',sans-serif;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1;color:#182634;max-width:1020px;margin:0 auto;padding:48px 38px;background:#fff;font-size:16px}
+h1{font-size:30px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:18px}
+h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:24px}
+h3{margin-top:2em;font-size:20px;color:#244b64}
+h4{margin-top:1.6em;font-size:17px;color:#244b64}
+p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+figure{margin:20px 0}
+figcaption{display:none}
+table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0}
+th,td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+th{background:#eaf1f5}
+td:first-child{white-space:nowrap}
+blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+code{font-family:Consolas,'Courier New',monospace;white-space:pre-wrap}
+pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+a{color:#215c80;overflow-wrap:anywhere}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+.src-meta{color:#5b6b78;font-size:13px;margin-top:-10px}
+ol.refs li{margin-bottom:6px;font-size:14px}
+@media (max-width: 700px){
+ body{padding:20px 16px;font-size:15px}
+ h1{font-size:22px}h2{font-size:19px}h3{font-size:17px}
+ table{display:block;overflow-x:auto}
+ #TOC{padding:14px 16px}
+}
+@media print{
+ body{font-size:10pt;padding:0;max-width:none}
+ h1{font-size:23pt}h2{font-size:17pt;break-after:avoid}h3{font-size:13pt;break-after:avoid}
+ p{orphans:3;widows:3}table{font-size:7pt;break-inside:avoid}img{max-height:180mm;break-inside:avoid}
+ pre{font-size:7pt;white-space:pre-wrap}a{color:inherit}#TOC{break-after:page}
+ @page{size:A4;margin:18mm 15mm}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">BEVFusion 全文日本語訳</h1>
+<p class="src-meta">原文PDF: <a href="09_BEVFusion_2205.13542.pdf">09_BEVFusion_2205.13542.pdf</a>（8ページ）　／　<a href="index.html">原文と並べて読む</a>　／　翻訳生成日: 2026-11-16</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#bevfusion-multi-task-multi-sensor-fusion-with-unified-birds-eye-view-representation" id="toc-bevfusion-multi-task-multi-sensor-fusion-with-unified-birds-eye-view-representation">BEVFusion: Multi-Task Multi-Sensor Fusion with Unified Bird's-Eye View Representation</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a></li>
+<li><a href="#3-手法" id="toc-3-手法">3　手法</a><ul>
+<li><a href="#3.1-統一表現" id="toc-3.1-統一表現">3.1　統一表現</a></li>
+<li><a href="#3.2-効率的なカメラから-bev-への変換" id="toc-3.2-効率的なカメラから-bev-への変換">3.2　効率的なカメラから BEV への変換</a></li>
+<li><a href="#3.3-完全畳み込み融合" id="toc-3.3-完全畳み込み融合">3.3　完全畳み込み融合</a></li>
+<li><a href="#3.4-マルチタスクヘッド" id="toc-3.4-マルチタスクヘッド">3.4　マルチタスクヘッド</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a><ul>
+<li><a href="#4.1-3d-物体検出" id="toc-4.1-3d-物体検出">4.1　3D 物体検出</a></li>
+<li><a href="#4.2-bev-地図セグメンテーション" id="toc-4.2-bev-地図セグメンテーション">4.2　BEV 地図セグメンテーション</a></li>
+</ul></li>
+<li><a href="#5-分析" id="toc-5-分析">5　分析</a></li>
+<li><a href="#6-結論" id="toc-6-結論">6　結論</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+<a class="pg" data-page="1"></a>
+<h1 id="bevfusion-multi-task-multi-sensor-fusion-with-unified-birds-eye-view-representation">BEVFusion: Multi-Task Multi-Sensor Fusion with Unified Bird's-Eye View Representation</h1>
+<p>Zhijian Liu<sup>*,1</sup>、Haotian Tang<sup>*,1</sup>、Alexander Amini<sup>1</sup>、Xinyu Yang<sup>1</sup>、Huizi Mao<sup>2</sup>、Daniela L. Rus<sup>1</sup>、Song Han<sup>1</sup><br />
+<sup>1</sup> Massachusetts Institute of Technology、<sup>2</sup> OmniML<br />
+arXiv:2205.13542v3 [cs.CV]、2024年9月1日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>09_BEVFusion_2205.13542.pdf</code>（全 8 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p><strong>マルチセンサ融合は、正確で信頼性の高い自動運転システムに不可欠である。最近の手法は点レベル融合（point-level fusion）に基づいており、LiDAR 点群をカメラ特徴で拡張する。しかし、カメラから LiDAR への射影はカメラ特徴の意味的密度（semantic density）を捨ててしまうため、こうした手法の有効性を損なう。これは特に意味指向のタスク（3D シーンセグメンテーションなど）で顕著である。本論文では、効率的かつ汎用的なマルチタスク・マルチセンサ融合フレームワークである BEVFusion を提案する。BEVFusion はマルチモーダルな特徴を共有の鳥瞰図（bird's-eye view, BEV）表現空間に統合し、幾何情報と意味情報の両方をうまく保持する。これを実現するため、視点変換における主要な効率上のボトルネックを診断し、最適化した BEV プーリングによってこれを解消し、レイテンシを 40 倍以上削減する。BEVFusion は本質的にタスク非依存であり、アーキテクチャをほとんど変更せずにさまざまな 3D 知覚タスクをシームレスにサポートする。nuScenes ベンチマークにおいて新たな最高性能を確立し、3D 物体検出では mAP と NDS で 1.3% 高く、BEV 地図セグメンテーションでは mIoU で 13.6% 高い性能を、1.9 倍少ない計算コストで達成する。結果を再現するためのコードは <a href="https://github.com/mit-han-lab/bevfusion">https://github.com/mit-han-lab/bevfusion</a> で公開している。</strong></p>
+
+<figure><img src="figs/fig1.jpg" alt="図1" /></figure>
+<p><strong>図1：</strong>BEVFusion は、一方のモダリティを他方へ写像するのではなく、カメラと LiDAR の特徴を<em>共有の</em> BEV 空間に統合する。これにより、カメラの<em>意味的密度</em>と LiDAR の<em>幾何構造</em>の両方が保持される。</p>
+<p class="yakuchu">図中ラベル：(a) To Camera: geometric-lossy＝カメラへ：幾何情報が失われる、close (red) and faraway (blue) points in 3D are neighbors in 2D＝3D では近い点（赤）と遠い点（青）が 2D では隣り合う、(b) To LiDAR: semantic-lossy＝LiDAR へ：意味情報が失われる、The intersection region is not covered.＝交差点の領域がカバーされていない、(c) Shared BEVFusion space＝共有の BEVFusion 空間、BEV features (camera)＝BEV 特徴（カメラ）、BEV features (LiDAR)＝BEV 特徴（LiDAR）、Camera features＝カメラ特徴、LiDAR features＝LiDAR 特徴</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>自動運転システムは多様なセンサを搭載している。例えば、Waymo の自動運転車は 29 台のカメラ、6 台のレーダ、5 台の LiDAR を備えている。センサが異なれば得られる信号は相補的であり、例えばカメラは豊かな意味情報を捉え、LiDAR は正確な空間情報を提供し、レーダは即時の速度推定を可能にする。したがって、マルチセンサ融合は正確で信頼性の高い知覚に不可欠である。</p>
+<p>異なるセンサからのデータは根本的に異なるモダリティで表現されている。例えば、カメラはデータを透視ビュー（perspective view）で捉え、LiDAR は 3D ビューで捉える。この視点の不一致を解消するには、マルチタスク・マルチモーダルな特徴融合に適した<em>統一表現</em>を見つける必要がある。2D 知覚の大成功を受けて、自然な発想は LiDAR 点群をカメラに射影し、RGB-D データを 2D CNN で処理することである。しかし、この LiDAR からカメラへの射影は深刻な幾何学的歪みをもたらし（図1a 参照）、3D 物体認識のような幾何指向のタスクに対しては有効性が下がる。</p>
+<p>最近のセンサ融合手法は逆方向をとっている。LiDAR 点群を意味ラベル［1］、CNN 特徴［2］、［3］、あるいは 2D 画像からの仮想点［4］で拡張し、その後、既存の LiDAR ベース検出器を適用して 3D バウンディングボックスを予測する。これらの点レベル融合手法は大規模な検出ベンチマークで目覚ましい性能を示してきたが、BEV 地図セグメンテーション［5］、［6］、［7］、［8］のような意味指向のタスクではほとんど機能しない。これは、カメラから LiDAR への射影が意味的に損失を伴う（semantically lossy）ためである（図1b 参照）。典型的な 32 ビーム LiDAR スキャナでは、LiDAR 点に対応付けられるカメラ特徴はわずか 5% であり、それ以外はすべて捨てられる。このような密度の差は、より疎な LiDAR（あるいはレーダ）ではさらに顕著になる。</p>
+<blockquote><p>脚注*：筆頭の 2 名の著者は等しく貢献しており、アルファベット順に記載している。本研究は MIT-IBM Watson AI Lab、National Science Foundation、Hyundai Motor、Qualcomm、NVIDIA、Apple の支援を受けた。Zhijian Liu は Qualcomm Innovation Fellowship の部分的な支援を受けた。</p>
+<p>脚注1：Z. Liu、H. Tang、A. Amini、X. Yang、D. Rus、S. Han は Massachusetts Institute of Technology（Cambridge, MA 02139, USA）に所属。</p>
+<p>脚注2：H. Mao は OmniML（San Jose, CA 95131, USA）に所属。</p></blockquote>
+<p>本論文では、タスク非依存の学習のために、マルチモーダルな特徴を共有の鳥瞰図（BEV）表現空間に統合する BEVFusion を提案する。幾何構造と意味的密度の両方を維持し（図1c 参照）、ほとんどの 3D 知覚タスクを自然にサポートする（それらの出力空間は BEV で自然に表現できるため）。すべての特徴を BEV に変換する過程で、視点変換に主要かつ致命的な効率上のボトルネックがあることを突き止めた。すなわち、BEV プーリング演算だけでモデルの実行時間の 80% 以上を占める。そこで、事前計算と区間リダクション（interval reduction）を備えた専用カーネルを提案してこのボトルネックを解消し、<strong>40</strong> 倍以上の高速化を達成する。最後に、完全畳み込みの BEV エンコーダを適用して統一された BEV 特徴を融合し、いくつかのタスク固有ヘッドを付加して異なる対象タスクをサポートする。</p>
+<p>BEVFusion は nuScenes と Waymo の両ベンチマークで 3D 物体検出の新たな最高性能を達成した。テスト時拡張（test-time augmentation）やモデルアンサンブルの有無にかかわらず、公開されているすべての手法を上回る。BEVFusion は BEV 地図セグメンテーションでさらに顕著な改善を示す。カメラのみのモデルより mIoU で <strong>6%</strong>、LiDAR のみのモデルより mIoU で <strong>13.6%</strong> 高い性能を達成する一方、既存の融合手法はほとんど機能しない。さらに BEVFusion は非常に効率的であり、これらの結果をすべて <strong>1.9</strong> 倍少ない計算コストで実現する。</p>
+
+<a class="pg" data-page="2"></a>
+<figure><img src="figs/fig2.png" alt="図2" /></figure>
+<p><strong>図2：</strong><strong>BEVFusion</strong> はマルチモーダルな入力から特徴を抽出し、視点変換を用いてそれらを共有の鳥瞰図（BEV）空間へ効率的に変換する。統一された BEV 特徴を完全畳み込みの BEV エンコーダで融合し、タスク固有ヘッドによってさまざまなタスクをサポートする。</p>
+<p class="yakuchu">図中ラベル：Multi-View RGB Images＝多視点 RGB 画像、Camera Encoder＝カメラエンコーダ、Camera Features＝カメラ特徴、Camera-to-BEV View Transform＝カメラから BEV への視点変換、Camera Feat. (in BEV)＝カメラ特徴（BEV 上）、LiDAR Point Cloud＝LiDAR 点群、LiDAR Encoder＝LiDAR エンコーダ、LiDAR Features＝LiDAR 特徴、Flatten (along z-axis)＝平坦化（z 軸方向）、LiDAR Feat. (in BEV)＝LiDAR 特徴（BEV 上）、BEV Encoder＝BEV エンコーダ、Fused BEV Features＝融合された BEV 特徴、Task-Specific Heads＝タスク固有ヘッド、BEV Map Segmentation＝BEV 地図セグメンテーション、3D Object Detection＝3D 物体検出</p>
+<p>点レベル融合は過去 3 年間、定番の選択肢であったが、BEVFusion は「<em>LiDAR 空間はセンサ融合を行うのに適切な場所なのか？</em>」と問い直すことで、マルチセンサ融合の分野に新たな視点をもたらす。これまで見過ごされてきた別のパラダイムの優れた性能を示すものである。単純さもその大きな強みである。本研究が今後のセンサ融合研究にとって単純かつ強力なベースラインとなり、汎用的なマルチタスク・マルチセンサ融合の設計とパラダイムを研究者が再考するきっかけとなることを期待する。</p>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<p><strong>LiDAR ベースの 3D 知覚。</strong>研究者たちは、PointNets［15］や SparseConvNet［16］を用いて平坦化した点群特徴を抽出し、BEV 空間で検出を行う単段（single-stage）3D 物体検出器［9］、［10］、［11］、［12］、［13］、［14］を設計してきた。その後、［17］、［18］、［19］、［20］、［21］、［22］、［23］はアンカーフリーの単段 3D 物体検出を探求した。別の研究の流れ［24］、［25］、［26］、［27］、［28］、［29］は二段（two-stage）物体検出器の設計に焦点を当てており、既存の単段物体検出器に RCNN ネットワークを追加する。</p>
+<p><strong>カメラベースの 3D 知覚。</strong>LiDAR センサは高価であるため、研究者たちはカメラのみの 3D 知覚に多大な努力を注いできた。FCOS3D［30］は画像検出器［31］に 3D 回帰の分岐を追加して拡張したものであり、後に［32］、［33］によって深度のモデル化が改善された。透視ビューで物体検出を行う代わりに、［34］、［35］は 3D 空間における学習可能な物体クエリを持つ DETR［36］、［37］ベースの検出ヘッドを設計した。LiDAR ベース検出器の設計に触発された別のタイプのカメラのみの 3D 知覚モデルは、ビュートランスフォーマ（view transformer）［5］、［38］、［39］、［6］を用いてカメラ特徴を透視ビューから鳥瞰図へ明示的に変換する。BEVDet［40］と M<sup>2</sup>BEV［41］は LSS［6］と OFT［38］を 3D 物体検出へ拡張し、CaDDN［42］はビュートランスフォーマに明示的な深度推定の教師信号を追加する。最近の研究［43］、［8］は、マルチヘッド注意機構を用いた視点変換も研究している。</p>
+<p><strong>マルチセンサ融合。</strong>近年、マルチセンサ融合は 3D 検出のコミュニティで大きな関心を集めている。既存の手法は<em>提案レベル（proposal-level）</em>融合手法と<em>点レベル（point-level）</em>融合手法に分類できる。初期の手法である MV3D［44］は 3D で物体候補（proposal）を生成し、その候補を画像に射影して RoI 特徴を抽出する。［45］、［46］、［47］はいずれも画像上の候補を 3D の錐台（frustum）へ持ち上げる。最近の FUTR3D［48］と TransFusion［49］は 3D 空間に物体クエリを定義し、画像特徴をこれらの候補に融合する。提案レベル融合手法はすべて<em>物体中心（object-centric）</em>であり、BEV 地図セグメンテーションのような他のタスクへ容易には一般化できない。一方、点レベル融合手法は通常、画像の意味特徴を前景の LiDAR 点に塗り付け（paint）、装飾された点群入力に対して LiDAR ベースの検出を行う。そのため、これらは<em>物体中心</em>かつ<em>幾何中心（geometric-centric）</em>である。これらの手法のうち、［1］、［2］、［4］、［50］、［51］は（LiDAR の）入力レベルの装飾であり、DCF［52］と DeepFusion［3］は特徴レベルの装飾である。</p>
+<p>既存のすべての手法とは対照的に、BEVFusion は共有の BEV 空間でセンサ融合を行い、前景と背景、幾何情報と意味情報を等しく扱う。これは汎用的なマルチタスク・マルチセンサ知覚フレームワークである。</p>
+
+<h2 id="3-手法">3　手法</h2>
+<p>図2 に示すように、BEVFusion は<em>マルチタスク 3D 知覚</em>（すなわち検出とセグメンテーション）のための<em>マルチセンサ融合</em>（すなわち多視点カメラと LiDAR）に焦点を当てる。異なるセンサ入力が与えられると、まずモダリティ固有のエンコーダを適用してそれぞれの特徴を抽出する。マルチモーダルな特徴を、幾何情報と意味情報の両方を保持する統一された BEV 表現へ変換する。視点変換の効率上のボトルネックを特定し、事前計算と区間リダクションによって BEV プーリングを高速化する。次に、統一された BEV 特徴に畳み込みベースの BEV エンコーダを適用し、異なる特徴間の局所的な位置ずれを緩和する。最後に、いくつかのタスク固有ヘッドを付加して、さまざまな 3D タスクをサポートする。</p>
+
+<h3 id="3.1-統一表現">3.1　統一表現</h3>
+<a class="pg" data-page="3"></a>
+<p>異なる特徴は異なるビューに存在しうる。例えば、カメラ特徴は透視ビューにあるのに対し、LiDAR／レーダの特徴は通常 3D／鳥瞰図ビューにある。カメラ特徴どうしであっても、それぞれが異なる視野角（すなわち前方、後方、左、右）を持つ。この<em>視点の不一致</em>は特徴融合を困難にする。異なる特徴テンソルの同じ要素が、まったく異なる空間位置に対応している可能性があるためである（この場合、素朴な要素ごとの特徴融合は機能しない）。したがって、（1）すべてのセンサ特徴を情報損失なく容易に変換でき、かつ（2）さまざまな種類のタスクに適した<em>共有の</em>表現を見つけることが極めて重要である。</p>
+
+<figure><img src="figs/fig3.png" alt="図3" /></figure>
+<p><strong>図3：</strong>カメラから BEV への変換（a）は、統一された BEV 空間でセンサ融合を行うための鍵となるステップである。既存の実装は極めて遅く、1 シーンあたり最大 2 秒を要する。我々は区間リダクションと事前計算による高速なグリッド対応付けを用いた効率的な BEV プーリング（b）を提案し、視点変換を約 <strong>40</strong> 倍高速化する（c、d）。</p>
+<p class="yakuchu">図中ラベル：(a) Camera-to-BEV transformation＝カメラから BEV への変換、(b) Efficient BEV pooling＝効率的な BEV プーリング、Index＝インデックス、Value＝値、Prefix Sum Reduction (LSS)＝累積和（prefix sum）によるリダクション（LSS）、Pref. Sum＝累積和、Results＝結果、Interval Reduction (Ours)＝区間リダクション（本手法）、Thread＝スレッド、Stored to DRAM (Slow)＝DRAM に格納（低速）、(c) Improvement breakdown＝改善の内訳、Depth＝深度、Grid Association＝グリッド対応付け、Feat. Aggregation＝特徴集約、Interval Reduction: 22.1×＝区間リダクション：22.1 倍、Precomputation: 1.9×＝事前計算：1.9 倍、log scale＝対数スケール、(d) Scalability＝スケーラビリティ、Ours＝本手法</p>
+
+<p><strong>カメラへ。</strong>RGB-D データに着想を得た選択肢の一つは、LiDAR 点群をカメラ平面へ射影し、2.5D の疎な深度をレンダリングすることである。しかし、この変換は<em>幾何的に損失を伴う</em>。深度マップ上で隣接する 2 点が、3D 空間では互いに遠く離れている場合がある。このため、カメラビューは 3D 物体検出のように物体／シーンの幾何に焦点を当てるタスクに対しては有効性が低い。</p>
+<p><strong>LiDAR へ。</strong>最先端のセンサ融合手法の大半［1］、［4］、［3］は、LiDAR 点を対応するカメラ特徴（例えば意味ラベル、CNN 特徴、仮想点）で装飾する。しかし、このカメラから LiDAR への射影は<em>意味的に損失を伴う</em>。カメラ特徴と LiDAR 特徴は密度が大きく異なり、LiDAR 点に対応付けられるカメラ特徴は 5% 未満にとどまる（32 チャネルの LiDAR スキャナの場合）。カメラ特徴の意味的密度を手放すことは、意味指向のタスク（BEV 地図セグメンテーションなど）におけるモデルの性能を大きく損なう。同様の欠点は、潜在空間で融合を行うより最近の手法（例えば物体クエリ）［48］、［49］にも当てはまる。</p>
+<p><strong>鳥瞰図へ。</strong>我々は<em>融合のための統一表現として鳥瞰図（BEV）を採用する</em>。このビューは出力空間も BEV であるため、ほぼすべての知覚タスクと相性がよい。さらに重要なことに、BEV への変換は幾何構造（LiDAR 特徴由来）と意味的密度（カメラ特徴由来）の両方を保持する。一方で、LiDAR から BEV への射影は疎な LiDAR 特徴を高さ方向に沿って平坦化するため、図1a のような幾何学的歪みを生じない。他方で、カメラから BEV への射影は各カメラ特徴ピクセルを 3D 空間内の光線へ逆投影し（次節で詳述）、図1c のようにカメラの意味情報を完全に保持した密な BEV 特徴マップを得ることができる。</p>
+
+<h3 id="3.2-効率的なカメラから-bev-への変換">3.2　効率的なカメラから BEV への変換</h3>
+<p>各カメラ特徴ピクセルに対応する深度は本質的に曖昧であるため、カメラから BEV への変換は自明ではない。LSS［6］に従い、各ピクセルの離散的な深度分布を明示的に予測する。次に、各特徴ピクセルをカメラ光線に沿って \(D\) 個の離散点へ散布し、対応する深度確率で関連する特徴をスケーリングし直す（図3a）。これにより、サイズ \(NHWD\) のカメラ特徴点群が生成される。ここで \(N\) はカメラの台数、\((H, W)\) はカメラ特徴マップのサイズである。この 3D 特徴点群を \(x, y\) 軸に沿ってステップサイズ \(r\)（例えば 0.4m）で量子化する。<em>BEV プーリング</em>演算を用いて各 \(r \times r\) の BEV グリッド内のすべての特徴を集約し、特徴を \(z\) 軸に沿って平坦化する。</p>
+<p>BEV プーリングは単純ではあるが、驚くほど非効率で遅く、RTX 3090 GPU 上で 500ms 以上を要する（一方、モデルの残りの部分は約 100ms しかかからない）。これは、カメラ特徴点群が非常に大きいためである。典型的な処理負荷<sup>*</sup>では、1 フレームあたり約 200 万点が生成されうるが、これは LiDAR 特徴点群より 2 桁密である。この効率上のボトルネックを解消するため、事前計算と区間リダクションによって BEV プーリングを最適化することを提案する。</p>
+<blockquote><p>脚注*：\(N = 6\)、\((H, W) = (32, 88)\)、\(D = (60 - 1)/0.5 = 118\)。これは 6 台の多視点カメラに対応し、各カメラには 32×88 のカメラ特徴マップ（256×704 の画像を 8 倍ダウンサンプリングしたもの）が対応する。深度は \([1, 60]\) メートルの範囲で 0.5 メートル刻みに離散化される。</p></blockquote>
+<p><strong>事前計算。</strong>BEV プーリングの最初のステップは、カメラ特徴点群の各点を BEV グリッドに<em>対応付ける</em>ことである。LiDAR 点群とは異なり、カメラ特徴点群の座標は<em>固定</em>である（カメラの内部パラメータと外部パラメータが変わらない限り。これは適切なキャリブレーション後には通常成り立つ）。この点に着目し、各点の 3D 座標と BEV グリッドのインデックスを事前計算する。また、すべての点をグリッドインデックスに従ってソートし、各点の順位を記録しておく。推論時には、事前計算した順位に基づいてすべての特徴点を並べ替えるだけでよい。このキャッシュ機構により、グリッド対応付けのレイテンシを 17ms から 4ms に削減できる。</p>
+
+<a class="pg" data-page="4"></a>
+<table><thead><tr><th></th><th>モダリティ</th><th>mAP (<em>test</em>)</th><th>NDS (<em>test</em>)</th><th>mAP (<em>val</em>)</th><th>NDS (<em>val</em>)</th><th>MACs (G)</th><th>レイテンシ (ms)</th></tr></thead>
+<tbody>
+<tr><td>M<sup>2</sup>BEV ［41］</td><td>C</td><td style="text-align:right">42.9</td><td style="text-align:right">47.4</td><td style="text-align:right">41.7</td><td style="text-align:right">47.0</td><td style="text-align:right">–</td><td style="text-align:right">–</td></tr>
+<tr><td>BEVFormer ［43］</td><td>C</td><td style="text-align:right">44.5</td><td style="text-align:right">53.5</td><td style="text-align:right">41.6</td><td style="text-align:right">51.7</td><td style="text-align:right">–</td><td style="text-align:right">–</td></tr>
+<tr><td>PointPillars ［10］</td><td>L</td><td style="text-align:right">–</td><td style="text-align:right">–</td><td style="text-align:right">52.3</td><td style="text-align:right">61.3</td><td style="text-align:right">65.5</td><td style="text-align:right">34.4</td></tr>
+<tr><td>SECOND ［11］</td><td>L</td><td style="text-align:right">52.8</td><td style="text-align:right">63.3</td><td style="text-align:right">52.6</td><td style="text-align:right">63.0</td><td style="text-align:right">85.0</td><td style="text-align:right">69.8</td></tr>
+<tr><td>CenterPoint ［17］</td><td>L</td><td style="text-align:right">60.3</td><td style="text-align:right">67.3</td><td style="text-align:right">59.6</td><td style="text-align:right">66.8</td><td style="text-align:right">153.5</td><td style="text-align:right">80.7</td></tr>
+<tr><td>PointPainting ［1］</td><td>C+L</td><td style="text-align:right">–</td><td style="text-align:right">–</td><td style="text-align:right">65.8<sup>*</sup></td><td style="text-align:right">69.6<sup>*</sup></td><td style="text-align:right">370.0</td><td style="text-align:right">185.8</td></tr>
+<tr><td>PointAugmenting ［2］</td><td>C+L</td><td style="text-align:right">66.8<sup>†</sup></td><td style="text-align:right">71.0<sup>†</sup></td><td style="text-align:right">–</td><td style="text-align:right">–</td><td style="text-align:right">408.5</td><td style="text-align:right">234.4</td></tr>
+<tr><td>MVP ［4］</td><td>C+L</td><td style="text-align:right">66.4</td><td style="text-align:right">70.5</td><td style="text-align:right">66.1<sup>*</sup></td><td style="text-align:right">70.0<sup>*</sup></td><td style="text-align:right">371.7</td><td style="text-align:right">187.1</td></tr>
+<tr><td>FusionPainting ［50］</td><td>C+L</td><td style="text-align:right">68.1</td><td style="text-align:right">71.6</td><td style="text-align:right">66.5</td><td style="text-align:right">70.7</td><td style="text-align:right">–</td><td style="text-align:right">–</td></tr>
+<tr><td>AutoAlign ［51］</td><td>C+L</td><td style="text-align:right">–</td><td style="text-align:right">–</td><td style="text-align:right">66.6</td><td style="text-align:right">71.1</td><td style="text-align:right">–</td><td style="text-align:right">–</td></tr>
+<tr><td>FUTR3D ［48］</td><td>C+L</td><td style="text-align:right">–</td><td style="text-align:right">–</td><td style="text-align:right">64.5</td><td style="text-align:right">68.3</td><td style="text-align:right">1069.0</td><td style="text-align:right">321.4</td></tr>
+<tr><td>TransFusion ［49］</td><td>C+L</td><td style="text-align:right">68.9</td><td style="text-align:right">71.6</td><td style="text-align:right">67.5</td><td style="text-align:right">71.3</td><td style="text-align:right">485.8</td><td style="text-align:right">156.6</td></tr>
+<tr><td><strong>BEVFusion</strong>（本手法）</td><td>C+L</td><td style="text-align:right"><strong>70.2</strong></td><td style="text-align:right"><strong>72.9</strong></td><td style="text-align:right"><strong>68.5</strong></td><td style="text-align:right"><strong>71.4</strong></td><td style="text-align:right"><strong>253.2</strong></td><td style="text-align:right"><strong>119.2</strong></td></tr>
+</tbody></table>
+<p><strong>表1：</strong>BEVFusion は特別な工夫なしに、nuScenes（<code>val</code> と <code>test</code>）において最高性能の 3D 物体検出性能を達成する。カメラ特徴を LiDAR 点群に装飾するという慣例を打ち破り、<strong>1.5〜2</strong> 倍少ない計算コストで少なくとも 1.3% 高い mAP と NDS を実現する。（<sup>*</sup>：我々による再実装、<sup>†</sup>：テスト時拡張あり）</p>
+
+<p><strong>区間リダクション。</strong>グリッド対応付けの後、同じ BEV グリッド内のすべての点はテンソル表現上で連続して並ぶ。BEV プーリングの次のステップは、何らかの対称関数（例えば平均、最大、和）によって各 BEV グリッド内の特徴を<em>集約する</em>ことである。図3b に示すように、既存の実装［6］はまずすべての点にわたる累積和（prefix sum）を計算し、その後インデックスが変わる境界で値を差し引く。しかし、累積和の演算は GPU 上での木構造リダクションを必要とし、多くの不要な部分和を生成する（境界の値しか必要としないため）。いずれも非効率である。特徴集約を高速化するため、BEV グリッドに対して直接並列化する専用の GPU カーネルを実装する。各グリッドに 1 つの GPU スレッドを割り当て、そのスレッドが区間和を計算して結果を書き戻す。このカーネルは出力間の依存関係を取り除き（したがって多段の木構造リダクションを必要としない）、部分和を DRAM に書き込むことを回避するため、特徴集約のレイテンシを 500ms から 2ms に削減する（図3c）。</p>
+<p><strong>要点。</strong>最適化した BEV プーリングにより、カメラから BEV への変換は <strong>40</strong> 倍高速になる。レイテンシは 500ms 超から 12ms（モデルのエンドツーエンド実行時間のわずか 10%）に削減され、異なる特徴解像度にわたってよくスケールする（図3d）。これは、マルチモーダルなセンサ特徴を共有の BEV 表現に統合するための重要な鍵となる。我々と同時期の 2 つの研究も、カメラのみの 3D 検出においてこの効率上のボトルネックを指摘している。それらは一様な深度分布を仮定する［41］か、各 BEV グリッド内の点を切り捨てる［40］ことでビュートランスフォーマを近似している。対照的に、我々の手法は近似を一切用いない<em>厳密な</em>ものでありながら、より高速である。</p>
+
+<h3 id="3.3-完全畳み込み融合">3.3　完全畳み込み融合</h3>
+<p>すべてのセンサ特徴を共有の BEV 表現に変換すれば、要素ごとの演算子（連結など）で容易に融合できる。同じ空間にあっても、ビュートランスフォーマにおける深度の不正確さのため、LiDAR の BEV 特徴とカメラの BEV 特徴はある程度空間的にずれている可能性がある。そこで、畳み込みベースの BEV エンコーダ（いくつかの残差ブロックを含む）を適用し、このような局所的な位置ずれを補償する。本手法は、より正確な深度推定（例えば正解深度でビュートランスフォーマを教師あり学習する［42］、［53］）から恩恵を受ける可能性があり、これは今後の課題とする。</p>
+
+<table><thead><tr><th></th><th>フレーム数</th><th>mAP/L1</th><th>mAPH/L1</th><th>mAP/L2</th><th><u>mAPH/L2</u></th></tr></thead>
+<tbody>
+<tr><td>AFDetV2-Ens ［18］‡</td><td style="text-align:right"><strong>3</strong></td><td style="text-align:right">84.1</td><td style="text-align:right">82.6</td><td style="text-align:right">79.0</td><td style="text-align:right">77.6</td></tr>
+<tr><td>InceptionLiDAR</td><td style="text-align:right">10</td><td style="text-align:right">83.8</td><td style="text-align:right">82.5</td><td style="text-align:right">79.2</td><td style="text-align:right">77.8</td></tr>
+<tr><td>3DAL-Ens ［20］</td><td style="text-align:right">5</td><td style="text-align:right">84.6</td><td style="text-align:right">83.1</td><td style="text-align:right">79.7</td><td style="text-align:right">78.2</td></tr>
+<tr><td>DeepFusion-Ens ［3］‡</td><td style="text-align:right">5</td><td style="text-align:right">84.4</td><td style="text-align:right">83.2</td><td style="text-align:right">79.5</td><td style="text-align:right">78.4</td></tr>
+<tr><td>MT-Net‡ ［55］</td><td style="text-align:right">3</td><td style="text-align:right">84.7</td><td style="text-align:right">83.2</td><td style="text-align:right">79.9</td><td style="text-align:right">78.5</td></tr>
+<tr><td>MT3D</td><td style="text-align:right">4</td><td style="text-align:right">85.0</td><td style="text-align:right">83.7</td><td style="text-align:right">80.1</td><td style="text-align:right">78.7</td></tr>
+<tr><td>LIVOX-Detection</td><td style="text-align:right">7</td><td style="text-align:right">84.8</td><td style="text-align:right">83.5</td><td style="text-align:right">80.2</td><td style="text-align:right">79.0</td></tr>
+<tr><td>MPPNet-Ens‡ ［56］</td><td style="text-align:right">16</td><td style="text-align:right">85.0</td><td style="text-align:right">83.7</td><td style="text-align:right">80.5</td><td style="text-align:right">79.1</td></tr>
+<tr><td>3DAM-Ens</td><td style="text-align:right">5</td><td style="text-align:right">85.3</td><td style="text-align:right">83.8</td><td style="text-align:right">80.7</td><td style="text-align:right">79.2</td></tr>
+<tr><td><strong>BEVFusion</strong>（本手法）†</td><td style="text-align:right"><strong>3</strong></td><td style="text-align:right"><strong>85.7</strong></td><td style="text-align:right"><strong>84.4</strong></td><td style="text-align:right"><strong>80.8</strong></td><td style="text-align:right"><strong>79.5</strong></td></tr>
+</tbody></table>
+<p><strong>表2：</strong>BEVFusion は、Waymo Open Dataset（<code>test</code>）へのすべての投稿の中で最高性能の 3D 物体検出性能を達成する。（<sup>†</sup>：テスト時拡張あり、<sup>‡</sup>：テスト時拡張とモデルアンサンブルの両方あり）</p>
+
+<h3 id="3.4-マルチタスクヘッド">3.4　マルチタスクヘッド</h3>
+<p>融合した BEV 特徴マップに複数のタスク固有ヘッドを適用する。本手法はほとんどの 3D 知覚タスクに適用可能である。3D 物体検出では、［17］、［49］に従い、クラス別の中心ヒートマップヘッドを用いてすべての物体の中心位置を予測し、いくつかの回帰ヘッドで物体のサイズ、回転、速度を推定する。地図セグメンテーションでは、異なる地図カテゴリが重なり合うことがある（例えば、横断歩道は走行可能領域の部分集合である）。そこで、この問題をクラスごとに 1 つずつの複数の二値セマンティックセグメンテーションとして定式化する。CVT［8］に従い、標準的な focal loss［54］でセグメンテーションヘッドを学習する。</p>
+
+<h2 id="4-実験">4　実験</h2>
+<p>BEVFusion によるカメラと LiDAR の融合を、3D 物体検出と BEV 地図セグメンテーションで評価し、幾何指向と意味指向の両方のタスクをカバーする。本フレームワークは、他の種類のセンサ（レーダやイベントベースカメラなど）や他の 3D 知覚タスク（3D 物体追跡や動き予測など）をサポートするよう容易に拡張できる。</p>
+<a class="pg" data-page="5"></a>
+<table><thead><tr><th></th><th>モダリティ</th><th>走行可能領域</th><th>横断歩道</th><th>歩道</th><th>停止線</th><th>駐車場</th><th>区画線</th><th>平均</th></tr></thead>
+<tbody>
+<tr><td>OFT ［38］</td><td>C</td><td style="text-align:right">74.0</td><td style="text-align:right">35.3</td><td style="text-align:right">45.9</td><td style="text-align:right">27.5</td><td style="text-align:right">35.9</td><td style="text-align:right">33.9</td><td style="text-align:right">42.1</td></tr>
+<tr><td>LSS ［6］</td><td>C</td><td style="text-align:right">75.4</td><td style="text-align:right">38.8</td><td style="text-align:right">46.3</td><td style="text-align:right">30.3</td><td style="text-align:right">39.1</td><td style="text-align:right">36.5</td><td style="text-align:right">44.4</td></tr>
+<tr><td>CVT ［8］</td><td>C</td><td style="text-align:right">74.3</td><td style="text-align:right">36.8</td><td style="text-align:right">39.9</td><td style="text-align:right">25.8</td><td style="text-align:right">35.0</td><td style="text-align:right">29.4</td><td style="text-align:right">40.2</td></tr>
+<tr><td>M<sup>2</sup>BEV ［41］</td><td>C</td><td style="text-align:right">77.2</td><td style="text-align:right">–</td><td style="text-align:right">–</td><td style="text-align:right">–</td><td style="text-align:right">–</td><td style="text-align:right">40.5</td><td style="text-align:right">–</td></tr>
+<tr><td><strong>BEVFusion</strong>（本手法）</td><td>C</td><td style="text-align:right"><strong>81.7</strong></td><td style="text-align:right"><strong>54.8</strong></td><td style="text-align:right"><strong>58.4</strong></td><td style="text-align:right"><strong>47.4</strong></td><td style="text-align:right"><strong>50.7</strong></td><td style="text-align:right"><strong>46.4</strong></td><td style="text-align:right"><strong>56.6</strong></td></tr>
+<tr><td>PointPillars ［10］</td><td>L</td><td style="text-align:right">72.0</td><td style="text-align:right">43.1</td><td style="text-align:right">53.1</td><td style="text-align:right">29.7</td><td style="text-align:right">27.7</td><td style="text-align:right">37.5</td><td style="text-align:right">43.8</td></tr>
+<tr><td>CenterPoint ［17］</td><td>L</td><td style="text-align:right">75.6</td><td style="text-align:right">48.4</td><td style="text-align:right">57.5</td><td style="text-align:right">36.5</td><td style="text-align:right">31.7</td><td style="text-align:right">41.9</td><td style="text-align:right">48.6</td></tr>
+<tr><td>PointPainting ［1］</td><td>C+L</td><td style="text-align:right">75.9</td><td style="text-align:right">48.5</td><td style="text-align:right">57.1</td><td style="text-align:right">36.9</td><td style="text-align:right">34.5</td><td style="text-align:right">41.9</td><td style="text-align:right">49.1</td></tr>
+<tr><td>MVP ［4］</td><td>C+L</td><td style="text-align:right">76.1</td><td style="text-align:right">48.7</td><td style="text-align:right">57.0</td><td style="text-align:right">36.9</td><td style="text-align:right">33.0</td><td style="text-align:right">42.2</td><td style="text-align:right">49.0</td></tr>
+<tr><td><strong>BEVFusion</strong>（本手法）</td><td>C+L</td><td style="text-align:right"><strong>85.5</strong></td><td style="text-align:right"><strong>60.5</strong></td><td style="text-align:right"><strong>67.6</strong></td><td style="text-align:right"><strong>52.0</strong></td><td style="text-align:right"><strong>57.0</strong></td><td style="text-align:right"><strong>53.7</strong></td><td style="text-align:right"><strong>62.7</strong></td></tr>
+</tbody></table>
+<p><strong>表3：</strong>BEVFusion は nuScenes（<code>val</code>）の BEV 地図セグメンテーションにおいて、最先端のマルチセンサ融合手法を <strong>13.6%</strong> 上回り、すべてのカテゴリで一貫した改善を示す。</p>
+<p class="yakuchu">列見出しの原語：Drivable＝走行可能領域、Ped. Cross.＝横断歩道、Walkway＝歩道、Stop Line＝停止線、Carpark＝駐車場、Divider＝区画線、Mean＝平均</p>
+
+<table><thead>
+<tr><th></th><th></th><th colspan="2">晴天</th><th colspan="2">雨天</th><th colspan="2">昼間</th><th colspan="2">夜間</th></tr>
+<tr><th></th><th>モダリティ</th><th>mAP</th><th>mIoU</th><th>mAP</th><th>mIoU</th><th>mAP</th><th>mIoU</th><th>mAP</th><th>mIoU</th></tr></thead>
+<tbody>
+<tr><td>CenterPoint ［17］</td><td>L</td><td style="text-align:right">62.9</td><td style="text-align:right">50.7</td><td style="text-align:right">59.2</td><td style="text-align:right">42.3</td><td style="text-align:right">62.8</td><td style="text-align:right">48.9</td><td style="text-align:right">35.4</td><td style="text-align:right">37.0</td></tr>
+<tr><td>BEVFormer ［43］</td><td>C</td><td style="text-align:right">41.0</td><td style="text-align:right">–</td><td style="text-align:right">44.0</td><td style="text-align:right">–</td><td style="text-align:right">41.9</td><td style="text-align:right">–</td><td style="text-align:right">21.2</td><td style="text-align:right">–</td></tr>
+<tr><td>BEVFusion</td><td>C</td><td style="text-align:right">–</td><td style="text-align:right">59.0</td><td style="text-align:right">–</td><td style="text-align:right">50.5</td><td style="text-align:right">–</td><td style="text-align:right">57.4</td><td style="text-align:right">–</td><td style="text-align:right">30.8</td></tr>
+<tr><td>MVP</td><td>C+L</td><td style="text-align:right">65.9 <small>(+3.0)</small></td><td style="text-align:right">51.0 <small>(+0.3)</small></td><td style="text-align:right">66.3 <small>(+7.1)</small></td><td style="text-align:right">42.9 <small>(+0.6)</small></td><td style="text-align:right">66.3 <small>(+3.5)</small></td><td style="text-align:right">49.2 <small>(+0.3)</small></td><td style="text-align:right">38.4 <small>(+3.0)</small></td><td style="text-align:right">37.5 <small>(+0.5)</small></td></tr>
+<tr><td>BEVFusion</td><td>C+L</td><td style="text-align:right">68.2 <small>(+5.3)</small></td><td style="text-align:right">65.6 <small>(+6.6)</small></td><td style="text-align:right">69.9 <small>(+10.7)</small></td><td style="text-align:right">55.9 <small>(+5.4)</small></td><td style="text-align:right">68.5 <small>(+5.7)</small></td><td style="text-align:right">63.1 <small>(+5.7)</small></td><td style="text-align:right">42.8 <small>(+7.4)</small></td><td style="text-align:right">43.6 <small>(+12.8)</small></td></tr>
+</tbody></table>
+<p><strong>表4：</strong>BEVFusion はさまざまな照明条件・天候条件の下で頑健であり、困難な雨天<sub>(+10.7)</sub>および夜間<sub>(+12.8)</sub>のシーンにおいて、単一モダリティのモデルの性能を大きく向上させる。</p>
+<p class="yakuchu">（訳注：括弧内の値は単一モダリティのモデルに対する改善幅である。数値から逆算すると、mAP はいずれも CenterPoint（L）に対する差、mIoU は MVP が CenterPoint に対する差、BEVFusion（C+L）がカメラのみの BEVFusion（C）に対する差である。原表では改善幅が色分けされている。また、原文キャプションは “boosting the performance single-modality models” と “of” が脱落していると思われる。）</p>
+
+<p><strong>モデル。</strong>画像バックボーンとして Swin-T［57］、LiDAR バックボーンとして VoxelNet［11］を用いる。FPN［58］を適用してマルチスケールのカメラ特徴を融合し、入力サイズの 1/8 の特徴マップを生成する。カメラ画像を 256×704 にダウンサンプリングし、LiDAR 点群を 0.075m（検出用）および 0.1m（セグメンテーション用）でボクセル化する。検出タスクとセグメンテーションタスクは異なる空間範囲とサイズの BEV 特徴マップを必要とするため、各タスク固有ヘッドの前に双線形補間によるグリッドサンプリングを適用し、異なる BEV 特徴マップ間を明示的に変換する。</p>
+<p><strong>データセット。</strong>本手法を nuScenes［59］と Waymo［60］で評価する。これらは 4 万以上のアノテーション付きシーンを持つ 3D 知覚のための大規模データセットである。両データセットの各サンプルには、LiDAR と周囲を撮影するカメラの両方の入力が備わっている。</p>
+
+<h3 id="4.1-3d-物体検出">4.1　3D 物体検出</h3>
+<p>まず幾何中心の 3D 物体検出ベンチマークで実験を行い、BEVFusion がより低い計算コストと実測レイテンシで優れた性能を達成することを示す。検出の評価指標として、10 個の前景クラスにわたる平均適合率の平均（mean average precision, mAP）と nuScenes 検出スコア（nuScenes detection score, NDS）を用いる。また、すべてのオープンソース手法について、RTX3090 GPU 上での 1 回の推論あたりの MAC 数（#MACs）とレイテンシを測定する。<code>val</code> と <code>test</code> の結果のいずれにも、テスト時拡張を用いない単一モデルを使用する。</p>
+<p>表1 に示すように、BEVFusion は nuScenes 検出ベンチマークで最高性能の結果を達成し、デスクトップ GPU 上でリアルタイムに近い（<strong>8.4 FPS</strong>）推論速度を実現する。TransFusion［49］と比較して、BEVFusion は <code>test</code> スプリットの mAP と NDS で 1.3% の改善をもたらす一方、MAC 数を <strong>1.9</strong> 倍、実測レイテンシを <strong>1.3</strong> 倍大幅に削減する。また、代表的な点レベル融合手法である PointPainting［1］と MVP［4］と比較しても優位であり、<strong>1.6</strong> 倍の高速化、<strong>1.5</strong> 倍の MAC 数削減、<code>test</code> セットで <strong>3.8%</strong> 高い mAP を達成する。BEVFusion の効率向上は、共有の融合空間として BEV 空間を選んだことに由来すると我々は考える。これにより、わずか 5% の疎な集合ではなく、すべてのカメラ特徴を十分に活用できる。その結果、BEVFusion ははるかに小さいカメラ入力解像度で同等の性能を達成でき、MAC 数を大幅に削減できる。3.2 節の効率的な BEV プーリング演算子と組み合わせることで、BEVFusion は MAC 数の削減を実測での高速化へと結びつける。</p>
+<p>BEVFusion は Waymo Open Dataset［60］でも最高性能を達成する（表2）。BEVFusion は、従来の最先端マルチモーダル検出器である DeepFusion［3］を、その 60% の入力フレーム数で上回る。さらに、DeepFusion はテスト時拡張を用いて評価した 25 個のモデルをアンサンブルしているのに対し、我々は単一の BEVFusion モデルにテスト時拡張を適用するだけでより良い性能を実現する。</p>
+
+<h3 id="4.2-bev-地図セグメンテーション">4.2　BEV 地図セグメンテーション</h3>
+<p>さらに、意味中心の BEV 地図セグメンテーションタスクにおいて BEVFusion を最先端モデルと比較する。このタスクでは BEVFusion はさらに大きな性能向上を達成する。評価指標として、6 つの背景クラスにおける Intersection-over-Union（IoU）と、クラス平均した平均 IoU を報告する。異なるクラスが重なり合う場合がある（例えば駐車場の領域は走行可能でもある）ため、クラスごとに二値セグメンテーション性能を個別に評価し、異なるしきい値の中で最も高い IoU を選択する［8］。各フレームについて、［6］、［8］、［41］、［43］に従い、自車周辺の [-50m, 50m]×[-50m, 50m] の領域のみで評価を行う。</p>
+
+<a class="pg" data-page="6"></a>
+<p>BEV 地図セグメンテーションの結果を表3 に報告する。<em>幾何</em>指向のタスクである 3D 物体検出とは対照的に、地図セグメンテーションは<em>意味</em>指向である。その結果、カメラのみの BEVFusion モデルは LiDAR のみのベースラインを <strong>8〜13%</strong> 上回る。この観察は、最先端のカメラのみの 3D 検出器が LiDAR のみの検出器に mAP で 20 近く劣っていた表1 の結果とは正反対である。我々のカメラのみのモデルは、既存の単眼 BEV 地図セグメンテーション手法の性能を少なくとも <strong>12%</strong> 向上させる。マルチモダリティの設定では、単眼の BEVFusion の性能をさらに <strong>6</strong> mIoU 向上させ、最先端のセンサ融合手法［1］、［4］に対して <strong>13%</strong> を超える改善を達成した。これは、両ベースライン手法が<em>物体</em>中心かつ<em>幾何</em>指向であるためである。PointPainting［1］は<em>前景</em>の LiDAR 点を装飾するだけであり、MVP は<em>前景</em>の 3D 物体を高密度化するだけである。どちらの手法も地図要素のセグメンテーションには役立たない。さらに悪いことに、両手法とも LiDAR がセンサ融合においてより有効なモダリティであるべきだと仮定しているが、表3 の観察によればこれは正しくない。</p>
+
+<figure><img src="figs/fig4.png" alt="図4" /></figure>
+<p><strong>図4：</strong>BEVFusion は、異なる LiDAR の疎さ、物体サイズ、物体距離の下で、最先端の単一モダリティおよびマルチモダリティの検出器を上回る。とりわけ、より困難な設定（すなわち<em>より疎な点群、小さい／遠い物体</em>）で顕著である。</p>
+<p class="yakuchu">図中ラベル：(a) Different object sizes＝異なる物体サイズ、(b) Different object distances＝異なる物体距離、(c) Different LiDAR sparsity＝異なる LiDAR の疎さ、LiDAR-only＝LiDAR のみ、size &lt; 4m＝サイズ 4m 未満、size ≥ 4m＝サイズ 4m 以上、5.8% better＝5.8% 向上、4.2% better＝4.2% 向上、Improvements＝改善幅、1 beam / 4 beam / 16 beam＝1 ビーム／4 ビーム／16 ビーム、MACs (G) @ 16 beam＝16 ビーム時の MAC 数（G）</p>
+
+<h2 id="5-分析">5　分析</h2>
+<p>単一モダリティのモデルおよび最先端のマルチモダリティモデルに対する BEVFusion の詳細な分析を示す。</p>
+<p><strong>天候と照明。</strong>まず、表4 で異なる天候・照明条件下での BEVFusion の性能を分析する。LiDAR のみのモデルは、センサノイズのため雨天時の物体検出で大きな困難に直面する。一方、BEVFusion はカメラセンサの頑健性を活用して <strong>10.7</strong> mAP の改善を達成し、晴天と雨天のシナリオ間の性能差を大幅に縮める。照明条件の悪さは、検出モデルとセグメンテーションモデルの双方にとって課題となる。検出については、MVP の改善は BEVFusion と比べて比較的小さい。BEVFusion は仮想点を生成するために<em>正確な</em> 2D インスタンスセグメンテーションに依存する度合いが小さいため、暗いシーンや露出過多のシーンでより良い性能を発揮する。セグメンテーションについては、カメラのみの BEVFusion はベンチマーク全体では CenterPoint を上回るものの、夜間には性能が大きく低下する。しかし、マルチモーダルの BEVFusion は <strong>12.8</strong> mIoU の改善を達成し、これは昼間の改善幅よりもさらに大きい。カメラセンサが機能しないときに幾何的な手がかりを活用することの重要性を示している。</p>
+<p><strong>サイズと距離。</strong>また、異なる物体サイズと距離の下での BEVFusion の性能も分析する。図4a から、BEVFusion は小さい物体と大きい物体の両方で LiDAR のみの対応モデルに対して一貫した改善を達成する一方、MVP は 4m より大きい物体に対してはごくわずかな改善しか示さない。これは、大きい物体は通常はるかに密であり、拡張されたマルチモーダル仮想点（MVP）から得られる恩恵が小さいためである。さらに、BEVFusion は LiDAR のみの検出器に対して、より小さい物体（図4a）とより遠い物体（図4b）でより大きな改善をもたらす。これらはいずれも LiDAR では十分に捉えられないため、密なカメラ情報からより大きな恩恵を得られる。</p>
+<p><strong>より疎な LiDAR。</strong>最後に、図4c で CenterPoint［17］（LiDAR のみ）、MVP［4］（マルチモーダル）、および我々の BEVFusion の異なる LiDAR の疎さの下での性能を示す。BEVFusion はすべての疎さのレベルで MVP を一貫して上回り、MAC 数を <strong>1.6</strong> 倍削減し、1 ビーム LiDAR のシナリオでは <strong>12%</strong> の改善を達成する。MVP は点群を装飾し、塗り付けられ高密度化された LiDAR 入力に対して CenterPoint を直接適用する。その結果、当然ながら LiDAR のみの検出器（CenterPoint）が良好に機能することが必要となるが、疎な LiDAR の設定ではこれが成り立たない（すなわち、図4c の 1 ビーム入力では NDS 35.8）。対照的に、BEVFusion は共有の BEV 空間でマルチセンサ情報を統合し、頑健な LiDAR のみの検出器だけに依存することはない。</p>
+
+<h2 id="6-結論">6　結論</h2>
+<p>マルチタスク・マルチセンサ 3D 知覚のための効率的かつ汎用的なフレームワークである BEVFusion を提示した。BEVFusion はカメラと LiDAR の特徴を、幾何情報と意味情報を完全に保持する共有の BEV 空間に統合する。これを実現するため、低速なカメラから BEV への変換を 40 倍以上高速化した。BEVFusion はマルチセンサ知覚システムにおける点レベル融合の有効性を再考し、nuScenes の 3D 検出タスクと BEV 地図セグメンテーションタスクの両方で、既存の解法に対して 1.5〜1.9 倍少ない計算量と 1.3〜1.6 倍の実測高速化で優れた性能を達成する。BEVFusion はまた、Waymo Open Dataset において既存のすべてのセンサ融合手法を上回る。BEVFusion が単純かつ強力なベースラインとして、マルチタスク・マルチセンサ融合に関する今後の研究の刺激となることを期待する。</p>
+
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>S. Vora, A. H. Lang, B. Helou, and O. Beijbom, "PointPainting: Sequential Fusion for 3D Object Detection," in <em>CVPR</em>, 2020.</li>
+</ol>
+<a class="pg" data-page="7"></a>
+<ol class="refs" start="2">
+<li>C. Wang, C. Ma, M. Zhu, and X. Yang, "PointAugmenting: Cross-Modal Augmentation for 3D Object Detection," in <em>CVPR</em>, 2021.</li>
+<li>Y. Li, A. W. Yu, T. Meng, B. Caine, J. Ngiam, D. Peng, J. Shen, B. Wu, Y. Lu, D. Zhou <em>et al.</em>, "DeepFusion: Lidar-Camera Deep Fusion for Multi-Modal 3D Object Detection," in <em>CVPR</em>, 2022.</li>
+<li>T. Yin, X. Zhou, and P. Krähenbühl, "Multimodal Virtual Point 3D Detection," in <em>NeurIPS</em>, 2021.</li>
+<li>B. Pan, J. Sun, H. Y. T. Leung, A. Andonian, and B. Zhou, "Cross-View Semantic Segmentation for Sensing Surroundings," <em>RA-L</em>, 2020.</li>
+<li>J. Philion and S. Fidler, "Lift, Splat, Shoot: Encoding Images From Arbitrary Camera Rigs by Implicitly Unprojecting to 3D," in <em>ECCV</em>, 2020.</li>
+<li>Q. Li, Y. Wang, Y. Wang, and H. Zhao, "HDMapNet: An Online HD Map Construction and Evaluation Framework," in <em>ICRA</em>, 2022.</li>
+<li>B. Zhou and P. Krähenbühl, "Cross-View Transformers for Real-Time Map-View Semantic Segmentation," in <em>CVPR</em>, 2022.</li>
+<li>Y. Zhou and O. Tuzel, "VoxelNet: End-to-End Learning for Point Cloud Based 3D Object Detection," in <em>CVPR</em>, 2018.</li>
+<li>A. H. Lang, S. Vora, H. Caesar, L. Zhou, and J. Yang, "PointPillars: Fast Encoders for Object Detection from Point Clouds," in <em>CVPR</em>, 2019.</li>
+<li>Y. Yan, Y. Mao, and B. Li, "SECOND: Sparsely Embedded Convolutional Detection," <em>Sensors</em>, 2018.</li>
+<li>B. Zhu, Z. Jiang, X. Zhou, Z. Li, and G. Yu, "Class-Balanced Grouping and Sampling for Point Cloud 3D Object Detection," <em>arXiv</em>, 2019.</li>
+<li>Z. Yang, Y. Sun, S. Liu, and J. Jia, "3DSSD: Point-Based 3D Single Stage Object Detector," <em>CVPR</em>, 2020.</li>
+<li>Y. Zhou, P. Sun, Y. Zhang, D. Anguelov, J. Gao, T. Ouyang, J. Guo, J. Ngiam, and V. Vasudevan, "End-to-End Multi-View Fusion for 3D Object Detection in LiDAR Point Clouds," <em>CoRL</em>, 2019.</li>
+<li>C. R. Qi, L. Yi, H. Su, and L. J. Guibas, "PointNet++: Deep Hierarchical Feature Learning on Point Sets in a Metric Space," in <em>NeurIPS</em>, 2017.</li>
+<li>B. Graham, M. Engelcke, and L. van der Maaten, "3D Semantic Segmentation With Submanifold Sparse Convolutional Networks," in <em>CVPR</em>, 2018.</li>
+<li>T. Yin, X. Zhou, and P. Krähenbühl, "Center-Based 3D Object Detection and Tracking," in <em>CVPR</em>, 2021.</li>
+<li>R. Ge, Z. Ding, Y. Hu, W. Shao, L. Huang, K. Li, and Q. Liu, "1<sup>st</sup> Place Solutions to the Real-time 3D Detection and the Most Efficient Model of the Waymo Open Dataset Challenge 2021," in <em>CVPRW</em>, 2021.</li>
+<li>Q. Chen, L. Sun, Z. Wang, K. Jia, and A. Yuille, "Object as Hotspots: An Anchor-Free 3D Object Detection Approach via Firing of Hotspots," in <em>ECCV</em>, 2020.</li>
+<li>C. R. Qi, Y. Zhou, M. Najibi, P. Sun, K. Vo, B. Deng, and D. Anguelov, "Offboard 3D Object Detection from Point Cloud Sequences," in <em>CVPR</em>, 2021.</li>
+<li>L. Fan, X. Xiong, F. Wang, N. Wang, and Z. Zhang, "RangeDet: In Defense of Range View for LiDAR-Based 3D Object Detection," in <em>ICCV</em>, 2021.</li>
+<li>Q. Chen, S. Vora, and O. Beijbom, "PolarStream: Streaming Lidar Object Detection and Segmentation with Polar Pillars," in <em>NeurIPS</em>, 2021.</li>
+<li>Y. Wang and J. M. Solomon, "Object DGCNN: 3D Object Detection using Dynamic Graphs," in <em>NeurIPS</em>, 2021.</li>
+<li>S. Shi, X. Wang, and H. Li, "PointRCNN: 3D Object Proposal Generation and Detection From Point Cloud," in <em>CVPR</em>, 2019.</li>
+<li>Y. Chen, S. Liu, X. Shen, and J. Jia, "Fast Point R-CNN," in <em>ICCV</em>, 2019.</li>
+<li>S. Shi, Z. Wang, J. Shi, X. Wang, and H. Li, "From Points to Parts: 3D Object Detection from Point Cloud with Part-aware and Part-aggregation Network," <em>TPAMI</em>, 2020.</li>
+<li>S. Shi, C. Guo, L. Jiang, Z. Wang, J. Shi, X. Wang, and H. Li, "PV-RCNN: Point-Voxel Feature Set Abstraction for 3D Object Detection," in <em>CVPR</em>, 2020.</li>
+<li>S. Shi, L. Jiang, J. Deng, Z. Wang, C. Guo, J. Shi, X. Wang, and H. Li, "PV-RCNN++: Point-Voxel Feature Set Abstraction With Local Vector Representation for 3D Object Detection," <em>arXiv</em>, 2021.</li>
+<li>Z. Li, F. Wang, and N. Wang, "LiDAR R-CNN: An Efficient and Universal 3D Object Detector," <em>CVPR</em>, 2021.</li>
+<li>T. Wang, X. Zhu, J. Pang, and D. Lin, "FCOS3D: Fully Convolutional One-Stage Monocular 3D Object Detection," in <em>ICCVW</em>, 2021.</li>
+<li>Z. Tian, C. Shen, H. Chen, and T. He, "FCOS: Fully Convolutional One-Stage Object Detection," in <em>ICCV</em>, 2019.</li>
+<li>T. Wang, X. Zhu, J. Pang, and D. Lin, "Probabilistic and geometric depth: Detecting objects in perspective," in <em>CoRL</em>, 2021.</li>
+<li>H. Chen, P. Wang, F. Wang, W. Tian, L. Xiong, and H. Li, "EPro-PnP: Generalized End-to-End Probabilistic Perspective-n-Points for Monocular Object Pose Estimation," in <em>CVPR</em>, 2022.</li>
+<li>Y. Wang, V. Guizilini, T. Zhang, Y. Wang, H. Zhao, and J. M. Solomon, "DETR3D: 3D Object Detection from Multi-view Images via 3D-to-2D Queries," in <em>CoRL</em>, 2021.</li>
+<li>Y. Liu, T. Wang, X. Zhang, and J. Sun, "PETR: Position Embedding Transformation for Multi-View 3D Object Detection," <em>arXiv</em>, 2022.</li>
+<li>X. Zhu, W. Su, L. Lu, B. Li, X. Wang, and J. Dai, "Deformable DETR: Deformable Transformers for End-to-End Object Detection," in <em>ICLR</em>, 2021.</li>
+<li>Y. Wang, X. Zhang, T. Yang, and J. Sun, "Anchor DETR: Query Design for Transformer-Based Detector," in <em>AAAI</em>, 2022.</li>
+<li>T. Roddick, A. Kendall, and R. Cipolla, "Orthographic Feature Transform for Monocular 3D Object Detection," in <em>BMVC</em>, 2019.</li>
+<li>T. Roddick and R. Cipolla, "Predicting Semantic Map Representations from Images using Pyramid Occupancy Networks," in <em>CVPR</em>, 2020.</li>
+<li>J. Huang, G. Huang, Z. Zhu, Y. Ye, and D. Du, "BEVDet: High-performance Multi-camera 3D Object Detection in Bird-Eye-View," <em>arXiv</em>, 2021.</li>
+<li>E. Xie, Z. Yu, D. Zhou, J. Philion, A. Anandkumar, S. Fidler, P. Luo, and J. M. Alvarez, "M<sup>2</sup>BEV: Multi-Camera Joint 3D Detection and Segmentation with Unified Birds-Eye View Representation," <em>arXiv</em>, 2022.</li>
+<li>C. Reading, A. Harakeh, J. Chae, and S. L. Waslander, "Categorical depth distributionnetwork for monocular 3d object detection," in <em>CVPR</em>, 2021.</li>
+<li>Z. Li, W. Wang, H. Li, E. Xie, C. Sima, T. Lu, Y. Qiao, and J. Dai, "BEVFormer: Learning Bird's-Eye-View Representation from Multi-Camera Images via Spatiotemporal Transformers," <em>arXiv</em>, 2022.</li>
+<li>X. Chen, H. Ma, J. Wan, B. Li, and T. Xia, "Multi-View 3D Object Detection Network for Autonomous Driving," in <em>CVPR</em>, 2017.</li>
+<li>C. R. Qi, W. Liu, C. Wu, H. Su, and L. J. Guibas, "Frustum PointNets for 3D Object Detection from RGB-D Data," in <em>CVPR</em>, 2018.</li>
+<li>Z. Wang and K. Jia, "Frustum ConvNet: Sliding Frustums to Aggregate Local Point-Wise Features for Amodal 3D Object Detection," in <em>IROS</em>, 2019.</li>
+<li>R. Nabati and H. Qi, "CenterFusion: Center-Based Radar and Camera Fusion for 3D Object Detection," in <em>WACV</em>, 2021.</li>
+<li>X. Chen, T. Zhang, Y. Wang, Y. Wang, and H. Zhao, "FUTR3D: A Unified Sensor Fusion Framework for 3D Detection," <em>arXiv</em>, 2022.</li>
+<li>X. Bai, Z. Hu, X. Zhu, Q. Huang, Y. Chen, H. Fu, and C.-L. Tai, "TransFusion: Robust LiDAR-Camera Fusion for 3D Object Detection with Transformers," in <em>CVPR</em>, 2022.</li>
+<li>S. Xu, D. Zhou, J. Fang, J. Yin, B. Zhou, and L. Zhang, "FusionPainting: Multimodal Fusion with Adaptive Attention for 3D Object Detection," in <em>ITSC</em>, 2021.</li>
+<li>Z. Chen, Z. Li, S. Zhang, L. Fang, Q. Jiang, F. Zhao, B. Zhou, and H. Zhao, "AutoAlign: Pixel-Instance Feature Aggregation for Multi-Modal 3D Object Detection," <em>arXiv</em>, 2022.</li>
+<li>M. Liang, B. Yang, S. Wang, and R. Urtasun, "Deep Continuous Fusion for Multi-Sensor 3D Object Detection," in <em>ECCV</em>, 2018.</li>
+<li>D. Park, R. Ambrus, V. Guizilini, J. Li, and A. Gaidon, "Is Pseudo-Lidar needed for Monocular 3D Object detection?" in <em>ICCV</em>, 2021.</li>
+<li>T.-Y. Lin, P. Goyal, R. Girshick, K. He, and P. Dollár, "Focal Loss for Dense Object Detection," in <em>ICCV</em>, 2017.</li>
+<li>S. Chen, Z. Jie, X. Wei, and L. Ma, "MT-Net Submission to the Waymo 3D Detection Leaderboard," <em>arXiv</em>, 2022.</li>
+<li>X. Chen, S. Shi, B. Zhu, K. C. Cheung, H. Xu, and H. Li, "MPPNet: Multi-Frame Feature Intertwining with Proxy Points for 3D Temporal Object Detection," in <em>ECCV</em>, 2022.</li>
+<li>Z. Liu, Y. Lin, Y. Cao, H. Hu, Y. Wei, Z. Zhang, S. Lin, and B. Guo, "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows," in <em>ICCV</em>, 2021.</li>
+<li>T.-Y. Lin, P. Dollár, R. Girshick, K. He, B. Hariharan, and S. Belongie, "Feature Pyramid Networks for Object Detection," in <em>CVPR</em>, 2017.</li>
+<li>H. Caesar, V. Bankiti, A. H. Lang, S. Vora, V. E. Liong, Q. Xu, A. Krishnan, Y. Pan, G. Baldan, and O. Beijbom, "nuScenes: A Multimodal Dataset for Autonomous Driving," in <em>CVPR</em>, 2020.</li>
+</ol>
+<a class="pg" data-page="8"></a>
+<ol class="refs" start="60">
+<li>P. Sun, H. Kretzschmar, X. Dotiwalla, A. Chouard, V. Patnaik, P. Tsui, J. Guo, Y. Zhou, Y. Chai, B. Caine, V. Vasudevan, W. Han, J. Ngiam, H. Zhao, A. Timofeev, S. Ettinger, M. Krivokon, A. Gao, A. Joshi, Y. Zhang, J. Shlens, Z. Chen, and D. Anguelov, "Scalability in Perception for Autonomous Driving: Waymo Open Dataset," in <em>CVPR</em>.</li>
+</ol>
+<p class="yakuchu">（訳注：文献［60］は原文 PDF の 7 ページ末尾から 8 ページにまたがって掲載されている。ページ同期の都合上、8 ページ目の位置にまとめて掲載した。）</p>
+</body>
+</html>
