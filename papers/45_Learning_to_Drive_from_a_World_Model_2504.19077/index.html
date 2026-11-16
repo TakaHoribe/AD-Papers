@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>世界モデルで学ぶ運転 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="Learning to Drive from a World Model" />
+  <meta name="short-name" content="世界モデルで学ぶ運転" />
+  <meta name="authors" content="Mitchell Goff, Greg Hogan, George Hotz, Armand du Parc Locmaria, Kacper Raczy, Harald Sch&#228;fer, Adeeb Shihadeh, Weixing Zhang, Yassine Yousfi（comma.ai）" />
+  <meta name="source-pdf" content="45_Learning_to_Drive_from_a_World_Model_2504.19077.pdf" />
+  <meta name="source-pages" content="10" />
+  <meta name="pdf-href" content="45_Learning_to_Drive_from_a_World_Model_2504.19077.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="実走行データから構築した再投影シミュレータと学習済み世界モデルの 2 種類のシミュレータで、手作りの運転ルールなしに End-to-End 運転方策をオンポリシー学習し、実車の ADAS（openpilot）に展開した comma.ai の研究。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">世界モデルで学ぶ運転 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="45_Learning_to_Drive_from_a_World_Model_2504.19077.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#learning-to-drive-from-a-world-model" id="toc-learning-to-drive-from-a-world-model">Learning to Drive from a World Model</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-定式化" id="toc-2-定式化">2　定式化</a><ul>
+<li><a href="#2.1-運転方策" id="toc-2.1-運転方策">2.1　運転方策</a></li>
+<li><a href="#2.2-運転シミュレータ" id="toc-2.2-運転シミュレータ">2.2　運転シミュレータ</a></li>
+<li><a href="#2.3-車両モデル" id="toc-2.3-車両モデル">2.3　車両モデル</a></li>
+<li><a href="#2.4-世界モデル" id="toc-2.4-世界モデル">2.4　世界モデル</a></li>
+<li><a href="#2.5-将来アンカリング型世界モデル" id="toc-2.5-将来アンカリング型世界モデル">2.5　将来アンカリング型世界モデル</a></li>
+<li><a href="#2.6-運転の正解" id="toc-2.6-運転の正解">2.6　運転の正解</a></li>
+</ul></li>
+<li><a href="#3-再投影シミュレーション" id="toc-3-再投影シミュレーション">3　再投影シミュレーション</a><ul>
+<li><a href="#3.1-再投影シミュレーションの限界" id="toc-3.1-再投影シミュレーションの限界">3.1　再投影シミュレーションの限界</a></li>
+</ul></li>
+<li><a href="#4-世界モデルシミュレーション" id="toc-4-世界モデルシミュレーション">4　世界モデル・シミュレーション</a><ul>
+<li><a href="#4.1-ビデオエンコーダ" id="toc-4.1-ビデオエンコーダ">4.1　ビデオエンコーダ</a></li>
+<li><a href="#4.2-diffusion-transformer" id="toc-4.2-diffusion-transformer">4.2　Diffusion Transformer</a></li>
+<li><a href="#4.3-逐次サンプリング" id="toc-4.3-逐次サンプリング">4.3　逐次サンプリング</a></li>
+<li><a href="#4.4-ノイズレベル拡張" id="toc-4.4-ノイズレベル拡張">4.4　ノイズレベル拡張</a></li>
+<li><a href="#4.5-実装の詳細とデータ" id="toc-4.5-実装の詳細とデータ">4.5　実装の詳細とデータ</a></li>
+<li><a href="#4.6-世界モデルの評価" id="toc-4.6-世界モデルの評価">4.6　世界モデルの評価</a></li>
+</ul></li>
+<li><a href="#5-運転方策の学習" id="toc-5-運転方策の学習">5　運転方策の学習</a><ul>
+<li><a href="#5.1-オンポリシー学習" id="toc-5.1-オンポリシー学習">5.1　オンポリシー学習</a></li>
+<li><a href="#5.2-情報ボトルネック" id="toc-5.2-情報ボトルネック">5.2　情報ボトルネック</a></li>
+<li><a href="#5.3-方策評価スイート" id="toc-5.3-方策評価スイート">5.3　方策評価スイート</a></li>
+<li><a href="#5.4-結果" id="toc-5.4-結果">5.4　結果</a></li>
+</ul></li>
+<li><a href="#6-結論と今後の課題" id="toc-6-結論と今後の課題">6　結論と今後の課題</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="learning-to-drive-from-a-world-model">Learning to Drive from a World Model</h1>
+<p>Mitchell Goff、Greg Hogan、George Hotz、Armand du Parc Locmaria、Kacper Raczy、Harald Schäfer、Adeeb Shihadeh、Weixing Zhang、Yassine Yousfi<br />
+comma.ai（autonomy@comma.ai）<br />
+arXiv:2504.19077v1 [cs.CV]、2025年4月27日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>45_Learning_to_Drive_from_a_World_Model_2504.19077.pdf</code>（全 10 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p>ほとんどの自動運転システムは、手作業でコーディングされた知覚出力と、人手で設計された運転ルールに依存している。End-to-End な手法によって人間の運転データから直接学習すれば、より単純で、計算量とデータ量に対してよくスケールする学習アーキテクチャが実現できる。</p>
+<p>本研究では、実際の運転データを用いてオンポリシー・シミュレータ内で運転方策を学習する End-to-End 学習アーキテクチャを提案する。シミュレーションの方法として、再投影シミュレーション（reprojective simulation）によるものと、学習済み世界モデルによるものの 2 種類を示す。いずれの方法でも、手作業でコーディングされた運転ルールを一切用いずに運転挙動を学習する方策を学習できることを示す。これらの方策の性能を、閉ループ・シミュレーションと、実世界の先進運転支援システムへの展開時の両方で評価する。</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>自動運転は近年目覚ましい進歩を遂げており、学習ベースの手法がシステムのより多くの部分を置き換えつつある。しかし、こうした進歩にもかかわらず、ほとんどの自動運転製品は依然として、知覚の層の上に手作りのルールを載せる構成に依存している。これらのモジュール型の手法は、実世界の複雑さやエッジケースに汎化させるために多大なエンジニアリング労力を必要とする。これに対して End-to-End（E2E）学習は、実データから人間の運転挙動を模倣するように運転方策を学習させることで、よりスケーラブルな解決策を提供する。E2E 方策は画像などの生のセンサ入力を受け取り、運転計画や制御行動を直接出力できるため、ルールを手作業で設計する必要がなくなる［4］。</p>
+<p>E2E 学習における重要な課題は、行動クローニング（Behavior Cloning）［1］のような大半の教師あり学習アルゴリズムが置く i.i.d. 仮定が成り立たない状況下でも、良好に動作する方策をいかに学習するかである。実世界では、方策の予測がその将来の観測に影響を与える。小さな誤差が時間とともに蓄積し、複合的な効果によって、システムは学習中に一度も遭遇しなかった状態へと追いやられる。</p>
+<p>これを克服するには、運転方策をオンポリシーで学習し、環境との自身の相互作用から学ばせ、自らの誤りから回復できるようにする必要がある。実世界でオンポリシー学習を行うことはコストが高く非現実的であり［13］、そのためシミュレーションに基づく学習が不可欠となる。</p>
+<p>従来の運転シミュレータは、明示的で限定的な交通挙動とシーンを用いて手作りされていることが多い。テストには有用であるが、これらのシミュレータは実世界の運転の複雑さと豊かさを完全には捉えられない。</p>
+<p>本研究では、2 種類のデータ駆動型シミュレータ、すなわち再投影型の新規視点合成シミュレータ［27］と学習済み世界モデル（World Model）［10, 11, 25］を、E2E 運転方策の学習にどのように利用できるかを探る。実世界のデータを用いることで、これらのシミュレータは実世界の運転シナリオの多様性を完全に捉えることができ、人間の運転判断を模倣することで方策の判断に対する正解（ground-truth）を提供できる。我々は、教師モデルを将来の状態にアンカリング（anchoring）することで、オンポリシー学習中に人間の運転挙動を蒸留する手法を提案する。</p>
+<p>我々は再投影シミュレータの限界と、世界モデル・シミュレータがデータと計算量に応じてスケールしてそれらの限界を克服する可能性について論じる。このようにして学習した方策が、車線内の走行維持や車線変更といった通常の運転挙動を学習すること、そして先進運転支援システム（Advanced Driver Assistance System; ADAS）のような実世界の応用に利用できることを示す。</p>
+<p>我々の知る限り、本研究は手作りの特徴量を用いない End-to-End 学習を実世界の ADAS で使えることを示した最初の研究である。さらに、実世界に展開される方策のオンポリシー学習に世界モデル・シミュレータを用いた最初の例でもあると考えている。</p>
+
+<h2 id="2-定式化">2　定式化</h2>
+<h3 id="2.1-運転方策">2.1　運転方策</h3>
+<p>我々の目標は、観測の履歴 \((o_1, o_2, \ldots, o_T)\) から次の行動 \(a_{T+1}\) の分布への写像である End-to-End（E2E）運転方策 \(\pi\) を学習することである。履歴 \(h_T^{\pi}\) を観測と過去の行動の系列とみなす。</p>
+
+<a class="pg" data-page="2"></a>
+<figure><img src="figs/fig1.png" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：</strong>世界モデル・シミュレーションのロールアウトの 1 ステップ。灰色で塗られた図形は世界モデルへの入力である。黒で塗られた図形は方策モデルと世界モデルの両方への入力である（方策モデルは世界モデルそのものであってもよいことに注意）。円は行動（位置と姿勢）、長方形は観測（画像）である。</p>
+<p class="yakuchu">図中ラベル：Driving Simulator＝運転シミュレータ、Next Action＝次の行動、Next Frame＝次のフレーム、Past Context＝過去のコンテキスト、Future Anchoring＝将来アンカリング、Policy＝方策</p>
+<p>\[ \begin{aligned} \pi &amp;: h_T^{\pi} \mapsto p(a_{T+1} \mid h_T^{\pi}), \\ \text{with } h_T^{\pi} &amp;= \Big((o_1, a_1), (o_2, a_2), \ldots, (o_T, a_T)\Big). \end{aligned} \tag{1} \]</p>
+<p>行動空間 \(\mathcal{A}\) は、目標旋回曲率と目標縦方向加速度として定義する。観測空間 \(\mathcal{O}\) はカメラ画像の集合のみとして定義する（ビジョンのみの方策）。簡単のため、単一のカメラ（狭視野）からの画像のみを示す。実際には、シーンのより広い部分を捉えるために、広視野と狭視野の 2 台のカメラの画像を用いる。この定式化は、一般性を失うことなく、より多くのカメラを含むように拡張できる。</p>
+<p>エキスパートのデモンストレーションのデータセット \(\mathcal{D} = \Big\{\Big((s_1, a_1), \ldots, (s_T, a_T)\Big)\Big\}_{i=1}^{n}\) が与えられる。我々は \(\mathcal{D}\) 内のエキスパートのデモンストレーションをもとに運転方策 \(\pi\) を学習することを目指す。</p>
+<p>状態空間 \(\mathcal{S}\) はカメラ画像の集合として定義するが、GPS や IMU データなど他のセンサデータを含めることもできる。本研究では、状態空間をカメラ画像の集合 \(\mathcal{O}\) と、車両の大域的な姿勢推定（位置と姿勢）\(p_t = (x, y, z, \phi, \theta, \psi) \in \mathcal{P} \subset \mathbb{R}^6\) に限定する。</p>
+<p>大域的な姿勢は、密結合の GPS／ビジョン Multi-State Constraint Kalman Filter（MSCKF）［14, 17, 26］を用いて得る。</p>
+
+<h3 id="2.2-運転シミュレータ">2.2　運転シミュレータ</h3>
+<p>運転シミュレータを、（i）運転状態生成器（Driving State Generator）と（ii）行動正解ソース（Action Ground Truth Source）から構成されるものとして定義する。</p>
+<p>運転状態の生成は、CARLA［6］、MetaDrive［15］などの従来の運転シミュレータに基づくこともできるし、データから学習されるいわゆる世界モデルに基づくこと（第 4 節）や、再投影型の新規視点合成技術に基づくこと（第 3 節）もできる。</p>
+<p>行動正解ソースは、運転方策を学習するための教師信号を提供する。データ駆動型の行動正解ソースについては 2.6 節で述べる。</p>
+
+<h3 id="2.3-車両モデル">2.3　車両モデル</h3>
+<p>車両の運動は姿勢の系列 \((p_1, p_2, \ldots, p_T)\) として記述される。シミュレーション内で取られた行動の効果をシミュレートするには、行動に基づいて姿勢を生成する関数が必要である。これを車両モデル（Vehicle Model）と呼ぶ［12］。我々の車両モデルは、車両ダイナミクス、ステアリング応答の遅れ、風など、実世界のさまざまな効果をモデル化するように設計されている。これらの効果をシミュレートすることは、シミュレーションで学習した方策を実世界へ移転するために必要であり、しばしばドメインランダム化（Domain Randomization; sim2real）と呼ばれる［20, 24, 28］。車両モデルを逆に用いることで、姿勢の軌道を実現するのに必要な行動を推定することもできる。</p>
+<p>図 1 は、運転シミュレータの 1 ステップに関わるさまざまな構成要素を示している。</p>
+
+<h3 id="2.4-世界モデル">2.4　世界モデル</h3>
+<p>世界モデル \(w\) を、状態と行動の履歴が与えられたときに将来の状態を予測する確率モデルとして定義する。世界モデルを 2.3 節で述べた車両モデルから独立させるため、行動（目標曲率と目標加速度）は車両の姿勢 \((p_1, p_2, \ldots, p_T)\) と車両モデルから暗黙的に導出できるものとみなす。言い換えれば、\(w\) は画像と姿勢の履歴および次の姿勢を、次の画像の分布へ写像する。</p>
+<p>\[ \begin{aligned} w &amp;: h_T^{w} \mapsto p(o_T \mid h_T^{w}), \\ \text{with } h_T^{w} &amp;= \Big((p_1, o_1), (p_2, o_2) \ldots, (p_T,)\Big). \end{aligned} \tag{2} \]</p>
+<p>世界モデルの遷移信号として姿勢を用いることで、世界モデルを再学習することなく車両モデルのパラメータを拡張（augment）できることに注意されたい。</p>
+
+<h3 id="2.5-将来アンカリング型世界モデル">2.5　将来アンカリング型世界モデル</h3>
+<p>［2］と同様に、\(F = (f_s, f_e)\) でパラメータ化された将来の観測と行動を条件とする非因果的な世界モデルを学習することができる。ここで \(f_s\) は将来ホライズンの開始、\(f_e\) は将来ホライズンの終了であり、\(f_s \gt T\) である。このモデルはオフラインでしか使えないが、\(F\) における目標状態へ収束する、人間らしい運転映像系列と軌道を予測できるという利点がある。我々はこれを回復圧力（recovery pressure）と呼ぶ。</p>
+<a class="pg" data-page="3"></a>
+<p>\[ \begin{aligned} w &amp;: h_{T,F}^{w} \mapsto p(o_T \mid h_{T,F}^{w}), \\ \text{with } h_{T,F}^{w} &amp;= \Big((p_{f_s}, o_{f_s}), \ldots, (p_{f_e}, o_{f_e}), \\ &amp;\qquad (p_1, o_1), (p_2, o_2), \ldots, (p_T,)\Big). \end{aligned} \tag{3} \]</p>
+
+<h3 id="2.6-運転の正解">2.6　運転の正解</h3>
+<p>時刻 \(T\) における行動正解（Action Ground Truth）とは、過去の観測と方策自身がこれまでに取った過去の行動が与えられたときに、方策が取るべき行動 \(a_T \mid h_T\) であって、良好な運転挙動をもたらすものを指す。</p>
+<p>この正解を生成するために、将来アンカリング型世界モデルを、観測と姿勢の履歴および将来アンカリングが与えられたもとで次の姿勢または姿勢の軌道 \(\mathcal{T}\) も予測する（\(\mathcal{T} \mid h_{T,F}\)）ように学習する。このモードで動作するとき、世界モデルをプランモデル（Plan Model）と呼び、予測された軌道は車両モデルを用いて正解行動へと写像できる。</p>
+<p>将来アンカリングは、シミュレーションの現在の状態にかかわらず、望ましい目標状態 \(F\) へ収束する軌道をプランモデルが生成できるようにするために不可欠である。これがないと、悪い状態にあるときにプランモデルは回復圧力を示さない。</p>
+<p>プランモデルは別個のモデルにすることもできるが、共有表現を活用するために世界モデルと同時に学習することが多い点に注意されたい。また、プランモデルはシミュレータで使われる状態生成手法とは独立に利用することもできる。すなわち、再投影シミュレーションとも学習済み世界モデルとも組み合わせて使える。</p>
+
+<h2 id="3-再投影シミュレーション">3　再投影シミュレーション</h2>
+<p>密な深度マップ \(d_T\)、姿勢 \(p_T\)、画像 \(o_T\) が与えられたとき、深度マップ内の 3 次元点を新しい姿勢 \(p'_T\) へ再投影することで、新しい画像 \(o'_T\) をレンダリングできる。この処理を再投影シミュレーション（Reprojective Simulation）と呼ぶ。実際には、画像と深度マップの履歴を用いて画像を再投影し、欠損領域をインペインティングすることができる。例を図 2 に示す。</p>
+
+<h3 id="3.1-再投影シミュレーションの限界">3.1　再投影シミュレーションの限界</h3>
+<p>再投影シミュレーションの限界のいくつかを挙げる。</p>
+<p><strong>静的シーンの仮定：</strong>この定式化はシーンが静的であり \(p_T\) に依存しないと仮定しているが、通常そうではない。例えば、隣の車に向かって急にハンドルを切れば、その車のドライバーが反応するかもしれない。我々はこの問題を反実仮想問題（counterfactual problem）と呼ぶ。</p>
+<p><strong>深度推定の不正確さ：</strong>深度マップ \(d_T\) は通常ノイズが多く不正確であり、そのため再投影画像 \(o'_T\) にアーティファクトが生じる。</p>
+<p><strong>オクルージョン：</strong>\(o_T\) で遮蔽されている領域は \(o'_T\) ではインペインティングされなければならないが、これは困難なタスクであり、これも再投影画像にアーティファクトをもたらす。</p>
+<p><strong>反射と照明：</strong>定義上、再投影シミュレーションは光輸送の物理を無視する。レイトレーシングやそれと同等の照明モデルがなければ、再投影は表面がどこにあるかは分かっても、新しい角度から見たときに光がそれらの表面とどう相互作用するかは分からない。これは夜間の運転シーンにとって大きな制約であり、図 3 に示すように、再投影画像に目立つ照明アーティファクトを生じさせる。</p>
+<p><strong>範囲の制限：</strong>\(p'_T\) が \(p_T\) から離れるほど、アーティファクトは顕著になる。アーティファクトを抑えるには、シミュレーションの範囲を小さな値（通常は並進で 4m 未満）に制限する必要があり、これは特に縦方向の運動にとって大きな制約となる。</p>
+<p><strong>アーティファクトが \(p'_T - p_T\) と相関する：</strong>再投影画像のアーティファクトは、姿勢 \(p'_T\) と \(p_T\) の差と相関している。この相関が方策によって将来の行動を予測するために利用されてしまうが、これは望ましくない。我々はこれをカンニング（cheating）またはショートカット学習（shortcut learning）［9］と呼ぶ。</p>
+
+<h2 id="4-世界モデルシミュレーション">4　世界モデル・シミュレーション</h2>
+<p>世界モデル・シミュレータは、将来アンカリング型世界モデル兼プランモデルである。</p>
+
+<h3 id="4.1-ビデオエンコーダ">4.1　ビデオエンコーダ</h3>
+<p>事前学習済みの Stable Diffusion の画像 VAE［23］を用いる。より具体的には <code>vae-ft-mse-840000-ema-pruned</code> であり、圧縮率は \(8 \times 8\)、画像あたりの潜在チャネル数は 4 である。簡単のため、本節では VAE トークナイザによるカメラ画像の潜在表現も同じく \(o\) で表す。</p>
+
+<h3 id="4.2-diffusion-transformer">4.2　Diffusion Transformer</h3>
+<h4>4.2.1　アーキテクチャ</h4>
+<p>Diffusion Transformer（DiT）アーキテクチャ［19］を用い、入出力のパッチ化テーブルを 3 次元テーブルに拡張したうえで、Transformer ブロックの前に 3 次元すべてを平坦化することで、3 次元入力に対応させる。</p>
+<p>［3］と同様に、車両の姿勢、世界タイムステップ、拡散ノイズタイムステップを Diffusion Transformer の条件付け信号として用いる。条件付け信号の埋め込みは合計され、適応的レイヤー正規化層（Adaptive Layer Norm; AdaLN）［32］に渡される。AdaLN 層は、時間次元に沿って異なる条件付けベクトルを扱えるように変更されている。</p>
+<p>さらに、注意機構の層ではブロック単位（フレーム単位）の三角因果マスクを用いる。すなわち、クエリトークンは系列内の同じフレームまたはそれ以前のフレームの（キー、バリュー）トークンにのみ注意を向けることができる。将来の観測と将来の姿勢が入力系列の先頭に付加されるため、これによってモデルが物理的に因果的になるわけではないことに注意されたい。しかし、このマスクは推論時にキー・バリュー・キャッシュ（kv-caching）を用いるために必要であり、kv-caching は効率的なサンプリングに不可欠である。</p>
+
+<a class="pg" data-page="4"></a>
+<figure><img src="figs/fig2.jpg" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：</strong>左：上は時刻 \(T\) の画像、下は時刻 \(T\) の深度マップ。右：4 つの異なる並進ベクトルを用いた時刻 \(T\) の再投影画像。</p>
+<p class="yakuchu">図中ラベル：\(p_T + (0, 0.75, 0)\) などは、元の姿勢 \(p_T\) に加えた並進ベクトルを示す。</p>
+
+<figure><img src="figs/fig3.jpg" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：</strong>左：時刻 \(T\) の画像。右：時刻 \(T\) の再投影画像。再投影画像における照明アーティファクトに注目されたい。</p>
+
+<p>これをプランモデルにするために、Transformer には残差フィードフォワード・ブロックを積み重ねたプランヘッド（Plan Head）が備えられる。プランヘッドは軌道 \(\mathcal{T}\) を予測する。</p>
+
+<h4>4.2.2　学習目的</h4>
+<p>条件付き Diffusion Transformer の学習には Rectified Flow（RF）の目的関数［16］を採用する。簡単のため、以下の式では世界タイムステップを表す添え字 \(T\) と \(F\) を省略する。ノイズタイムステップ \(\tau \sim \text{Logit-Normal}(0.0, 1.0)\)［8］をサンプリングし、式 4 を用いて観測 \(o\) にノイズを加える。</p>
+<p>\[ o_\tau = \tau\epsilon + (1 - \tau)o \tag{4} \]</p>
+<p>プランヘッドの出力 \(\mathcal{T}\) には、5 つの仮説を用いる多仮説プランニング損失（Multi-hypothesis Planning loss; MHP）［5］を用いる。各仮説は、ラプラス事前分布を用いた不均一分散の負の対数尤度（Negative Log Likelihood; NLL）損失［18］で学習される。</p>
+<p>全損失 \(\mathcal{L}\) は、式 5 に示すように、Rectified Flow 損失 \(\mathcal{L}_{\text{RF}}\) と MHP 損失 \(\mathcal{L}_{\mathcal{T}}\) をハイパーパラメータ \(\alpha =\) で重み付けした和である。<span class="yakuchu">（訳注：原文では \(\alpha\) の値が記載されておらず「α = as described」と途切れている。）</span></p>
+<p>\[ \begin{aligned} \mathcal{L} &amp;= \mathcal{L}_{\text{RF}} + \alpha\, \mathcal{L}_{\mathcal{T}} \\ \text{where}\quad \mathcal{L}_{\text{RF}}(o, p, \epsilon, \tau) &amp;= \lVert w(o_\tau, p, \tau) - (o - \epsilon) \rVert^2 \\ \mathcal{L}_{\mathcal{T}}(o, p, \epsilon, \tau) &amp;= \text{MHP}(w(o_\tau, p, \tau), \mathcal{T}) \end{aligned} \tag{5} \]</p>
+
+<h3 id="4.3-逐次サンプリング">4.3　逐次サンプリング</h3>
+<p>各世界タイムステップ \(T\) において、15 ステップ \(\Delta\tau = 1/15\) の単純なオイラー離散化を用いて次の潜在変数 \(\tilde{o}_T\) をサンプリングする。サンプリング過程は式 6 に従う。コンテキストの潜在変数 \((o_{f_s}, \ldots, o_{f_e}, o_1, \ldots, o_{T-1})\) にはいずれもノイズを加えず、それらのタイムステップではモデルへの入力として \(\tau = 0\) を用いる。車両位置 \(p_T\) は、4.6 節で述べるように、世界モデル自身のプランヘッドから、方策から、正解軌道から、あるいは人工的に作成してサンプリングできる。</p>
+<p>\[ \tilde{o}_{\tau+\Delta\tau} = \Delta\tau\, w(\tilde{o}_\tau, p, \tau + \Delta\tau) + \tilde{o}_\tau \tag{6} \]</p>
+<p>次のタイムステップ \(T+1\) では、コンテキストの潜在変数を 1 タイムステップずらし、サンプリングした潜在変数 \(\tilde{o}_T\) をコンテキストの潜在変数 \((o_{f_s}, \ldots, o_{f_e}, o_2, \ldots, o_{T-1}, \tilde{o}_T)\) に追加する。この過程を将来ホライズン \(f_e\) に到達するまで繰り返す。</p>
+
+<h3 id="4.4-ノイズレベル拡張">4.4　ノイズレベル拡張</h3>
+<p>いわゆる「自己回帰ドリフト（auto-regressive drift）」［29］、すなわち逐次サンプリング過程における誤差がフレームごとに複合的に蓄積する現象に対してモデルを頑健にするため、ノイズレベル拡張（noise level augmentation）の手法を用いる。</p>
+<p>一部の学習サンプル（確率 \(p = 0.3\)）に対して、以下を行う。</p>
+<ul>
+<li>世界タイムステップ \((1, \ldots, T-1)\) において、異なるノイズレベル \(\tau \sim \text{Logit-Normal}(0.0, 0.25)\) をサンプリングする。</li>
+<li>将来アンカリングの潜在変数にはノイズを加えない。すなわち世界タイムステップ \((f_s, \ldots, f_e)\) では \(\tau = 0\) とする。</li>
+<li>世界タイムステップ \(f_s, \ldots, f_e, 1, \ldots T-1\) ではモデルに \(\tau = 0\) を入力する。</li>
+<li>拡散損失は時刻 \(T\) の潜在変数に対してのみ計算する。</li>
+</ul>
+<p>この拡散ノイズレベル拡張は、逐次サンプリング過程で蓄積する誤差に対してモデルを頑健にするうえで不可欠であった。同様の手法は［29］でも提案されているが、我々はノイズレベルを離散化する必要はないと判断した。</p>
+<a class="pg" data-page="5"></a>
+<figure><img src="figs/fig4.jpg" loading="lazy" alt="図4" /></figure>
+<p><strong>図4：</strong>世界モデル・シミュレーションの 5 つの例。青枠のフレームは過去コンテキストの最後のフレーム、赤枠のフレームは将来アンカリングの最初のフレーム、緑枠のフレームはシミュレートされたフレームである。シミュレートされたフレームが、車線変更を実行したり、信号を青に変えたりすることで将来アンカリングに従っていることに注目されたい。</p>
+
+<h3 id="4.5-実装の詳細とデータ">4.5　実装の詳細とデータ</h3>
+<p>GPT-2 モデル［21］の構成に基づき、<code>gpt</code>（2 億 5,000 万パラメータ）、<code>gpt-medium</code>（5 億パラメータ）、<code>gpt-large</code>（10 億パラメータ）の 3 つのサイズの DiT を学習する。データセットのサイズは 100k、200k、400k セグメントの 3 種類を用い、各セグメントは 1 分間の運転映像と車両姿勢からなる。映像は VAE に入力する前に \(128 \times 256\) ピクセルに縮小する。すべてのデータを 5 Hz にダウンサンプリングする。</p>
+<p>データサイズとモデルサイズのスケーリング結果を図 5 に示す。特に断らない限り、以降の実験では 400k セグメントで学習した 5 億パラメータ（500M）の DiT モデルを用いる。</p>
+<p>各学習サンプルは次のように構成する。データセットから \(T = 2s\) のコンテキストをサンプリングし、次に世界タイムステップ \(T \lt fs \lt 9s\)、すなわち将来ホライズンの開始をサンプリングする。\(f_e - f_s\) は \(1s\) で一定に保つ。その後、画像の VAE 特徴量と車両姿勢を式 3 に記述したように連結する。</p>
+<p>各タイムステップにおいて、軌道 \(\mathcal{T}\) は 10 秒先の将来ホライズンまでの位置、速度、加速度、姿勢角、姿勢角速度の系列として構成される。</p>
+<p>世界モデルのロールアウトの例は図 4 を参照されたい。</p>
+
+<h3 id="4.6-世界モデルの評価">4.6　世界モデルの評価</h3>
+<p>画像／映像の品質の指標として、生成画像と正解画像との LPIPS［33］類似度を用いる。</p>
+<p>テストセットで測定した VAE 圧縮によるベースラインの LPIPS スコアは LPIPS \(= 0.148\) であり、LPIPS スコアが低いほど生成画像の品質が高いことに注意されたい。</p>
+<p>世界モデルが車両位置 \(p_T\) の入力をどれだけ正確に守るかを評価するため、Pose Net を用いて、指令された車両運動と世界モデルが生成した車両運動との誤差を測定する。</p>
+
+<figure><img src="figs/fig5.png" loading="lazy" alt="図5" /></figure>
+<p><strong>図5：</strong>左：400k セグメントで学習した、異なるサイズの DiT モデルの LPIPS。右：5 億パラメータの DiT における、異なるデータセットサイズの LPIPS。いずれも行動 teacher-forced 逐次ロールアウトの設定によるものである。</p>
+<p class="yakuchu">図中ラベル：Model size (parameters)＝モデルサイズ（パラメータ数）、Dataset size (segments)＝データセットサイズ（セグメント数）</p>
+
+<p>Pose Net は、姿勢、車線境界線、道路端、先行車の位置など、さまざまな出力を予測するように学習された教師ありモデルである。</p>
+<p>テストセットのさまざまなセグメントから得た 1,500 回のロールアウトにわたって世界モデルを評価する。世界モデルは複数のモードで動作させることができる。</p>
+
+<h4>4.6.1　画像品質</h4>
+<p><strong>観測と行動を teacher-forcing した次フレーム予測：</strong>各世界タイムステップ \(T\) において、（方策からの行動ではなく）正解軌道の行動を用いてフレーム \(\tilde{o}_T\) をサンプリングする。次に、それを次のタイムステップ \(T+1\) のコンテキスト潜在変数に置く前に、正解画像 \(o_T\) で置き換える。このテストの結果を図 6 の左に示す。</p>
+
+<a class="pg" data-page="6"></a>
+<table><thead><tr><th>MAE</th><th>VAE 圧縮なし</th><th>VAE 圧縮あり</th></tr></thead>
+<tbody>
+<tr><td>x speed（x 方向速度）</td><td style="text-align:right">0.46366 m/s</td><td style="text-align:right">0.59390 m/s</td></tr>
+<tr><td>y speed（y 方向速度）</td><td style="text-align:right">0.04216 m/s</td><td style="text-align:right">0.04393 m/s</td></tr>
+<tr><td>z speed（z 方向速度）</td><td style="text-align:right">0.04424 m/s</td><td style="text-align:right">0.04548 m/s</td></tr>
+<tr><td>roll rate（ロールレート）</td><td style="text-align:right">0.00468 rad/s</td><td style="text-align:right">0.00524 rad/s</td></tr>
+<tr><td>pitch rate（ピッチレート）</td><td style="text-align:right">0.00433 rad/s</td><td style="text-align:right">0.00453 rad/s</td></tr>
+<tr><td>yaw rate（ヨーレート）</td><td style="text-align:right">0.00211 rad/s</td><td style="text-align:right">0.00254 rad/s</td></tr>
+<tr><td>y lane lines（車線境界線の y 位置）</td><td style="text-align:right">0.15852 m</td><td style="text-align:right">0.15995 m</td></tr>
+</tbody></table>
+<p><strong>表1：</strong>VAE 圧縮していないセグメントと VAE 圧縮したセグメントに対する Pose Net の MAE。</p>
+
+<h4>4.6.2　映像品質</h4>
+<p><strong>行動を teacher-forcing した逐次ロールアウト：</strong>ここでは正解軌道の行動を用いてフレーム \(\tilde{o}_T\) をサンプリングし、それを次のタイムステップ \(T+1\) のコンテキスト潜在変数に置く。このモードは、方策からの行動の代わりに正解の行動を用いる点を除けば、世界モデルを通常どおり使うことと等価である。このテストの結果を図 6 の右に示す。</p>
+
+<figure><img src="figs/fig6.png" loading="lazy" alt="図6" /></figure>
+<p><strong>図6：</strong>LPIPS。右：観測と行動を teacher-forcing した次フレーム予測（画像品質の評価）、左：行動を teacher-forcing した逐次ロールアウト（映像品質の評価）。<span class="yakuchu">（訳注：本文（4.6.1 節・4.6.2 節）では次フレーム予測の結果が左、逐次ロールアウトの結果が右とされており、キャプションの左右の記述と矛盾する。グラフの形状（左はほぼ一定、右は誤差が蓄積して増加）からは本文の記述が正しいと考えられる。）</span></p>
+<p class="yakuchu">図中ラベル：Simulated Frame＝シミュレートされたフレーム</p>
+
+<h4>4.6.3　姿勢の精度</h4>
+<p><strong>行動を方策で強制した逐次ロールアウト：</strong>ここでは方策 \(\pi\) の行動を用いて次のフレーム \(\tilde{o}_T\) をサンプリングする。これは世界モデルの一般的な動作モードである。方策はいわゆる「ノイズモデル」であってもよい。ノイズモデルの一例は、図 8 に示すように、開始位置から一定距離だけ逸脱する方策である。方策が正解軌道である場合、これは行動を teacher-forcing した逐次ロールアウトと等価であることに注意されたい。</p>
+<p>Pose Net で測定した世界モデルの姿勢誤差を図 7 に示す。</p>
+<p>また、次のノイズモデルを用いて世界モデルを実行する。ロールアウトの最初の 25 ステップにわたって \(\pm 0.5\)m の滑らかな横方向逸脱を強制し、その後は世界モデルに回復させる。このノイズの例を図 8 に示す。図 9 は、指令した横方向逸脱と、世界モデルがシミュレートした実際の逸脱（Pose Net で測定）を、1,500 回のロールアウトにわたって平均して示したものである。世界モデルは指令された逸脱をシミュレートするが、その全量まではシミュレートしない。</p>
+
+<figure><img src="figs/fig7.png" loading="lazy" alt="図7" /></figure>
+<p><strong>図7：</strong>行動を teacher-forcing した逐次ロールアウトにおける姿勢誤差。</p>
+<p class="yakuchu">図中ラベル：x/y/z speed error＝x/y/z 方向速度の誤差、roll/pitch/yaw rate error＝ロール／ピッチ／ヨーレートの誤差、Frame＝フレーム</p>
+
+<figure><img src="figs/fig8.jpg" loading="lazy" alt="図8" /></figure>
+<p><strong>図8：</strong>行動をノイズで強制した逐次ロールアウト。シミュレーションの 25 ステップにわたって \(\pm 0.5\)m の滑らかな横方向逸脱を強制する。上はステップ 25 における右への逸脱、下は左への逸脱を示している。</p>
+
+<h2 id="5-運転方策の学習">5　運転方策の学習</h2>
+<p>運転方策 \(\pi\) は 2 つのニューラルネットワークを積み重ねたものである。</p>
+
+<a class="pg" data-page="7"></a>
+<figure><img src="figs/fig9.png" loading="lazy" alt="図9" /></figure>
+<p><strong>図9：</strong>ノイズで強制したシミュレーションにおける車線中心からの逸脱。破線は Pose Net で測定した逸脱、実線は指令した逸脱を示す。</p>
+<p class="yakuchu">図中ラベル：Distance from Lane Center (m)＝車線中心からの距離（m）、Simulated Frame＝シミュレートされたフレーム、Commanded Left／Right＝指令（左／右）、Pose Net Left／Right＝Pose Net による測定（左／右）</p>
+
+<p>1 つ目は FastViT アーキテクチャ［30］に基づく教師ありの特徴抽出器であり、車線境界線、道路端、先行車情報、自車の将来軌道など、さまざまな出力を予測するように学習される。車線境界線と道路端の出力は可視化に用いられるだけで、ステアリング方策の一部として使われることは決してない点に注意されたい。</p>
+<p>2 つ目は小規模な Transformer［31］ベースの時系列モデルであり、特徴抽出器と同じ出力に加えて、次の行動（目標曲率と目標加速度）を予測する。時系列モデルの入力は、直近 2 秒間にわたる（凍結された）FastViT 抽出器の特徴量である。</p>
+<p>世界モデルのプランヘッドと同様に、運転方策の軌道出力は 5 つの仮説とラプラス事前分布を用いた MHP 損失で学習される。その他の出力は、ラプラス事前分布を用いた NLL 損失で学習される。</p>
+<p>方策の時系列モデル部分を学習するための 2 つの異なるアプローチ、すなわちオフポリシー学習（Off-Policy Learning）とオンポリシー学習（On-Policy Learning）を区別する。オフポリシー学習とは、収集されたエキスパートのデモンストレーションのデータセットに対して教師あり学習を行うことを指す。これは模倣学習としても知られている。オンポリシー学習については 5.1 節で述べる。</p>
+
+<h3 id="5.1-オンポリシー学習">5.1　オンポリシー学習</h3>
+<p>時系列モデルは運転シミュレータを用いて学習され、方策の学習サンプルは方策自身と環境との相互作用から得られる。我々は IMPALA［7］と同様のアーキテクチャを採用しており、並列に動作する複数のアクターが経験を生成し、それを中央の学習器（learner）に送る。学習器は方策を更新し、パラメータサーバを用いて新しいバージョンをアクターに送る。</p>
+<p>これらの経験（ロールアウトとも呼ぶ）は次の形式の系列である。</p>
+<p>\[ \begin{aligned} h^{\pi,wp} = \Big(&amp;(o_1, a_1, \hat{a}_1^{wp}), (o_2, a_2, \hat{a}_2^{wp}), \ldots, \\ &amp;(o_{f_s}, a_{f_s} \hat{a}_{f_s}^{wp})\Big), \end{aligned} \tag{7} \]</p>
+<p>ここで \(\hat{a}^{wp}\) は、ロールアウト中に（プランを備えた）将来アンカリング型世界モデル \(wp\) から導出された行動である。</p>
+<p>各タイムステップ \(T\) において、アクターは、ロールアウト開始時点でパラメータサーバにある最新の方策 \(\pi\) からサンプリングした行動 \(a_T\) を取る。運転シミュレータは、世界の状態と指令された行動が与えられたもとで観測 \(o_T\) を生成する。シミュレータは \(wp\) 自身でも、別の世界モデル \(w\) でも、任意の運転シミュレータでもよい。</p>
+<p>ロールアウトは将来ホライズン \(f_s\) に到達した時点で終了し、その後学習器に送られる。</p>
+<p>学習器は写像 \(\pi : h_T^{\pi} \mapsto p(\hat{a}_T^{w} \mid h_T^{\pi})\) を最適化する。すなわち、方策は履歴 \(h_T^{\pi}\) が与えられたときに世界モデルが取るであろう行動を予測するように学習する。</p>
+<p>方策が実世界のさまざまな効果に対して頑健であるようにするには、2.3 節で述べた車両モデルが、学習中に行動応答の複雑な分布をモデル化しなければならない。</p>
+
+<h3 id="5.2-情報ボトルネック">5.2　情報ボトルネック</h3>
+<p>3.1 節で述べたシミュレータ固有のアーティファクトを方策が悪用するのを防ぐため、特徴抽出器が出力できる情報量をおよそ 700 ビットに制限することで、特徴抽出器を正則化する。この制限は学習中に白色ガウスノイズを加えることで課す。このボトルネックは、サンプルあたりの情報容量が \(\frac{1}{2}\log(1 + \text{SNR})\) のガウス通信路として解釈できる。このボトルネックは Gaussian Dropout［22］に似ているが、Gaussian Dropout は加法的ノイズではなく乗法的ノイズを用いる。</p>
+
+<h3 id="5.3-方策評価スイート">5.3　方策評価スイート</h3>
+<p>我々は方策の横方向の運転性能、すなわち人間らしい車線内位置を維持するよう正確かつ滑らかに操舵する能力と、さまざまな条件下で車線変更を成功裏に実行する能力の評価に焦点を当てる。一般性を失うことなく、縦方向の指標やテストも同様に組み込むことができ、それらは今後の課題である。</p>
+
+<h4>5.3.1　シミュレーションによるオンポリシー単体テスト</h4>
+<p>MetaDrive シミュレータ［15］を用いて方策を閉ループで評価する。レンダリング例は図 10 を参照されたい。方策が合格すべき単体テストの集合を定義する。</p>
+<p><strong>直線路とカーブでの車線中心への収束テスト（24 シナリオ）：</strong>開始条件に小さなオフセットがあっても、方策が車線内の良好な位置に収束するかどうかをテストする。車線内の位置は中央である必要はなく、人間のドライバーが収束するような位置であればよいことに注意されたい。図 11 の左を参照されたい。</p>
+
+<a class="pg" data-page="8"></a>
+<p><strong>車線変更完了テスト（20 シナリオ）：</strong>車線内の開始条件に小さなオフセットがあっても、方策が車線変更操作を完了できるかどうかをテストする。学習中は車線変更の前に条件付けインパルスを加え、推論時にも同じインパルスを入力して車線変更を発動させる。図 11 の右を参照されたい。</p>
+
+<figure><img src="figs/fig10.jpg" loading="lazy" alt="図10" /></figure>
+<p><strong>図10：</strong>MetaDrive でシミュレートした単体テストシナリオの例。</p>
+
+<figure><img src="figs/fig11.png" loading="lazy" alt="図11" /></figure>
+<p><strong>図11：</strong>左：車線中心への収束テストの結果。右：車線変更完了テストの結果。</p>
+<p class="yakuchu">図中ラベル：time (s)＝時間（秒）、x (m)＝横方向位置 x（m）</p>
+
+<h4>5.3.2　オフポリシー評価</h4>
+<p>データセットから 1,500 セグメントのホールドアウト集合を用いる。これらのセグメント上で各タイムステップに方策を実行してさまざまな指標を計算することにより、方策をオフポリシーで評価する。簡単のため、軌道全体の MAE のみを報告する。</p>
+
+<h4>5.3.3　実環境での評価</h4>
+<p>方策を openpilot<sup>1</sup> に展開してユーザからデータを収集することで、実環境（in the field）で方策を評価する。openpilot は、多種多様な市販車両に対応するオープンソースの ADAS である。ここで述べる End-to-End 方策は車両のステアリング操作を直接制御し、システムが作動しているときに連続的な自動操舵を提供する。縦方向の行動は古典的な ACC（Adaptive Cruise Control）方策によって制御され、これは先行車検出とレーダーを用いて他車に対して減速し、巡航速度を維持する。</p>
+<blockquote><p>脚注1：<a href="https://github.com/commaai/openpilot">https://github.com/commaai/openpilot</a></p></blockquote>
+
+<h3 id="5.4-結果">5.4　結果</h3>
+<p>3 種類の方策を評価する。オフポリシーで学習したもの、再投影シミュレータを用いてオンポリシーで学習したもの、世界モデル・シミュレータを用いてオンポリシーで学習したものである。結果を表 2 に示す。オフポリシーで学習した方策は、オフポリシーの精度評価ではより良い性能を示すにもかかわらず、オンポリシーのテストでは失敗することがはっきりと分かる。</p>
+
+<table><thead><tr><th></th><th>Off-policy（オフポリシー）</th><th>Reprojective（再投影）</th><th>World Model（世界モデル）</th></tr></thead>
+<tbody>
+<tr><td>MetaDrive 車線中心（lane center）</td><td style="text-align:right">5/24</td><td style="text-align:right">24/24</td><td style="text-align:right">24/24</td></tr>
+<tr><td>MetaDrive 車線変更（lane change）</td><td style="text-align:right">8/20</td><td style="text-align:right">20/20</td><td style="text-align:right">19/20</td></tr>
+<tr><td>オフポリシー軌道 MAE</td><td style="text-align:right">0.361</td><td style="text-align:right">0.369</td><td style="text-align:right">0.394</td></tr>
+</tbody></table>
+<p><strong>表2：</strong>異なる条件で学習した運転方策の、MetaDrive シミュレータ上での性能とオフポリシー精度評価。</p>
+
+<table><thead><tr><th></th><th>Reprojective（再投影）</th><th>World Model（世界モデル）</th></tr></thead>
+<tbody>
+<tr><td>トリップ数（Number of trips）</td><td style="text-align:right">47,047</td><td style="text-align:right">40,026</td></tr>
+<tr><td>作動率 %（時間）</td><td style="text-align:right">27.63%</td><td style="text-align:right">29.92%</td></tr>
+<tr><td>作動率 %（距離）</td><td style="text-align:right">48.10%</td><td style="text-align:right">52.49%</td></tr>
+</tbody></table>
+<p><strong>表3：</strong>学習した運転方策の実環境での性能。</p>
+
+<p>どちらのオンポリシー学習手法も、openpilot において実世界への展開に成功している。表 3 は、500 人のユーザからなるコホートの約 2 か月間の運転から収集した利用指標を示している。openpilot は解除（disengagement）が想定されるレベル 2 のシステムであるため、システムが作動していた時間と距離の割合を主要な指標として用いる。これらの結果は、どちらの方策も実世界の条件下で意味のある運転支援を提供できることを示している。</p>
+
+<h2 id="6-結論と今後の課題">6　結論と今後の課題</h2>
+<p>本研究では、実際の人間の運転データに基づくデータ駆動型シミュレータ内で、運転方策をオンポリシーで学習するためのアーキテクチャを提案した。このシミュレータは、実際の人間の運転データに基づいて入力画像と行動の正解の両方を生成する。我々は 2 種類のシミュレーション戦略、すなわちより従来型の再投影シミュレータを用いるものと、世界モデルを用いるものを提案した。</p>
+<p>これらの学習戦略によって得られた運転方策が、学習中に人手で設計した挙動を一切用いることなく、我々のテストスイートにおいて基本的な運転挙動を学習することを示した。また、これらの方策が、実世界で運転を支援する有用な ADAS 製品を実現するために使えることも示した。</p>
+<p>再投影シミュレーションの限界と、世界モデル戦略がデータと計算量に応じてスケールし続け、より良い運転方策を生み出すと我々が期待する理由について論じた。本研究は横方向の運転方策に焦点を当てているが、すべての手法は縦方向の方策にも一般化できる。今後の研究では、これらの手法で学習した End-to-End の縦方向方策を用いて、有用な ADAS 製品を実証することを期待している。</p>
+<a class="pg" data-page="9"></a>
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>Michael Bain and Claude Sammut. A framework for behavioural cloning. In <em>Machine intelligence 15</em>, pages 103–129, 1995.</li>
+<li>Bowen Baker, Ilge Akkaya, Peter Zhokov, Joost Huizinga, Jie Tang, Adrien Ecoffet, Brandon Houghton, Raul Sampedro, and Jeff Clune. Video pretraining (vpt): Learning to act by watching unlabeled online videos. <em>Advances in Neural Information Processing Systems</em>, 35:24639–24654, 2022.</li>
+<li>Amir Bar, Gaoyue Zhou, Danny Tran, Trevor Darrell, and Yann LeCun. Navigation world models, 2024.</li>
+<li>Mariusz Bojarski, Davide Del Testa, Daniel Dworakowski, Bernhard Firner, Beat Flepp, Prasoon Goyal, Lawrence D Jackel, Mathew Monfort, Urs Muller, Jiakai Zhang, et al. End to end learning for self-driving cars. <em>arXiv preprint arXiv:1604.07316</em>, 2016.</li>
+<li>Henggang Cui, Vladan Radosavljevic, Fang-Chieh Chou, Tsung-Han Lin, Thi Nguyen, Tzu-Kuo Huang, Jeff Schneider, and Nemanja Djuric. Multimodal trajectory predictions for autonomous driving using deep convolutional networks. In <em>2019 international conference on robotics and automation (icra)</em>, pages 2090–2096. IEEE, 2019.</li>
+<li>Alexey Dosovitskiy, German Ros, Felipe Codevilla, Antonio Lopez, and Vladlen Koltun. CARLA: An open urban driving simulator. In <em>Proceedings of the 1st Annual Conference on Robot Learning</em>, pages 1–16, 2017.</li>
+<li>Lasse Espeholt, Hubert Soyer, Remi Munos, Karen Simonyan, Vlad Mnih, Tom Ward, Yotam Doron, Vlad Firoiu, Tim Harley, Iain Dunning, et al. Impala: Scalable distributed deep-rl with importance weighted actor-learner architectures. In <em>International conference on machine learning</em>, pages 1407–1416. PMLR, 2018.</li>
+<li>Patrick Esser, Sumith Kulal, Andreas Blattmann, Rahim Entezari, Jonas Müller, Harry Saini, Yam Levi, Dominik Lorenz, Axel Sauer, Frederic Boesel, Dustin Podell, Tim Dockhorn, Zion English, and Robin Rombach. Scaling rectified flow transformers for high-resolution image synthesis. In <em>Proceedings of the 41st International Conference on Machine Learning</em>. JMLR.org, 2024.</li>
+<li>Robert Geirhos, Jörn-Henrik Jacobsen, Claudio Michaelis, Richard Zemel, Wieland Brendel, Matthias Bethge, and Felix A Wichmann. Shortcut learning in deep neural networks. <em>Nature Machine Intelligence</em>, 2(11):665–673, 2020.</li>
+<li>David Ha and Jürgen Schmidhuber. Recurrent world models facilitate policy evolution. In <em>Advances in Neural Information Processing Systems 31</em>, pages 2451–2463. Curran Associates, Inc., 2018. <a href="https://worldmodels.github.io">https://worldmodels.github.io</a>.</li>
+<li>Anthony Hu, Lloyd Russell, Hudson Yeo, Zak Murez, George Fedoseev, Alex Kendall, Jamie Shotton, and Gianluca Corrado. Gaia-1: A generative world model for autonomous driving, 2023.</li>
+<li>Reza N Jazar. <em>Vehicle dynamics</em>. Springer, 2008.</li>
+<li>Alex Kendall, Jeffrey Hawke, David Janz, Przemyslaw Mazur, Daniele Reda, John-Mark Allen, Vinh-Dieu Lam, Alex Bewley, and Amar Shah. Learning to drive in a day. In <em>2019 international conference on robotics and automation (ICRA)</em>, pages 8248–8254. IEEE, 2019.</li>
+<li>Mingyang Li and Anastasios I. Mourikis. High-precision, consistent ekf-based visual-inertial odometry. <em>The International Journal of Robotics Research</em>, 32(6):690–711, 2013.</li>
+<li>Quanyi Li, Zhenghao Peng, Lan Feng, Qihang Zhang, Zhenghai Xue, and Bolei Zhou. Metadrive: Composing diverse driving scenarios for generalizable reinforcement learning. <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em>, 2022.</li>
+<li>Xingchao Liu, Chengyue Gong, and Qiang Liu. Flow straight and fast: Learning to generate and transfer data with rectified flow. <em>arXiv preprint arXiv:2209.03003</em>, 2022.</li>
+<li>Anastasios I. Mourikis and Stergios I. Roumeliotis. A multi-state constraint kalman filter for vision-aided inertial navigation. In <em>Proceedings 2007 IEEE International Conference on Robotics and Automation</em>, pages 3565–3572, 2007.</li>
+<li>David A Nix and Andreas S Weigend. Estimating the mean and variance of the target probability distribution. In <em>Proceedings of 1994 ieee international conference on neural networks (ICNN'94)</em>, pages 55–60. IEEE, 1994.</li>
+<li>William Peebles and Saining Xie. Scalable diffusion models with transformers. In <em>Proceedings of the IEEE/CVF international conference on computer vision</em>, pages 4195–4205, 2023.</li>
+<li>Xue Bin Peng, Marcin Andrychowicz, Wojciech Zaremba, and Pieter Abbeel. Sim-to-real transfer of robotic control with dynamics randomization. In <em>2018 IEEE International Conference on Robotics and Automation (ICRA)</em>, pages 3803–3810, 2018.</li>
+<li>Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, Ilya Sutskever, et al. Language models are unsupervised multitask learners. <em>OpenAI blog</em>, 1(8):9, 2019.</li>
+<li>Mélanie Rey and Andriy Mnih. Gaussian dropout as an information bottleneck layer. In <em>NeurIPS Workshop on Bayesian Deep Learning</em>, 2021.</li>
+<li>Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. High-resolution image synthesis with latent diffusion models. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 10684–10695, 2022.</li>
+<li>Fereshteh Sadeghi and Sergey Levine. CAD2RL: real single-image flight without a single real image. In <em>Robotics: Science and Systems XIII, Massachusetts Institute of Technology, Cambridge, Massachusetts, USA, July 12-16, 2017</em>, 2017.</li>
+<li>Eder Santana and George Hotz. Learning a driving simulator, 2016.</li>
+<li>Harald Schafer, Eder Santana, Andrew Haden, and Riccardo Biasini. A commute in data: The comma2k19 dataset, 2018.</li>
+<li>Steven M Seitz and Charles R Dyer. View morphing. In <em>Proceedings of the 23rd annual conference on Computer graphics and interactive techniques</em>, pages 21–30, 1996.</li>
+</ol>
+<a class="pg" data-page="10"></a>
+<ol class="refs" start="28">
+<li>Josh Tobin, Rachel Fong, Alex Ray, Jonas Schneider, Wojciech Zaremba, and Pieter Abbeel. Domain randomization for transferring deep neural networks from simulation to the real world. In <em>2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em>, pages 23–30, 2017.</li>
+<li>Dani Valevski, Yaniv Leviathan, Moab Arar, and Shlomi Fruchter. Diffusion models are real-time game engines. In <em>The Thirteenth International Conference on Learning Representations</em>, 2025.</li>
+<li>Pavan Kumar Anasosalu Vasu, James Gabriel, Jeff Zhu, Oncel Tuzel, and Anurag Ranjan. Fastvit: A fast hybrid vision transformer using structural reparameterization. In <em>Proceedings of the IEEE/CVF international conference on computer vision</em>, pages 5785–5795, 2023.</li>
+<li>Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. <em>Advances in neural information processing systems</em>, 30, 2017.</li>
+<li>Jingjing Xu, Xu Sun, Zhiyuan Zhang, Guangxiang Zhao, and Junyang Lin. Understanding and improving layer normalization. <em>Advances in neural information processing systems</em>, 32, 2019.</li>
+<li>Richard Zhang, Phillip Isola, Alexei A Efros, Eli Shechtman, and Oliver Wang. The unreasonable effectiveness of deep features as a perceptual metric. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pages 586–595, 2018.</li>
+</ol>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>
