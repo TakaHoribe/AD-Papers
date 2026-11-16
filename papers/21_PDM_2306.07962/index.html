@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>PDM 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="Parting with Misconceptions about Learning-based Vehicle Motion Planning" />
+  <meta name="short-name" content="PDM" />
+  <meta name="authors" content="Daniel Dauner, Marcel Hallgarten, Andreas Geiger, Kashyap Chitta（University of T&#252;bingen, T&#252;bingen AI Center, Robert Bosch GmbH）" />
+  <meta name="source-pdf" content="21_PDM_2306.07962.pdf" />
+  <meta name="source-pages" content="14" />
+  <meta name="pdf-href" content="21_PDM_2306.07962.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="nuPlan 上でオープンループ評価（自車予測）とクローズドループ評価（計画）が負の相関を持つことを示し、IDM を拡張したルールベースのプランナ PDM-Closed と中心線のみを入力とする学習型 PDM-Open、両者を組み合わせた PDM-Hybrid を提案。PDM-Hybrid は nuPlan チャレンジ 2023 で優勝した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">PDM 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="21_PDM_2306.07962.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+    <div class="page" data-page="13" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">13</div></div>
+    <div class="page" data-page="14" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">14</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#parting-with-misconceptions-about-learning-based-vehicle-motion-planning" id="toc-parting-with-misconceptions-about-learning-based-vehicle-motion-planning">Parting with Misconceptions about Learning-based Vehicle Motion Planning</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a></li>
+<li><a href="#3-自車予測と計画は食い違っている" id="toc-3-自車予測と計画は食い違っている">3　自車予測と計画は食い違っている</a><ul>
+<li><a href="#3.1-背景" id="toc-3.1-背景">3.1　背景</a></li>
+<li><a href="#3.2-食い違い" id="toc-3.2-食い違い">3.2　食い違い</a></li>
+<li><a href="#3.3-手法" id="toc-3.3-手法">3.3　手法</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a></li>
+<li><a href="#5-考察" id="toc-5-考察">5　考察</a></li>
+<li><a href="#謝辞" id="toc-謝辞">謝辞</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="parting-with-misconceptions-about-learning-based-vehicle-motion-planning">Parting with Misconceptions about Learning-based Vehicle Motion Planning</h1>
+<p>Daniel Dauner<sup>1,2</sup>、Marcel Hallgarten<sup>1,3</sup>、Andreas Geiger<sup>1,2</sup>、Kashyap Chitta<sup>1,2</sup><br />
+<sup>1</sup>University of Tübingen　<sup>2</sup>Tübingen AI Center　<sup>3</sup>Robert Bosch GmbH<br />
+<a href="https://github.com/autonomousvision/tuplan_garage">https://github.com/autonomousvision/tuplan_garage</a><br />
+arXiv:2306.07962v2 [cs.RO]、2023年11月2日／7th Conference on Robot Learning（CoRL 2023）、Atlanta, USA</p>
+<blockquote><p>翻訳について：原文 PDF は <code>21_PDM_2306.07962.pdf</code>（全 14 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p>nuPlan の公開は、車両の運動計画研究における新時代の幕開けを告げるものである。nuPlan は、精密な短期計画と長期の自車予測（ego-forecasting）の両方を要求する、初の大規模な実世界データセットと評価方式を提供する。既存のシステムは、両方の要件を同時に満たすことに苦戦している。実際、我々はこれらのタスクが根本的に食い違っており、独立に扱うべきであることを見いだした。さらに我々は、この分野におけるクローズドループ計画の現状を評価し、複雑な実世界シナリオにおける学習ベース手法の限界と、車線グラフ探索アルゴリズムによる中心線選択のような単純なルールベースの事前知識の価値を明らかにする。より驚くべきことに、オープンループのサブタスクでは、この中心線のみをシーンコンテキストとして用いる（すなわち、地図や他のエージェントに関するすべての情報を無視する）ときに最良の結果が得られることを観察した。これらの知見を組み合わせて、我々は極めて単純かつ効率的なプランナを提案する。このプランナは広範な競合手法を上回り、nuPlan 計画チャレンジ 2023 で優勝した。</p>
+<p><strong>キーワード：</strong>運動計画、自動運転、データ駆動シミュレーション</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>車両の運動計画研究において学習ベースのシステムは成功を収めているものの［1, 2, 3, 4, 5］、ベンチマーク用の標準化された大規模データセットがないことが、研究から応用への移行を妨げている［6, 7, 8］。最近公開された nuPlan データセットとシミュレータ［9］は、1300 時間分の実世界の車両運動データの集合であり、この状況を変えた。これにより、手作業による設計の労力削減とスケーラビリティの向上が期待される新世代の学習型運動プランナの開発が可能になった。この新しいベンチマークを用いて、我々は車両運動計画のための大規模でオープンソースのデータ駆動シミュレータ上で、初めての厳密な実証的分析を行う。分析には最先端（SoTA）プランナの包括的な集合［10, 11, 12］が含まれ、公式の評価指標を用いる。我々の分析はいくつかの驚くべき知見をもたらす。</p>
+<p><strong>オープンループ評価とクローズドループ評価は食い違っている。</strong>多くの学習型プランナは、望ましい目標位置を条件として自車の将来の運動を予測するという教師あり学習タスクによって訓練される。我々はこの設定を自車予測（ego-forecasting）と呼ぶ［2, 3, 13, 14］。nuPlan では、プランナは 2 通りの方法で評価できる。(1) 距離ベースの指標を用いて自車予測の精度を測るオープンループ評価、または (2) 進捗や衝突率などの指標を用いてシミュレーション内での実際の運転性能を評価するクローズドループ評価である。オープンループ評価は動的なフィードバックを欠いており、単純な CARLA シミュレータ上で以前に示されたように［15, 16］、クローズドループ運転との相関がほとんどないことがある。我々の主要な貢献は、両評価方式の間の<em>負の相関</em>を明らかにした点にある。学習型プランナは自車予測に優れるが、安全なクローズドループ計画の作成には苦戦する。一方、ルールベースのプランナは逆の傾向を示す。</p>
+<p><strong>ルールベースの計画は汎化する。</strong>驚くべきことに、20 年以上前に確立されたルールベースの計画ベースライン［17］が、我々のベンチマークにおけるクローズドループ評価指標で<em>すべての SoTA 学習ベース手法</em>を上回ることを見いだした。これは、学習型プランナに関する多くの研究で用いられている「ルールベースの計画は汎化に困難を抱える」という一般的な動機づけの主張と矛盾する。</p>
+
+<a class="pg" data-page="2"></a>
+<p>これはこれまで、より単純なベンチマークでのみ検証されていた［4, 10, 11］。その結果、学習型計画に関する現在の研究の多くは他の学習型手法とのみ比較し、ルールベースのベースラインを無視している［3, 5, 18］。</p>
+<p><strong>自車予測には中心線さえあればよい。</strong>我々は、シーン内の他のエージェントに関する入力を一切取り込まず、望ましい経路の中心線表現が与えられたもとで自車状態を外挿するだけの素朴な学習型計画ベースラインを実装した。このベースラインは、我々のベンチマークにおけるオープンループ評価で<em>新たな SoTA を樹立する</em>。これは、先行研究［10, 11, 12］で中心的な研究対象となってきた複雑なシーン表現（例えば車線グラフ、ベクトル化地図、ラスタ化地図、トークン化された物体）を必要としない。これらの先行研究はいずれも、単純な中心線のみの表現をベースラインとして検討していなかった。おそらくその並外れた単純さのためであろう。</p>
+<p>我々の貢献は以下のとおりである。(1) 計画におけるオープンループ評価方式とクローズドループ評価方式の食い違いを示し、分析する。(2) リアルタイム動作が可能な <code>IDM</code>［17］の軽量な拡張を提案し、最先端のクローズドループ性能を達成する。(3) 現在の動的状態と中心線のみを条件とするオープンループプランナで実験を行い、複雑な入力表現を持つ高度なモデルを上回ることを示す。(4) 両モデルを組み合わせたハイブリッドプランナにより、24 の他の（多くは学習ベースの）競合手法を上回り、nuPlan チャレンジ 2023 で優勝を勝ち取った単純なベースラインを確立する。</p>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<p><strong>ルールベースの計画。</strong>ルールベースのプランナは、構造化され解釈可能な意思決定の枠組みを提供する［17, 19, 20, 21, 22, 23, 24, 25, 26］。これらは明示的なルールを用いて自動運転車の挙動を決定する（例：物体が真正面にあればブレーキをかける）。ルールベース計画における先駆的な手法は Intelligent Driver Model（<code>IDM</code>［17］）であり、安全な車間距離を保ちながら交通中の先行車に追従するよう設計されている。高速道路での車線変更を可能にすることに焦点を当てた <code>IDM</code> の拡張も存在する［27］。しかし、それは本研究の目的ではない。代わりに我々は、異なるハイパーパラメータを持つ複数の方策を実行し、それらをスコアリングして最良の選択肢を選ぶことで <code>IDM</code> を拡張する。</p>
+<p>先行研究では、ルールベースの意思決定を学習済みコンポーネントと組み合わせることも行われている。例えば、学習済みのエージェント予測［28］、アフォーダンス指標［23, 24］、コストベースの模倣学習［4, 29, 30, 31, 32］、あるいはルールベースの安全フィルタリングを伴う学習ベースの計画［33］との組み合わせである。これらのハイブリッドプランナは将来の環境状態を予測することが多く、それにより情報に基づいた、状況に応じた運転判断が可能になる。この予測は、各アクタについて軌道を決定するエージェント中心型［34, 35, 36］と、占有マップやコストマップを用いる環境中心型［4, 31, 30, 29, 37, 38］のいずれかである。さらに、予測を自車の計画で条件づけ、シーンの将来に対する自車の影響をモデル化することもできる［39, 40, 41, 42］。我々は既存手法よりもかなり単純なエージェント中心型の予測モジュールを採用しており、新たに公開された nuPlan フレームワークにおける出発点として利用できる。</p>
+<p><strong>自車予測。</strong>予測的計画とは異なり、自車予測手法は観測データを用いて将来の軌道を直接決定する。自車予測の手法には、LiDAR スキャン［44, 45］、RGB 画像［46, 47, 48, 49, 14, 50］、あるいはその両方［13, 51, 5, 52］を利用するエンドツーエンド手法［43］と、鳥瞰図（BEV）グリッドや状態ベクトルのような低次元入力を用いるモジュール型手法［24, 53, 11, 54, 55, 56］の両方がある。同時期の研究では、現在の動的状態を入力とする素朴な MLP を導入し、シーンコンテキストの入力なしで nuScenes データセット［57］において競争力のある自車予測結果を得ている［58］。我々の知見はこれらの結果を補完するものであり、難易度の高い 2023 年 nuPlan チャレンジのシナリオのテスト分布［9］において長期（8 秒）の自車予測を評価する点で異なる。この設定では、シーンコンテキストを完全に取り除くこと（［58］のように）は有害であり、一方でコンテキストの単純な中心線表現があれば強力なオープンループ性能に十分であることを示す。</p>
+
+<h2 id="3-自車予測と計画は食い違っている">3　自車予測と計画は食い違っている</h2>
+<p>本節では、データ駆動シミュレータ nuPlan［9］に関する背景を述べる。予備実験のための 2 つのベースラインを説明し、自車予測と計画はしばしば関連したタスクと見なされるものの、nuPlan 上での定義のもとではうまく整合していないことを示す。一方のタスクでの改善は、しばしば他方のタスクでの劣化につながりうる。</p>
+<a class="pg" data-page="3"></a>
+<figure><img src="figs/fig1.png" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：計画と自車予測。</strong>nuPlan のシナリオを示す。走行可能領域を灰色で、元の人間の軌道を黒の破線で示している。各スナップショットでは、<span style="color:#d9534f">自車エージェント</span>とその<span style="color:#5cb85c">予測</span>を表示している。（左）<code>IDM</code> の予測（ルールベースの中心線に拘束される）と人間の軌道との間に大きなずれがあり、その結果オープンループスコアが低くなっている。（中央＋右）シミュレーション開始から 0.5 秒後、学習型の <code>PDM-Open</code> プランナは自身の誤差を外挿し、最終的に道路から逸脱して、クローズドループスコアが最適でなくなる。</p>
+
+<h3 id="3.1-背景">3.1　背景</h3>
+<p><strong>nuPlan。</strong>nuPlan シミュレータは、一般公開された初の実世界計画ベンチマークであり、運動プランナの迅速なプロトタイピングと試験を可能にする。nuPlan は、データ駆動シミュレーション［59, 60, 61, 62, 63, 64, 65］により、実世界の運転環境にできる限り近いシミュレーション環境を構築する。この手法は、1,300 時間分の実世界走行からなる事前記録データセットから、道路地図、交通パターン、物体の属性（位置、向き、速度）を抽出する。これらの要素を用いてシナリオを初期化する。シナリオはオープンループおよびクローズドループの運転性能を評価するための 15 秒間のシミュレーションである。したがって、シミュレーションにおいて我々の手法は詳細な HD 地図情報と真値の知覚へのアクセスに依存する。すなわち、自己位置推定の誤差、地図の不完全さ、誤検出は考慮されない。オープンループシミュレーションでは、ログ全体が（自車と他のアクタの両方について）単に再生される。逆に、クローズドループシミュレーションでは、自車は試験対象のプランナの制御下で動作する。クローズドループシミュレーションには 2 つの版がある。他のすべてのアクタが元の軌道に沿って再生される非反応型（non-reactive）と、他の車両が <code>IDM</code> プランナ［17］を用いる反応型（reactive）である。<code>IDM</code> については以下で詳述する。</p>
+<p><strong>評価指標。</strong>nuPlan は 3 つの公式評価指標を提供する。オープンループスコア（OLS）、非反応型クローズドループスコア（CLS-NR）、反応型クローズドループスコア（CLS-R）である。CLS-NR と CLS-R は同一の方法で計算されるが、背景交通の挙動が異なる。各スコアはサブスコアの重み付き平均であり、それに一連のペナルティが乗じられる。OLS では、サブスコアは長い期間（8 秒）にわたる変位誤差と方位誤差を、平均値と最終値の両方について考慮する。さらに、予測誤差がしきい値を超えると、ペナルティによりそのシナリオの OLS スコアはゼロになる。同様に、CLS のサブスコアは、衝突余裕時間（time-to-collision）、エキスパートの経路に沿った進捗、制限速度の遵守、快適性からなる。CLS の乗算的ペナルティは、過失のある衝突、走行可能領域または走行方向の違反、進捗がないことである。これらのペナルティは CLS を大幅に低下させ、例えば車両と衝突した場合には、ほとんどの場合そのシナリオのスコアはゼロになる。特筆すべきは、CLS は一貫した長期計画よりも主に短期の行動に依存している点である。すべてのスコア（OLS/CLS を含む）は 0 から 100 の範囲をとり、高いほど良い。nuPlan の評価指標は構成が込み入っているため、詳細な説明は補足資料を参照されたい。</p>
+<p><strong>Intelligent Driver Model。</strong>単純な計画ベースラインである <code>IDM</code>［17］は、nuPlan の CLS-R 評価において自車以外の車両をシミュレートするだけでなく、自車の計画のベースラインとしても機能する。nuPlan の地図はグラフとして提供され、中心線のセグメントがノードとして機能する。グラフ探索アルゴリズムによって追従すべきノードの集合を選んだ後、<code>IDM</code> は選択された中心線に沿った縦方向の軌道を推論する。中心線に沿った現在の縦方向位置 \(x\)、速度 \(v\)、先行車までの距離 \(s\) が与えられると、次の方策を反復的に適用して縦方向の加速度を計算する。</p>
+
+<a class="pg" data-page="4"></a>
+<p>\[ \frac{\mathrm{d}v}{\mathrm{d}t} = {\color{#d9534f}a}\left(1 - \left(\frac{v}{\color{#d9534f}v_0}\right)^{\color{#d9534f}\delta} - \left(\frac{\color{#d9534f}s^*}{s}\right)^2\right). \tag{1} \]</p>
+<p>加速度の上限 \(a\)、目標速度 \(v_0\)、安全マージン \(s^*\)、指数 \(\delta\) は手作業で選択される。直観的には、この方策は、速度がすでに \(v_0\) に近いか、先行車が \(s^*\) しか離れていない場合を除いて、加速度 \(a\) を用いる。追加の詳細と、我々が実際に選んだハイパーパラメータは補足資料に記載している。</p>
+
+<h3 id="3.2-食い違い">3.2　食い違い</h3>
+<p><strong>中心線を条件とする自車予測。</strong>ここで我々は Predictive Driver Model (Open)、すなわち <code>PDM-Open</code> を提案する。これは将来のウェイポイントを予測するよう設計された単純な多層パーセプトロン（MLP）である。この MLP への入力は、<code>IDM</code> によって抽出された中心線（\(\mathbf{c}\)）と自車の履歴（\(\mathbf{h}\)）である。nuPlan で観測される高速（最大 15 m/s に達する）と自車予測のホライズン（8 秒に及ぶ）に対応するため、中心線は 1 メートルの解像度で長さ 120 メートルまでサンプリングされる。一方、自車の履歴は、過去 2 秒間の車両の位置、速度、加速度を 5Hz のレートでサンプリングしたものを含む。\(\mathbf{c}\) と \(\mathbf{h}\) はいずれもサイズ 512 の特徴ベクトルに線形射影され、連結されて、2 つの 512 次元隠れ層を持つ MLP \(\phi_{\texttt{Open}}\) に入力される。出力は 0.5 秒間隔の 8 秒ホライズンの将来ウェイポイントであり、\(\mathbf{w}_{\texttt{Open}} = \phi_{\texttt{Open}}(\mathbf{c}, \mathbf{h})\) と表される。モデルは 177k サンプルからなる我々の訓練データセット（第 4 節で説明）上で \(L_1\) 損失を用いて訓練される。設計上、<code>PDM-Open</code> は既存の学習型プランナ［10, 12］よりもかなり単純である。</p>
+
+<table><thead><tr><th>手法</th><th></th><th>中心線</th><th>履歴</th><th>CLS-R ↑</th><th>CLS-NR ↑</th><th>OLS ↑</th></tr></thead>
+<tbody>
+<tr><td><code>IDM</code>［17］</td><td>\(a = 1.0\)</td><td>✓</td><td>-</td><td style="text-align:right"><strong>77</strong></td><td style="text-align:right"><strong>76</strong></td><td style="text-align:right">38</td></tr>
+<tr><td></td><td>\(a = 0.1\)</td><td>✓</td><td>-</td><td style="text-align:right">54</td><td style="text-align:right">66</td><td style="text-align:right">48</td></tr>
+<tr><td rowspan="4"><code>PDM-Open</code></td><td></td><td>-</td><td>-</td><td style="text-align:right">51</td><td style="text-align:right">50</td><td style="text-align:right">69</td></tr>
+<tr><td></td><td>-</td><td>✓</td><td style="text-align:right">38</td><td style="text-align:right">34</td><td style="text-align:right">72</td></tr>
+<tr><td></td><td>✓</td><td>-</td><td style="text-align:right">54</td><td style="text-align:right">53</td><td style="text-align:right">85</td></tr>
+<tr><td></td><td>✓</td><td>✓</td><td style="text-align:right">54</td><td style="text-align:right">50</td><td style="text-align:right"><strong>86</strong></td></tr>
+</tbody></table>
+<p><strong>表1：OLS と CLS のトレードオフ。</strong>異なる入力を用いた場合の nuPlan 上のベースラインのスコア。</p>
+
+<p><strong>OLS 対 CLS。</strong>表1では、nuPlan の評価指標を用いて <code>IDM</code> と <code>PDM-Open</code> のベースラインをベンチマークする。最大加速度の値が異なる 2 つの <code>IDM</code> 変種（既定の \(a = 1.0\mathrm{ms}^{-2}\) と \(a = 0.1\mathrm{ms}^{-2}\)）と、入力の異なる 4 つの <code>PDM-Open</code> 変種を示す。<code>IDM</code> の加速度を下げると OLS は向上するが、CLS には悪影響を与えることが観察される。<code>IDM</code> は強力なクローズドループ性能を示す一方、<code>PDM-Open</code> は、現在の自車状態のみを入力とする場合（1 行目）でさえ、オープンループで <code>IDM</code> を上回る。過去の自車状態（履歴）はわずかな改善しかもたらさず、CLS の低下を招く。最も重要なのは、中心線を加えることが自車予測性能に大きく寄与する点である。CLS と OLS の間の明確なトレードオフは、自車予測と計画の目標が食い違っていることを示している。現在の計画の文献で自車予測の利用が増えていることを考えると［3, 10, 12, 11］、nuPlan 上でのこの種の逆相関は予想外である。自車予測は運転性能にとって必須ではないが、nuPlan チャレンジは高い OLS と CLS の両方を要求する。</p>
+<p>図1では、OLS 指標と CLS 指標の食い違いを図示している。描かれたシナリオでは、ルールベースの <code>IDM</code> は人間のドライバとは異なる車線を選択する。しかし、シミュレーション全体を通じて道路上の位置を保っている。その結果、CLS は高いが OLS は低くなる。逆に、学習型の <code>PDM-Open</code> は人間のドライバが選んだ車線に沿って予測を生成し、それにより高い OLS を得る。それにもかかわらず、シミュレーション中に短期予測の誤差が蓄積するため［66, 67］、モデルの軌道は走行可能領域から逸脱し、最終的に低い CLS に終わる。</p>
+
+<h3 id="3.3-手法">3.3　手法</h3>
+<p>ここで我々は、図2（上）に示すように、予測、候補生成、シミュレーション、スコアリング、選択を含む、モデル予測制御のいくつかの概念を取り入れることで <code>IDM</code> を拡張する。このモデルを <code>PDM-Closed</code> と呼ぶ。なお、最初のステップとして、<code>IDM</code> プランナと同様に、経路に沿った車線の系列を見つけてその中心線を抽出するためのグラフ探索は依然として必要である。</p>
+<a class="pg" data-page="5"></a>
+<figure><img src="figs/fig2.png" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：アーキテクチャ。</strong><code>PDM-Closed</code> は中心線を選択し、環境を予測し、さまざまな軌道候補を生成する。それらはシミュレートされ、軌道選択のためにスコアリングされる。<code>PDM-Hybrid</code> モジュールは、<code>PDM-Closed</code> の中心線と軌道、および自車の履歴を用いてオフセットを予測する。長期のウェイポイントのみを補正することで、クローズドループシミュレーションにおける学習済みモデルの影響を制限している。</p>
+<p class="yakuchu">図中ラベル：Select Centerline＝中心線の選択、Agent Forecast＝エージェント予測、IDM Proposals＝IDM による候補、Simulation＝シミュレーション、Scoring＝スコアリング、Select Trajectory＝軌道の選択、Input Scene＝入力シーン、Plan＝計画、Trajectory＝軌道、Route＝経路、Centerline＝中心線、Ego History＝自車の履歴、Position＝位置、Velocity＝速度、Acceleration＝加速度、Lin.＝線形層、Prediction＝予測、Output＝出力</p>
+
+<p><strong>予測。</strong>nuPlan では、シミュレータが車両や歩行者などの各動的エージェントについて向きベクトルと速度を提供する。我々は、単純ながら効果的な等速度予測［68, 69, 70］を、10Hz で 8 秒間のホライズン \(F\) にわたって用いる。</p>
+<p><strong>候補生成。</strong><code>IDM</code> プランナを調整する過程で、目標速度のハイパーパラメータ（\(v_0\)）に単一の値を選ぶとトレードオフが生じることを観察した。さまざまなシナリオにわたって、攻撃的な運転挙動になるか、進捗が不十分になるかのいずれかであった。そこで我々は、5 つの異なる目標速度、すなわち指定された制限速度の \(\{20\%, 40\%, 60\%, 80\%, 100\%\}\) で <code>IDM</code> 方策を実行することにより、軌道候補の集合を生成する。各目標速度について、中心線から 3 通りの横方向オフセット（\(\pm 1\)m および 0m）を持つ候補も加え、合計 \(N = 15\) 個の候補を生成する。後続の段階での計算負荷を回避するため、候補のホライズンは \(H\) ステップに短縮されており、これは 10Hz で 4 秒に相当する。</p>
+<p><strong>シミュレーション。</strong>nuPlan における軌道は、LQR 制御器［71］から行動を反復的に取得し、キネマティック自転車モデル［72, 73］で自車を伝播させることでシミュレートされる。我々は同じパラメータと、この 2 段階パイプラインのより高速な再実装を用いて候補をシミュレートする。これにより、候補はクローズドループにおいて予想される動きに基づいて評価される。</p>
+<p><strong>スコアリング。</strong>シミュレートされた各候補は、交通規則の遵守、進捗、快適性を重視するようにスコアリングされる。横方向と縦方向の多様性を持つ候補を考慮することで、プランナはエージェント予測との衝突を回避でき、また制御器が意図した軌道を正確に追従できない場合に生じうるドリフトを補正できる。さらに、我々のスコアリング関数は nuPlan の評価指標によく似ている。追加の詳細については補足資料を参照されたい。</p>
+<p><strong>軌道選択。</strong>最後に、<code>PDM-Closed</code> は最高スコアの候補を選択し、対応する <code>IDM</code> 方策によって完全な予測ホライズン \(F\) まで延長する。最良の軌道が 2 秒以内に衝突すると予想される場合、出力は緊急ブレーキ操作で上書きされる。</p>
+<p><strong>長期ホライズンの精度の向上。</strong><code>PDM-Open</code> の正確な自車予測能力を <code>PDM-Closed</code> の精密な短期行動と統合するため、ここで PDM のハイブリッド版、すなわち <code>PDM-Hybrid</code> を提案する。具体的には、図2（下）に示すように、<code>PDM-Hybrid</code> は学習済みモジュール <code>PDM-Offset</code> を用いて、<code>PDM-Closed</code> のウェイポイントに対するオフセットを予測する。</p>
+
+<a class="pg" data-page="6"></a>
+<table><thead><tr><th>手法</th><th>表現</th><th>CLS-R ↑</th><th>CLS-NR ↑</th><th>OLS ↑</th><th>時間 ↓</th></tr></thead>
+<tbody>
+<tr><td><code>Urban Driver</code>［10］</td><td>Polygon</td><td style="text-align:right">50</td><td style="text-align:right">53</td><td style="text-align:right">82</td><td style="text-align:right">64</td></tr>
+<tr><td><code>GC-PGP</code>［12］</td><td>Graph</td><td style="text-align:right">55</td><td style="text-align:right">59</td><td style="text-align:right">83</td><td style="text-align:right">100</td></tr>
+<tr><td><code>PlanCNN</code>［11］</td><td>Raster</td><td style="text-align:right">72</td><td style="text-align:right">73</td><td style="text-align:right">64</td><td style="text-align:right">43</td></tr>
+<tr><td><code>IDM</code>［17］</td><td>Centerline</td><td style="text-align:right">77</td><td style="text-align:right">76</td><td style="text-align:right">38</td><td style="text-align:right">27</td></tr>
+<tr><td><code>PDM-Open</code></td><td>Centerline</td><td style="text-align:right">54</td><td style="text-align:right">50</td><td style="text-align:right"><strong>86</strong></td><td style="text-align:right"><strong>7</strong></td></tr>
+<tr><td><code>PDM-Closed</code></td><td>Centerline</td><td style="text-align:right"><strong>92</strong></td><td style="text-align:right"><strong>93</strong></td><td style="text-align:right">42</td><td style="text-align:right">91</td></tr>
+<tr><td><code>PDM-Hybrid</code></td><td>Centerline</td><td style="text-align:right"><strong>92</strong></td><td style="text-align:right"><strong>93</strong></td><td style="text-align:right">84</td><td style="text-align:right">96</td></tr>
+<tr><td><code>PDM-Hybrid*</code></td><td>Graph</td><td style="text-align:right"><strong>92</strong></td><td style="text-align:right"><strong>93</strong></td><td style="text-align:right">84</td><td style="text-align:right">172</td></tr>
+<tr><td><em>Log Replay</em></td><td><em>GT</em></td><td style="text-align:right"><em>80</em></td><td style="text-align:right"><em>94</em></td><td style="text-align:right"><em>100</em></td><td style="text-align:right">-</td></tr>
+</tbody></table>
+<p><strong>表2：Val14 ベンチマーク。</strong>複数のプランナについて、反応型／非反応型のクローズドループスコア（CLS-R/CLS-NR）、オープンループスコア（OLS）、ミリ秒単位の実行時間を示す。各プランナが用いる入力表現（Rep.）も明記する。<code>PDM-Hybrid</code> は強力な自車予測（OLS）と計画（CLS）を達成している。*これは <code>PDM-Closed</code> と <code>GC-PGP</code>［12］を組み合わせた <code>PDM-Hybrid</code> の予備版であり、我々のオンラインリーダーボードへの提出（表3）に用いたものである。</p>
+<p class="yakuchu">表中ラベル：Polygon＝ポリゴン、Graph＝グラフ、Raster＝ラスタ、Centerline＝中心線、Log Replay＝ログ再生、GT＝真値</p>
+
+<p>実際には、nuPlan で用いられる LQR 制御器は、クローズドループで行動を決定する際に軌道の最初の 2 秒間のみに依存する。したがって、補正を長期のウェイポイント（すなわち既定では 2 秒より先。これを補正ホライズン \(C\) と呼ぶ）にのみ適用することで、<code>PDM-Hybrid</code> はクローズドループの計画性能を維持できる。最終的なプランナは（予測ホライズン \(F\) までの）ウェイポイント \(\{\mathbf{w}^t_{\texttt{Hybrid}}\}^F_{t=0}\) を出力し、それは次式で与えられる。</p>
+<p>\[ \mathbf{w}^t_{\texttt{Hybrid}} = \mathbf{w}^t_{\texttt{Closed}} + \mathbb{1}_{[t \gt C]}\,\phi^t_{\texttt{Offset}}(\mathbf{w}_{\texttt{Closed}}, \mathbf{c}, \mathbf{h}). \tag{2} \]</p>
+<p>ここで \(\mathbf{c}\) と \(\mathbf{h}\) は中心線と履歴である（<code>PDM-Open</code> の入力と同一）。\(\{\mathbf{w}^t_{\texttt{Closed}}\}^F_{t=0}\) はハイブリッド手法に加えられる <code>PDM-Closed</code> のウェイポイントであり、\(\phi_{\texttt{Offset}}\) は MLP である。そのアーキテクチャは、追加入力としての \(\mathbf{w}_{\texttt{Closed}}\) を受け入れるための線形射影が 1 つ追加されている点を除き、\(\phi_{\texttt{Open}}\) と同一である。</p>
+<p>重要な点として、<code>PDM-Hybrid</code> は高いモジュール性を持つように設計されており、多様な要件が生じた際に個々のコンポーネントを代替のものに置き換えることができる。例えば、補足資料では別のオープンループモジュールを用いた結果を示す。全体の単純さを踏まえると、探求すべき興味深いアプローチの 1 つは、［34］に見られるように、モジュール型でありながら微分可能なアルゴリズムをコンポーネントとして組み込むことである。これらのモジュールを統一的なマルチタスクアーキテクチャ内に統合することを探るのも、もう 1 つの興味深い方向性である。こうした探求は今後の課題とする。</p>
+
+<h2 id="4-実験">4　実験</h2>
+<p>ここでは、我々が提案するベンチマークの概要を述べ、我々の手法の運転性能を示す。</p>
+<p><strong>Val14 ベンチマーク。</strong>我々は訓練と評価のための標準化されたデータ分割を提供する。訓練には nuPlan の全 70 種類のシナリオタイプを用い、タイプごとに最大 4k シナリオに制限した結果、約 177k の訓練シナリオとなる。評価には、リーダーボードで考慮される 14 種類のシナリオタイプについてそれぞれ 100 シナリオを用い、合計 1,118 シナリオとなる。わずかな不均衡（14 タイプすべてに 100 シナリオが利用可能なわけではない）があるものの、我々の検証分割はオンラインリーダーボードの評価と整合しており（表2と表3）、Val14 ベンチマークがオンラインテストセットの代理として適していることを裏付けている。</p>
+<p><strong>ベースライン。</strong>本研究では、計画に自車予測を採用する SoTA 手法をいくつか追加で含める。<code>Urban Driver</code>［10］は PointNet 層でポリゴンを符号化し、マルチヘッド注意機構ブロックの後に線形層で軌道を予測する。本研究ではオープンループ設定で訓練した <code>Urban Driver</code> の実装を用いる。<code>GC-PGP</code>［12］は、経路に制約された車線グラフの走査に基づいて軌道候補をクラスタリングし、最も尤もらしいクラスタ中心を返す。<code>PlanCNN</code>［11］は、自車状態の入力なしに、ラスタ化されたグリッド特徴から CNN を用いてウェイポイントを予測する。これはこの分野の先駆的研究である <code>ChauffeurNet</code>［8］といくつかの類似点を持つ。nuPlan コンペティションで優勝した <code>PDM-Hybrid</code> の予備版は、自車予測コンポーネントとして <code>GC-PGP</code> を用いており、これをベースラインとして含める。この版の完全な説明は補足資料に記載する。</p>
+<a class="pg" data-page="7"></a>
+<p><strong>結果。</strong>結果を表2に示す。<code>PlanCNN</code> は学習型プランナの中で最良の CLS を達成している。これはおそらく、入力から自車状態を除くという設計上の選択により、OLS と引き換えに CLS を向上させたためである。予測と計画においてグラフベースおよびベクトルベースのシーン表現がコミュニティで好まれる傾向が強まっているのとは裏腹に［74, 11, 75, 76］、これらの結果はクローズドループタスクにおいてラスタ表現に明確な不利がないことを示しており、<code>PlanCNN</code> は実行時間も短い。驚くべきことに、本研究で最も単純なルールベース手法である <code>IDM</code> は、最良の学習型プランナである <code>PlanCNN</code> を上回る。さらに、CLS の観点から <code>IDM</code> に対する <code>PDM-Closed</code> の優位性が観察される。第 3 節のアイデアの結果、76〜77 から 92〜93 へと改善している。驚くべきことに、<code>PDM-Open</code> は中心線と自車状態のみを入力として用い、わずか 7ms の実行時間で最高の OLS である 86 を達成する。補足資料でさらに詳しく述べるように、<code>PDM-Open</code> は長期ホライズンにわたる正確な車線追従において他の手法を上回ることが観察される。次に、<code>PDM-Closed</code> の OLS は 42 と不満足なものであるにもかかわらず、<code>PDM-Hybrid</code> は <code>PDM-Closed</code> と <code>PDM-Open</code> をうまく組み合わせている。<code>PDM-Hybrid</code> の中心線版とグラフ版は、我々の評価では同一のスコアを達成する。しかし、<code>GC-PGP</code> の代わりに <code>PDM-Open</code> を用いる最終的な中心線版のほうが推論時に効率的である。最後に、真値の自車将来軌道を出力するという特権的な手法（ログ再生）は完全な CLS を達成できない。その一因は、nuPlan フレームワークの LQR 制御器が与えられた軌道から時折ドリフトすることにある。<code>PDM-Hybrid</code> は、予想される制御器の結果に基づいて候補を評価することでこれを補償しており、その結果、クローズドループ評価においてログ再生と同等またはそれ以上の性能を示す。</p>
+
+<table><thead><tr><th>手法</th><th>CLS-R ↑</th><th>CLS-NR ↑</th><th>OLS ↑</th><th>スコア ↑</th></tr></thead>
+<tbody>
+<tr><td><code>PDM-Hybrid*</code></td><td style="text-align:right"><strong>93</strong></td><td style="text-align:right"><strong>93</strong></td><td style="text-align:right">83</td><td style="text-align:right"><strong>90</strong></td></tr>
+<tr><td>hoplan</td><td style="text-align:right">89</td><td style="text-align:right">88</td><td style="text-align:right">85</td><td style="text-align:right">87</td></tr>
+<tr><td>pegasus_multi_path</td><td style="text-align:right">82</td><td style="text-align:right">85</td><td style="text-align:right"><strong>88</strong></td><td style="text-align:right">85</td></tr>
+<tr><td><code>Urban Driver</code>［10］</td><td style="text-align:right">68</td><td style="text-align:right">70</td><td style="text-align:right">86</td><td style="text-align:right">75</td></tr>
+<tr><td><code>IDM</code>［17］</td><td style="text-align:right">72</td><td style="text-align:right">75</td><td style="text-align:right">29</td><td style="text-align:right">59</td></tr>
+</tbody></table>
+<p><strong>表3：2023 nuPlan チャレンジ。</strong></p>
+
+<p><strong>チャレンジ。</strong>2023 年の nuPlan チャレンジでは、<code>PDM-Hybrid</code> の予備版（グラフ版）が参加 25 チーム中 1 位となった。リーダーボードは CLS-R、CLS-NR、OLS の平均を考慮する。オープンループ性能はわずかに劣ったものの、クローズドループ性能は優れており、総合で SoTA のスコアとなった。残念ながら、リーダーボードが閉鎖されたため、<code>GC-PGP</code> をより単純な <code>PDM-Open</code> モジュールに置き換えた <code>PDM-Hybrid</code> の最終版（中心線版）はベンチマークできなかった。上位の競合手法はすべて、チャレンジで CLS 性能を高めるために、学習型の自車予測とルールベースの事後ソルバまたは後処理を組み合わせていた［77, 78, 79］。したがって、今後はハイブリッド手法がさらに増えると予想される。</p>
+<p>重要な点として、我々の提出物については、Val14 ベンチマーク（表2）と公式リーダーボード（表3）の両方でほぼ同一のスコアが記録された。なお、リーダーボード上の <code>Urban Driver</code> と <code>IDM</code> の結果は nuPlan チームによって提供されたものであるため、表2の我々の実装とは異なる訓練データとハイパーパラメータを用いている可能性が高い。</p>
+<p><strong>アブレーション研究。</strong>表4のアブレーション研究により、我々の設計上の選択を掘り下げる。表4a は、補正ホライズン（\(C\)）を 0 秒から 3 秒まで変えたときの <code>PDM-Hybrid</code> の反応型クローズドループスコア（CLS-R）とオープンループスコア（OLS）を示す。ウェイポイント補正をすべてのウェイポイントに適用すると（すなわち \(C = 0\)）、OLS では <code>PDM-Open</code> を上回る（87 対 86、表2参照）が、既定値 \(C = 2\) と比べて CLS-R が大幅に低下する。一方、軌道のより先の時点から補正を開始すると（例えば \(C = 3\)）、CLS-R への影響は最小限であるものの、顕著な OLS の低下が生じる。</p>
+<p><code>PDM-Closed</code>（表4b）については、3 つの設定でベースのプランナと CLS-R および実行時間（ms）を比較する。中心線の横方向オフセットを除去した場合（「lat.」）、縦方向の <code>IDM</code> 候補を除去した場合（「lon.」）、環境予測を除去した場合（「cast.」）である。分析の結果、候補を除去すると CLS-R の有効性は下がるが、実行時間は短縮されることが明らかになった。候補の生成と評価に用いる予測を除外すると、性能は大きく低下する。しかし、実行時間はほぼ同一のままであり、単純な予測機構の有効性を示している。</p>
+<p><code>PDM-Open</code>（表4c）については、3 つの変種を試験する。より短い中心線（30m 対 120m）、より粗い中心線（10m 間隔 対 1m 間隔）、隠れ次元を縮小した（512 から 256 へ）より小さな MLP である。より小さな MLP と短縮した中心線長はいずれも性能低下を招くが、その影響は中心線をまったく考慮しない場合（表1、OLS=72）と比べると比較的小さい。一方、より粗い中心線の影響は無視できる程度である。</p>
+
+<a class="pg" data-page="8"></a>
+<p>(a) <code>PDM-Hybrid</code></p>
+<table><thead><tr><th>\(C\)</th><th>CLS-R ↑</th><th>OLS ↑</th></tr></thead>
+<tbody>
+<tr><td>0.0s</td><td style="text-align:right">58</td><td style="text-align:right"><strong>87</strong></td></tr>
+<tr style="background:#e0e0e0"><td>2.0s</td><td style="text-align:right"><strong>92</strong></td><td style="text-align:right">84</td></tr>
+<tr><td>2.5s</td><td style="text-align:right"><strong>92</strong></td><td style="text-align:right">84</td></tr>
+<tr><td>3.0s</td><td style="text-align:right"><strong>92</strong></td><td style="text-align:right">72</td></tr>
+</tbody></table>
+<p>(b) <code>PDM-Closed</code></p>
+<table><thead><tr><th>手法</th><th>CLS-R ↑</th><th>時間 ↓</th></tr></thead>
+<tbody>
+<tr style="background:#e0e0e0"><td>ベース（Base）</td><td style="text-align:right"><strong>92</strong></td><td style="text-align:right">91</td></tr>
+<tr><td>横方向なし（No lat.）</td><td style="text-align:right">89</td><td style="text-align:right"><strong>55</strong></td></tr>
+<tr><td>縦方向なし（No lon.）</td><td style="text-align:right">88</td><td style="text-align:right">64</td></tr>
+<tr><td>予測なし（No cast.）</td><td style="text-align:right">86</td><td style="text-align:right">90</td></tr>
+</tbody></table>
+<p>(c) <code>PDM-Open</code></p>
+<table><thead><tr><th>手法</th><th>OLS ↑</th></tr></thead>
+<tbody>
+<tr style="background:#e0e0e0"><td>ベースライン</td><td style="text-align:right"><strong>86</strong></td></tr>
+<tr><td>より短い中心線</td><td style="text-align:right">84</td></tr>
+<tr><td>より粗い中心線</td><td style="text-align:right"><strong>86</strong></td></tr>
+<tr><td>より小さな MLP</td><td style="text-align:right">84</td></tr>
+</tbody></table>
+<p><strong>表4：アブレーション研究。</strong>反応型クローズドループスコア（CLS-R）、オープンループスコア（OLS）、ミリ秒単位の実行時間を示す。(a) <code>PDM-Hybrid</code> の補正ホライズンの変更、(b) <code>PDM-Closed</code> のサブモジュールの無効化、(c) <code>PDM-Open</code> に対する入力とアーキテクチャの選択の影響を調べる。灰色で強調した既定の構成が最良のトレードオフを達成している。</p>
+
+<h2 id="5-考察">5　考察</h2>
+<p>ルールベースの計画は汎化が限られていると批判されることが多いが、我々の結果は、実世界での評価に最もよく似た nuPlan のクローズドループタスクにおいて強力な性能を示している。特筆すべきは、オープンループでの成功には部分的に<em>クローズドループ性能とのトレードオフ</em>が必要となる点である。その結果、模倣学習で訓練された自車予測手法はクローズドループでの成績が振るわない。このことは、ルールベースのプランナが依然として有望であり、さらなる探求に値することを示唆している。同時に、そのままでは性能が低いことを踏まえると、nuPlan 上の模倣ベースの手法には改善の余地がある。</p>
+<p>クローズドループ計画とオープンループ自車予測の長所を統合して、我々はハイブリッドモデルを提示する。しかし、これはクローズドループの運転性能を向上させるものではない。そうではなく、<em>同一の運転操作を実行しながら</em>オープンループ性能を高めるものである。我々は、精密なオープンループ自車予測を長期の計画目標を達成するための前提条件と見なすことは誤解を招くと結論づける。</p>
+<p>解釈可能性や人間らしい挙動の評価における自車予測の潜在的な重要性を認めたうえで、我々はこの評価を、クローズドループ運転に関係する短いホライズン（例えば 2 秒）に絞ることを提案する。単峰的な 8 秒間の自車予測を要求する現在の nuPlan の OLS の定義は、データ駆動の交通シミュレーションにおける背景エージェントの目標設定や、計算資源のより良い配分（例えば自車が通過すると予想される領域での知覚や予測を優先する）といった<em>別の用途</em>にのみ有用である可能性がある。我々は、オープンループ指標を計画性能の主要な指標として用いることを推奨しない［18］。</p>
+<p><strong>限界。</strong>我々は確立された <code>IDM</code> モデルを大幅に改善したが、<code>PDM</code> は依然として車線変更操作を実行しない。車線変更を試みると、自車が 2 つの車線の間にあるときに衝突につながることが多く、nuPlan の評価指標では大きなペナルティとなる。<code>PDM</code> は HD 地図と精密なオフボード知覚［80, 9］に依存しているが、これらは実世界の運転状況では利用できない可能性がある。学習ベースの手法については実世界での展開が実証されているが［81, 33, 8］、ルールベースの手法にとっては依然として大きな課題である。さらに我々の実験では、保留されたテストセットを除き、未見の街や新しいシナリオタイプのような分布シフトに遭遇した際のモデルの汎化能力を特に評価していない。実験はすべて単一のシミュレータ nuPlan 上で行われた。したがって、nuPlan のデータ駆動シミュレーション手法に内在する限界を認識することが重要である。プランナが人間の運転ログよりも速く進むと、シミュレーション中に物体が自車の前に突然出現する。CLS-NR では、車両は自車エージェントを無視して現実で観測されたとおりに独立して動くため、過度に攻撃的な挙動につながる。逆に、CLS-R の背景エージェントは <code>IDM</code> に依存して中心線に厳密に従うため、非現実的に受動的な挙動につながる。より洗練された反応型環境を開発することは、今後の研究として高い価値があると考える。</p>
+<p><strong>結論。</strong>本論文では、学習ベースの車両運動計画において広く見られる誤解を明らかにした。我々の知見に基づき、<code>IDM</code> を基盤とし、それを学習型の自車予測コンポーネントと組み合わせた <code>PDM-Hybrid</code> を導入した。これは包括的な競合手法の集合を上回り、2023 年の nuPlan コンペティションで優勝を勝ち取った。</p>
+<a class="pg" data-page="9"></a>
+<h2 id="謝辞">謝辞</h2>
+<p>Andreas Geiger は、ERC Starting Grant LEGO-3D（850533）、BMWi のプロジェクト KI Delta Learning（プロジェクト番号 19A19013O）、および DFG EXC number 2064/1 - project number 390727645 の支援を受けた。Kashyap Chitta は、ドイツ連邦教育研究省（BMBF）：Tübingen AI Center, FKZ: 01IS18039A の支援を受けた。Kashyap Chitta を支援してくれた International Max Planck Research School for Intelligent Systems（IMPRS-IS）に感謝する。また、リーダーボードへの提出における技術的問題について助力してくれた Pat Karnchanachari と Gianmarco Bernasconi、校閲をしてくれた Niklas Hanselmann、有益な議論をしてくれた Andreas Zell に感謝する。</p>
+
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>F. Codevilla, M. Miiller, A. López, V. Koltun, and A. Dosovitskiy. End-to-end driving via conditional imitation learning. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2018.</li>
+<li>F. Codevilla, E. Santana, A. M. López, and A. Gaidon. Exploring the limitations of behavior cloning for autonomous driving. In <em>Proc. of the IEEE International Conf. on Computer Vision (ICCV)</em>, 2019.</li>
+<li>N. Rhinehart, R. McAllister, K. Kitani, and S. Levine. PRECOG: prediction conditioned on goals in visual multi-agent settings. In <em>Proc. of the IEEE International Conf. on Computer Vision (ICCV)</em>, 2019.</li>
+<li>W. Zeng, W. Luo, S. Suo, A. Sadat, B. Yang, S. Casas, and R. Urtasun. End-to-end interpretable neural motion planner. In <em>Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)</em>, 2019.</li>
+<li>K. Chitta, A. Prakash, B. Jaeger, Z. Yu, K. Renz, and A. Geiger. Transfuser: Imitation with transformer-based sensor fusion for autonomous driving. <em>IEEE Trans. on Pattern Analysis and Machine Intelligence (PAMI)</em>, 2022.</li>
+<li>M. Bojarski, D. D. Testa, D. Dworakowski, B. Firner, B. Flepp, P. Goyal, L. D. Jackel, M. Monfort, U. Muller, J. Zhang, X. Zhang, J. Zhao, and K. Zieba. End to end learning for self-driving cars. <em>arXiv.org</em>, 1604.07316, 2016.</li>
+<li>A. Kendall, J. Hawke, D. Janz, P. Mazur, D. Reda, J. M. Allen, V. D. Lam, A. Bewley, and A. Shah. Learning to drive in a day. <em>arXiv.org</em>, abs/1807.00412, 2018.</li>
+<li>M. Bansal, A. Krizhevsky, and A. S. Ogale. Chauffeurnet: Learning to drive by imitating the best and synthesizing the worst. In <em>Proc. Robotics: Science and Systems (RSS)</em>, 2019.</li>
+<li>H. Caesar, J. Kabzan, K. S. Tan, W. K. Fong, E. M. Wolff, A. H. Lang, L. Fletcher, O. Beijbom, and S. Omari. nuplan: A closed-loop ml-based planning benchmark for autonomous vehicles. In <em>Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR) Workshops</em>, 2021.</li>
+<li>O. Scheel, L. Bergamini, M. Wolczyk, B. Osiński, and P. Ondruska. Urban driver: Learning to drive from real-world demonstrations using policy gradients. In <em>Proc. Conf. on Robot Learning (CoRL)</em>, 2021.</li>
+<li>K. Renz, K. Chitta, O.-B. Mercea, A. S. Koepke, Z. Akata, and A. Geiger. Plant: Explainable planning transformers via object-level representations. In <em>Proc. Conf. on Robot Learning (CoRL)</em>, 2022.</li>
+<li>M. Hallgarten, M. Stoll, and A. Zell. From Prediction to Planning With Goal Conditioned Lane Graph Traversals. <em>arXiv.org</em>, 2302.07753, 2023.</li>
+</ol>
+<a class="pg" data-page="10"></a>
+<ol class="refs" start="13">
+<li>A. Prakash, K. Chitta, and A. Geiger. Multi-modal fusion transformer for end-to-end autonomous driving. In <em>Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)</em>, 2021.</li>
+<li>K. Chitta, A. Prakash, and A. Geiger. Neat: Neural attention fields for end-to-end autonomous driving. In <em>Proc. of the IEEE International Conf. on Computer Vision (ICCV)</em>, 2021.</li>
+<li>F. Codevilla, A. M. Lopez, V. Koltun, and A. Dosovitskiy. On offline evaluation of vision-based driving models. In <em>Proc. of the European Conf. on Computer Vision (ECCV)</em>, 2018.</li>
+<li>A. Dosovitskiy, G. Ros, F. Codevilla, A. Lopez, and V. Koltun. CARLA: An open urban driving simulator. In <em>Proc. Conf. on Robot Learning (CoRL)</em>, 2017.</li>
+<li>M. Treiber, A. Hennecke, and D. Helbing. Congested traffic states in empirical observations and microscopic simulations. <em>Physical review E</em>, 2000.</li>
+<li>Y. Hu, J. Yang, L. Chen, K. Li, C. Sima, X. Zhu, S. Chai, S. Du, T. Lin, W. Wang, L. Lu, X. Jia, Q. Liu, J. Dai, Y. Qiao, and H. Li. Planning-oriented autonomous driving. In <em>Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)</em>, 2023.</li>
+<li>S. Thrun, M. Montemerlo, H. Dahlkamp, D. Stavens, A. Aron, J. Diebel, P. Fong, J. Gale, M. Halpenny, G. Hoffmann, K. Lau, C. M. Oakley, M. Palatucci, V. R. Pratt, P. Stang, S. Strohband, C. Dupont, L. Jendrossek, C. Koelen, C. Markey, C. Rummel, J. van Niekerk, E. Jensen, P. Alessandrini, G. R. Bradski, B. Davies, S. Ettinger, A. Kaehler, A. V. Nefian, and P. Mahoney. Stanley: The robot that won the DARPA grand challenge. <em>Journal of Field Robotics (JFR)</em>, 23 (9):661–692, 2006.</li>
+<li>A. Bacha, C. Bauman, R. Faruque, M. Fleming, C. Terwelp, C. Reinholtz, D. Hong, A. Wicks, T. Alberi, D. Anderson, et al. Odin: Team victortango's entry in the darpa urban challenge. <em>Journal of Field Robotics (JFR)</em>, 25(8), 2008.</li>
+<li>J. J. Leonard, J. P. How, S. J. Teller, M. Berger, S. Campbell, G. A. Fiore, L. Fletcher, E. Frazzoli, A. S. Huang, S. Karaman, O. Koch, Y. Kuwata, D. Moore, E. Olson, S. Peters, J. Teo, R. Truax, M. R. Walter, D. Barrett, A. Epstein, K. Maheloni, K. Moyer, T. Jones, R. Buckley, M. E. Antone, R. Galejs, S. Krishnamurthy, and J. Williams. A perception-driven autonomous urban vehicle. <em>Journal of Field Robotics (JFR)</em>, 25(10):727–774, 2008.</li>
+<li>C. Urmson, J. Anhalt, D. Bagnell, C. Baker, R. Bittner, M. Clark, J. Dolan, D. Duggins, T. Galatali, C. Geyer, et al. Autonomous driving in urban environments: Boss and the urban challenge. <em>Journal of Field Robotics (JFR)</em>, 25(8), 2008.</li>
+<li>C. Chen, A. Seff, A. L. Kornhauser, and J. Xiao. Deepdriving: Learning affordance for direct perception in autonomous driving. In <em>Proc. of the IEEE International Conf. on Computer Vision (ICCV)</em>, pages 2722–2730, 2015.</li>
+<li>A. Sauer, N. Savinov, and A. Geiger. Conditional affordance learning for driving in urban environments. In <em>Proc. Conf. on Robot Learning (CoRL)</em>, 2018.</li>
+<li>H. Fan, F. Zhu, C. Liu, L. Zhang, L. Zhuang, D. Li, W. Zhu, J. Hu, H. Li, and Q. Kong. Baidu apollo EM motion planner. <em>arXiv.org</em>, 1807.08048, 2018.</li>
+<li>A. Sadat, M. Ren, A. Pokrovsky, Y. Lin, E. Yumer, and R. Urtasun. Jointly learnable behavior and trajectory planning for self-driving vehicles. In <em>Proc. IEEE International Conf. on Intelligent Robots and Systems (IROS)</em>, 2019.</li>
+<li>A. Kesting, M. Treiber, and D. Helbing. General lane-changing model mobil for car-following models. <em>Transportation Research Record</em>, 1999(1), 2007.</li>
+<li>R. Chekroun, T. Gilles, M. Toromanoff, S. Hornauer, and F. Moutarde. Mbappe: Mcts-built-around prediction for planning explicitly. <em>arXiv.org</em>, 2309.08452, 2023.</li>
+</ol>
+<a class="pg" data-page="11"></a>
+<ol class="refs" start="29">
+<li>A. Cui, A. Sadat, S. Casas, R. Liao, and R. Urtasun. Lookout: Diverse multi-future prediction and planning for self-driving. In <em>Proc. of the IEEE International Conf. on Computer Vision (ICCV)</em>, 2021.</li>
+<li>S. Casas, A. Sadat, and R. Urtasun. Mp3: A unified model to map, perceive, predict and plan. In <em>Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)</em>, 2021.</li>
+<li>A. Sadat, S. Casas, M. Ren, X. Wu, P. Dhawan, and R. Urtasun. Perceive, predict, and plan: Safe motion planning through interpretable semantic representations. In <em>Proc. of the European Conf. on Computer Vision (ECCV)</em>, 2020.</li>
+<li>Z. Huang, P. Karkus, B. Ivanovic, Y. Chen, M. Pavone, and C. Lv. Dtpp: Differentiable joint conditional prediction and cost evaluation for tree policy planning in autonomous driving. <em>arXiv.org</em>, 2310.05885, 2023.</li>
+<li>T. Phan-Minh, F. Howington, T.-S. Chu, M. S. Tomov, R. E. Beaudoin, S. U. Lee, N. Li, C. Dicle, S. Findler, F. Suarez-Ruiz, et al. Driveirl: Drive in real life with inverse reinforcement learning. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2023.</li>
+<li>P. Karkus, B. Ivanovic, S. Mannor, and M. Pavone. Diffstack: A differentiable and modular control stack for autonomous vehicles. In <em>Proc. Conf. on Robot Learning (CoRL)</em>, 2022.</li>
+<li>M. H. Danesh, P. Cai, and D. Hsu. Leader: Learning attention over driving behaviors for planning under uncertainty. In <em>Proc. Conf. on Robot Learning (CoRL)</em>, 2022.</li>
+<li>Z. Huang, H. Liu, J. Wu, and C. Lv. Differentiable integrated motion prediction and planning with learnable cost function for autonomous driving. <em>arXiv.org</em>, 2207.10422, 2022.</li>
+<li>B. Wei, M. Ren, W. Zeng, M. Liang, B. Yang, and R. Urtasun. Perceive, attend, and drive: Learning spatial attention for safe self-driving. <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2021.</li>
+<li>S. Hu, L. Chen, P. Wu, H. Li, J. Yan, and D. Tao. St-p3: End-to-end vision-based autonomous driving via spatial-temporal feature learning. In <em>Proc. of the European Conf. on Computer Vision (ECCV)</em>, 2022.</li>
+<li>H. Song, W. Ding, Y. Chen, S. Shen, M. Y. Wang, and Q. Chen. Pip: Planning-informed trajectory prediction for autonomous driving. In <em>Proc. of the European Conf. on Computer Vision (ECCV)</em>, 2020.</li>
+<li>N. Rhinehart, J. He, C. Packer, M. A. Wright, R. McAllister, J. E. Gonzalez, and S. Levine. Contingencies from observations: Tractable contingency planning with learned behavior models. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2021.</li>
+<li>Y. Chen, P. Karkus, B. Ivanovic, X. Weng, and M. Pavone. Tree-structured policy planning with learned behavior models. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2023.</li>
+<li>Z. Huang, H. Liu, and C. Lv. Gameformer: Game-theoretic modeling and learning of transformer-based interactive prediction and planning for autonomous driving. <em>arXiv.org</em>, 2303.05760, 2023.</li>
+<li>L. Chen, P. Wu, K. Chitta, B. Jaeger, A. Geiger, and H. Li. End-to-end autonomous driving: Challenges and frontiers. <em>arXiv.org</em>, 2306.16927, 2023.</li>
+<li>N. Rhinehart, R. McAllister, and S. Levine. Deep imitative models for flexible inference, planning, and control. In <em>Proc. of the International Conf. on Learning Representations (ICLR)</em>, 2020.</li>
+</ol>
+<a class="pg" data-page="12"></a>
+<ol class="refs" start="45">
+<li>A. Filos, P. Tigas, R. McAllister, N. Rhinehart, S. Levine, and Y. Gal. Can autonomous vehicles identify, recover from, and adapt to distribution shifts? In <em>Proc. of the International Conf. on Machine learning (ICML)</em>, 2020.</li>
+<li>H. Xu, Y. Gao, F. Yu, and T. Darrell. End-to-end learning of driving models from large-scale video datasets. In <em>Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)</em>, pages 3530–3538, 2017.</li>
+<li>D. Chen, B. Zhou, V. Koltun, and P. Krähenbühl. Learning by cheating. In <em>Proc. Conf. on Robot Learning (CoRL)</em>, 2019.</li>
+<li>E. Ohn-Bar, A. Prakash, A. Behl, K. Chitta, and A. Geiger. Learning situational driving. In <em>Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)</em>, 2020.</li>
+<li>A. Behl, K. Chitta, A. Prakash, E. Ohn-Bar, and A. Geiger. Label efficient visual abstractions for autonomous driving. In <em>Proc. IEEE International Conf. on Intelligent Robots and Systems (IROS)</em>, 2020.</li>
+<li>P. Wu, X. Jia, L. Chen, J. Yan, H. Li, and Y. Qiao. Trajectory-guided control prediction for end-to-end autonomous driving: A simple yet strong baseline. In <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 2022.</li>
+<li>D. Chen and P. Krähenbühl. Learning from all vehicles. In <em>CVPR</em>, 2022.</li>
+<li>B. Jaeger, K. Chitta, and A. Geiger. Hidden biases of end-to-end driving models. <em>Proc. of the IEEE International Conf. on Computer Vision (ICCV)</em>, 2023.</li>
+<li>N. Hanselmann, K. Renz, K. Chitta, A. Bhattacharyya, and A. Geiger. King: Generating safety-critical driving scenarios for robust imitation via kinematics gradients. In <em>Proc. of the European Conf. on Computer Vision (ECCV)</em>, 2022.</li>
+<li>M. Vitelli, Y. Chang, Y. Ye, A. Ferreira, M. Wołczyk, B. Osiński, M. Niendorf, H. Grimmett, Q. Huang, A. Jain, et al. Safetynet: Safe planning for real-world self-driving vehicles using machine-learned policies. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2022.</li>
+<li>S. Pini, C. S. Perone, A. Ahuja, A. S. R. Ferreira, M. Niendorf, and S. Zagoruyko. Safe real-world autonomous driving by learning to predict and plan with a mixture of experts. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2023.</li>
+<li>J. Cheng, Y. Chen, X. Mei, B. Yang, B. Li, and M. Liu. Rethinking imitation-based planner for autonomous driving. <em>arXiv.org</em>, 2309.10443, 2023.</li>
+<li>H. Caesar, V. Bankiti, A. H. Lang, S. Vora, V. E. Liong, Q. Xu, A. Krishnan, Y. Pan, G. Baldan, and O. Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)</em>, 2020.</li>
+<li>J.-T. Zhai, Z. Feng, J. Du, Y. Mao, J.-J. Liu, Z. Tan, Y. Zhang, X. Ye, and J. Wang. Rethinking the open-loop evaluation of end-to-end autonomous driving in nuscenes. <em>arXiv.org</em>, 2305.10430, 2023.</li>
+<li>M. Althoff, M. Koschi, and S. Manzinger. Commonroad: Composable benchmarks for motion planning on roads. In <em>Proc. IEEE Intelligent Vehicles Symposium (IV)</em>, 2017.</li>
+<li>L. Bergamini, Y. Ye, O. Scheel, L. Chen, C. Hu, L. D. Pero, B. Osinski, H. Grimmett, and P. Ondruska. Simnet: Learning reactive self-driving simulations from real-world observations. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2021.</li>
+</ol>
+<a class="pg" data-page="13"></a>
+<ol class="refs" start="61">
+<li>S. Suo, S. Regalado, S. Casas, and R. Urtasun. Trafficsim: Learning to simulate realistic multi-agent behaviors. In <em>Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)</em>, 2021.</li>
+<li>Z. Zhong, D. Rempe, D. Xu, Y. Chen, S. Veer, T. Che, B. Ray, and M. Pavone. Guided conditional diffusion for controllable traffic simulation. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2023.</li>
+<li>D. Xu, Y. Chen, B. Ivanovic, and M. Pavone. Bits: Bi-level imitation for traffic simulation. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2023.</li>
+<li>Z. Zhang, A. Liniger, D. Dai, F. Yu, and L. Van Gool. TrafficBots: Towards world models for autonomous driving simulation and motion prediction. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2023.</li>
+<li>L. Feng, Q. Li, Z. Peng, S. Tan, and B. Zhou. Trafficgen: Learning to generate diverse and realistic traffic scenarios. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2023.</li>
+<li>S. Ross, G. J. Gordon, and D. Bagnell. A reduction of imitation learning and structured prediction to no-regret online learning. In <em>Conference on Artificial Intelligence and Statistics (AISTATS)</em>, 2011.</li>
+<li>A. Prakash, A. Behl, E. Ohn-Bar, K. Chitta, and A. Geiger. Exploring data aggregation in policy learning for vision-based urban autonomous driving. In <em>Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)</em>, 2020.</li>
+<li>S. Poddar, C. Mavrogiannis, and S. S. Srinivasa. From crowd motion prediction to robot navigation in crowds. <em>arXiv preprint arXiv:2303.01424</em>, 2023.</li>
+<li>C. Schöller, V. Aravantinos, F. Lay, and A. Knoll. What the constant velocity model can teach us about pedestrian motion prediction. <em>IEEE Robotics and Automation Letters</em>, 5(2):1696–1703, 2020.</li>
+<li>H. Wu, T. Phong, C. Yu, P. Cai, S. Zheng, and D. Hsu. What truly matters in trajectory prediction for autonomous driving? <em>arXiv preprint arXiv:2306.15136</em>, 2023.</li>
+<li>Y. Tassa, N. Mansard, and E. Todorov. Control-limited differential dynamic programming. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2014.</li>
+<li>R. Rajamani. <em>Vehicle dynamics and control</em>. Springer Science &amp; Business Media, 2011.</li>
+<li>P. Polack, F. Altché, B. d'Andréa Novel, and A. de La Fortelle. The kinematic bicycle model: A consistent model for planning feasible trajectories for autonomous vehicles? In <em>Proc. IEEE Intelligent Vehicles Symposium (IV)</em>, 2017.</li>
+<li>N. Deo, E. M. Wolff, and O. Beijbom. Multimodal Trajectory Prediction Conditioned on Lane-Graph Traversals. In <em>Proc. Conf. on Robot Learning (CoRL)</em>, 2021.</li>
+<li>N. Nayakanti, R. Al-Rfou, A. Zhou, K. Goel, K. S. Refaat, and B. Sapp. Wayformer: Motion forecasting via simple and efficient attention networks. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2023.</li>
+<li>A. Cui, S. Casas, K. Wong, S. Suo, and R. Urtasun. Gorela: Go relative for viewpoint-invariant motion forecasting. In <em>Proc. IEEE International Conf. on Robotics and Automation (ICRA)</em>, 2023.</li>
+<li>Y. Hu, K. Li, P. Liang, J. Qian, Z. Yang, H. Zhang, W. Shao, Z. Ding, W. Xu, and Q. Liu. Imitation with spatial-temporal heatmap: 2nd place solution for nuplan challenge. <em>arXiv.org</em>, 2306.15700, 2023.</li>
+</ol>
+<a class="pg" data-page="14"></a>
+<ol class="refs" start="78">
+<li>W. Xi, L. Shi, and G. Cao. An imitation learning method with data augmentation and post processing for planning in autonomous driving. URL <a href="https://opendrivelab.com/e2ead/AD23Challenge/Track_4_pegasus_weitao.pdf">https://opendrivelab.com/e2ead/AD23Challenge/Track_4_pegasus_weitao.pdf</a>.</li>
+<li>Z. Huang, H. Liu, X. Mo, and C. Lyu. Gameformer planner: A learning-enabled interactive prediction and planning framework for autonomous vehicles. URL <a href="https://opendrivelab.com/e2ead/AD23Challenge/Track_4_AID.pdf">https://opendrivelab.com/e2ead/AD23Challenge/Track_4_AID.pdf</a>.</li>
+<li>C. R. Qi, Y. Zhou, M. Najibi, P. Sun, K. Vo, B. Deng, and D. Anguelov. Offboard 3d object detection from point cloud sequences. In <em>Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)</em>, 2021.</li>
+<li>O. Scheel, L. Bergamini, M. Wolczyk, B. Osinski, and P. Ondruska. Urban driver: Learning to drive from real-world demonstrations using policy gradients. In <em>Proc. Conf. on Robot Learning (CoRL)</em>, 2021.</li>
+</ol>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>

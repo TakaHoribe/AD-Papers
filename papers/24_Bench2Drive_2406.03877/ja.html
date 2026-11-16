@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill)" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Bench2Drive 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="Bench2Drive: Towards Multi-Ability Benchmarking of Closed-Loop End-To-End Autonomous Driving" />
+  <meta name="short-name" content="Bench2Drive" />
+  <meta name="authors" content="Xiaosong Jia, Zhenjie Yang, Qifeng Li, Zhiyuan Zhang, Junchi Yan（Shanghai Jiao Tong University）" />
+  <meta name="source-pdf" content="24_Bench2Drive_2406.03877.pdf" />
+  <meta name="source-pages" content="26" />
+  <meta name="pdf-href" content="24_Bench2Drive_2406.03877.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="CARLA v2 上で 44 種の対話的シナリオ・220 本の短いルートによりエンドツーエンド自動運転の多面的な能力をクローズドループで評価するベンチマークと、エキスパート Think2Drive で収集した 200 万フレームの公式学習データを提案する。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; }
+body{font-family:'Noto Sans JP','Noto Sans CJK JP','Yu Gothic','Meiryo',sans-serif;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1;color:#182634;max-width:1020px;margin:0 auto;padding:48px 38px;background:#fff;font-size:16px}
+h1{font-size:30px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:18px}
+h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:24px}
+h3{margin-top:2em;font-size:20px;color:#244b64}
+h4{margin-top:1.6em;font-size:17px;color:#244b64}
+p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+figure{margin:20px 0}
+figcaption{display:none}
+table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0}
+th,td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+th{background:#eaf1f5}
+td:first-child{white-space:nowrap}
+blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+code{font-family:Consolas,'Courier New',monospace;white-space:pre-wrap}
+pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+a{color:#215c80;overflow-wrap:anywhere}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+.src-meta{color:#5b6b78;font-size:13px;margin-top:-10px}
+ol.refs li{margin-bottom:6px;font-size:14px}
+@media (max-width: 700px){
+ body{padding:20px 16px;font-size:15px}
+ h1{font-size:22px}h2{font-size:19px}h3{font-size:17px}
+ table{display:block;overflow-x:auto}
+ #TOC{padding:14px 16px}
+}
+@media print{
+ body{font-size:10pt;padding:0;max-width:none}
+ h1{font-size:23pt}h2{font-size:17pt;break-after:avoid}h3{font-size:13pt;break-after:avoid}
+ p{orphans:3;widows:3}table{font-size:7pt;break-inside:avoid}img{max-height:180mm;break-inside:avoid}
+ pre{font-size:7pt;white-space:pre-wrap}a{color:inherit}#TOC{break-after:page}
+ @page{size:A4;margin:18mm 15mm}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Bench2Drive 全文日本語訳</h1>
+<p class="src-meta">原文PDF: <a href="24_Bench2Drive_2406.03877.pdf">24_Bench2Drive_2406.03877.pdf</a>（26ページ）　／　<a href="index.html">原文と並べて読む</a>　／　翻訳生成日: 2026-11-16</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#bench2drive-towards-multi-ability-benchmarking-of-closed-loop-end-to-end-autonomous-driving" id="toc-bench2drive-towards-multi-ability-benchmarking-of-closed-loop-end-to-end-autonomous-driving">Bench2Drive: Towards Multi-Ability Benchmarking of Closed-Loop End-To-End Autonomous Driving</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a><ul>
+<li><a href="#2.1-計画のベンチマーク" id="toc-2.1-計画のベンチマーク">2.1　計画のベンチマーク</a></li>
+<li><a href="#2.2-エンドツーエンド自動運転" id="toc-2.2-エンドツーエンド自動運転">2.2　エンドツーエンド自動運転</a></li>
+</ul></li>
+<li><a href="#3-bench2drive" id="toc-3-bench2drive">3　Bench2Drive</a><ul>
+<li><a href="#3.1-データ収集エージェント" id="toc-3.1-データ収集エージェント">3.1　データ収集エージェント</a></li>
+<li><a href="#3.2-エキスパートデータセット" id="toc-3.2-エキスパートデータセット">3.2　エキスパートデータセット</a></li>
+<li><a href="#3.3-多能力評価" id="toc-3.3-多能力評価">3.3　多能力評価</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a><ul>
+<li><a href="#4.1-ベースラインとデータセット" id="toc-4.1-ベースラインとデータセット">4.1　ベースラインとデータセット</a></li>
+<li><a href="#4.2-結果" id="toc-4.2-結果">4.2　結果</a></li>
+<li><a href="#4.3-事例分析" id="toc-4.3-事例分析">4.3　事例分析</a></li>
+</ul></li>
+<li><a href="#5-結論" id="toc-5-結論">5　結論</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#チェックリスト" id="toc-チェックリスト">チェックリスト</a></li>
+<li><a href="#a-データ収集の詳細" id="toc-a-データ収集の詳細">A　データ収集の詳細</a></li>
+<li><a href="#b-シナリオタウン天候の分布" id="toc-b-シナリオタウン天候の分布">B　シナリオ、タウン、天候の分布</a></li>
+<li><a href="#c-ベースラインの実装の詳細" id="toc-c-ベースラインの実装の詳細">C　ベースラインの実装の詳細</a></li>
+<li><a href="#d-学習と評価に必要な計算資源" id="toc-d-学習と評価に必要な計算資源">D　学習と評価に必要な計算資源</a></li>
+<li><a href="#e-npc-エージェントの挙動モデル" id="toc-e-npc-エージェントの挙動モデル">E　NPC エージェントの挙動モデル</a></li>
+<li><a href="#f-違反スコアの詳細" id="toc-f-違反スコアの詳細">F　違反スコアの詳細</a></li>
+<li><a href="#g-シナリオの説明" id="toc-g-シナリオの説明">G　シナリオの説明</a></li>
+<li><a href="#h-著者声明" id="toc-h-著者声明">H　著者声明</a></li>
+<li><a href="#i-ライセンス" id="toc-i-ライセンス">I　ライセンス</a></li>
+<li><a href="#j-データシート" id="toc-j-データシート">J　データシート</a><ul>
+<li><a href="#j.1-動機" id="toc-j.1-動機">J.1　動機</a></li>
+<li><a href="#j.2-配布" id="toc-j.2-配布">J.2　配布</a></li>
+<li><a href="#j.3-保守" id="toc-j.3-保守">J.3　保守</a></li>
+<li><a href="#j.4-構成" id="toc-j.4-構成">J.4　構成</a></li>
+<li><a href="#j.5-収集過程" id="toc-j.5-収集過程">J.5　収集過程</a></li>
+<li><a href="#j.6-用途" id="toc-j.6-用途">J.6　用途</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<a class="pg" data-page="1"></a>
+<h1 id="bench2drive-towards-multi-ability-benchmarking-of-closed-loop-end-to-end-autonomous-driving">Bench2Drive: Towards Multi-Ability Benchmarking of Closed-Loop End-To-End Autonomous Driving</h1>
+<p>Xiaosong Jia*、Zhenjie Yang*、Qifeng Li*、Zhiyuan Zhang*、Junchi Yan<sup>†</sup><br />
+* 同等の貢献。　† 責任著者<br />
+Dept. of CSE &amp; School of AI &amp; MoE Key Lab of AI, Shanghai Jiao Tong University<br />
+<a href="https://thinklab-sjtu.github.io/Bench2Drive/">https://thinklab-sjtu.github.io/Bench2Drive/</a><br />
+arXiv:2406.03877v3 [cs.RO]、2024年11月27日（38th Conference on Neural Information Processing Systems（NeurIPS 2024）Track on Datasets and Benchmarks）</p>
+<blockquote><p>翻訳について：原文 PDF は <code>24_Bench2Drive_2406.03877.pdf</code>（全 26 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p>基盤モデルが急速にスケールしている時代において、自動運転技術は変革の閾値に近づいており、データ駆動でスケールアップできる可能性からエンドツーエンド自動運転（E2E-AD）が台頭している。しかし、既存の E2E-AD 手法の多くは、L2 誤差と衝突率を指標とするオープンループのログ再生方式（例：nuScenes）で評価されており、最近コミュニティで認識されているように、これではアルゴリズムの運転性能を十分に反映できない。クローズドループのプロトコルで評価される E2E-AD 手法については、運転スコアを指標として固定ルート（例：CARLA の Town05Long や Longest6）で試験されるが、これは平滑でない指標関数と長いルートにおける大きなランダム性のために分散が大きいことが知られている。さらに、これらの手法は通常、学習用データを各自で収集するため、アルゴリズムレベルでの公平な比較が不可能になっている。</p>
+<p>完全自動運転（Full Self-Driving, FSD）のための包括的で現実的かつ公平な試験環境という最重要の要請に応えるため、我々は E2E-AD システムの多様な能力をクローズドループ方式で評価する初のベンチマークである <strong>Bench2Drive</strong> を提示する。Bench2Drive の公式学習データは、CARLA v2 において 44 の対話的シナリオ（割り込み、追い越し、迂回など）、23 の天候（晴れ、霧、雨など）、12 のタウン（都市部、村、大学など）に均等に分布する 13638 本の短いクリップから収集された、完全にアノテーションされた 200 万フレームから成る。評価プロトコルでは、E2E-AD モデルが異なる場所と天候のもとで 44 の対話的シナリオを通過することが求められ、合計 220 ルートとなる。これにより、さまざまな状況下での運転能力について包括的かつ要因分離された評価が得られる。我々は最先端の E2E-AD モデルを実装して Bench2Drive で評価し、現状と今後の方向性に関する知見を提供する。</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>近年、基盤モデルの急速な進歩とスケーリングに後押しされ、自動運転の分野は飛躍的な成長を遂げてきた［1–3］。こうした発展はエンドツーエンド自動運転（E2E-AD）システム［4–8］という新時代をもたらした。E2E-AD は、従来のモジュールベースの知覚［9–13］、予測［14–17］、計画［18–20］のパイプラインとは対照的に、車両の自動化に対するスケーラブルでデータ駆動のアプローチを約束するものである。こうしたシステムは膨大なデータから学習できるよう設計されており、車両知能の姿を一変させる可能性を秘めている。</p>
+<blockquote><p>脚注：本研究は NSFC（92370201, 62222607）および上海市科学技術重大プロジェクト（助成番号 2021SHZDZX0102）の一部支援を受けた。<span class="yakuchu">（訳注：原文は「supported by by」と by が重複している。）</span></p></blockquote>
+
+<a class="pg" data-page="2"></a>
+<figure><img src="figs/fig1.jpg" alt="図1" /></figure>
+<p><strong>図1：</strong><strong>Bench2Drive の概要。</strong></p>
+<p class="yakuchu">図中ラベル：RL Expert: Think2Drive＝強化学習エキスパート：Think2Drive、1. Strong Expert + Unified &amp; Diverse Large-Scale Training Set＝1. 強力なエキスパート＋統一的で多様な大規模学習セット、2. Quasi-Realistic Scenario Closed-Loop (E2E) Evaluation＝2. 準現実的シナリオによるクローズドループ（E2E）評価、3. Multi-dimensional Ability Assessment＝3. 多次元的な能力評価</p>
+
+<p>こうした進歩にもかかわらず、<strong>E2E-AD システムの評価方法論は依然として重大なボトルネックである</strong>。一般的な方法の 1 つは、nuScenes［21］のようなデータセットに記録されたエキスパート軌跡を用いてログ再生を行う、すなわちオープンループ評価である。これらのモデル［4, 22］は通常、生のセンサ情報を入力として自車両の将来位置を予測する。指標としては、記録された軌跡に対する L2 誤差と衝突発生率が用いられる。しかし、コミュニティで広く議論されているように［23, 24, 19］、分布シフト［25］や因果の混同（causal confusion）［26, 27］などの問題のため、これらのオープンループ指標は計画の熟達度を示すには不十分である。nuScenes には、検証セットが小さく偏っている（フレームの約 75% は直進を続けるだけでよい）という問題もある［24］。その結果、自車両の状態（位置、速度など）のみをエンコードする手法［23］が、センサ入力を用いる複雑な手法［4］と同程度の L2 誤差を達成できてしまう。このことは、<strong>E2E-AD のためのクローズドループ評価ベンチマークの必要性を強く示している</strong>。</p>
+<p>CARLA［28］は、クローズドループ E2E-AD 評価に最も広く用いられているシミュレータの 1 つである。そのフレームワーク内では Town05Long や Longest6 といったベンチマークが確立されており、AD システムが特定の制限時間内に安全に走破すべき複数のルートを備えている。しかし、これらのベンチマークは車線追従、右左折、衝突回避、信号遵守といった基本的なスキルしか評価せず［29, 30］、<strong>複雑で対話的な交通状況下での AD システムの運転能力を検査できていない</strong>。最新の CARLA Leaderboard v2 では、より入り組んだ状況での AD システムの頑健性を評価するために設計された 39 の挑戦的なシナリオが導入された。しかし、評価用の公式ルートは 7〜10 キロメートルにわたりシナリオが詰め込まれているため、図2（a）に示すように非常に難しく、完璧に走破することはしばしば困難すぎる。その結果、指数減衰関数を用いる運転スコア指標のもとでは、各 AD システムのスコアが非常に低くなる傾向があり、異なる AD システムを効果的に比較することが難しくなる。たとえば現在の Leaderboard v2<sup>1</sup> では、参加手法のスコアは 100 点満点中 10 点未満である。さらに、既存手法は通常データを各自で収集するため、アルゴリズムレベルでの公平な比較が不可能になっている。</p>
+<blockquote><p>脚注1：<a href="https://eval.ai/web/challenges/challenge-page/2098/leaderboard/4942">https://eval.ai/web/challenges/challenge-page/2098/leaderboard/4942</a></p></blockquote>
+<a class="pg" data-page="3"></a>
+<p>自動運転（AD）システムの評価における前述の課題に対処するには、その能力をきめ細かく公平に評価する新たなベンチマークを開発することが不可欠である。この目的のため、我々は包括的で現実的かつ公平なクローズドループ環境で E2E-AD システムを評価するよう設計された新しいベンチマーク <strong>Bench2Drive</strong> を導入する。Bench2Drive は、最先端のエキスパートモデル <em>Think2Drive</em>［31］によって収集された<strong>公式の学習データセット</strong>を備えており、13638 本のクリップから得られた完全にアノテーションされた 200 万フレームから成る。このデータセットは、割り込み、追い越し、迂回といった 44 の多様な対話的シナリオを、にぎやかな都心の晴れた日から趣のある村の霧の状況に至るまで、さまざまな天候条件とタウンのもとで網羅している。<strong>評価プロトコルは 220 本の短いルートを含み</strong>、各ルートは長さわずか約 150 メートルで、特定のシナリオを 1 つだけ含む。このようにして個々のスキルの評価が切り分けられるため、44 の異なるスキルセットにわたって AD システムの熟達度を詳細に比較できる。さらに、各ルートが短いことで運転スコアに対する指数減衰関数の影響が緩和され、異なるシステム間でより正確で有意義な性能比較が容易になる。このように構造化され焦点を絞ったベンチマークは、各 AD システムの長所と短所について、より明確な知見を与え、狙いを定めた改善とより洗練された技術開発を可能にする。</p>
+
+<figure><img src="figs/fig2.jpg" alt="図2" /></figure>
+<p><strong>図2：</strong><strong>Town12 におけるルート長。</strong>異なるルートを異なる色で表している。Bench2Drive の短いルートは、より平滑化された評価を提供する。</p>
+<p class="yakuchu">図中ラベル：(a) CARLA Leaderboard V2、(b) Bench2Drive Dataset＝(b) Bench2Drive データセット</p>
+
+<p>まとめると、提案する Bench2Drive ベンチマークは次の特徴を持つ。</p>
+<ul>
+<li><strong>包括的なシナリオ網羅</strong>：Bench2Drive は 44 の対話的シナリオにわたって AD システムを試験するよう設計されており、複雑な状況下での能力を徹底的に評価する。</li>
+<li><strong>きめ細かなスキル評価</strong>：それぞれ特定の運転シナリオに焦点を当てた 220 本の短いルートで評価を構成することにより、Bench2Drive は異なる AD システムが個々のタスクでどのように振る舞うかを詳細に分析・比較できる。</li>
+<li><strong>クローズドループ評価プロトコル</strong>：Bench2Drive は、AD システムの行動が環境に直接影響するクローズドループ方式で AD システムを評価する。この設定は AD システムの運転性能を正確に評価する。</li>
+<li><strong>多様で大規模な公式学習データ</strong>：Bench2Drive は、多様なシナリオ、天候、タウンのもとでの 13638 本のクリップから得た、完全にアノテーションされた 200 万フレームの標準化された学習セットを含む。これにより、すべての AD システムが豊富かつ同様の条件下で学習されることが保証され、これはアルゴリズムレベルの公平な比較に不可欠である。</li>
+</ul>
+<p><em>これらの特徴により、Bench2Drive は自動運転分野における先駆的なベンチマークとなり、研究者が E2E-AD システムを現実的、包括的、かつ公平な方法で改良・評価するための不可欠なツールを提供する。</em><strong>我々は TCP［5］、ThinkTwice［30］、DriveAdapter［27］、UniAD［4］、VAD［22］、AD-MLP［23］を含むいくつかの古典的ベースラインを実装し、それらを Bench2Drive で評価する</strong>。我々は、L2 誤差のようなオープンループ指標が実際の運転性能を反映できないという事実を確認する。古典的なクローズドループ指標である Drive Score については、詳細さに欠け、その重いペナルティが過度に保守的な運転戦略を助長することを見出した。一方、Bench2Drive は異なる手法の能力について包括的な理解を提供する。</p>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<h3 id="2.1-計画のベンチマーク">2.1　計画のベンチマーク</h3>
+<a class="pg" data-page="4"></a>
+<p>自動運転分野のベンチマークは、知覚のための KITTI［32］や挙動予測のための NGSIM/highD［33］、BARK［34］のような専門的データセットから、さまざまなシステム構成要素の協調的な評価を可能にする nuScenes［21］、Argoverse［35］、Waymo［36］のような統合的な形態へと進化してきた。近年、学習ベース手法の計画能力の評価が関心を集めている［37–41］。表1 に計画ベンチマークの比較を示す。nuScenes［21］はオープンループ指標を提供しているが、クローズドループのシミュレーションがないため計画の熟達度を適切に評価できないと批判されてきた［23, 24, 19］。さらに、検証セットに偏りがあり、シナリオのかなりの部分（75%）は直進走行しか必要としないため、複雑な環境における AD システムの意思決定能力を十分に試せていない［24］。nuPlan［38］と Waymax［37］はクローズドループ評価を提供するが、バウンディングボックスレベルの評価に限られ、センサシミュレーションを含まないため、E2E-AD 手法には適さない。CARLA Leaderboard V1 の改変版である Longest6［6］は、車線追従、右左折、衝突回避、信号といった基本的なスキルしか評価しない。CARLA Leaderboard V2［28］にはエキスパートのデモンストレーションデータがない。コミュニティで広く議論されているように［42, 43］、公式の学習セットがないことで、異なる手法の比較はアルゴリズムレベルではなくシステムレベルのものになってしまう。Bench2Drive は、大規模でアノテーションの豊富な公式学習データセットと多能力評価セットを併せて提供することで、これらの欠点に対処する。これにより、AD システムの運転能力について、よりきめ細かく情報量の多い評価が可能となり、全ルートの平均スコアを主要な性能指標とする既存ベンチマークの限界を克服する。</p>
+
+<table><thead><tr><th>ベンチマーク</th><th>センサ</th><th>クローズドループ</th><th>E2E シミュレーション</th><th>エキスパート</th><th>複雑さ</th><th>多能力評価</th></tr></thead>
+<tbody>
+<tr><td>nuScenes［21］</td><td>✓</td><td>✗</td><td>✗</td><td>✓</td><td>✗</td><td>✗</td></tr>
+<tr><td>nuPlan［38］</td><td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✓</td><td>✗</td></tr>
+<tr><td>Waymax［37］</td><td>✗</td><td>✓</td><td>✗</td><td>✓</td><td>✓</td><td>✗</td></tr>
+<tr><td>Longest6［6］</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td></tr>
+<tr><td>CARLA LB V2［28］</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td></tr>
+<tr><td><strong>Bench2Drive（本研究）</strong></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+</tbody></table>
+<p><strong>表1：</strong><strong>関連する計画ベンチマークとの比較。</strong>Bench2Drive は、多能力分析を伴うクローズドループで E2E-AD 手法を評価する唯一のベンチマークである。</p>
+<p class="yakuchu">列見出しの原語：Sensor、Closed-Loop、E2E-Sim、Expert、Complex、Multi-Ability-Eval。</p>
+
+<h3 id="2.2-エンドツーエンド自動運転">2.2　エンドツーエンド自動運転</h3>
+<p>E2E-AD の概念は 1980 年代にまで遡ることができる［44］。近年、ニューラルネットワーク、特に Transformer［45］の台頭がスケーリング則の力を示し、E2E-AD への熱意を再燃させた［46–50］。しかし、それらはオープンループ方式でのみ評価されるか［51, 4, 22, 52］、Town05Long/Longest6 のような比較的単純なシーンで評価されている［53, 54, 42, 55–60］。Bench2Drive は、E2E-AD 手法の能力を比較するための挑戦的で包括的な場を提供する。</p>
+
+<h2 id="3-bench2drive">3　Bench2Drive</h2>
+<p>Bench2Drive は、公式学習セットとして CARLA で収集された大規模で完全にアノテーションされたデータセット、きめ細かな運転スキル評価のための評価ツールキット、そして学習データセットと評価ツールキットに合わせて調整されたいくつかの最先端 E2E-AD 手法の実装から構成される。すべてのデータ、コード、チェックポイントは Apache License 2.0 のもとで GitHub と Huggingface で公開されている。以下の節で詳細を述べる。</p>
+
+<h3 id="3.1-データ収集エージェント">3.1　データ収集エージェント</h3>
+<p>データ収集エージェント（エキスパート）は、生徒モデルがデータから学習できるようにデータを収集する役割を担う。現実世界では、KITTI［32］、nuScenes［21］、Waymo［36］、Argoverse［35］の整備のように、通常は人間が市街を運転して回ることでこれが行われる。しかし、これには多大な人的労力が必要である。シミュレーションでは、安価な代替手段として教師モデルがある。教師モデルは、現実世界では利用できない情報（特権情報と呼ばれる）、たとえば周囲のエージェントの真の位置・状態・意図や信号機の真の状態などを利用する。その結果、CARLA の利用者は、特権情報を用いてシミュレーション内を運転するために、ルールを記述するか［43, 61］、強化学習（RL）モデルを学習させる［50, 31］。</p>
+<p>本研究では、CARLA 内を走行してデータを収集するために、世界モデルに基づく強化学習教師である Think2Drive［31］を用いる。これは、<strong>Bench2Drive の構築時点で 44 のシナリオすべてを解くことができた唯一のエキスパートモデルである</strong>ためである。なお、Bench2Drive の公開後、ルールベースのエキスパート PDM-Lite［61］<sup>2</sup> がオープンソース化されており、利用者は独自の要求に合わせてそれを使うことができる。</p>
+<blockquote><p>脚注2：<a href="https://github.com/autonomousvision/carla_garage/tree/leaderboard_2">https://github.com/autonomousvision/carla_garage/tree/leaderboard_2</a></p></blockquote>
+
+<h3 id="3.2-エキスパートデータセット">3.2　エキスパートデータセット</h3>
+<a class="pg" data-page="5"></a>
+<p>クローズドループ方式で評価される既存の E2E-AD 手法［5, 6, 56, 57］は、通常 CARLA シミュレータを用いて独自のデータを収集する。しかし、［42, 43］で強調されているように、これらのデータセットの規模と分布は性能に大きく影響し、アルゴリズムレベルでの公平な比較を困難にしている。これに対処するため、我々は公式学習セットとして、3D バウンディングボックス、深度、セマンティックセグメンテーションを含む包括的なアノテーションを備え、10 Hz でサンプリングされた大規模なエキスパートデータセットを構築した。エキスパートからの情報は生徒モデルにとって重要な指針になりうるため［49, 27, 60］、エキスパートモデルである Think2Drive［31］の価値推定と特徴量も提供する。図3 に概要を示す。コミュニティによる既存 E2E-AD 手法の再実装を容易にするため、nuScenes［21］と同様のセンサ構成を採用する。</p>
+
+<figure><img src="figs/fig3.jpg" alt="図3" /></figure>
+<p><strong>図3：</strong><strong>エキスパートデータセットのセンサ設定とアノテーション。</strong>センサ設定は nuScenes［21］に従う。アノテーションには、3D バウンディングボックス、深度、セマンティック／インスタンスセグメンテーション、HD マップ、および Think2Drive［31］エキスパートによる強化学習の価値推定と特徴量が含まれる。</p>
+<p class="yakuchu">図中ラベル：3D Bounding Box＝3D バウンディングボックス、LiDAR BEV＝LiDAR 鳥瞰図（BEV）、Instance Segmentation＝インスタンスセグメンテーション、Point Cloud＝点群、Semantic Segmentation＝セマンティックセグメンテーション、Depth Estimation＝深度推定、Remote Sensing＝リモートセンシング（上空視点）、Lane Detection＝車線検出。左図の角度（70°、110°）は各カメラの水平視野角。</p>
+
+<figure><img src="figs/fig4.jpg" alt="図4" /></figure>
+<p><strong>図4：</strong><strong>Town12 におけるシナリオ「ConstructionObstacle」の分布。</strong>「ConstructionObstacle」を含む異なるルートを異なる色で表している。Bench2Drive には「ConstructionObstacle」を生成できる場所がより多くある。</p>
+<p class="yakuchu">図中ラベル：(a) CARLA Leaderboard V2、(b) Bench2Drive Dataset＝(b) Bench2Drive データセット</p>
+
+<ul>
+<li>1 台の <strong>LiDAR</strong>：64 チャネル、測距範囲 85 メートル、毎秒 600,000 点</li>
+<li>6 台の<strong>カメラ</strong>：全周をカバー、解像度 900x1600、JPEG 圧縮（品質レベル 20）</li>
+<li>5 台の<strong>レーダ</strong>：測距範囲 100 メートル、水平・垂直視野角（FoV）30°</li>
+<li>1 台の <strong>IMU &amp; GNSS</strong>：位置、ヨー角、速度、加速度、角速度</li>
+<li>1 台の <strong>BEV カメラ</strong>：デバッグ、可視化、リモートセンシング</li>
+<li><strong>HD マップ</strong>：車線、中心線、トポロジー、動的な信号状態、信号機と一時停止標識のトリガー領域</li>
+</ul>
+<p>さらに、知覚と挙動の両面におけるデータのロングテール分布は自動運転における重大なボトルネックである［62］（nuScenes のクリップの約 75% は自車両の直進のみを含む）。この課題に取り組むため、天候条件、景観、挙動の分布ができるだけ均一になるようにした。図4 に示すように、CARLA Leaderboard V2 の公式ルートと比べてシナリオを配置できる場所を増やし、データの多様性を高めた。さらに、挙動の多様性を高めるため、付録 G で詳述するように Leaderboard V2 に加えて 5 つのシナリオを設計した。シナリオ、天候、タウンの分布は付録 B に示す。図示のとおり、Bench2Drive データセットは知覚と挙動の両面で多様性に富んでいる。</p>
+<p>データ分割については、運転過程を、それぞれ長さ約 150 メートルで特定のシナリオを 1 つだけ含む短いクリップに分割した。この分割により、個々の運転スキルのカリキュラム学習［63］が可能になる。異なる計算能力に対応するため、3 つのデータサブセットを設計した：mini（デバッグと可視化用の 10 クリップ）、base（1,000 クリップ、nuScenes に匹敵し、8xRTX3090 サーバに適する）、full（大規模研究用の 10,000 クリップ）。</p>
+
+<a class="pg" data-page="6"></a>
+<table><thead><tr><th>スキル</th><th>シナリオ</th></tr></thead>
+<tbody>
+<tr><td>合流（Merging）</td><td>CrossingBicycleFlow, EnterActorFlow, HighwayExit, InterurbanActorFlow, HighwayCutIn, InterurbanAdvancedActorFlow, MergerIntoSlowTrafficV2, MergeIntoSlowTraffic, NonSignalizedJunctionLeftTurn, NonSignalizedJunctionRightTurn, NonSignalizedJunctionLeftTurnEnterFlow, ParkingExit, LaneChange, SignalizedJunctionLeftTurn, SignalizedJunctionRightTurn, SignalizedJunctionLeftTurnEnterFlow</td></tr>
+<tr><td>追い越し（Overtaking）</td><td>Accident, AccidentTwoWays, ConstructionObstacle, ConstructionObstacleTwoWays, HazardAtSideLaneTwoWays, HazardAtSideLane, ParkedObstacleTwoWays, ParkedObstacle, VehicleOpenDoorTwoWays</td></tr>
+<tr><td>緊急ブレーキ（Emergency Brake）</td><td>BlockedIntersection, DynamicObjectCrossing, HardBreakRoute, OppositeVehicleTakingPriority, OppositeVehicleRunningRedLight, ParkingCutIn, PedestrianCrossing, ParkingCrossingPedestrian, StaticCutIn, VehicleTurningRoute, VehicleTurningRoutePedestrian, ControlLoss</td></tr>
+<tr><td>道を譲る（Give Way）</td><td>InvadingTurn, YieldToEmergencyVehicle</td></tr>
+<tr><td>交通標識（Traffic Sign）</td><td>EnterActorFlow, CrossingBicycleFlow, NonSignalizedJunctionLeftTurn, NonSignalizedJunctionRightTurn, NonSignalizedJunctionLeftTurnEnterFlow, OppositeVehicleTakingPriority, OppositeVehicleRunningRedLight, PedestrianCrossing, SignalizedJunctionLeftTurn, SignalizedJunctionRightTurn, SignalizedJunctionLeftTurnEnterFlow, TJunction, VanillaNonSignalizedTurn, VanillaSignalizedTurnEncounterGreenLight, VanillaSignalizedTurnEncounterRedLight, VanillaNonSignalizedTurnEncounterStopsign, VehicleTurningRoute, VehicleTurningRoutePedestrian</td></tr>
+</tbody></table>
+<p><strong>表2：</strong><strong>スキルセットとシナリオ</strong></p>
+<p class="yakuchu">（訳注：シナリオ名は CARLA の識別子のため原文のまま掲載した。「HardBreakRoute」「MergerIntoSlowTrafficV2」も原文の綴りどおり。）</p>
+
+<h3 id="3.3-多能力評価">3.3　多能力評価</h3>
+<p>既存の計画ベンチマーク［28, 38, 37］は、提供される全ルートのスコアを平均することで AD システムの性能を評価する。このアプローチは運転能力の大まかな概観を与えるが、異なる手法の具体的な長所と短所を特定できない。さらに悪いことに、Longest6［6］や Leaderboard V2［28］のような CARLA の既存ベンチマークは数キロメートルにわたるため、運転スコア指標の分散が大きくなる。この分散は、違反スコアが累積的な乗算によって誤りにペナルティを課すことに起因し、結果を大きく歪めうる。たとえば、3 回の試行がいずれも 90% のルート完遂率を達成し、信号無視の回数だけが 0、1、2 回と異なる場合を考える。対応する運転スコアは 90、\(90 * 0.7 = 63\)、\(90 * 0.7 * 0.7 = 44.1\) となり、標準偏差は 18.9 と大きくなるため、手法間の比較は信頼できないものになる。</p>
+<p>これらの問題に対処するため、我々は 44 のシナリオすべてについて、シナリオごとにそれぞれ異なる天候とタウンを持つ 5 本の異なる短いルート（長さ約 150 メートル）を設計し、合計 220 ルートとする、よりきめ細かな評価フレームワークを提案する。このアプローチにより、AD システムの能力をスキルごとに切り分けて評価でき、分散を抑えたより詳細な分析が可能になる。さらに、表2 のように市街地走行のための 5 つの高度なスキル、すなわち合流、追い越し、道を譲る、交通標識、緊急ブレーキをまとめ、各スキルのスコアを報告する。この分離された設計により、AD システムがどのスキルを効果的にこなし、どのスキルをこなせないかについてより明確な知見が得られ、システム性能のより繊細な理解が促される。</p>
+<p>形式的には、評価セットは 220 ルートから成り、各ルートは特定のタウンと天候において出発地点 \((x_{\text{src}}, y_{\text{src}})\) と目的地点 \((x_{\text{dst}}, y_{\text{dst}})\) の組を定義する。生のセンサ入力（カメラ、LiDAR、IMU/GPS など）と目標ウェイポイントが与えられたとき、自車両は出発地点から目的地点まで走行しなければならない。性能を評価するために 2 つの指標を設計する。</p>
+<ul>
+<li><strong>成功率（Success Rate, SR）</strong>：この指標は、制限時間内に交通違反なしで完遂されたルートの割合を測る。自車両がいかなる規則違反もなく目的地に到達した場合、そのルートは成功とみなされる。成功率は、式1（左）に示すように、総ルート数に対する成功ルート数の比として計算される。</li>
+</ul>
+<a class="pg" data-page="7"></a>
+<ul>
+<li><strong>運転スコア（Driving Score, DS）</strong>：この指標は CARLA［28］の公式指標を参考にしたものである。ルート完遂とインフラクション（違反）に対するペナルティの両方を考慮する。具体的には、式1（右）に示すように、ルート完遂率を平均し、違反をその重大度に応じてペナルティとして課す。運転スコアも、同じタイプまたはグループに属するルートの総数で正規化される。</li>
+</ul>
+<p>\[ \text{Success Rate} = \frac{n_{\text{success}}}{n_{\text{total}}} \qquad \text{Driving Score} = \frac{1}{n_{\text{total}}} \sum_{i=1}^{n_{\text{total}}} \text{Route-Completion}_i * \prod_{j=1}^{n_{i,\text{penalty}}} p_{i,j} \tag{1} \]</p>
+<p>ここで、\(n_{\text{success}}\) と \(n_{\text{total}}\) はそれぞれ成功ルート数と総サンプル数を表す。\(\text{Route-Completion}_i\) は \(i\) 番目のルートについて完遂したルート距離の割合を表す。\(p_{i,j}\) は \(i\) 番目のルートにおける \(j\) 番目の違反ペナルティを意味する。違反の種類とペナルティのスコアの詳細は付録 F を参照されたい。</p>
+<p>さらに、アルゴリズムの目標達成能力に加えて、運転軌跡の効率性と滑らかさを測るために次の 2 つの指標を提案する。</p>
+<p><strong>効率性（Efficiency）</strong>：CARLA チームは、自動運転車の速度が低すぎないかを確認する関数を実装している。これは、車両の速度を周囲の車両と比較することで判定される。</p>
+<p>\[ \text{Speed Percentage} = \frac{\text{Ego Vehicle's Speed}}{\text{Average Speed of Nearby Vehicles}} \tag{2} \]</p>
+<p>この関数は、現在のフレームにおける車両の速度と周囲車両の平均速度を用いて速度割合（Speed Percentage）を計算する。CARLA Leaderboard はルートごとに 4 つのチェックポイントを設定し、自車両がチェックポイントに到達したときに自車両の速度を確認する。具体的には、車両が周囲の車両より速ければ、運転効率は 100% を超える。確認結果はペナルティとして最終的な運転スコアに含まれる。しかし、チェックポイントが 4 つしかないため、車両は次のチェックポイントに到達するまでに総ルート距離の 25% を走行しなければならない。これにより低速時のペナルティ値の分散が大きくなり、運転能力を運転スコアに反映させることが難しくなる。これを緩和するため、我々はチェックポイントの数を 20 に増やす。速度チェックは総ルート長の 5% ごとに行われ、運転スコアの計算からは除外される。最終的な運転効率指標は、すべてのチェックにおける速度割合の平均として定義される。</p>
+<p>\[ \text{Driving Efficiency} = \frac{\sum_i \text{Speed Percentage}_i}{\text{Speed Check Times}} \tag{3} \]</p>
+<p>自車両が最初の 5% のチェックポイントを通過できなかった場合、そのルートは最終的な運転効率指標の計算に含めない。異常な速度の急上昇が起こりうる場合（例：車両が現在のマップレイヤーから落下したとき）を考慮し、1000% を超える速度割合の値は除外する。</p>
+<p><strong>快適性（Comfortness）</strong>：快適性は人間の体感と密接に関係しているため、それを測るには自動運転ポリシーを多数の人間の熟練ドライバーの挙動と比較する必要がある。そのため、広く使われているベンチマーク nuPlan［38］の滑らかさ（快適性とも呼ばれる）プロトコルに従う。これは、自車両の縦方向加速度の最小値と最大値、横方向加速度・ヨーレート・ヨー加速度・ジャークの縦方向成分の絶対値の最大値、およびジャークベクトルの大きさの最大値を評価するものである。これらの変数は、nuPlan の人間のエキスパート軌跡の調査から経験的に決定されたデフォルト値を持つ閾値と比較される。快適性は、これらの値がエキスパート値の上限と下限の範囲内に収まるかどうかに基づいて測定される。</p>
+<p>\[ \text{Frame Variable Smoothness (FVS)} = \begin{cases} \text{True} & \text{if lower bound} \le p_i \le \text{upper bound}, \\ \text{False} & \text{otherwise} \end{cases} \qquad p \in \text{smoothness vars},\ 0 \le i \le \text{total frames} \tag{4} \]</p>
+<p>ここで、滑らかさの変数（vars）には次が含まれる：縦方向加速度 - エキスパートの範囲：[-4.05, 2.40]、横方向加速度の絶対値の最大値 - エキスパートの範囲：[-4.89, 4.89]、ヨーレート - エキスパートの範囲：[-0.95, 0.95]、ヨー加速度 - エキスパートの範囲：[-1.93, 1.93]、ジャークの縦方向成分 - エキスパートの範囲：[-4.13, 4.13]、ジャークベクトルの大きさの最大値 - エキスパートの範囲：[-8.37, 8.37]。軌跡は、すべての滑らかさ変数が滑らかさの基準を満たす場合にのみ「滑らか（Smooth）」とみなされる。</p>
+<p>\[ \text{Trajectory Smoothness} = \bigwedge_{i=0}^{\text{total frames}} \text{FVS} \]</p>
+<a class="pg" data-page="8"></a>
+<p>nuPlan では、滑らかさは軌跡全体にわたってこれらの変数をフレームごとに評価して決定されるため、局所的な運転挙動の影響を受けやすい。たとえば、前方の車両が急ブレーキをかけた場合、自車両も衝突を避けるために急ブレーキをかけなければならない。この場面では自車両の急ブレーキ挙動が適切であり、それ以外の時間の運転が滑らかであっても、軌跡全体が滑らかでないと判定されることがあり、不合理な評価結果につながる。この問題を緩和するため、評価のために軌跡全体をタイムステップ間隔 \(n = 20\) で分割する。</p>
+<p>\[ \text{Segment Smoothness} = \bigwedge_{i=\text{start frame}}^{\text{end frame}} \text{FVS} \]</p>
+<p>最終的な滑らかさ指標は、総セグメント数に対する滑らかな軌跡セグメントの割合として定義される。</p>
+<p>\[ \text{Smoothness} = \frac{\text{Number of Smoothness Segments}}{\text{Total Segments}} \]</p>
+<p>特に、自車両が立ち往生し（速度が 60 秒以上 0.1 未満のままである）、失敗ケースとなった場合でも、その速度は人間にとって安全であるため、そのセグメントは滑らかであるとみなす。なお、軌跡の総フレーム数が 20 未満の場合、該当ルートは滑らかさの評価から除外される。</p>
+
+<h2 id="4-実験">4　実験</h2>
+<h3 id="4.1-ベースラインとデータセット">4.1　ベースラインとデータセット</h3>
+<p>コミュニティの出発点を確立するため、我々は Bench2Drive において以下を含むいくつかの古典的な E2E-AD 手法を実装した。</p>
+<ul>
+<li><strong>UniAD</strong>［4］は知覚と予測を明示的に行い、情報の伝達に Transformer クエリを用いる。これと併せて、広く用いられている BEVFormer［10］も Bench2Drive に実装した。</li>
+<li><strong>VAD</strong>［22］も Transformer クエリを採用するが、ベクトル化されたシーン表現を用いることで効率を向上させている。</li>
+<li><strong>AD-MLP</strong>［23］は、自車両の過去の状態を MLP に入力するだけで将来の軌跡を予測する。これは過去状態の内挿による計画器の単純なベースラインである。</li>
+<li><strong>TCP</strong>［64］は前方カメラと自車両の状態のみを入力として、軌跡と制御信号の両方を予測する。CARLA v1 における単純だが効果的なベースラインである。</li>
+<li><strong>ThinkTwice</strong>［30］は、計画ルートを層ごとに洗練し、エキスパートの特徴量を蒸留することで、粗から密へ（coarse-to-fine）の考え方を推し進める。</li>
+<li><strong>DriveAdapter</strong>［27］は、知覚と計画の学習を分離し、両者をアダプタモジュールで接続することで、エキスパートモデルの力を最大限に引き出す新しいパラダイムを提案する。</li>
+</ul>
+<p>コミュニティで利用可能な計算資源がさまざまであることを踏まえ、これらのベースラインモデルは <em>base</em> サブセット（1,000 クリップ）で学習した。950 クリップを学習に用い、50 クリップをオープンループ評価用に残す。検証セットには 44 シナリオそれぞれについて少なくとも 1 クリップが含まれ、天候の分布が均衡するようにした。AD-MLP と TCP は 1 * A6000 で学習し、ThinkTwice、DriveAdapter、UniAD、VAD は 8 * A100 で学習した。クローズドループ評価では、3.3 節で述べた 220 本のテストルートで全モデルを CARLA 上で走らせ、それに応じて指標を計算する。なお、一部のモデルは特定のルートで誤った挙動をとり（例：バグのある場所へ走行する）、スコアが出ないまま CARLA をクラッシュさせることがある。これらのルートは 0 点として扱う。実装の詳細は付録 C を参照されたい。</p>
+
+<h3 id="4.2-結果">4.2　結果</h3>
+<p>表3 と表4 では、ベースラインの E2E-AD 手法をオープンループ評価とクローズドループ評価の両方で比較しており、そこから次の知見が得られる。</p>
+<a class="pg" data-page="9"></a>
+<p><strong>オープンループ指標はモデルの収束を示すことはできるが、高度な比較には役立たない。</strong>AD-MLP は L2 誤差が大きく、クローズドループ評価での性能が極めて悪い一方、VAD は L2 誤差が小さく、クローズドループ性能もまずまずである。<em>これは、L2 誤差をニューラルネットワークの収束とフィッティングの状態の確認に使えることを示している</em>。すなわち、L2 誤差が非常に大きい場合は、システム内に何らかの問題があるはずである。この場合、AD-MLP は生のセンサを使わないため、目隠し運転に近く、データセットにフィットすることができない。注目すべきことに、nuScenes［21］での知見とは異なり、図5 に示すように Bench2Drive は挙動の多様性がより高いため、AD-MLP は Bench2Drive ではまともな L2 誤差を達成できない。一方、UniAD-base は VAD より L2 誤差が小さいにもかかわらずクローズドループ性能は劣っており、これは［19, 24］の知見と一致する。オープンループ評価は分布シフト［25］や因果の混同［26, 27］といった問題を無視するため、データセットに良くフィットしたモデル同士では意味のある比較ができず、クローズドループ評価の重要性を示している。効率性と滑らかさについては、AD-MLP が早期に失敗して立ち往生するため効率性が最も低いことが観察できる。UniAD は TCP-traj と比べて効率性が高く軌跡も滑らかであり、UniAD の計画ヘッドに対する事後最適化の有効性を示している。</p>
+
+<table><thead>
+<tr><th rowspan="2">手法</th><th>オープンループ指標</th><th colspan="4">クローズドループ指標</th></tr>
+<tr><th>Avg. L2 ↓</th><th>Driving Score ↑</th><th>Success Rate(%) ↑</th><th>Efficiency ↑</th><th>Comfortness ↑</th></tr>
+</thead><tbody>
+<tr><td>AD-MLP［23］</td><td style="text-align:right">3.64</td><td style="text-align:right">18.05</td><td style="text-align:right">0.00</td><td style="text-align:right">48.45</td><td style="text-align:right">22.63</td></tr>
+<tr><td>UniAD-Tiny［4］</td><td style="text-align:right">0.80</td><td style="text-align:right">40.73</td><td style="text-align:right">13.18</td><td style="text-align:right">123.92</td><td style="text-align:right">47.04</td></tr>
+<tr><td>UniAD-Base［4］</td><td style="text-align:right"><strong>0.73</strong></td><td style="text-align:right"><strong>45.81</strong></td><td style="text-align:right"><strong>16.36</strong></td><td style="text-align:right">129.21</td><td style="text-align:right">43.58</td></tr>
+<tr><td>VAD［22］</td><td style="text-align:right">0.91</td><td style="text-align:right">42.35</td><td style="text-align:right">15.00</td><td style="text-align:right"><strong>157.94</strong></td><td style="text-align:right"><strong>46.01</strong></td></tr>
+<tr><td>TCP*［5］</td><td style="text-align:right">1.70</td><td style="text-align:right">40.70</td><td style="text-align:right">15.00</td><td style="text-align:right">54.26</td><td style="text-align:right">47.80</td></tr>
+<tr><td>TCP-ctrl*</td><td style="text-align:right">-</td><td style="text-align:right">30.47</td><td style="text-align:right">7.27</td><td style="text-align:right">55.97</td><td style="text-align:right"><strong>51.51</strong></td></tr>
+<tr><td>TCP-traj*</td><td style="text-align:right">1.70</td><td style="text-align:right">59.90</td><td style="text-align:right">30.00</td><td style="text-align:right">76.54</td><td style="text-align:right">18.08</td></tr>
+<tr><td>TCP-traj w/o distillation</td><td style="text-align:right">1.96</td><td style="text-align:right">49.30</td><td style="text-align:right">20.45</td><td style="text-align:right"><strong>78.78</strong></td><td style="text-align:right">22.96</td></tr>
+<tr><td>ThinkTwice*［30］</td><td style="text-align:right"><strong>0.95</strong></td><td style="text-align:right">62.44</td><td style="text-align:right">31.23</td><td style="text-align:right">69.33</td><td style="text-align:right">16.22</td></tr>
+<tr><td>DriveAdapter*［27］</td><td style="text-align:right">1.01</td><td style="text-align:right"><strong>64.22</strong></td><td style="text-align:right"><strong>33.08</strong></td><td style="text-align:right">70.22</td><td style="text-align:right">16.01</td></tr>
+</tbody></table>
+<p><strong>表3：</strong><strong>Bench2Drive における E2E-AD 手法のオープンループおよびクローズドループの結果</strong>（<strong>base</strong> 学習セット使用）。Avg. L2 は UniAD と同様に、2Hz で 2 秒間の予測について平均したものである。* はエキスパート特徴量の蒸留を表す。</p>
+<p class="yakuchu">列見出し：Avg. L2＝平均 L2 誤差、Driving Score＝運転スコア、Success Rate＝成功率、Efficiency＝効率性、Comfortness＝快適性。w/o distillation＝蒸留なし。原表では上 4 行（AD-MLP〜VAD）と下 6 行（TCP*〜DriveAdapter*）が罫線で区切られている。</p>
+
+<table><thead>
+<tr><th rowspan="2">手法</th><th colspan="5">能力（Ability）(%) ↑</th><th rowspan="2">平均（Mean）</th></tr>
+<tr><th>Merging</th><th>Overtaking</th><th>Emergency Brake</th><th>Give Way</th><th>Traffic Sign</th></tr>
+</thead><tbody>
+<tr><td>AD-MLP［23］</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">4.35</td><td style="text-align:right">0.87</td></tr>
+<tr><td>UniAD-Tiny［4］</td><td style="text-align:right">8.89</td><td style="text-align:right">9.33</td><td style="text-align:right">20.00</td><td style="text-align:right">20.00</td><td style="text-align:right">15.43</td><td style="text-align:right">14.73</td></tr>
+<tr><td>UniAD-Base［4］</td><td style="text-align:right">14.10</td><td style="text-align:right">17.78</td><td style="text-align:right">21.67</td><td style="text-align:right">10.00</td><td style="text-align:right">14.21</td><td style="text-align:right">15.55</td></tr>
+<tr><td>VAD［22］</td><td style="text-align:right">8.11</td><td style="text-align:right">24.44</td><td style="text-align:right">18.64</td><td style="text-align:right">20.00</td><td style="text-align:right">19.15</td><td style="text-align:right"><strong>18.07</strong></td></tr>
+<tr><td>TCP*［5］</td><td style="text-align:right">16.18</td><td style="text-align:right">20.00</td><td style="text-align:right">20.00</td><td style="text-align:right">10.00</td><td style="text-align:right">6.99</td><td style="text-align:right">14.63</td></tr>
+<tr><td>TCP-ctrl*</td><td style="text-align:right">10.29</td><td style="text-align:right">4.44</td><td style="text-align:right">10.00</td><td style="text-align:right">10.00</td><td style="text-align:right">6.45</td><td style="text-align:right">8.23</td></tr>
+<tr><td>TCP-traj*</td><td style="text-align:right">8.89</td><td style="text-align:right">24.29</td><td style="text-align:right"><strong>51.67</strong></td><td style="text-align:right">40.00</td><td style="text-align:right">46.28</td><td style="text-align:right">34.22</td></tr>
+<tr><td>TCP-traj w/o distillation</td><td style="text-align:right">17.14</td><td style="text-align:right">6.67</td><td style="text-align:right">40.00</td><td style="text-align:right"><strong>50.00</strong></td><td style="text-align:right">28.72</td><td style="text-align:right">28.51</td></tr>
+<tr><td>ThinkTwice*［30］</td><td style="text-align:right">27.38</td><td style="text-align:right">18.42</td><td style="text-align:right">35.82</td><td style="text-align:right"><strong>50.00</strong></td><td style="text-align:right">54.23</td><td style="text-align:right">37.17</td></tr>
+<tr><td>DriveAdapter*［27］</td><td style="text-align:right"><strong>28.82</strong></td><td style="text-align:right"><strong>26.38</strong></td><td style="text-align:right">48.76</td><td style="text-align:right"><strong>50.00</strong></td><td style="text-align:right"><strong>56.43</strong></td><td style="text-align:right"><strong>42.08</strong></td></tr>
+</tbody></table>
+<p><strong>表4：</strong><strong>E2E-AD 手法の多能力評価の結果</strong>（<strong>base</strong> 学習セット使用）。* はエキスパート特徴量の蒸留を表す。</p>
+<p class="yakuchu">列見出し：Merging＝合流、Overtaking＝追い越し、Emergency Brake＝緊急ブレーキ、Give Way＝道を譲る、Traffic Sign＝交通標識。</p>
+
+<p><strong>エキスパート特徴量の蒸留は重要な指針を与える。</strong>［49, 50］で指摘されているように、AD の入力空間（すなわち複数の画像と点群）は高次元であるため、E2E-AD 手法は過学習しやすい。すでに強力な運転知識を備えたエキスパートの特徴量は、蒸留によってこの問題の緩和に役立ちうる。その結果、エキスパート特徴量の蒸留を用いる手法（TCP/ThinkTwice/DriveAdapter）は、用いない手法（VAD/UniAD）を大きく上回る。蒸留の有無による TCP-traj の比較からも同様の傾向が観察できる。しかし、現実世界の設定ではエキスパート特徴量を得るのは難しい場合があり、さらなる研究に値する。</p>
+<p><strong>対話的な挙動の学習は難しい。</strong>強い対話を伴うスキル（合流、追い越し、緊急ブレーキ）に関しては、すべてのモデルのスコアが満足のいくものではない。これは 2 つの観点から説明できるかもしれない。（I）ロングテールの問題。異なるシナリオのクリップ数が同程度になるようにしているものの、1 本のクリップの中で対話的な挙動に関わるフレームはごくわずかである。その結果、学習が難しくなっている可能性がある。（II）模倣学習のパラダイム。制御信号や軌跡を直接教師あり学習しても、対話におけるゲーム的駆け引き、思考、推論の過程に関する指針を与えられない可能性がある。より高度な学習パラダイムが有望な方向性となりうる。</p>
+
+<a class="pg" data-page="10"></a>
+<figure><img src="figs/fig5.png" alt="図5" /></figure>
+<p><strong>図5：</strong><strong>自車両の将来位置の分布。</strong>Bench2Drive には旋回する軌跡がより多く含まれており、行動の多様性が高いことを示している。そのため、より良い学習データを提供し、オープンループ評価とクローズドループ評価の間のギャップも小さい。</p>
+<p class="yakuchu">図中ラベル：(a) nuScenes [21] dataset drawn by [24]＝(a) ［24］が描画した nuScenes［21］データセット、(b) Bench2Drive Dataset＝(b) Bench2Drive データセット。縦軸・横軸は自車両を原点とする位置（m）、カラーバーは頻度（対数スケール）。</p>
+
+<h3 id="4.3-事例分析">4.3　事例分析</h3>
+<p>我々は可視化を行い、その結果を <a href="https://github.com/Thinklab-SJTU/Bench2DriveZoo/blob/uniad/vad/analysis/analysis.md">https://github.com/Thinklab-SJTU/Bench2DriveZoo/blob/uniad/vad/analysis/analysis.md</a> にアップロードした。比較と分析を容易にするため、5 つの能力すべてについて、一部のベースラインが成功し一部のベースラインが失敗する代表的なシナリオをいくつか選んで可視化した。対応する失敗分析も示しており、利用者や実務者が既存の E2E-AD 手法の長所、短所、今後の課題について感覚をつかめるようにしている。</p>
+
+<h2 id="5-結論">5　結論</h2>
+<p>本研究では、エンドツーエンド自動運転手法のクローズドループ評価に特化した新しいベンチマーク Bench2Drive を提示した。我々は、公式学習セットとしての完全にアノテーションされた大規模データセットと、きめ細かな運転スキル評価のための多能力評価ツールキットをオープンソースとして公開する。最先端の E2E-AD 手法を Bench2Drive で試験してそれらの長所と短所を評価し、今後の方向性に対する知見を提供した。</p>
+<p><strong>限界</strong>：CARLA のシミュレーションのレンダリングは現実世界とのギャップがあるため、並行研究である NAVSIM［65］で行われているように、現実世界のデータセットを利用することは相補的でありうる。実際、エンドツーエンド自動運転アルゴリズムの評価については、この分野にジレンマが存在する。</p>
+<table><thead><tr><th>画像の出所</th><th>長所</th><th>短所</th></tr></thead>
+<tbody>
+<tr><td>実世界データセット</td><td>現実的</td><td>反応しない（Non-Reactive）</td></tr>
+<tr><td>シミュレーションによるレンダリング</td><td>反応する（Reactive）</td><td>アニメ調の見た目</td></tr>
+</tbody></table>
+<p>拡散モデル［66］のような生成モデルは現実的かつ反応的なレンダリングを提供する可能性があり、この分野にはいくつかの先駆的な研究がある［67–69］。しかし、拡散モデルの幻覚（illusion）やアーティファクトの問題はさらなる探究を要する。</p>
+<p><strong>社会的影響</strong>：AD システムの展開は交通に革命をもたらす計り知れない可能性を秘めているが、同時に重大な倫理的・安全上の懸念ももたらす。Bench2Drive は、制御されたシミュレーション環境で AD システムの能力を厳密に検証するためのプラットフォームとして機能し、実世界への展開前に潜在的な欠陥を特定するのに役立ちうる。主要なリスクの 1 つは、シミュレーションと現実のギャップ、すなわちシミュレーションと実世界とで AD システムの性能が異なることである。シミュレーションでは、実世界の運転条件の複雑さと予測不可能性を完全に再現することは難しい。AD システムがシミュレーションでは良好に動作しても、まれなエッジケース、予期しない人間の行動、変化する環境条件といったモデル化されていない要因により、実世界のシナリオでは失敗するリスクがある。Bench2Drive は実世界での試験を置き換えるものではなく補完することを意図しており、シミュレーションは広範な路上試験を含まなければならないより広い検証プロセスの一部にすぎないことを強調することが極めて重要である。</p>
+<a class="pg" data-page="11"></a>
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した（各項目末尾の、引用箇所のページ番号を示すバックリンクは省略した）。</p>
+<ol class="refs">
+<li>Rishi Bommasani, Drew A Hudson, Ehsan Adeli, Russ Altman, Simran Arora, Sydney von Arx, Michael S Bernstein, Jeannette Bohg, Antoine Bosselut, Emma Brunskill, et al. On the opportunities and risks of foundation models. <em>arXiv preprint arXiv:2108.07258</em>, 2021.</li>
+<li>Team OpenAI. Gpt-4 technical report. 2023.</li>
+<li>Zhenjie Yang, Xiaosong Jia, Hongyang Li, and Junchi Yan. Llm4drive: A survey of large language models for autonomous driving. <em>ArXiv</em>, abs/2311.01043, 2023.</li>
+<li>Yihan Hu, Jiazhi Yang, Li Chen, Keyu Li, Chonghao Sima, Xizhou Zhu, Siqi Chai, Senyao Du, Tianwei Lin, Wenhai Wang, et al. Planning-oriented autonomous driving. In <em>CVPR</em>, pages 17853–17862, 2023.</li>
+<li>Penghao Wu, Xiaosong Jia, Li Chen, Junchi Yan, Hongyang Li, and Yu Qiao. Trajectory-guided control prediction for end-to-end autonomous driving: A simple yet strong baseline. <em>NeurIPS</em>, 35:6119–6132, 2022.</li>
+<li>Kashyap Chitta, Aditya Prakash, Bernhard Jaeger, Zehao Yu, Katrin Renz, and Andreas Geiger. Transfuser: Imitation with transformer-based sensor fusion for autonomous driving. <em>TPAMI</em>, 2023.</li>
+<li>Yinda Xu, Zeyu Wang, Zuoxin Li, Ye Yuan, and Gang Yu. Siamfc++: Towards robust and accurate visual tracking with target estimation guidelines. In <em>AAAI</em>, pages 12549–12556, 2020.</li>
+<li>Yinda Xu and Lidong Yu. Drl-based trajectory tracking for motion-related modules in autonomous driving. <em>arXiv preprint arXiv:2308.15991</em>, 2023.</li>
+<li>Hongyang Li, Chonghao Sima, Jifeng Dai, Wenhai Wang, Lewei Lu, Huijie Wang, Jia Zeng, Zhiqi Li, Jiazhi Yang, Hanming Deng, Hao Tian, Enze Xie, Jiangwei Xie, Li Chen, Tianyu Li, Yang Li, Yulu Gao, Xiaosong Jia, Si Liu, Jianping Shi, Dahua Lin, and Yu Qiao. Delving into the devils of bird's-eye-view perception: A review, evaluation and recipe. <em>TPAMI</em>, pages 1–20, 2023.</li>
+<li>Zhiqi Li, Wenhai Wang, Hongyang Li, Enze Xie, Chonghao Sima, Tong Lu, Yu Qiao, and Jifeng Dai. Bevformer: Learning bird's-eye-view representation from multi-camera images via spatiotemporal transformers. <em>ECCV</em>, 2022.</li>
+<li>Zhijian Liu, Haotian Tang, Alexander Amini, Xingyu Yang, Huizi Mao, Daniela Rus, and Song Han. Bevfusion: Multi-task multi-sensor fusion with unified bird's-eye view representation. In <em>ICRA</em>, 2023.</li>
+<li>Xianliang Huang, Jiajie Gou, Shuhang Chen, Zhizhou Zhong, Jihong Guan, and Shuigeng Zhou. Iddr-ngp: Incorporating detectors for distractors removal with instant neural radiance field. In <em>Proceedings of the 31st ACM International Conference on Multimedia</em>, pages 1343–1351, 2023.</li>
+<li>Yutao Zhu, Xiaosong Jia, Xinyu Yang, and Junchi Yan. Flatfusion: Delving into details of sparse transformer-based camera-lidar fusion for autonomous driving, 2024.</li>
+<li>Xiaosong Jia, Liting Sun, Hang Zhao, Masayoshi Tomizuka, and Wei Zhan. Multi-agent trajectory prediction by combining egocentric and allocentric views. In <em>CoRL</em>, pages 1434–1443. PMLR, 2022.</li>
+<li>Xiaosong Jia, Li Chen, Penghao Wu, Jia Zeng, Junchi Yan, Hongyang Li, and Yu Qiao. Towards capturing the temporal dynamics for trajectory prediction: a coarse-to-fine approach. In <em>CoRL</em>, pages 910–920. PMLR, 2023.</li>
+<li>Xiaosong Jia, Penghao Wu, Li Chen, Yu Liu, Hongyang Li, and Junchi Yan. Hdgt: Heterogeneous driving graph transformer for multi-agent trajectory prediction via scene encoding. <em>TPAMI</em>, 2023.</li>
+<li>Xiaosong Jia, Shaoshuai Shi, Zijun Chen, Li Jiang, Wenlong Liao, Tao He, and Junchi Yan. Amp: Autoregressive motion prediction revisited with next token prediction for autonomous driving. <em>arXiv preprint arXiv:2403.13331</em>, 2024.</li>
+<li>Xiaosong Jia, Liting Sun, Masayoshi Tomizuka, and Wei Zhan. Ide-net: Interactive driving event and pattern extraction from human data. <em>IEEE RA-L</em>, 6(2):3065–3072, 2021.</li>
+<li>Daniel Dauner, Marcel Hallgarten, Andreas Geiger, and Kashyap Chitta. Parting with misconceptions about learning-based vehicle motion planning. In <em>CoRL</em>, 2023.</li>
+<li>Yazhe Niu, Yuan Pu, Zhenjie Yang, Xueyan Li, Tong Zhou, Jiyuan Ren, Shuai Hu, Hongsheng Li, and Yu Liu. Lightzero: A unified benchmark for monte carlo tree search in general sequential decision scenarios. <em>Advances in Neural Information Processing Systems</em>, 36, 2024.</li>
+</ol>
+<a class="pg" data-page="12"></a>
+<ol class="refs" start="21">
+<li>Holger Caesar, Varun Bankiti, Alex H. Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>CVPR</em>, 2020.</li>
+<li>Bo Jiang, Shaoyu Chen, Qing Xu, Bencheng Liao, Jiajie Chen, Helong Zhou, Qian Zhang, Wenyu Liu, Chang Huang, and Xinggang Wang. Vad: Vectorized scene representation for efficient autonomous driving. <em>ICCV</em>, 2023.</li>
+<li>Jiang-Tian Zhai, Ze Feng, Jihao Du, Yongqiang Mao, Jiang-Jiang Liu, Zichang Tan, Yifu Zhang, Xiaoqing Ye, and Jingdong Wang. Rethinking the open-loop evaluation of end-to-end autonomous driving in nuscenes. <em>arXiv preprint arXiv:2305.10430</em>, 2023.</li>
+<li>Zhiqi Li, Zhiding Yu, Shiyi Lan, Jiahan Li, Jan Kautz, Tong Lu, and José M. Álvarez. Is ego status all you need for open-loop end-to-end autonomous driving? <em>ArXiv</em>, abs/2312.03031, 2023.</li>
+<li>Stéphane Ross, Geoffrey Gordon, and Drew Bagnell. A reduction of imitation learning and structured prediction to no-regret online learning. In <em>Proceedings of the fourteenth international conference on artificial intelligence and statistics</em>, pages 627–635. JMLR Workshop and Conference Proceedings, 2011.</li>
+<li>Pim De Haan, Dinesh Jayaraman, and Sergey Levine. Causal confusion in imitation learning. <em>NeurIPS</em>, 32, 2019.</li>
+<li>Xiaosong Jia, Yulu Gao, Li Chen, Junchi Yan, Patrick Langechuan Liu, and Hongyang Li. Driveadapter: Breaking the coupling barrier of perception and planning in end-to-end autonomous driving. In <em>ICCV</em>, 2023.</li>
+<li>Alexey Dosovitskiy, German Ros, Felipe Codevilla, Antonio Lopez, and Vladlen Koltun. Carla: An open urban driving simulator. In <em>CoRL</em>, pages 1–16. PMLR, 2017.</li>
+<li>Dian Chen and Philipp Krähenbühl. Learning from all vehicles. In <em>CVPR</em>, pages 17222–17231, 2022.</li>
+<li>Xiaosong Jia, Penghao Wu, Li Chen, Jiangwei Xie, Conghui He, Junchi Yan, and Hongyang Li. Think twice before driving: Towards scalable decoders for end-to-end autonomous driving. In <em>CVPR</em>, 2023.</li>
+<li>Qifeng Li, Xiaosong Jia, Shaobo Wang, and Junchi Yan. Think2drive: Efficient reinforcement learning by thinking in latent world model for quasi-realistic autonomous driving (in carla-v2). <em>arXiv preprint arXiv:2402.16720</em>, 2024.</li>
+<li>Andreas Geiger, Philip Lenz, and Raquel Urtasun. Are we ready for autonomous driving? the kitti vision benchmark suite. In <em>CVPR</em>, 2012.</li>
+<li>Robert Krajewski, Julian Bock, Laurent Kloeker, and Lutz Eckstein. The highd dataset: A drone dataset of naturalistic vehicle trajectories on german highways for validation of highly automated driving systems. In <em>ITSC</em>, pages 2118–2125. IEEE, 2018.</li>
+<li>Julian Bernhard, Klemens Esterle, Patrick Hart, and Tobias Kessler. Bark: Open behavior benchmarking in multi-agent environments. In <em>2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em>, pages 6201–6208. IEEE, 2020.</li>
+<li>Benjamin Wilson, William Qi, Tanmay Agarwal, John Lambert, Jagjeet Singh, Siddhesh Khandelwal, Bowen Pan, Ratnesh Kumar, Andrew Hartnett, Jhony Kaesemodel Pontes, Deva Ramanan, Peter Carr, and James Hays. Argoverse 2: Next generation datasets for self-driving perception and forecasting. In <em>NeurIPS Datasets and Benchmarks</em>, 2021.</li>
+<li>Pei Sun, Henrik Kretzschmar, Xerxes Dotiwalla, Aurelien Chouard, Vijaysai Patnaik, Paul Tsui, James Guo, Yin Zhou, Yuning Chai, Benjamin Caine, et al. Scalability in perception for autonomous driving: Waymo open dataset. In <em>CVPR</em>, pages 2446–2454, 2020.</li>
+<li>Cole Gulino, Justin Fu, Wenjie Luo, George Tucker, Eli Bronstein, Yiren Lu, Jean Harb, Xinlei Pan, Yan Wang, Xiangyu Chen, et al. Waymax: An accelerated, data-driven simulator for large-scale autonomous driving research. <em>NeurIPS</em>, 36, 2024.</li>
+<li>Napat Karnchanachari, Dimitris Geromichalos, Kok Seang Tan, Nanxiang Li, Christopher Eriksen, Shakiba Yaghoubi, Noushin Mehdipour, Gianmarco Bernasconi, Whye Kit Fong, Yiluan Guo, et al. Towards learning-based planning: The nuplan benchmark for real-world autonomous driving. <em>arXiv preprint arXiv:2403.04133</em>, 2024.</li>
+</ol>
+<a class="pg" data-page="13"></a>
+<ol class="refs" start="39">
+<li>Runze Liu, Fengshuo Bai, Yali Du, and Yaodong Yang. Meta-reward-net: Implicitly differentiable reward learning for preference-based reinforcement learning. In S. Koyejo, S. Mohamed, A. Agarwal, D. Belgrave, K. Cho, and A. Oh, editors, <em>Advances in Neural Information Processing Systems</em>, volume 35, pages 22270–22284. Curran Associates, Inc., 2022.</li>
+<li>Fengshuo Bai, Hongming Zhang, Tianyang Tao, Zhiheng Wu, Yanna Wang, and Bo Xu. Picor: Multi-task deep reinforcement learning with policy correction. <em>Proceedings of the AAAI Conference on Artificial Intelligence</em>, 37(6):6728–6736, Jun. 2023.</li>
+<li>Fengshuo Bai, Rui Zhao, Hongming Zhang, Sijia Cui, Ying Wen, Yaodong Yang, Bo Xu, and Lei Han. Efficient preference-based reinforcement learning via aligned experience estimation. <em>arXiv preprint arXiv:2405.18688</em>, 2024.</li>
+<li>Katrin Renz, Kashyap Chitta, Otniel-Bogdan Mercea, A. Sophia Koepke, Zeynep Akata, and Andreas Geiger. Plant: explainable planning transformers via object-level representations. In <em>CoRL</em>, 2022.</li>
+<li>Bernhard Jaeger, Kashyap Chitta, and Andreas Geiger. Hidden biases of end-to-end driving models. In <em>ICCV</em>, 2023.</li>
+<li>Dean A Pomerleau. Alvinn: An autonomous land vehicle in a neural network. <em>NeurIPS</em>, 1, 1988.</li>
+<li>Ashish Vaswani, Noam M. Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. In <em>NeurIPS</em>, 2017.</li>
+<li>Felipe Codevilla, Matthias Müller, Antonio López, Vladlen Koltun, and Alexey Dosovitskiy. End-to-end driving via conditional imitation learning. In <em>ICRA</em>, pages 4693–4700, 2018.</li>
+<li>Felipe Codevilla, Eder Santana, Antonio M López, and Adrien Gaidon. Exploring the limitations of behavior cloning for autonomous driving. In <em>CVPR</em>, pages 9329–9338, 2019.</li>
+<li>Marin Toromanoff, Emilie Wirbel, and Fabien Moutarde. End-to-end model-free reinforcement learning for urban driving using implicit affordances. In <em>CVPR</em>, pages 7153–7162, 2020.</li>
+<li>Dian Chen, Brady Zhou, Vladlen Koltun, and Philipp Krähenbühl. Learning by cheating. In <em>CoRL</em>, pages 66–75. PMLR, 2020.</li>
+<li>Zhejun Zhang, Alexander Liniger, Dengxin Dai, Fisher Yu, and Luc Van Gool. End-to-end urban driving by imitating a reinforcement learning coach. In <em>ICCV</em>, 2021.</li>
+<li>Shengchao Hu, Li Chen, Penghao Wu, Hongyang Li, Junchi Yan, and Dacheng Tao. St-p3: End-to-end vision-based autonomous driving via spatial-temporal feature learning. In <em>ECCV</em>, 2022.</li>
+<li>Han Lu, Xiaosong Jia, Yichen Xie, Wenlong Liao, Xiaokang Yang, and Junchi Yan. Activead: Planning-oriented active learning for end-to-end autonomous driving, 2024.</li>
+<li>Kashyap Chitta, Aditya Prakash, and Andreas Geiger. Neat: Neural attention fields for end-to-end autonomous driving. In <em>ICCV</em>, pages 15793–15803, 2021.</li>
+<li>Aditya Prakash, Kashyap Chitta, and Andreas Geiger. Multi-modal fusion transformer for end-to-end autonomous driving. In <em>CVPR</em>, 2021.</li>
+<li>Penghao Wu, Li Chen, Hongyang Li, Xiaosong Jia, Junchi Yan, and Yu Qiao. Policy pre-training for autonomous driving via self-supervised geometric modeling. In <em>ICLR</em>, 2023.</li>
+<li>Dian Chen and Philipp Krähenbühl. Learning from all vehicles. In <em>CVPR</em>, 2022.</li>
+<li>Hao Shao, Letian Wang, RuoBing Chen, Hongsheng Li, and Yu Liu. Safety-enhanced autonomous driving using interpretable sensor fusion transformer. <em>CoRL</em>, 2022.</li>
+<li>Anthony Hu, Gianluca Corrado, Nicolas Griffiths, Zak Murez, Corina Gurau, Hudson Yeo, Alex Kendall, Roberto Cipolla, and Jamie Shotton. Model-based imitation learning for urban driving. <em>NeurIPS</em>, 2022.</li>
+<li>Qingwen Zhang, Mingkai Tang, Ruoyu Geng, Feiyi Chen, Ren Xin, and Lujia Wang. Mmfn: multi-modal-fusion-net for end-to-end driving. <em>IROS</em>, 2022.</li>
+<li>Jimuyang Zhang, Zanming Huang, and Eshed Ohn-Bar. Coaching a teachable student. In <em>CVPR</em>, 2023.</li>
+<li>Jens Beißwenger. PDM-Lite: A rule-based planner for carla leaderboard 2.0. <a href="https://github.com/OpenDriveLab/DriveLM/blob/DriveLM-CARLA/docs/report.pdf">https://github.com/OpenDriveLab/DriveLM/blob/DriveLM-CARLA/docs/report.pdf</a>, 2024.</li>
+</ol>
+<a class="pg" data-page="14"></a>
+<ol class="refs" start="62">
+<li>Ashesh Jain, Luca Del Pero, Hugo Grimmett, and Peter Ondruska. Autonomy 2.0: Why is self-driving always 5 years away? <em>arXiv preprint arXiv:2107.08142</em>, 2021.</li>
+<li>Petru Soviany, Radu Tudor Ionescu, Paolo Rota, and Nicu Sebe. Curriculum learning: A survey, 2022.</li>
+<li>Penghao Wu, Xiaosong Jia, Li Chen, Junchi Yan, Hongyang Li, and Yu Qiao. Trajectory-guided control prediction for end-to-end autonomous driving: A simple yet strong baseline. In <em>NeurIPS</em>, 2022.</li>
+<li>Daniel Dauner, Marcel Hallgarten, Tianyu Li, Xinshuo Weng, Zhiyu Huang, Zetong Yang, Hongyang Li, Igor Gilitschenski, Boris Ivanovic, Marco Pavone, Andreas Geiger, and Kashyap Chitta. Navsim: Data-driven non-reactive autonomous vehicle simulation and benchmarking. <em>arXiv</em>, 2406.15349, 2024.</li>
+<li>Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. <em>Advances in neural information processing systems</em>, 33:6840–6851, 2020.</li>
+<li>Jiazhi Yang, Shenyuan Gao, Yihang Qiu, Li Chen, Tianyu Li, Bo Dai, Kashyap Chitta, Penghao Wu, Jia Zeng, Ping Luo, Jun Zhang, Andreas Geiger, Yu Qiao, and Hongyang Li. Generalized predictive model for autonomous driving. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2024.</li>
+<li>Shenyuan Gao, Jiazhi Yang, Li Chen, Kashyap Chitta, Yihang Qiu, Andreas Geiger, Jun Zhang, and Hongyang Li. Vista: A generalizable driving world model with high fidelity and versatile controllability. In <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 2024.</li>
+<li>Yunsong Zhou, Michael Simon, Zhenghao Peng, Sicheng Mo, Hongzi Zhu, Minyi Guo, and Bolei Zhou. Simgen: Simulator-conditioned driving scene generation. <em>arXiv preprint arXiv:2406.09386</em>, 2024.</li>
+</ol>
+<p class="yakuchu">（訳注：原文の参考文献では［5］と［64］が同一論文（TCP）、［29］と［56］が同一論文（Learning from all vehicles）の重複掲載となっている。）</p>
+
+<h2 id="チェックリスト">チェックリスト</h2>
+<p>チェックリストは参考文献の後に続く。これらの質問への回答方法については、チェックリストのガイドラインを注意深く読むこと。各質問について、デフォルトの <strong>[TODO]</strong> を [Yes]、[No]、または [N/A] に変更すること。論文の該当する節を参照するか、簡潔な説明をその場で記すかのいずれかにより、<strong>回答の根拠</strong>を含めることが強く推奨される。例：</p>
+<ul>
+<li>コードとデータセットのライセンスを含めたか？ [Yes] 3 節を参照。</li>
+</ul>
+<p>質問を変更せず、回答には用意されたマクロのみを使用すること。チェックリストの節はページ制限に含まれないことに注意。論文中では、この説明ブロックを削除し、上記のチェックリストの節見出しと以下の質問／回答のみを残すこと。</p>
+<p class="yakuchu">（訳注：上の 2 段落は NeurIPS テンプレートの説明文であり、原文で削除されずに残っている。）</p>
+<ol>
+<li>すべての著者について…
+<ol type="a">
+<li>要旨と序論で述べた主要な主張は、論文の貢献と範囲を正確に反映しているか？ [Yes]</li>
+<li>研究の限界を記述したか？ [Yes]</li>
+<li>研究の潜在的な負の社会的影響について議論したか？ [Yes]</li>
+<li>倫理審査のガイドラインを読み、論文がそれに準拠していることを確認したか？ [Yes]</li>
+</ol></li>
+<li>理論的結果を含める場合…
+<ol type="a">
+<li>すべての理論的結果について、仮定の完全な集合を述べたか？ [N/A]</li>
+<li>すべての理論的結果について、完全な証明を含めたか？ [N/A]</li>
+</ol></li>
+<li>実験（例：ベンチマーク）を行った場合…
+<ol type="a">
+<li>主要な実験結果を再現するために必要なコード、データ、手順を（補足資料または URL として）含めたか？ [Yes]</li>
+<li>すべての学習の詳細（例：データ分割、ハイパーパラメータ、それらの選び方）を明記したか？ [Yes]</li>
+<li>エラーバー（例：実験を複数回実行した後の乱数シードに関するもの）を報告したか？ [No]</li>
+<li>計算量の総量と使用した資源の種類（例：GPU の種類、内部クラスタ、クラウドプロバイダ）を含めたか？ [Yes]</li>
+</ol></li>
+</ol>
+<a class="pg" data-page="15"></a>
+<ol start="4">
+<li>既存のアセット（例：コード、データ、モデル）を使用する場合、または新しいアセットを整備／公開する場合…
+<ol type="a">
+<li>研究で既存のアセットを使用している場合、その作成者を引用したか？ [Yes]</li>
+<li>アセットのライセンスに言及したか？ [Yes]</li>
+<li>新しいアセットを補足資料または URL として含めたか？ [Yes]</li>
+<li>使用／整備しているデータの提供者から同意を得たかどうか、またどのように得たかについて議論したか？ [N/A]</li>
+<li>使用／整備しているデータに個人を特定できる情報や不快なコンテンツが含まれるかどうかについて議論したか？ [N/A]</li>
+</ol></li>
+<li>クラウドソーシングを用いた場合、または人間の被験者を対象とした研究を行った場合…
+<ol type="a">
+<li>該当する場合、参加者に与えた指示の全文とスクリーンショットを含めたか？ [N/A]</li>
+<li>該当する場合、参加者の潜在的なリスクを、倫理審査委員会（IRB）の承認へのリンクとともに記述したか？ [N/A]</li>
+<li>参加者に支払った推定時給と、参加者への謝礼の総額を含めたか？ [N/A]</li>
+</ol></li>
+</ol>
+
+<h2 id="a-データ収集の詳細">A　データ収集の詳細</h2>
+<p>データ収集は自動パイプラインと手動確認の組み合わせである。詳細を以下に示す。</p>
+<p><strong>ルート</strong>：エキスパートモデル Think2Drive を事前定義されたルートファイル上で走らせ、違反のないものだけを残す。シナリオを発生させられるかどうかを判定するために全マップを走査するアルゴリズムを設計し、タウンをできるだけ広く網羅することを目指した。天候、タウン、シナリオのバランスは手動確認によって確保している。図7 に示すように、CARLA の挙動やレンダリングにはときどきバグがあるため、そうした不良クリップは手動で除外している。</p>
+<p><strong>アノテーション</strong>：アノテーションの収集には CARLA の公式 API を利用する。注目すべきことに、API にはいくつかのバグがある。（I）API から得られる歩行者の速度値はすべて 0 である。ベースライン手法の学習時に、差分をとることで歩行者の速度を手動で計算している。（II）Speedometer と IMU の戻り値が None になることがある。学習時にはこれらの値を 0 で埋める。（III）CARLA の一部の一時停止標識は地面に描かれているため、バウンディングボックスが存在しない。これを補うため、すべての一時停止標識について、そのトリガー領域（trigger volume）を表す矩形を記録する。（IV）一部の静止車両の回転と位置が API で誤っている。そのため、正しい中心と範囲（extent）を用いてそれらの 3D バウンディングボックスを得る。</p>
+<p><strong>物体クラス</strong>：物体ごとに属性が異なることを考慮し、すべての物体を Vehicle（車両）、Traffic Sign（交通標識）、Traffic Light（信号機）、Pedestrian（歩行者）の 4 つの主要タイプに分類し、グループごとに保存する。車両はさらに静的車両と動的車両に細分される。静的車両はシナリオ全体を通じて静止したままであり、"static.prop.mesh" から得られる固有のアクター識別子によって区別される。交通標識は、speed_limit_sign、stop_sign、yield_sign、warning_sign（工事警告、交通警告、事故警告を含む）、dirt_debris、cone から成る。注目すべきことに、speed_limit_sign、stop_sign、yield_sign のように trigger_volume を伴う標識はトリガー領域を持つため、その矩形も保存する。警告標識とコーンの座標はそれぞれのアクタークラスの中心と範囲から得られるが、dirt_debris は座標が不正確なため追加の変換を要する。信号機については、交通標識と信号機のトリガー領域の座標はアクターに対する相対座標であるため、追加の変換が必要である。各交通標識／信号機は支柱と信号／標識本体の 2 つの部分から成るが、API から得られるバウンディングボックスは信号／標識本体のみである。</p>
+<p><strong>座標系</strong>：Nuscenes で用いられる Y 軸下向きの右手系とは異なり、CARLA は Unreal Engine の座標系、すなわち Z 軸上向きの左手座標系を採用している。Compass では、方位は北（Unreal Engine では [0.0, -1.0, 0.0]）を基準とするため、左手系における標準のヨー角はコンパスの theta から 1/2 pi を引いたものになる。まれにこれによって NaN 値が生じることがあり、手動で除外する必要がある。</p>
+<a class="pg" data-page="16"></a>
+<p><strong>マップ情報</strong>：HD マップは lane_index を伴う road_ids として構成されている。各車線は、点のワールド座標と向き、車線の種類、色の識別子、隣接する road_ids-lane_ids（左、右、および接続先の道路 ID と車線 ID）に加え、トポロジー構造（例：'Junction'、'Normal'、'EnterNormal'、'EnterJunction'、'PassNormal'、'PassJunction'、'StartJunctionMultiChange'、'StartNormalMultiChange'）を含む。Trigger_Volumes は標識のトリガー領域を表し、'Points' はトリガー領域の頂点の位置を、'Type' は 'StopSign' または 'TrafficLight' を指定し、'ParentActor_Location' はそのトリガー領域に関連付けられた親アクターの位置の詳細を与える。</p>
+
+<figure><img src="figs/fig6.png" alt="図6" /></figure>
+<p><strong>図6：</strong><strong>Bench2Drive データセットのシナリオ分布</strong></p>
+<p class="yakuchu">図中ラベル：Scenario Type＝シナリオの種類、Count＝件数。縦軸の各項目はシナリオ名（CARLA の識別子、NoScenario＝シナリオなし）のため原文のまま。</p>
+
+<p><strong>データ圧縮</strong>：ファイルサイズを削減するため、［43］に従い圧縮データ形式を採用した。画像は quality= 20 の JPG で圧縮する。クローズドループ評価時の学習・検証間のギャップを避けるため、推論時にもメモリ内での JPG 圧縮と伸長を行う。セマンティックセグメンテーションと深度データは PNG ファイルとして保存する。LiDAR 点群の圧縮には laszip と呼ばれる専用アルゴリズムを用いる。JSON ファイルは GZIP で圧縮する。</p>
+
+<h2 id="b-シナリオタウン天候の分布">B　シナリオ、タウン、天候の分布</h2>
+<p>図8 に示すように、天候の分布はほぼ均一である一方、タウンの分布は Town12 と Town13 が大半を占めている。この不均衡は 2 つの観点から生じている。（I）Town12 や Town13 のような新しいタウンは、コミュニティが都市レベルのシーンでの応用を探究できるよう、CARLA チームによって意図的に古いタウンよりはるかに大きく設計されている。そのため、より多様な景観を得るために、より大きなタウンでより多くのデータを収集している。（II）Leaderboard v2 の新しいシナリオの多くは最近設計されたものであり、古いタウンは新しいシナリオが必要とするレイアウトをサポートしていない。たとえば、駐車場からの発進（parking exit）には他の駐車車両の存在が必要である<span class="yakuchu">（訳注：原文は「parting exit」だが、文脈およびシナリオ名 ParkingExit から「parking exit」の誤植と判断した）</span>。その結果、シナリオタイプのバランスを確保するために、新しいタウンでより多くのデータを収集せざるを得ない。</p>
+<a class="pg" data-page="17"></a>
+<figure><img src="figs/fig7.jpg" alt="図7" /></figure>
+<p><strong>図7：</strong><strong>CARLA のバグのあるレンダリング。</strong></p>
+
+<figure><img src="figs/fig8.png" alt="図8" /></figure>
+<p><strong>図8：</strong><strong>Bench2Drive データセットのタウンと天候の分布</strong></p>
+<p class="yakuchu">図中ラベル：左の円グラフはタウン（Town01〜Town15、Town10HD）ごとの割合、右の円グラフは天候プリセット（Weather0〜Weather26）ごとの割合。凡例の名称は CARLA の識別子のため原文のまま。</p>
+
+<h2 id="c-ベースラインの実装の詳細">C　ベースラインの実装の詳細</h2>
+<p>すべてのベースライン E2E-AD 手法について、公式にオープンソース化されたコード、環境、設定に厳密に従う。いくつかの変更点は次のとおりである。（I）物体検出モジュールを持つ手法については、検出クラスを CARLA<sup>3</sup> に合わせて変更する。（II）Bench2Drive のデータ収集は 10Hz であるのに対し、バウンディングボックス付きの nuScenes は 2Hz である。Bench2Drive のクリップの方が長いため、Bench2Drive-base は nuScenes と比べて約 10 倍のフレームを持つが、冗長性も高い。UniAD/VAD/ThinkTwice/DriveAdapter のように計算負荷の高い手法については、元の版と比べて \(\frac{1}{10}\) のエポック数で学習する。学習ステップ数が同程度であるため、同程度の損失水準が観察される。（III）ThinkTwice と DriveAdapter はエキスパートの BEV 特徴量を必要とするため、Think2Drive エキスパートを用いてそれらのエキスパート特徴量を再生成する。さらに、他の手法との公平な比較のため、両者を LiDAR なしの 6 カメラ構成に変更する。</p>
+<blockquote><p>脚注3：<a href="https://carla.readthedocs.io/en/latest/catalogue_vehicles/">https://carla.readthedocs.io/en/latest/catalogue_vehicles/</a></p></blockquote>
+
+<h2 id="d-学習と評価に必要な計算資源">D　学習と評価に必要な計算資源</h2>
+<p>ベースラインの学習と評価に必要な計算資源を報告する。なお、より多くの GPU を用いてより多くのルートを並列に評価すれば、評価時間は線形に短縮できる。</p>
+
+<a class="pg" data-page="18"></a>
+<table><thead><tr><th></th><th>学習</th><th>評価</th></tr></thead>
+<tbody>
+<tr><td>AD-MLP</td><td>1 A600 * 1 day</td><td>4 A6000 * 6 hours</td></tr>
+<tr><td>TCP</td><td>1 A600 * 1 day</td><td>4 A6000 * 6 hours</td></tr>
+<tr><td>VAD</td><td>8 H800 * 5 days</td><td>8 H800 * 2 days</td></tr>
+<tr><td>UniAD-base</td><td>8 H800 * (3+3+3)=9 days</td><td>8 H800 * 2 days</td></tr>
+</tbody></table>
+<p><strong>表5：</strong><strong>base セットでの学習と 220 ルートでの評価に必要な計算資源。</strong>UniAD の学習は BEVFormer、stage1、stage2 から成る。</p>
+<p class="yakuchu">（訳注：day＝日、hours＝時間。学習欄の「A600」は原文どおりだが、4.1 節の記述（1 * A6000）から A6000 の誤記と考えられる。また 4.1 節では VAD・UniAD 等を 8 * A100 で学習したとあり、本表の H800 と食い違っている。）</p>
+
+<h2 id="e-npc-エージェントの挙動モデル">E　NPC エージェントの挙動モデル</h2>
+<p>CARLA では、CARLA Agent に 3 つの挙動タイプ、すなわち <strong>cautious</strong>（慎重）、<strong>normal</strong>（通常）、<strong>aggressive</strong>（攻撃的）があらかじめ設定されている。これらの挙動タイプは NPC の運転行動を支配し、速度、他車両への反応、安全手順といった要素に影響する。各挙動モードの主要なパラメータは次のとおりである。</p>
+<ul>
+<li><strong>max_speed</strong>：NPC 車両が到達できる最高速度（km/h）を設定する。</li>
+<li><strong>speed_lim_dist</strong>：車両の目標速度が現在の制限速度からどれだけ離れるかを定める値（km/h）。</li>
+<li><strong>speed_decrease</strong>：前方のより遅い車両に接近するときの NPC の減速を制御する。</li>
+<li><strong>safety_time</strong>：前方の車両が急ブレーキをかけた場合の衝突までの時間を見積もる。</li>
+<li><strong>min_proximity_threshold</strong>：NPC が回避操作や追従（テールゲーティング）などの行動をとる前の最小距離を定める。</li>
+<li><strong>braking_distance</strong>：NPC が衝突を避けるために緊急停止を行う距離。</li>
+<li><strong>tailgate_counter</strong>：NPC が前回の追従行動の直後に新たな追従行動を始めるのを防ぐカウンタ。</li>
+</ul>
+<p>これらの挙動設計は自車両（自動運転車両）と相互作用し、シミュレーション内で NPC が自車両の存在と行動に反応することを保証する。異なる挙動スタイルのパラメータは次のとおりである。</p>
+<table><thead><tr><th>パラメータ</th><th>Cautious</th><th>Normal</th><th>Aggressive</th></tr></thead>
+<tbody>
+<tr><td><strong>max_speed (km/h)</strong></td><td style="text-align:right">40</td><td style="text-align:right">50</td><td style="text-align:right">70</td></tr>
+<tr><td><strong>speed_lim_dist (km/h)</strong></td><td style="text-align:right">6</td><td style="text-align:right">3</td><td style="text-align:right">1</td></tr>
+<tr><td><strong>speed_decrease (km/h)</strong></td><td style="text-align:right">12</td><td style="text-align:right">10</td><td style="text-align:right">8</td></tr>
+<tr><td><strong>safety_time (seconds)</strong></td><td style="text-align:right">3</td><td style="text-align:right">3</td><td style="text-align:right">3</td></tr>
+<tr><td><strong>min_proximity_threshold (meters)</strong></td><td style="text-align:right">12</td><td style="text-align:right">10</td><td style="text-align:right">8</td></tr>
+<tr><td><strong>braking_distance (meters)</strong></td><td style="text-align:right">6</td><td style="text-align:right">5</td><td style="text-align:right">4</td></tr>
+<tr><td><strong>tailgate_counter (times)</strong></td><td style="text-align:right">0</td><td style="text-align:right">0</td><td style="text-align:right">-1</td></tr>
+</tbody></table>
+<p><strong>表6：</strong>Cautious（慎重）、Normal（通常）、Aggressive（攻撃的）の挙動パラメータの比較。</p>
+<p class="yakuchu">単位：seconds＝秒、meters＝メートル、times＝回。</p>
+<p>非プレイヤーキャラクター（NPC）車両のための behavior_agent.py におけるルールベースの挙動決定アルゴリズムを以下に示す。</p>
+<p>歩行者の挙動は、一定速度で経路線に一貫して従い、後ろ向きに歩くことができないという特徴を持つ。自動運転のシナリオでは、歩行者の安全が最も重要である。自動運転車両が人間と相互作用する際には歩行者が最優先であり、自動運転車両は交通状況にかかわらず歩行者に道を譲ることを学習すべきである。</p>
+
+<h2 id="f-違反スコアの詳細">F　違反スコアの詳細</h2>
+<p>表7 に、Leaderboard v2 で設計された各違反のペナルティスコアを示す。</p>
+<a class="pg" data-page="19"></a>
+<p><strong>アルゴリズム 1</strong>　非プレイヤーキャラクター（NPC）車両の挙動決定</p>
+<pre><code> 1: 車両の周囲情報を更新（Update vehicle's surrounding information）
+ 2: if 赤信号 or 一時停止標識を検出 then
+ 3:     return emergency_stop()
+ 4: end if
+ 5: if 歩行者を検出 and 制動距離内 then
+ 6:     return emergency_stop()
+ 7: end if
+ 8: if 他の車両が近くにいる then
+ 9:     if 制動距離内 then
+10:         return emergency_stop()
+11:     else
+12:         return car_following()
+13:     end if
+14: else if 自車両が交差点にいる and （左折 or 右折） then
+15:     adjust_speed_limit()
+16:     return PID_Control
+17: else if 通常の運転条件 then
+18:     maintain_speed_limit()
+19:     return PID_Control
+20: end if</code></pre>
+
+<table><thead><tr><th>違反</th><th>ペナルティ</th><th>備考</th></tr></thead>
+<tbody>
+<tr><td>歩行者との衝突（Pedestrian Collision）</td><td style="text-align:right">0.50</td><td>違反のたびにペナルティを科す。</td></tr>
+<tr><td>車両との衝突（Vehicles Collision）</td><td style="text-align:right">0.60</td><td>違反のたびにペナルティを科す。</td></tr>
+<tr><td>その他の衝突（Other Collision）</td><td style="text-align:right">0.65</td><td>違反のたびにペナルティを科す。</td></tr>
+<tr><td>信号無視（Running Red Light）</td><td style="text-align:right">0.70</td><td>違反のたびにペナルティを科す。</td></tr>
+<tr><td>シナリオのタイムアウト（Scenario Timeout）</td><td style="text-align:right">0.70</td><td>特定のシナリオを 4 分以内に通過できない。</td></tr>
+<tr><td>低速すぎ（Too Slow）</td><td style="text-align:right">0.70</td><td>周囲の車両に対して適切な速度を維持できない。</td></tr>
+<tr><td>道を譲らない（No Give Way）</td><td style="text-align:right">0.70</td><td>緊急車両に道を譲らない。</td></tr>
+<tr><td>路外走行（Off-road）</td><td style="text-align:right">-</td><td>ルート完遂率に算入されない。</td></tr>
+<tr><td>ルート逸脱（Route Deviation）</td><td style="text-align:right">-</td><td>30 メートル以上逸脱。即時終了。</td></tr>
+<tr><td>エージェントの立ち往生（Agent Blocked）</td><td style="text-align:right">-</td><td>180 秒間行動なし。即時終了。</td></tr>
+<tr><td>ルートのタイムアウト（Route Timeout）</td><td style="text-align:right">-</td><td>最大制限時間を超過。即時終了。</td></tr>
+</tbody></table>
+<p><strong>表7：</strong><strong>違反の種類とペナルティ。</strong><a href="https://leaderboard.carla.org/">https://leaderboard.carla.org/</a> に従う。</p>
+
+<h2 id="g-シナリオの説明">G　シナリオの説明</h2>
+<p>Bench2Drive は、CARLA Leaderboard V2 から拡張した 44 のコーナーケースシナリオを提供する。以下にそれらの詳細を示す。</p>
+
+<p><strong><em>1. ControlLoss</em></strong></p>
+<figure><img src="figs/scen01.jpg" alt="ControlLoss" /></figure>
+<p>自車両は路面の悪条件により制御を失い、元の車線に戻って立て直さなければならない。</p>
+
+<p><strong><em>2. ParkingExit</em></strong></p>
+<figure><img src="figs/scen02.jpg" alt="ParkingExit" /></figure>
+<p>自車両は縦列駐車スペースから交通の流れの中へ出なければならない。</p>
+
+<a class="pg" data-page="20"></a>
+<p><strong><em>3. ParkingCutIn</em></strong></p>
+<figure><img src="figs/scen03.jpg" alt="ParkingCutIn" /></figure>
+<p>自車両は、縦列駐車スペースから出てくる駐車車両が前方に割り込めるよう、減速またはブレーキをかけなければならない。</p>
+
+<p><strong><em>4. StaticCutIn</em></strong></p>
+<figure><img src="figs/scen04.jpg" alt="StaticCutIn" /></figure>
+<p>自車両は、隣接車線の低速な交通流の車両が前方に割り込めるよう、減速またはブレーキをかけなければならない。<em>ParkingCutIn</em> と比べて隣接車線の車両が多く、そのうちどの車両も割り込んでくる可能性がある。</p>
+
+<p><strong><em>5. ParkedObstacle</em></strong></p>
+<figure><img src="figs/scen05.png" alt="ParkedObstacle" /></figure>
+<p>自車両は車線の一部をふさぐ駐車車両に遭遇し、それを避けるために同方向に流れる交通へ車線変更しなければならない。</p>
+
+<p><strong><em>6. ParkedObstacleTwoWays</em></strong></p>
+<figure><img src="figs/scen06.png" alt="ParkedObstacleTwoWays" /></figure>
+<p><em>ParkedObstacle</em> の「<em>TwoWays</em>」版。自車両は車線をふさぐ駐車車両に遭遇し、それを避けるために対向方向に流れる交通へ車線変更しなければならない。</p>
+
+<p><strong><em>7. Construction</em></strong></p>
+<figure><img src="figs/scen07.jpg" alt="Construction" /></figure>
+<p>自車両は道をふさぐ工事現場に遭遇し、それを避けるために同方向に流れる交通へ車線変更しなければならない。<em>ParkedObstacle</em> と比べて、工事現場は車線のより広い幅を占める。自車両は工事区域を迂回するため、一時的にタスクルートから完全に外れなければならない。</p>
+
+<p><strong><em>8. ConstructionTwoWays</em></strong></p>
+<figure><img src="figs/scen08.jpg" alt="ConstructionTwoWays" /></figure>
+<p><em>Construction</em> の「<em>TwoWays</em>」版。</p>
+
+<p><strong><em>9. Accident</em></strong></p>
+<figure><img src="figs/scen09.png" alt="Accident" /></figure>
+<p>自車両は車線の一部をふさぐ複数の事故車両に遭遇し、それを避けるために同方向に流れる交通へ車線変更しなければならない。<em>ParkedObstacle</em> や <em>Construction</em> と比べて、これらの事故車両は車線に沿ってより長い区間を占める。自車両は事故区域を迂回するため、より長い時間タスクルートから完全に外れなければならない。</p>
+
+<p><strong><em>10. AccidentTwoWays</em></strong></p>
+<figure><img src="figs/scen10.png" alt="AccidentTwoWays" /></figure>
+<p><em>Accident</em> の「<em>TwoWays</em>」版。<em>ParkedObstacleTwoWays</em> や <em>ConstructionTwoWays</em> と比べて、自車両がルート上の障害物（例：事故車両）を迂回するための時間的猶予がはるかに短い。</p>
+<a class="pg" data-page="21"></a>
+<p><strong><em>11. HazardAtSideLane</em></strong></p>
+<figure><img src="figs/scen11.jpg" alt="HazardAtSideLane" /></figure>
+<p>自車両は車線の一部をふさぐ低速で移動する危険物に遭遇する。自車両はそれを避けるため、ブレーキをかけるか、同方向に流れる交通の車線の脇で操舵回避しなければならない。</p>
+
+<p><strong><em>12. HazardAtSideLaneTwoWays</em></strong></p>
+<figure><img src="figs/scen12.jpg" alt="HazardAtSideLaneTwoWays" /></figure>
+<p>自車両は車線の一部をふさぐ低速で移動する危険物に遭遇する。自車両は、対向方向に流れる交通の車線の脇で、ブレーキをかけるか操舵してそれを回避しなければならない。</p>
+
+<p><strong><em>13. VehiclesDooropenTwoWays</em></strong></p>
+<figure><img src="figs/scen13.jpg" alt="VehiclesDooropenTwoWays" /></figure>
+<p>自車両は、自車線側にドアを開ける駐車車両に遭遇し、それを避けるよう操舵しなければならない。<span class="yakuchu">（訳注：見出しは原文どおり。表2 では VehicleOpenDoorTwoWays、図6 では VehicleOpensDoorTwoWays と表記されている。）</span></p>
+
+<p><strong><em>14. DynamicObjectCrossing</em></strong></p>
+<figure><img src="figs/scen14.png" alt="DynamicObjectCrossing" /></figure>
+<p>自車両が静的な障害物（プロップ）に近づいたとき、その陰にいた歩行者または自転車が突然道路を横断する。自車両は即座に急ブレーキをかけなければならない。</p>
+
+<p><strong><em>15. ParkingCrossingPedestrian</em></strong></p>
+<figure><img src="figs/scen15.jpg" alt="ParkingCrossingPedestrian" /></figure>
+<p>自車両は、駐車車両の陰から現れて車線内に進んでくる歩行者に遭遇する。自車両はそれを避けるためにブレーキをかけるか操舵しなければならない。<em>DynamicObjectCrossing</em> と比べて、歩行者が道路により近く、自車両はより迅速に行動しなければならない。</p>
+
+<p><strong><em>16. HardBrake</em></strong></p>
+<figure><img src="figs/scen16.jpg" alt="HardBrake" /></figure>
+<p>先行車両が急減速し、自車両は緊急ブレーキまたは回避操作を行わなければならない。</p>
+
+<p><strong><em>17. YieldToEmergencyVehicle</em></strong></p>
+<figure><img src="figs/scen17.jpg" alt="YieldToEmergencyVehicle" /></figure>
+<p>自車両に後方から緊急車両が接近してくる。自車両は緊急車両が通過できるよう操舵しなければならない。</p>
+
+<p><strong><em>18. InvadingTurn</em></strong></p>
+<a class="pg" data-page="22"></a>
+<figure><img src="figs/scen18.jpg" alt="InvadingTurn" /></figure>
+<p>自車両が右折しようとするとき、対向車線から来た車両が自車線に侵入してくるため、自車両は衝突の可能性を避けるために右へ寄らざるを得ない。</p>
+
+<p><strong><em>19. PedestrainCrossing</em></strong></p>
+<figure><img src="figs/scen19.png" alt="PedestrainCrossing" /></figure>
+<p>自車両が交差点に進入している最中に、一団の歩行者が信号を無視して突然道路を横断する。たとえ青信号であっても、あるいは交差点が空いていても、自車両は停止してすべての歩行者が通過するのを待たなければならない。<span class="yakuchu">（訳注：見出しの「PedestrainCrossing」は原文どおり。PedestrianCrossing の誤記と思われる。）</span></p>
+
+<p><strong><em>20. VehicleTurningRoutePedestrian</em></strong></p>
+<figure><img src="figs/scen20.jpg" alt="VehicleTurningRoutePedestrian" /></figure>
+<p>操舵操作（右左折）の最中に、自車両は道路を横断する歩行者に遭遇し、緊急ブレーキまたは回避操作を行わなければならない。</p>
+
+<p><strong><em>21. VehicleTurningRoute</em></strong>　操舵操作（右左折）の最中に、自車両は道路を横断する自転車に遭遇し、緊急ブレーキまたは回避操作を行わなければならない。<em>VehicleTurningRoutePedestrian</em> と比べて自転車の移動速度が速く、自車両はより早くブレーキをかけなければならない。</p>
+
+<p><strong><em>22. BlockedIntersection</em></strong></p>
+<figure><img src="figs/scen22.jpg" alt="BlockedIntersection" /></figure>
+<p>操舵操作（右左折）の最中に、自車両は道路上に停止している車両に遭遇し、緊急ブレーキまたは回避操作を行わなければならない。</p>
+
+<p><strong><em>23. SignalizedJunctionLeftTurn</em></strong></p>
+<figure><img src="figs/scen23.jpg" alt="SignalizedJunctionLeftTurn" /></figure>
+<p>自車両は交差点で保護されていない左折（右左折専用の信号がない左折）を行っており、対向車に道を譲る。</p>
+
+<p><strong><em>24. SignalizedJunctionLeftTurnEnterFlow</em></strong></p>
+<p>自車両は交差点で保護されていない左折を行い、対向方向の交通に合流する。</p>
+
+<p><strong><em>25. NonSignalizedJunctionLeftTurn</em></strong></p>
+<figure><img src="figs/scen25.png" alt="NonSignalizedJunctionLeftTurn" /></figure>
+<p><em>SignalizedJunctionLeftTurn</em> の信号なし版。自車両は信号機なしで対向車両と交渉しなければならない。</p>
+
+<p><strong><em>26. NonSignalizedJunctionLeftTurnEnterFlow</em></strong></p>
+<p><em>SignalizedJunctionLeftTurnEnterFlow</em> の信号なし版。</p>
+
+<p><strong><em>27. SignalizedJunctionRightTurn</em></strong></p>
+<a class="pg" data-page="23"></a>
+<figure><img src="figs/scen27.jpg" alt="SignalizedJunctionRightTurn" /></figure>
+<p>自車両は交差点で右折しており、左から来る交通の流れに安全に合流しなければならない。</p>
+
+<p><strong><em>28. NonSignalizedJunctionRightTurn</em></strong></p>
+<p><em>SignalizedJunctionRightTurn</em> の信号なし版。自車両は信号機なしで交通の流れと交渉しなければならない。</p>
+
+<p><strong><em>29. EnterActorFlows</em></strong></p>
+<figure><img src="figs/scen29.jpg" alt="EnterActorFlows" /></figure>
+<p>自車両が交差点に進入するとき、その前方で車両の流れが赤信号を無視して通過するため、自車両は反応（流れを遮る、または流れに合流する）を強いられる。これらの車両は、パトカー、救急車、消防車のような「特殊」車両である。</p>
+
+<p><strong><em>30. HighwayExit</em></strong></p>
+<figure><img src="figs/scen30.jpg" alt="HighwayExit" /></figure>
+<p>自車両は、出口ランプから高速道路を出るために、走行中の交通の車線を横切らなければならない。</p>
+
+<p><strong><em>31. MergerIntoSlowTraffic</em></strong></p>
+<figure><img src="figs/scen31.png" alt="MergerIntoSlowTraffic" /></figure>
+<p>自車両は高速道路を出る際に、出口ランプ上の低速な交通の流れに合流しなければならない。</p>
+
+<p><strong><em>32. MergerIntoSlowTrafficV2</em></strong></p>
+<figure><img src="figs/scen32.png" alt="MergerIntoSlowTrafficV2" /></figure>
+<p>自車両は高速道路を走行中に、入口ランプから来る低速な交通の流れに合流しなければならない。</p>
+
+<p><strong><em>33. InterurbanActorFlow</em></strong></p>
+<figure><img src="figs/scen33.png" alt="InterurbanActorFlow" /></figure>
+<p>自車両は左折して都市間道路を離れ、高速な交通の流れを横切る。</p>
+
+<p><strong><em>34. InterurbanAdvancedActorFlow</em></strong></p>
+<figure><img src="figs/scen34.png" alt="InterurbanAdvancedActorFlow" /></figure>
+<p>自車両は左折して都市間道路に入る。まず高速な交通の流れを横切り、その後別の流れに合流する。</p>
+
+<p><strong><em>35. HighwayCutIn</em></strong></p>
+<a class="pg" data-page="24"></a>
+<figure><img src="figs/scen35.jpg" alt="HighwayCutIn" /></figure>
+<p>自車両は、高速道路の入口ランプから自車線に合流してくる車両に遭遇する。自車両は衝突を避けるために減速、ブレーキ、または車線変更を行わなければならない。</p>
+
+<p><strong><em>36. CrossingBicycleFlow</em></strong></p>
+<figure><img src="figs/scen36.jpg" alt="CrossingBicycleFlow" /></figure>
+<p>自車両は交差点で旋回を行う必要があり、左から横断してくる自転車に道を譲らなければならない。<span class="yakuchu">（訳注：原文は「from either the left」で、「either the left or the right」の一部が欠落していると思われる。）</span></p>
+
+<p><strong><em>37. OppositeVehicleRunningRedLight</em></strong></p>
+<figure><img src="figs/scen37.jpg" alt="OppositeVehicleRunningRedLight" /></figure>
+<p>自車両は交差点を直進しているが、交差する車両が赤信号を無視するため、自車両は衝突を回避しなければならない。</p>
+
+<p><strong><em>38. OppositeVehicleTakingPriority</em></strong></p>
+<figure><img src="figs/scen38.png" alt="OppositeVehicleTakingPriority" /></figure>
+<p><em>OppositeVehicleTakingPriority</em> の信号なし版。<span class="yakuchu">（訳注：原文どおりだが自己参照になっており、文脈上は <em>OppositeVehicleRunningRedLight</em> の信号なし版の意と考えられる。）</span></p>
+
+<p><strong><em>39. VinillaNonSignalizedTurn</em></strong></p>
+<figure><img src="figs/scen39.png" alt="VinillaNonSignalizedTurn" /></figure>
+<p>自車両が信号のない交差点（交通標識も信号機もない交差点）の通過を学習するための基本シナリオ。<span class="yakuchu">（訳注：39〜42 の見出しの「Vinilla」は原文どおり。表2・図6 では「Vanilla」と表記されている。）</span></p>
+
+<p><strong><em>40. VinillaNonSignalizedTurnEncounterStopsign</em></strong></p>
+<figure><img src="figs/scen40.png" alt="VinillaNonSignalizedTurnEncounterStopsign" /></figure>
+<p>自車両が一時停止標識で停止して発進することを学習するための基本シナリオ。</p>
+
+<p><strong><em>41. VinillaSignalizedTurnEncounterGreenLight</em></strong></p>
+<figure><img src="figs/scen41.jpg" alt="VinillaSignalizedTurnEncounterGreenLight" /></figure>
+<p>自車両が信号のある交差点の通過を学習するための基本シナリオ。</p>
+
+<p><strong><em>42. VinillaSignalizedTurnEncounterRedLight</em></strong></p>
+<figure><img src="figs/scen42.jpg" alt="VinillaSignalizedTurnEncounterRedLight" /></figure>
+<p>信号が赤から青に変わったときに、自車両が信号のある交差点の通過を学習するための基本シナリオ。</p>
+
+<p><strong><em>43. LaneChange</em></strong></p>
+<a class="pg" data-page="25"></a>
+<figure><img src="figs/scen43.png" alt="LaneChange" /></figure>
+<p>自車両が車線変更と衝突回避を学習するための基本シナリオ。</p>
+
+<p><strong><em>44. TJunction</em></strong></p>
+<figure><img src="figs/scen44.png" alt="TJunction" /></figure>
+<p>自車両が T 字路の通過を学習するための基本シナリオ。</p>
+<p class="yakuchu">（訳注：G 節の上空視点の画像に含まれる英字（S、D、T、M など）はシミュレータのデバッグ表示であり、訳出していない。）</p>
+
+<h2 id="h-著者声明">H　著者声明</h2>
+<p>権利侵害等が生じた場合、我々がすべての責任を負う。また、データ、コード、チェックポイントのライセンスは 3 節に記載のとおりであることを確認する。</p>
+
+<h2 id="i-ライセンス">I　ライセンス</h2>
+<p>すべてのデータ、コード、チェックポイントは Apache License 2.0 のもとで GitHub と Huggingface で公開されている。</p>
+
+<h2 id="j-データシート">J　データシート</h2>
+<h3 id="j.1-動機">J.1　動機</h3>
+<p><strong>データセットはどのような目的で作成されたか？特定のタスクを想定していたか？埋める必要のある特定のギャップがあったか？説明せよ。</strong>完全自動運転（FSD）のための包括的で現実的な試験環境の必要性を満たすために、このベンチマークを構築した。主要なタスクはエンドツーエンド自動運転である。既存のベンチマークは、E2E-AD 手法の運転スキルについてクローズドループできめ細かな評価を提供できていなかった。</p>
+<p><strong>データセットを作成したのは誰か（例：どのチーム、研究グループ）、またどの主体（例：企業、機関、組織）のために作成したか？</strong>このデータセットは、上海交通大学 School of AI および Department of CSE の ReThinkLab に所属する Xiaosong Jia、Zhenjie Yang、Qifeng Li、Zhiyuan Zhang、Junchi Yan によって整備された。</p>
+
+<h3 id="j.2-配布">J.2　配布</h3>
+<p><strong>データセットは、作成した主体（例：企業、機関、組織）の外部の第三者に配布されるか？</strong>はい。</p>
+<p><strong>データセットはどのように配布されるか（例：ウェブサイト上の tarball、API、GitHub）？</strong>すべてのデータ、コード、チェックポイントは GitHub（<a href="https://github.com/Thinklab-SJTU/Bench2Drive">https://github.com/Thinklab-SJTU/Bench2Drive</a>）と Huggingface（<a href="https://huggingface.co/datasets/rethinlab/Bench2Drive">https://huggingface.co/datasets/rethinlab/Bench2Drive</a>）で公開されている。</p>
+
+<h3 id="j.3-保守">J.3　保守</h3>
+<p><strong>データセットのサポート／ホスティング／保守は誰が行うか？</strong>全著者、および将来的には Junchi Yan 教授が率いる上海交通大学 ReThinLab の新メンバーが行う。</p>
+<p><strong>データセットの所有者／整備者／管理者にはどのように連絡できるか（例：電子メールアドレス）？</strong>Xiasong Jia（jiaxiaosong@sjtu.edu.cn）および Junchi Yan（yanjunchi@sjtu.edu.cn）に連絡されたい。<span class="yakuchu">（訳注：「Xiasong」「ReThinLab」は原文どおり。それぞれ Xiaosong、ReThinkLab の誤記と思われる。）</span></p>
+
+<a class="pg" data-page="26"></a>
+<p><strong>正誤表はあるか？</strong>投稿時点で正誤表はない。</p>
+<p><strong>データセットは更新されるか（例：ラベルの誤りの修正、新しいインスタンスの追加、インスタンスの削除）？</strong>はい、データセットを保守していく。</p>
+<p><strong>データセットの旧バージョンも引き続きサポート／ホスティング／保守されるか？</strong>はい。</p>
+<p><strong>他者がデータセットを拡張／増強／発展／貢献したい場合、そのための仕組みはあるか？</strong>はい、<a href="https://github.com/Thinklab-SJTU/Bench2Drive">https://github.com/Thinklab-SJTU/Bench2Drive</a> のガイドに従うことができる。</p>
+
+<h3 id="j.4-構成">J.4　構成</h3>
+<p><strong>データセットを構成するインスタンスは何を表すか？</strong>基本インスタンス 1 つが 1 本のクリップである。各クリップは、生のセンサ情報とアノテーションを伴う 10 Hz の数百〜数千フレームを含む。</p>
+<p><strong>インスタンスは合計でいくつあるか（適切であれば種類ごとに）？</strong>Bench2Drive には 13638 本のクリップがある。</p>
+<p><strong>個々のインスタンス間の関係は明示されているか？</strong>はい。各クリップにはシナリオの種類と場所がアノテーションされている。クリップ同士が同じシナリオの種類や近い場所を持つことがある。</p>
+<p><strong>推奨されるデータ分割（例：学習、開発／検証、テスト）はあるか？</strong>はい。GitHub リポジトリにある。</p>
+<p><strong>データセットは自己完結しているか、それとも外部リソースへのリンクや依存があるか？</strong>自己完結している。</p>
+
+<h3 id="j.5-収集過程">J.5　収集過程</h3>
+<p><strong>データ収集過程には誰が関与し（例：学生、クラウドワーカー、請負業者）、どのように報酬が支払われたか（例：クラウドワーカーへの支払額）？</strong>すべてのデータは CARLA で自動的に収集される。収集コードは著者らが作成した。</p>
+
+<h3 id="j.6-用途">J.6　用途</h3>
+<p><strong>データセットは（他に）どのようなタスクに使用できるか？</strong>既存のアノテーションにより、このデータセットは 3D 物体検出、セマンティックセグメンテーション、インスタンスセグメンテーション、点群セグメンテーション、深度推定、追跡、動き予測の実施にも使用できる。</p>
+</body>
+</html>
