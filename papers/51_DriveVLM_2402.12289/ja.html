@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill)" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>DriveVLM 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="DriveVLM: The Convergence of Autonomous Driving and Large Vision-Language Models" />
+  <meta name="short-name" content="DriveVLM" />
+  <meta name="authors" content="Xiaoyu Tian, Junru Gu, Bailin Li, Yicheng Liu, Yang Wang, Zhiyong Zhao, Kun Zhan, Peng Jia, Xianpeng Lang, Hang Zhao（清華大学 IIS、Li Auto）" />
+  <meta name="source-pdf" content="51_DriveVLM_2402.12289.pdf" />
+  <meta name="source-pages" content="30" />
+  <meta name="pdf-href" content="51_DriveVLM_2402.12289.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="視覚言語モデル（VLM）によるシーン記述・シーン解析・階層的計画の思考連鎖で複雑・ロングテールな運転シーンを理解する DriveVLM と、従来の自動運転パイプラインと組み合わせて空間推論とリアルタイム性を補う DriveVLM-Dual を提案し、量産車への搭載まで検証した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; }
+body{font-family:'Noto Sans JP','Noto Sans CJK JP','Yu Gothic','Meiryo',sans-serif;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1;color:#182634;max-width:1020px;margin:0 auto;padding:48px 38px;background:#fff;font-size:16px}
+h1{font-size:30px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:18px}
+h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:24px}
+h3{margin-top:2em;font-size:20px;color:#244b64}
+h4{margin-top:1.6em;font-size:17px;color:#244b64}
+p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+figure{margin:20px 0}
+figcaption{display:none}
+table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0}
+th,td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+th{background:#eaf1f5}
+td:first-child{white-space:nowrap}
+blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+code{font-family:Consolas,'Courier New',monospace;white-space:pre-wrap}
+pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+a{color:#215c80;overflow-wrap:anywhere}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+.src-meta{color:#5b6b78;font-size:13px;margin-top:-10px}
+ol.refs li{margin-bottom:6px;font-size:14px}
+@media (max-width: 700px){
+ body{padding:20px 16px;font-size:15px}
+ h1{font-size:22px}h2{font-size:19px}h3{font-size:17px}
+ table{display:block;overflow-x:auto}
+ #TOC{padding:14px 16px}
+}
+@media print{
+ body{font-size:10pt;padding:0;max-width:none}
+ h1{font-size:23pt}h2{font-size:17pt;break-after:avoid}h3{font-size:13pt;break-after:avoid}
+ p{orphans:3;widows:3}table{font-size:7pt;break-inside:avoid}img{max-height:180mm;break-inside:avoid}
+ pre{font-size:7pt;white-space:pre-wrap}a{color:inherit}#TOC{break-after:page}
+ @page{size:A4;margin:18mm 15mm}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">DriveVLM 全文日本語訳</h1>
+<p class="src-meta">原文PDF: <a href="51_DriveVLM_2402.12289.pdf">51_DriveVLM_2402.12289.pdf</a>（30ページ）　／　<a href="index.html">原文と並べて読む</a>　／　翻訳生成日: 2026-11-16</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#drivevlm-the-convergence-of-autonomous-driving-and-large-vision-language-models" id="toc-drivevlm-the-convergence-of-autonomous-driving-and-large-vision-language-models">DriveVLM: The Convergence of Autonomous Driving and Large Vision-Language Models</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a></li>
+<li><a href="#3-drivevlm" id="toc-3-drivevlm">3　DriveVLM</a><ul>
+<li><a href="#3.1-概要" id="toc-3.1-概要">3.1　概要</a></li>
+<li><a href="#3.2-シーン記述" id="toc-3.2-シーン記述">3.2　シーン記述</a></li>
+<li><a href="#3.3-シーン解析" id="toc-3.3-シーン解析">3.3　シーン解析</a></li>
+<li><a href="#3.4-階層的計画" id="toc-3.4-階層的計画">3.4　階層的計画</a></li>
+<li><a href="#3.5-drivevlm-dual" id="toc-3.5-drivevlm-dual">3.5　DriveVLM-Dual</a></li>
+</ul></li>
+<li><a href="#4-タスクとデータセット" id="toc-4-タスクとデータセット">4　タスクとデータセット</a><ul>
+<li><a href="#4.1-タスク定義" id="toc-4.1-タスク定義">4.1　タスク定義</a></li>
+<li><a href="#4.2-評価指標" id="toc-4.2-評価指標">4.2　評価指標</a></li>
+<li><a href="#4.3-データセット構築" id="toc-4.3-データセット構築">4.3　データセット構築</a></li>
+</ul></li>
+<li><a href="#5-実験" id="toc-5-実験">5　実験</a><ul>
+<li><a href="#5.1-設定" id="toc-5.1-設定">5.1　設定</a></li>
+<li><a href="#5.2-主要な結果" id="toc-5.2-主要な結果">5.2　主要な結果</a></li>
+<li><a href="#5.3-アブレーション研究" id="toc-5.3-アブレーション研究">5.3　アブレーション研究</a></li>
+<li><a href="#5.4-定性的な結果" id="toc-5.4-定性的な結果">5.4　定性的な結果</a></li>
+</ul></li>
+<li><a href="#6-車載への展開とテスト" id="toc-6-車載への展開とテスト">6　車載への展開とテスト</a></li>
+<li><a href="#7-結論" id="toc-7-結論">7　結論</a></li>
+<li><a href="#謝辞" id="toc-謝辞">謝辞</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#a-sup-ad-データセット" id="toc-a-sup-ad-データセット">A　SUP-AD データセット</a><ul>
+<li><a href="#a.1-メタアクション" id="toc-a.1-メタアクション">A.1　メタアクション</a></li>
+<li><a href="#a.2-シナリオカテゴリ" id="toc-a.2-シナリオカテゴリ">A.2　シナリオカテゴリ</a></li>
+<li><a href="#a.3-アノテーションの例" id="toc-a.3-アノテーションの例">A.3　アノテーションの例</a></li>
+</ul></li>
+<li><a href="#b-評価方法" id="toc-b-評価方法">B　評価方法</a><ul>
+<li><a href="#b.1-シーン記述解析の評価" id="toc-b.1-シーン記述解析の評価">B.1　シーン記述／解析の評価</a></li>
+<li><a href="#b.2-メタアクションの評価" id="toc-b.2-メタアクションの評価">B.2　メタアクションの評価</a></li>
+</ul></li>
+<li><a href="#c-定性的な結果" id="toc-c-定性的な結果">C　定性的な結果</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+<a class="pg" data-page="1"></a>
+<h1 id="drivevlm-the-convergence-of-autonomous-driving-and-large-vision-language-models">DriveVLM: The Convergence of Autonomous Driving and Large Vision-Language Models</h1>
+<p>Xiaoyu Tian<sup>1*</sup>、Junru Gu<sup>1*</sup>、Bailin Li<sup>2*</sup>、Yicheng Liu<sup>1*</sup>、Yang Wang<sup>2</sup>、Zhiyong Zhao<sup>2</sup>、Kun Zhan<sup>2</sup>、Peng Jia<sup>2</sup>、Xianpeng Lang<sup>2</sup>、Hang Zhao<sup>1†</sup><br />
+<sup>1</sup>清華大学 IIS（IIS, Tsinghua University）、<sup>2</sup>Li Auto<br />
+arXiv:2402.12289v5 [cs.CV]、2024年6月25日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>51_DriveVLM_2402.12289.pdf</code>（全 30 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+<blockquote><p>*同等の貢献。記載順はランダム。<br />
+†連絡先：hangzhao@mail.tsinghua.edu.cn<br />
+プロジェクトページ：<a href="https://tsinghua-mars-lab.github.io/DriveVLM/">https://tsinghua-mars-lab.github.io/DriveVLM/</a></p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p>都市環境における自動運転の主要な障壁は、困難な道路状況や人間の微妙な振る舞いといった、複雑でロングテールなシナリオを理解することである。本論文では、視覚言語モデル（Vision-Language Models; VLMs）を活用してシーン理解と計画の能力を高めた自動運転システム DriveVLM を提案する。DriveVLM は、シーン記述、シーン解析、階層的計画のための推論モジュールを独自の形で組み合わせている。さらに、VLM が空間推論に限界を持ち、大きな計算量を要することを踏まえ、DriveVLM の強みと従来の自動運転パイプラインを相乗させるハイブリッドシステム DriveVLM-Dual を提案する。nuScenes データセットと我々の SUP-AD データセットの両方での実験により、複雑で予測困難な運転状況への対処において DriveVLM と DriveVLM-Dual が有効であることを示す。最後に、DriveVLM-Dual を量産車に搭載し、実世界の自動運転環境において有効であることを検証した。</p>
+<p><strong>キーワード：</strong>自動運転、視覚言語モデル、デュアルシステム</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>自動運転は交通に革命をもたらす大きな可能性を秘めており、過去 20 年にわたり活発な研究分野となってきた。完全な自動運転システムに至るための主要な障壁はシーン理解［1］であり、これには悪天候、入り組んだ道路レイアウト、予期せぬ人間の行動といった、複雑で予測困難なシナリオを切り抜けることが含まれる。</p>
+<p>既存の自動運転システムは、一般に 3D 知覚、動き予測、計画から構成されるが、こうしたシーン理解の課題に苦戦している。具体的には、3D 知覚［2, 3, 4, 5］は見慣れた物体の検出と追跡に限られ、まれな物体やその固有の属性を取りこぼす。動き予測［6, 7, 8, 9, 10］と計画［11, 12, 13］は軌道レベルの行動に焦点を当てており、物体と車両の間の意思決定レベルの相互作用を見落としがちである。</p>
+<a class="pg" data-page="2"></a>
+<p>本論文では、こうしたシーン理解の課題を対象とする新しい自動運転システム <strong>DriveVLM</strong> を提案する。DriveVLM は、視覚的な理解と推論において卓越した能力を示してきた近年の視覚言語モデル（VLM）［14, 15, 16, 17］を活用する。具体的には、DriveVLM は 3 つの主要モジュール、すなわち<em>シーン記述</em>、<em>シーン解析</em>、<em>階層的計画</em>からなる思考連鎖（Chain-of-Though; CoT）<span class="yakuchu">（訳注：原文の綴りは「Chain-of-Though」で、Chain-of-Thought の誤植と思われる）</span>のプロセスを備える。シーン記述モジュールは運転環境を言語で描写し、シーン内の重要物体を特定する。シーン解析モジュールは重要物体の特性と、それらが自車両に及ぼす影響を掘り下げる。階層的計画モジュールは、メタアクションと意思決定の記述からウェイポイントへと、段階的に計画を立てる。これらのモジュールはそれぞれ、従来の<em>知覚–予測–計画</em>パイプラインの構成要素に対応するが、違いは、これらのモジュールが過去には対処が極めて困難であった<em>物体知覚</em>、<em>意図レベルの予測</em>、<em>タスクレベルの計画</em>に取り組む点にある。</p>
+<p>VLM は視覚理解に優れる一方で、空間的なグラウンディングと推論には限界があり、その計算負荷の高さは車載での推論速度に課題をもたらす。そこで我々はさらに、DriveVLM と従来システムの両方の強みを組み合わせたハイブリッドシステム <strong>DriveVLM-Dual</strong> を提案する。DriveVLM-Dual は、DriveVLM を 3D 物体検出器、占有ネットワーク、モーションプランナといった従来の 3D 知覚・計画モジュールと任意に統合し、システムが 3D グラウンディングと高頻度の計画能力を実現できるようにする。人間の脳における遅い思考と速い思考のプロセスに似たこのデュアルシステム設計は、運転シナリオの多様な複雑さに効率的に適応する。</p>
+<p>同時に、我々はシーン理解と計画（scene understanding and planning; SUP）タスクを形式的に定義し、DriveVLM と DriveVLM-Dual のシーン解析およびメタアクション計画の能力を評価するための新しい評価指標を提案する。SUP タスクのための社内データセット SUP-AD を構築するため、包括的なデータマイニングとアノテーションのパイプラインを実施した。nuScenes データセットと我々独自のデータセットの両方での大規模な実験により、DriveVLM の優れた性能、特に少数ショットのシナリオにおける優位性を示す。さらに、DriveVLM-Dual は最先端のエンドツーエンド動作計画手法を上回る。我々はまたモデルを量産車に搭載し、DriveVLM-Dual が実世界の自動運転環境で有効であることを確認した。加えて、補足資料にデモを収録している。</p>
+<p>まとめると、本論文の貢献は次の 3 点である。</p>
+<ol>
+<li>VLM を活用して効果的なシーン理解と計画を行う新しい自動運転システム DriveVLM を提案する。さらに、DriveVLM と従来の自動運転パイプラインを組み込んだハイブリッドシステム DriveVLM-Dual を提案し、空間推論とリアルタイム計画の能力を向上させる。</li>
+<li>シーン理解と計画のデータセット（SUP-AD）を構築するための包括的なデータマイニングとアノテーションのパイプラインを、評価指標とともに提示する。</li>
+<li>DriveVLM-Dual システムを量産車に搭載することに成功し、実際の運転シナリオで VLM の展開を高速化するためのさまざまな有効な戦略を検証した。</li>
+</ol>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<p><strong>視覚言語モデル（VLMs）。</strong>近年、MiniGPT-4［16］、LLaVA［17］、Qwen-VL［18］などの研究［19, 14, 20, 21］に代表される、大規模視覚言語モデル（VLM）の研究が急増している。VLM はさまざまなシナリオ、特にロボティクス［22, 23, 24, 25, 26］で利用でき、そこでは VLM が対応する行動を出力する。その行動は高レベルの指示［22］の場合もあれば、低レベルのロボット動作［24］の場合もある。DriveVLM は VLM を用いて自動運転を支援することに焦点を当て、それにより新しいフレームワークを確立する。同時期の研究［15］も同様の動機を共有している。</p>
+<p><strong>学習ベースの計画。</strong>学習の枠組みを動作計画に統合することは、Pomerleau［11］の先駆的な貢献以来、活発な研究分野となってきた。有望な研究の流れの一つは強化学習と模倣学習［27, 28, 29］である。これらの手法は、生のセンサ入力を制御行動に直接写像するエンドツーエンドの計画方策を学習できる［29］。いくつかの研究［30, 31, 32, 33］は、学習ベースのモジュールから導出した密なコストマップを明示的に構築することで解釈性を高めている。近年の傾向として、複数のブロックをエンドツーエンドで学習するものがある［32, 33, 34, 35］。これらの手法は全体的な性能を向上させるが、将来軌道予測の損失からの誤差逆伝播に依存しており、意思決定プロセスの解釈性が低い［36］。</p>
+<a class="pg" data-page="3"></a>
+<p><strong>運転キャプションデータセット。</strong>近年の研究［37, 15, 38］は、言語キャプションが人間の知識と運転の目的とを結びつける重要な媒体であり、意思決定と行動に情報を与えるのに役立つと主張している。Refer-KITTI［39］は、KITTI データセット［40］の物体に対し、物体の集合を参照できる言語プロンプトをアノテーションしている。Talk2Car［41］、NuPrompt［42］、nuScenes-QA［43］は、nuScenes データセット［44］に自由形式のキャプションと QA のアノテーションを導入している。BDD-X［45］と BDD-OIA［46］は、自車両の行動や交通シナリオについての言語による説明を備えたデータセットを提供している［47］［48］。これらのデータセットは自然言語を利用するためのシーンを提供するが、自動運転システムにおける安全上重要なシナリオのデータが十分ではない。</p>
+
+<figure><img src="figs/fig1.png" alt="図1" /></figure>
+<p><strong>図1：DriveVLM と DriveVLM-Dual のモデルパイプライン。</strong>DriveVLM は画像を入力として受け取り、思考連鎖（CoT）の仕組みを通じて、シーン記述、シーン解析、階層的計画の結果を出力する。DriveVLM-Dual はさらに従来の 3D 知覚モジュールと軌道計画モジュールを組み込み、空間推論能力とリアルタイムの軌道計画を実現する。</p>
+<p class="yakuchu">図中ラベル：Large Vision Language Model＝大規模視覚言語モデル、Scene Description＝シーン記述、Scene Analysis＝シーン解析、Hierarchical Planning＝階層的計画、Sequence of Images＝画像系列、Matching＝照合、Prompting＝プロンプト付与、Trajectory Refinement＝軌道の洗練、Low Frequency＝低頻度、High Frequency＝高頻度、3D Perception＝3D 知覚、Motion Prediction＝動き予測、Trajectory Planning＝軌道計画、Traditional Pipeline＝従来のパイプライン。シーン記述欄：&lt;SYSTEM&gt; 運転状況を記述せよ。／Weather＝天候：曇り、Road type＝道路種別：郊外、Time＝時間帯：昼間、Lane condition＝車線状況：右車線は通行不可、左車線は通行可、Critical objects＝重要物体：パトカー（座標）。シーン解析欄：&lt;SYSTEM&gt; 照合済み物体：パトカー、過去軌道：xxx。未照合物体：…。重要物体とその自車両への影響を記述せよ。／Characteristics＝特性：道路右側に駐車中、Influence＝影響：右車線をふさいでおり、事故その他の事態の可能性を示している、Summarized Analysis＝要約された解析。階層的計画欄：&lt;SYSTEM&gt; 自車状態と過去軌道は［…］である。メタアクション、意思決定を決め、将来のウェイポイントを計画せよ。／Meta-actions＝メタアクション：［減速、右へわずかに寄る、一定速度で直進］、Decision＝意思決定：減速して右へわずかに寄り、バリアを追い越した後、一定速度で直進する、Waypoints＝ウェイポイント。（&lt;DRIVLEVLM&gt; は原図の表記のまま）</p>
+
+<h2 id="3-drivevlm">3　DriveVLM</h2>
+<h3 id="3.1-概要">3.1　概要</h3>
+<p>DriveVLM のパイプライン全体を図 1 に示す。画像系列は視覚言語モデル（VLM）によって処理され、特別な思考連鎖（CoT）［49］推論を行って運転計画の結果を導出する。DriveVLM のアーキテクチャは、Vision Transformer エンコーダ［50］と大規模言語モデル（LLM）からなる。視覚エンコーダが画像トークンを生成し、次に注意機構ベースの抽出器がそれらのトークンを LLM と整合させる。推論プロセスは 3 つのモジュール、すなわちシーン記述（3.2 節）、シーン解析（3.3 節）、階層的計画（3.4 節）に分けられる。</p>
+<p>実世界への展開のために、3.5 節で DriveVLM と従来の自動運転パイプラインを組み合わせ、両アプローチの強みを活かすハイブリッドシステム DriveVLM-Dual を提案する。</p>
+
+<h3 id="3.2-シーン記述">3.2　シーン記述</h3>
+<p>シーン記述モジュールは、運転環境の記述と重要物体を特定する。</p>
+<p><strong>環境記述。</strong>天候や道路状況などの運転環境は、運転の難しさに無視できない影響を与える。そのため、モデルにはまず運転環境の言語記述 \(E\) を出力するようプロンプトを与える。これは複数の条件 \(E = \{E_{\text{weather}}, E_{\text{time}}, E_{\text{road}}, E_{\text{lane}}\}\) を含み、それぞれが運転環境の重要な側面を表す。天候成分 \(E_{\text{weather}}\) は晴れから雪までの状況にわたり、視界やトラクションに影響する。時間成分 \(E_{\text{time}}\) は昼間と夜間を区別し、視界の変化によって運転戦略に影響を与える。道路種別 \(E_{\text{road}}\)（市街地や高速道路など）はそれぞれ異なる課題をもたらし、車線状況 \(E_{\text{lane}}\) は現在の車線上の位置と可能な操作に焦点を当て、安全な運転判断に不可欠である。</p>
+
+<a class="pg" data-page="4"></a>
+<p><strong>重要物体の特定。</strong>環境条件に加え、運転シナリオ中のさまざまな物体が運転行動に大きく影響する。一定範囲内のすべての物体を検出する従来の自動運転の知覚モジュールとは異なり、我々は運転中の人間の認知プロセスに着想を得て、現在のシナリオに影響を与える可能性が最も高い<em>重要物体</em>（critical objects）の特定にのみ焦点を当てる。各<em>重要物体</em>を \(O_c\) と表し、2 つの属性、すなわち物体カテゴリ \(c\) と、画像上のおおよそのバウンディングボックス座標 \(b(x1, y1, x2, y2)\) を持つ。カテゴリと座標は言語モダリティにおける対応する言語 \(token\_id\) に写像され、後続のモジュールへの円滑な統合を可能にする。さらに、事前学習済みの視覚エンコーダを活用することで、DriveVLM は道路上の落下物や珍しい動物など、一般的な 3D 物体検出器では見逃されうるロングテールな<em>重要物体</em>を特定できる。</p>
+
+<h3 id="3.3-シーン解析">3.3　シーン解析</h3>
+<p>従来の自動運転パイプラインでは、予測モジュールは一般に物体の将来軌道の予測に集中する。高度な視覚言語モデルの登場により、現在のシーンについてより包括的な解析を行う能力が得られた。シーンレベルの解析は、すべての重要物体を環境記述とともに要約する。この要約はシーンの包括的な理解を与え、後続の計画モジュールに入力される。</p>
+<p><strong>重要物体の解析。</strong>DriveVLM は重要物体を 3 つの側面、すなわち<strong>静的属性 \(C_s\)</strong>、<strong>運動状態 \(C_m\)</strong>、<strong>特有の行動 \(C_b\)</strong> で特徴づける。静的属性 \(C_s\) は、道路脇の看板の視覚的手がかりやトラックの過大な積荷など、物体に固有の性質を記述するもので、潜在的な危険を先回りして回避するうえで重要である。運動状態 \(C_m\) は、位置、方向、行動を含む一定期間にわたる物体の動態を記述するもので、物体の将来軌道や自車両との潜在的な相互作用を予測するうえで不可欠な特性である。特有の行動 \(C_b\) は、自車両の次の運転判断に直接影響しうる物体の特別な行動やジェスチャを指す。すべての物体について 3 つの特性すべてを解析することをモデルに要求するわけではない。実際には、1 つの重要物体に当てはまる特性は 1 つか 2 つにすぎない。これらの特性を解析したうえで、DriveVLM は各重要物体が自車両に及ぼす潜在的な影響 \(I\) を予測する。</p>
+
+<h3 id="3.4-階層的計画">3.4　階層的計画</h3>
+<p>シーンレベルの要約は、次に経路、自車の姿勢と速度と組み合わされ、計画のためのプロンプトを形成する。最後に、DriveVLM はメタアクション、意思決定記述、軌道ウェイポイントの 3 段階で、運転計画を段階的に生成する。</p>
+<p><strong>メタアクション \(\boldsymbol{A}\)。</strong>メタアクションは \(a_i\) と表され、運転戦略の短期的な意思決定を表す。これらの行動は 17 のカテゴリに分類され、加速、減速、左折、車線変更、わずかな位置調整、待機などを含むが、これらに限らない。一定期間にわたる自車両の将来の操作を計画するため、メタアクションの系列を生成する。</p>
+<p><strong>意思決定記述 \(\boldsymbol{D}\)。</strong>意思決定記述 \(D\) は、自車両が採るべきより細かい運転戦略を明確に述べる。これは 3 つの要素、すなわち行動 \(\mathcal{A}\)、対象 \(\mathcal{S}\)、継続時間 \(\mathcal{D}\) を含む。<em>行動</em>（Action）は「曲がる」「待つ」「加速する」といったメタアクションに関わる。<em>対象</em>（Subject）は歩行者、交通信号、特定の車線など、相互作用する対象を指す。<em>継続時間</em>（Duration）は行動の時間的側面を示し、行動をどれだけの間続けるべきか、あるいはいつ開始すべきかを指定する。</p>
+<p><strong>軌道ウェイポイント \(\boldsymbol{W}\)。</strong>意思決定記述 \(D\) を確定した後、次の段階では対応する軌道ウェイポイントを生成する。これらのウェイポイントは \(W = \{w_1, w_2, ..., w_n\}\)、\(w_i = (x_i, y_i)\) と表され、あらかじめ定めた間隔 \(\Delta t\) で、将来の一定期間にわたる車両の経路を描く。これらの数値的なウェイポイントを言語トークンに写像し、自己回帰的に生成する。</p>
+<a class="pg" data-page="5"></a>
+<h3 id="3.5-drivevlm-dual">3.5　DriveVLM-Dual</h3>
+<p>VLM における高いレイテンシと、不正確な空間・運動の理解という課題を緩和するため、DriveVLM と従来の自動運転システムとを協調させる DriveVLM-Dual を提案する。この新しいアプローチは 2 つの主要な戦略、すなわち重要物体の解析への 3D 知覚の組み込みと、高頻度の軌道洗練からなる。</p>
+<p><strong>3D 知覚の統合。</strong>3D 検出器によって検出された物体を \(O_{\text{3D}} = \{c^i_{\text{3D}}, b^i_{\text{3D}}\}\) と表す。ここで \(b^i_{\text{3D}}\) は \(i\) 番目のバウンディングボックス、\(c^i_{\text{3D}}\) はそのカテゴリを表す。これらの 3D バウンディングボックスを 2D 画像に逆投影し、対応する 2D バウンディングボックス \(b^i_{\text{2D}}\) を得る。これらの 2D バウンディングボックス \(b^i_{\text{2D}}\) と \(b^j_c\) の間で IoU マッチングを行う。\(b^j_c\) は、先に特定された重要物体 \(O_{\text{critical}} = \{c^j_c, b^j_c\}\) のバウンディングボックスである。一定の近似 IoU のしきい値を満たし、かつ同じカテゴリに属する重要物体を、照合済み重要物体 \(O^{\text{matched}}_c\) として分類する。これは次のように定義される。</p>
+<p>\[ O^{\text{matched}}_c = \{c^j_c, b^j_c\}, \quad \text{if } c^j_c = c^i_{\text{2D}} \text{ and } \text{aIoU}(b^j_c, b^i_{\text{2D}}) \gt \tau, \ \text{where } \text{aIoU}(b^j_c, b^i_{\text{2D}}) = \frac{S_{b^j_c \cap b^i_{\text{2D}}}}{S_{b^i_{\text{2D}}}}, \]</p>
+<p>3D データ中に対応する一致を持たない重要物体は \(O^{\text{unmatched}}_c\) と表記する。</p>
+<p>シーン解析モジュールでは、\(O^{\text{matched}}_c\) について、対応する 3D 物体の中心座標、向き、過去軌道をモデルへの言語プロンプトとして用い、物体の解析を支援する。逆に \(O^{\text{unmatched}}_c\) については、解析は画像から導出された言語トークンのみに依存する。この設計により、DriveVLM-Dual は重要物体の位置と動きをより正確に理解でき、全体的な性能が向上する。</p>
+<p><strong>高頻度の軌道洗練。</strong>リアルタイムかつ高頻度の推論能力を実現するため、DriveVLM を従来のプランナと統合して遅速（slow-fast）デュアルシステムを構成し、DriveVLM の高度な能力と従来の計画手法の効率性とを組み合わせる。DriveVLM から低頻度で軌道 \(W_{\text{slow}}\) を得た後、それを古典的プランナの参照軌道として用い、高頻度の軌道洗練を行う。最適化ベースのプランナの場合、\(W_{\text{slow}}\) は最適化ソルバの初期解として機能する。ニューラルネットワークベースのプランナの場合、\(W_{\text{slow}}\) は入力クエリとして用いられ、追加の入力特徴 \(f\) と組み合わされた後、\(W_{\text{fast}}\) と表される新しい計画軌道へとデコードされる。この過程の定式化は次のように記述できる。</p>
+<p>\[ W_{\text{fast}} = \text{Planner}([W_{\text{slow}}, f]). \tag{1} \]</p>
+<p>この洗練ステップにより、DriveVLM-Dual が生成する軌道は（1）より高い軌道品質を達成し、かつ（2）リアルタイム要件を満たすことが保証される。実際には、2 つのブランチは遅速の形で非同期に動作し、従来の自動運転ブランチのプランナモジュールは、VLM ブランチからの軌道を追加入力として選択的に受け取ることができる。</p>
+
+<h2 id="4-タスクとデータセット">4　タスクとデータセット</h2>
+<p>複雑でロングテールな運転シナリオへの対処における DriveVLM と DriveVLM-Dual の潜在能力を十分に引き出すため、<em>Scene Understanding for Planning</em>（計画のためのシーン理解）と呼ぶタスク（4.1 節）を、評価指標の一式（4.2 節）とともに形式的に定義する。さらに、シーン理解と計画のデータセットを整備するためのデータマイニングとアノテーションのプロトコル（4.3 節）を提案する。</p>
+<h3 id="4.1-タスク定義">4.1　タスク定義</h3>
+<p>Scene Understanding for Planning タスクは次のように定義される。入力は、周囲のカメラからのマルチビュー動画 \(\mathcal{V}\) と、任意で知覚モジュールからの 3D 知覚結果 \(\mathcal{P}\) からなる。出力は次の構成要素を含む。</p>
+<ol>
+<li><strong>シーン記述</strong> \(E\)：天候条件 \(E_{\text{weather}}\)、時間帯 \(E_{\text{time}}\)、道路状況 \(E_{\text{road}}\)、車線状況 \(E_{\text{lane}}\) から構成される。</li>
+</ol>
+
+<a class="pg" data-page="6"></a>
+<figure><img src="figs/fig2.jpg" alt="図2" /></figure>
+<p><strong>図2：SUP-AD データセットのアノテーション済みサンプル。</strong></p>
+<p class="yakuchu">図中ラベル：Scene Summary＝シーン要約：自車両は現在の車線を一定速度で走行しており、前方では道路工事が行われている。車線左側の路肩で 3 人の作業員が作業している。／Weather＝天候：晴れ（Sunny）、Time＝時間帯：昼間（Daytime）、Road Condition＝道路状況：工事中（Construction）、Lane Condition＝車線状況：自車線（Own Lane）。Critical Object 1＝重要物体 1：Class＝クラス：3 人の工事作業員、Characteristic＝特性：自車両の左側車線の脇での工事作業、Influence＝影響：自車両の通常速度に影響する。Critical Object 2＝重要物体 2：Class＝クラス：工事区域、Characteristic＝特性：自車線前方での道路補修、Influence＝影響：自車両の通常の直進に影響する。Meta Action＝メタアクション：［「減速」「左へ車線変更」「ゆっくり直進」］、Decision Description＝意思決定記述：減速して左へ車線変更し、左前方の工事作業員との安全な距離を保つ。</p>
+<ol start="2">
+<li><strong>シーン解析</strong> \(S\)：物体レベルの解析とシーンレベルの要約 \(S\) を含む。</li>
+<li><strong>メタアクション</strong> \(A\)：タスクレベルの操作を表す行動の系列。</li>
+<li><strong>意思決定記述</strong> \(D\)：運転上の意思決定の詳細な説明。</li>
+<li><strong>軌道ウェイポイント</strong> \(W\)：自車両の計画軌道の概略を示すウェイポイント。</li>
+</ol>
+
+<h3 id="4.2-評価指標">4.2　評価指標</h3>
+<p>モデルの性能を包括的に評価するため、我々はモデルによる運転シーンの解釈と、下された意思決定とに着目する。したがって評価には 2 つの側面、すなわちシーン記述／解析の評価とメタアクションの評価がある。</p>
+<p><strong>シーン記述／解析の評価。</strong>シーン記述に対する人手評価は主観的になることを踏まえ、事前学習済み LLM を用いる構造化されたアプローチを採用する。この方法では、生成されたシーン記述を、人手でアノテーションされた正解記述と比較する。正解記述は、環境条件、ナビゲーション、車線情報、さらに具体的な物体・動詞・それらの影響を伴う重要事象といった構造化データを含む。LLM は、生成された記述を正解との一貫性に基づいて評価し、採点する。</p>
+<p><strong>メタアクションの評価。</strong>メタアクションは、あらかじめ定義された意思決定の選択肢の集合である。運転上の意思決定はメタアクションの系列として定式化される。我々の評価方法は、動的計画法のアルゴリズムを用いて、モデルが生成した系列を人手でアノテーションされた正解系列と比較する。評価ではさらに各メタアクションの相対的な重要度も考慮すべきであり、一部を系列全体の文脈への影響が小さい「保守的行動」として指定する。頑健性を高めるため、まず LLM を用いて正解系列と意味的に等価な代替系列を生成し、頑健性を向上させる。これらの代替系列との類似度が最も高いものに基づいて最終的な運転意思決定スコアを計算する。提案指標の詳細は付録 B に示す。</p>
+
+<h3 id="4.3-データセット構築">4.3　データセット構築</h3>
+<p>提案タスクのための <em>Scene Understanding for Planning (SUP-AD) Dataset</em> を構築するため、図 3 に示す包括的なデータマイニングとアノテーションのパイプラインを提案する。具体的には、大規模なデータベースからロングテール物体のマイニングと困難シナリオのマイニングを行ってサンプルを収集し、次に各サンプルからキーフレームを選択して、さらにシーンのアノテーションを行う。データセットの統計は付録 A に示す。</p>
+<a class="pg" data-page="7"></a>
+<p><strong>ロングテール物体のマイニング。</strong>実世界の道路上の物体分布に基づき、まず奇妙な形状の車両、道路上の落下物、道路を横断する動物など、ロングテール物体カテゴリのリストを定義する。次に、大量のログから言語クエリを用いて運転データをマイニングできる CLIP ベースの検索エンジンを使って、これらのロングテールシナリオをマイニングする。その後、人手による点検を行い、指定したカテゴリと一致しないシーンを除外する。</p>
+
+<figure><img src="figs/fig3.jpg" alt="図3" /></figure>
+<p><strong>図3：シーン理解と計画のデータセットを構築するために提案するデータマイニングとアノテーションのパイプライン。</strong>データセットからランダムにサンプリングしたシナリオ例（下）は、データセットの多様性と複雑さを示している。</p>
+<p class="yakuchu">図中ラベル：Driving Scenario Video Database＝運転シナリオ動画データベース、Long-tail Object Mining＝ロングテール物体のマイニング、Challenging Scenario Mining＝困難シナリオのマイニング、Manual Filtering＝人手によるフィルタリング、Video Keyframe Selection＝動画キーフレームの選択、Scene Annotation＝シーンのアノテーション、Verification＝検証</p>
+
+<p><strong>困難シナリオのマイニング。</strong>ロングテール物体に加えて、変化する運転状況に応じて自車両の運転戦略を適応させる必要がある、困難な運転シナリオにも関心がある。これらのシナリオは、記録された運転操作の分散に基づいてマイニングされる。</p>
+<p><strong>キーフレームの選択。</strong>各シーンは動画クリップであるため、アノテーションする「キーフレーム」を特定することが不可欠である。困難なシナリオの多くでは、キーフレームは速度または方向の大きな変化が必要となる直前の瞬間である。包括的なテストに基づき、意思決定に最適な反応時間を保証するため、実際の操作より 0.5s から 1s 前のフレームをキーフレームとして選択する。運転行動の変化を伴わないシーンについては、現在の運転シナリオに関連するフレームをキーフレームとして選択する。</p>
+<p><strong>シーンのアノテーション。</strong>アノテータのグループを雇い、シーン記述、シーン解析、計画を含むシーンのアノテーションを行う。ただしウェイポイントは、車両の IMU 記録から自動ラベル付けできるため除く。シーンのアノテーションを容易にするため、次の機能を持つ動画アノテーションツールを作成した。（1）アノテータはプログレスバーを前後にスライドさせて動画の任意の部分を再生できる。（2）キーフレームのアノテーション中に、アノテータは画像上にバウンディングボックスを言語記述とともに描画できる。（3）運転計画のアノテーション中に、アノテータは行動と意思決定の候補リストから選択できる。各アノテーションは正確性と一貫性のために 3 人のアノテータによって入念に検証され、モデル学習のための信頼できるデータセットを保証する。図 2 は、詳細なアノテーションを付したサンプルシナリオを示している。</p>
+
+<h2 id="5-実験">5　実験</h2>
+<h3 id="5.1-設定">5.1　設定</h3>
+<p>DriveVLM と DriveVLM-Dual を、提案する SUP-AD データセットと nuScenes データセット［44］で評価する。</p>
+<p><strong>SUP-AD データセット。</strong>SUP-AD データセットは、提案するデータマイニングとアノテーションのパイプラインによって構築されたデータセットである。これは 7.5 : 1 : 1.5 の比率で学習、検証、テストの分割に分けられる。学習分割でモデルを学習し、提案するシーン記述およびメタアクションの指標を用いてテスト分割でモデルの性能を評価する。また、LLM の汎化性能が損なわれないよう、追加のデータセットとのコチューニング（co-tuning）も採用する。</p>
+<p><strong>nuScenes データセット。</strong>nuScenes データセットは市街地シナリオの大規模な運転データセットで、1000 シーンからなり、各シーンは約 20 秒続く。先行研究［34, 51］に従い、モデルの性能を評価する指標として変位誤差（Displacement Error; DE）と衝突率（Collision Rate; CR）を採用する。</p>
+
+<a class="pg" data-page="8"></a>
+<table>
+<thead>
+<tr><th>手法</th><th>シーン記述</th><th>メタアクション</th></tr>
+</thead>
+<tbody>
+<tr><td>Fine-tuning w/ Lynx［14］</td><td style="text-align:right">0.46</td><td style="text-align:right">0.15</td></tr>
+<tr><td>Fine-tuning w/ CogVLM［21］</td><td style="text-align:right">0.49</td><td style="text-align:right">0.22</td></tr>
+<tr><td>GPT-4V<sup>†</sup>［52］</td><td style="text-align:right">0.38</td><td style="text-align:right">0.19</td></tr>
+<tr><td>DriveVLM w/ Qwen</td><td style="text-align:right"><strong>0.71</strong></td><td style="text-align:right"><strong>0.37</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表1：提案する SUP-AD データセットのテストセットにおける結果。</strong>†：GPT-4V の公式 API を使用。Lynx と CogVLM については、学習分割をファインチューニングに使用した。一方、GPT-4V についてはインコンテキスト学習を用いた。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">手法</th><th colspan="4">L2 (m) ↓</th><th colspan="4">衝突率 (%) ↓</th></tr>
+<tr><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th></tr>
+</thead>
+<tbody>
+<tr><td>NMP［30］</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">2.31</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">1.92</td><td style="text-align:right">-</td></tr>
+<tr><td>SA-NMP［30］</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">2.05</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">1.59</td><td style="text-align:right">-</td></tr>
+<tr><td>FF［32］</td><td style="text-align:right">0.55</td><td style="text-align:right">1.20</td><td style="text-align:right">2.54</td><td style="text-align:right">1.43</td><td style="text-align:right">0.06</td><td style="text-align:right">0.17</td><td style="text-align:right">1.07</td><td style="text-align:right">0.43</td></tr>
+<tr><td>EO［53］</td><td style="text-align:right">0.67</td><td style="text-align:right">1.36</td><td style="text-align:right">2.78</td><td style="text-align:right">1.60</td><td style="text-align:right">0.04</td><td style="text-align:right">0.09</td><td style="text-align:right">0.88</td><td style="text-align:right">0.33</td></tr>
+<tr><td>ST-P3［54］</td><td style="text-align:right">1.33</td><td style="text-align:right">2.11</td><td style="text-align:right">2.90</td><td style="text-align:right">2.11</td><td style="text-align:right">0.23</td><td style="text-align:right">0.62</td><td style="text-align:right">1.27</td><td style="text-align:right">0.71</td></tr>
+<tr><td>UniAD［34］</td><td style="text-align:right">0.48</td><td style="text-align:right">0.96</td><td style="text-align:right">1.65</td><td style="text-align:right">1.03</td><td style="text-align:right">0.05</td><td style="text-align:right">0.17</td><td style="text-align:right">0.71</td><td style="text-align:right">0.31</td></tr>
+<tr><td>VAD-Base［51］</td><td style="text-align:right">0.17</td><td style="text-align:right">0.34</td><td style="text-align:right">0.60</td><td style="text-align:right">0.37</td><td style="text-align:right">0.07</td><td style="text-align:right">0.10</td><td style="text-align:right">0.24</td><td style="text-align:right">0.14</td></tr>
+<tr><td>DriveVLM</td><td style="text-align:right">0.18</td><td style="text-align:right">0.34</td><td style="text-align:right">0.68</td><td style="text-align:right">0.40</td><td style="text-align:right">0.10</td><td style="text-align:right">0.22</td><td style="text-align:right">0.45</td><td style="text-align:right">0.27</td></tr>
+<tr><td><strong>DriveVLM-Dual<sup>†</sup></strong></td><td style="text-align:right"><strong>0.15</strong></td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right"><strong>0.48</strong></td><td style="text-align:right"><strong>0.31</strong></td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right"><strong>0.08</strong></td><td style="text-align:right"><strong>0.17</strong></td><td style="text-align:right"><strong>0.10</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表2：nuScenes 検証データセットにおける計画の結果。</strong>DriveVLM-Dual が最良の性能を達成している。† は VAD［51］と協調させたことを示す。</p>
+
+<p><strong>コチューニング。</strong>ファインチューニングの過程で LLM の汎化能力を維持するため、いくつかの追加データセットを用いたコチューニングを採用した。これには Talk2Car［41］、BDDX［45］、Drama［48］、SUTD［55］、LLAVA［17］の各データセットが含まれる。各データセットについて、SUP-AD および nuScenes データセットのデータ量に対応して 1:1 の比率でランダムサンプリングを行った。このコチューニングの手法を用いた結果、シーン記述とメタアクションの評価指標の下での SUP-AD データセットのスコアは事実上変化せず、同時に LLM の本来の能力と汎化能力の維持も確保されることがわかった。</p>
+<p><strong>ベースモデル。</strong>既定の大規模視覚言語モデルとして Qwen-VL［18］を用いる。これは質問応答、視覚的位置特定、テキスト認識などのタスクで顕著な性能を示す。総パラメータ数は 96 億で、視覚エンコーダ（19 億）、視覚言語アダプタ（0.8 億）、大規模言語モデル（Qwen、77 億）を含む。画像は視覚エンコーダで符号化される前に 448 × 448 の解像度にリサイズされる。学習時には、現在時刻 \(T\)s、\(T-1\)s、\(T-2\)s、\(T-3\)s の画像系列をランダムに選択して入力とする。選択された画像は現在時刻のフレームを必ず含み、時系列の昇順に従う。</p>
+
+<h3 id="5.2-主要な結果">5.2　主要な結果</h3>
+<p><strong>SUP-AD。</strong>表 1 に示すように、提案する DriveVLM をいくつかの大規模視覚言語モデルで構成したときの性能を示し、GPT-4V と比較する。Qwen-VL をバックボーンとする DriveVLM は、他のオープンソース VLM と比べて質問応答と柔軟な対話の能力が高いため、最良の性能を達成する。GPT-4V は視覚と言語の処理において頑健な能力を示すものの、ファインチューニングができずインコンテキスト学習に限られるため、シーン記述タスクにおいて余計な情報を生成することが多い。我々の評価指標の下では、この追加情報はしばしばハルシネーションに分類され、結果としてスコアが低くなる。</p>
+<p><strong>nuScenes。</strong>表 2 に示すように、DriveVLM-Dual は VAD と協調させた場合に nuScenes の計画タスクで最先端の性能を達成する。これは、本手法が複雑なシーンの理解向けに設計されているにもかかわらず、通常のシナリオでも優れていることを示している。</p>
+
+<h3 id="5.3-アブレーション研究">5.3　アブレーション研究</h3>
+<a class="pg" data-page="9"></a>
+<p><strong>モデル設計。</strong>DriveVLM において我々が設計したモジュールの重要性をよりよく理解するため、表 3 に示すように、モジュールのさまざまな組み合わせについてアブレーションを行う。重要物体の解析を加えることで、モデルは運転環境における重要な要素を特定して優先順位を付けられるようになり、より安全な走行のための意思決定の精度が向上する。3D 知覚データを統合することで、モデルは周囲環境をより精緻に理解し、正確な予測を達成する。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">ID</th><th rowspan="2">Base</th><th rowspan="2">CO</th><th rowspan="2">3D</th><th colspan="4">L2 (m) ↓</th><th colspan="4">衝突率 (%) ↓</th></tr>
+<tr><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>✓</td><td></td><td></td><td style="text-align:right">0.19</td><td style="text-align:right">0.41</td><td style="text-align:right">0.89</td><td style="text-align:right">0.49</td><td style="text-align:right">0.16</td><td style="text-align:right">0.28</td><td style="text-align:right">0.63</td><td style="text-align:right">0.36</td></tr>
+<tr><td>2</td><td>✓</td><td>✓</td><td></td><td style="text-align:right">0.20</td><td style="text-align:right">0.38</td><td style="text-align:right">0.75</td><td style="text-align:right">0.44</td><td style="text-align:right">0.15</td><td style="text-align:right">0.29</td><td style="text-align:right">0.61</td><td style="text-align:right">0.35</td></tr>
+<tr><td>3</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">0.18</td><td style="text-align:right">0.34</td><td style="text-align:right">0.68</td><td style="text-align:right">0.40</td><td style="text-align:right">0.10</td><td style="text-align:right">0.22</td><td style="text-align:right">0.45</td><td style="text-align:right">0.27</td></tr>
+</tbody>
+</table>
+<p><strong>表3：nuScenes 検証セットにおける設計上の選択のアブレーション。</strong>「Base」は、提案する CoT 推論を用いず、階層的計画の結果のみを示すことを指す。「CO」は重要物体の解析を追加したことを表す。「3D」は 3D 知覚結果を補助的な言語プロンプトとして含めたことを示す。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">手法</th><th colspan="4">L2 (m) ↓</th><th colspan="4">衝突率 (%) ↓</th></tr>
+<tr><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th><th>1s</th><th>2s</th><th>3s</th><th>Avg.</th></tr>
+</thead>
+<tbody>
+<tr><td>UniAD［34］</td><td style="text-align:right">0.48</td><td style="text-align:right">0.96</td><td style="text-align:right">1.65</td><td style="text-align:right">1.03</td><td style="text-align:right">0.05</td><td style="text-align:right">0.17</td><td style="text-align:right">0.71</td><td style="text-align:right">0.31</td></tr>
+<tr><td>DriveVLM-Dual (UniAD)</td><td style="text-align:right">0.17</td><td style="text-align:right">0.37</td><td style="text-align:right">0.63</td><td style="text-align:right">0.39</td><td style="text-align:right">0.08</td><td style="text-align:right">0.18</td><td style="text-align:right">0.35</td><td style="text-align:right">0.20</td></tr>
+<tr><td>MLP</td><td style="text-align:right">0.25</td><td style="text-align:right">0.46</td><td style="text-align:right">0.62</td><td style="text-align:right">0.44</td><td style="text-align:right">0.14</td><td style="text-align:right">0.18</td><td style="text-align:right">0.28</td><td style="text-align:right">0.20</td></tr>
+<tr><td>DriveVLM-Dual (MLP)</td><td style="text-align:right">0.14</td><td style="text-align:right">0.35</td><td style="text-align:right">0.30</td><td style="text-align:right">0.31</td><td style="text-align:right">0.09</td><td style="text-align:right">0.13</td><td style="text-align:right">0.18</td><td style="text-align:right">0.13</td></tr>
+<tr><td>VAD［51］</td><td style="text-align:right">0.17</td><td style="text-align:right">0.34</td><td style="text-align:right">0.60</td><td style="text-align:right">0.37</td><td style="text-align:right">0.07</td><td style="text-align:right">0.10</td><td style="text-align:right">0.24</td><td style="text-align:right">0.14</td></tr>
+<tr><td>DriveVLM-Dual(VAD)</td><td style="text-align:right">0.15</td><td style="text-align:right">0.29</td><td style="text-align:right">0.48</td><td style="text-align:right">0.31</td><td style="text-align:right">0.05</td><td style="text-align:right">0.08</td><td style="text-align:right">0.17</td><td style="text-align:right">0.10</td></tr>
+</tbody>
+</table>
+<p><strong>表4：DriveVLM-Dual における従来の自動運転パイプラインのアブレーション。</strong>MLP は AD-MLP［56］に類似した手法を表す。</p>
+<p><span class="yakuchu">（訳注：DriveVLM-Dual (MLP) の L2 は 3s が 0.30 と 2s の 0.35 より小さく、また 1s〜3s の平均は 0.26 となり Avg. の 0.31 と一致しない。原表の値に誤記がある可能性がある。）</span></p>
+
+<p><strong>従来の自動運転パイプライン。</strong>デュアルシステム設計の汎化性を示すため、nuScenes の検証セットにおいて、異なる従来の自動運転パイプラインと組み合わせた DriveVLM-Dual を評価する。表 4 に示すように、提案する DriveVLM-Dual は異なる従来の自動運転パイプラインにうまく適応する。単独の MLP 手法は VAD と比べて顕著な性能差を示すが、DriveVLM-Dual の両変種はほぼ同等の性能を達成しており、我々のデュアルシステム設計の有効性と頑健性を裏付けている。</p>
+
+<h3 id="5.4-定性的な結果">5.4　定性的な結果</h3>
+<p>DriveVLM の定性的な結果を図 4 に示す。図 4a では、DriveVLM は現在のシーンの状況を正確に予測し、こちらに近づいてくる自転車運転者に関してよく考慮された計画判断を組み込んでいる。図 4b では、DriveVLM は前方の交通警察官が自車両に進行を促すジェスチャを効果的に理解し、さらに右側で三輪車に乗っている人も考慮して、妥当な運転判断を下している。これらの定性的な結果は、複雑なシナリオを理解し適切な運転計画を立てる本モデルの卓越した能力を示している。本モデルの出力のさらなる可視化は付録 C に示す。</p>
+
+<figure><img src="figs/fig4_a.png" alt="図4(a)" /></figure>
+<figure><img src="figs/fig4_b.png" alt="図4(b)" /></figure>
+<p><strong>図4：DriveVLM の定性的な結果。</strong>オレンジ色の曲線は、モデルが計画した今後 3 秒間の将来軌道を表す。（上：(a)、下：(b)）</p>
+<p class="yakuchu">図中ラベル：(a) Scene Condition＝シーン状況：天候：雨、時間帯：昼、道路環境：市街地の交差点、代替車線：交差点、自車線の位置：DNA。KeyEvent＝主要事象：「自車両は現在の道路で右折しようとしており、電動自転車に乗った人が交差点の右側から自車両の車線に進入しつつある。」Meta Action＝メタアクション：「減速」「右折」「ゆっくり直進」。Decision Description＝意思決定記述：減速して自転車運転者の通過を待ってから右折を続ける。(b) シーン状況：天候：晴れ、時間帯：夕方、道路環境：市街地、代替車線：前方の道路に車線なし、自車線の位置：DNA。Event Summary＝事象の要約：自車両はゆっくりしたペースで進んでおり、前方の道路には三輪車にゆっくり乗っている人がいる。交通警察官が自車両の左前方で交通整理をしている。メタアクション：「ゆっくり直進」。意思決定記述：ゆっくり前進しながら、前方および両側の車両との安全な距離を確保する。（DNA は原図の表記のまま）</p>
+
+<a class="pg" data-page="10"></a>
+<table>
+<thead>
+<tr><th>ベース LLM</th><th>Avg.</th><th>MMMU［57］<br />5%</th><th>SEEDBench［58］<br />20%</th><th>RefCOCO［59］<br />15%</th><th>SUP-AD<br />15%</th><th>Drivelm-QA［60］<br />7.5%</th><th>Drivelm-Grounding［60］<br />7.5%</th><th>RealworldQA［61］<br />15%</th></tr>
+</thead>
+<tbody>
+<tr><td>MobileLLaMA1.4B［62］</td><td style="text-align:right">0.457</td><td style="text-align:right">0.331</td><td style="text-align:right">0.590</td><td style="text-align:right">0.421</td><td style="text-align:right">0.520</td><td style="text-align:right">0.686</td><td style="text-align:right">0.735</td><td style="text-align:right">0.501</td></tr>
+<tr><td>Qwen-1.8B［63］</td><td style="text-align:right">0.477</td><td style="text-align:right">0.340</td><td style="text-align:right">0.622</td><td style="text-align:right">0.492</td><td style="text-align:right">0.523</td><td style="text-align:right">0.680</td><td style="text-align:right">0.725</td><td style="text-align:right">0.518</td></tr>
+<tr><td>Gemma-2B［64］</td><td style="text-align:right">0.439</td><td style="text-align:right">0.345</td><td style="text-align:right">0.571</td><td style="text-align:right">0.330</td><td style="text-align:right">0.510</td><td style="text-align:right">0.680</td><td style="text-align:right">0.721</td><td style="text-align:right">0.507</td></tr>
+<tr><td>MiniCPM-2.4B［65］</td><td style="text-align:right">0.482</td><td style="text-align:right">0.379</td><td style="text-align:right">0.640</td><td style="text-align:right">0.444</td><td style="text-align:right">0.539</td><td style="text-align:right">0.676</td><td style="text-align:right">0.717</td><td style="text-align:right">0.553</td></tr>
+<tr><td>MobileLLaMA2.7B［62］</td><td style="text-align:right">0.496</td><td style="text-align:right">0.348</td><td style="text-align:right">0.635</td><td style="text-align:right">0.557</td><td style="text-align:right">0.546</td><td style="text-align:right">0.683</td><td style="text-align:right">0.725</td><td style="text-align:right">0.536</td></tr>
+<tr><td>Phi3-3.8B［66］</td><td style="text-align:right">0.538</td><td style="text-align:right">0.435</td><td style="text-align:right">0.688</td><td style="text-align:right">0.608</td><td style="text-align:right">0.604</td><td style="text-align:right">0.697</td><td style="text-align:right">0.743</td><td style="text-align:right">0.592</td></tr>
+<tr><td>Qwen-4B［63］</td><td style="text-align:right">0.511</td><td style="text-align:right">0.366</td><td style="text-align:right">0.671</td><td style="text-align:right">0.603</td><td style="text-align:right">0.515</td><td style="text-align:right">0.681</td><td style="text-align:right">0.735</td><td style="text-align:right">0.562</td></tr>
+<tr><td>Qwen-4B*</td><td style="text-align:right">0.529</td><td style="text-align:right">0.373</td><td style="text-align:right">0.684</td><td style="text-align:right">0.624</td><td style="text-align:right">0.596</td><td style="text-align:right">0.699</td><td style="text-align:right">0.738</td><td style="text-align:right">0.553</td></tr>
+</tbody>
+</table>
+<p><strong>表5：</strong>画像エンコーダとして ViT-L-336［50］を用いた LLAVA-1.5［67］アーキテクチャにおける、さまざまなデータセットでの異なる LLM の性能。* は画像エンコーダとして SigLIP-L-384［68］を用いたことを示す。汎用的な能力よりも、自動運転により関連する能力における VLM の性能を重視するため、各ベンチマークに異なるスコアの重みを設定している。</p>
+
+<table>
+<thead>
+<tr><th>LLM</th><th>プロンプト長 (toks)</th><th>プレフィル遅延 (s)</th><th>プレフィル (tok/s)</th><th>デコード (tok/s)</th><th>出力 (toks)</th><th>デコード遅延 (s)</th><th>モデルサイズ (GB)</th><th>層数</th><th>ヘッドサイズ</th><th>語彙サイズ</th></tr>
+</thead>
+<tbody>
+<tr><td>Gemma-2B［64］</td><td style="text-align:right">1063</td><td style="text-align:right">0.95</td><td style="text-align:right">1121</td><td style="text-align:right">40.9</td><td style="text-align:right">59</td><td style="text-align:right">1.44</td><td style="text-align:right">4.7</td><td style="text-align:right">18</td><td style="text-align:right">256</td><td style="text-align:right">256000</td></tr>
+<tr><td>Phi3-4k［66］</td><td style="text-align:right">1045</td><td style="text-align:right">1.30</td><td style="text-align:right">797.3</td><td style="text-align:right">49.0</td><td style="text-align:right">59</td><td style="text-align:right">1.20</td><td style="text-align:right">7.2</td><td style="text-align:right">32</td><td style="text-align:right">96</td><td style="text-align:right">32064</td></tr>
+<tr><td>MobileLLaMa-2.7B［62］</td><td style="text-align:right">1047</td><td style="text-align:right">0.92</td><td style="text-align:right">1134</td><td style="text-align:right">61.7</td><td style="text-align:right">59</td><td style="text-align:right">0.96</td><td style="text-align:right">5.0</td><td style="text-align:right">32</td><td style="text-align:right">80</td><td style="text-align:right">32000</td></tr>
+<tr><td>MobileLLaMa-1.4B［62］</td><td style="text-align:right">1047</td><td style="text-align:right">0.23</td><td style="text-align:right">4634</td><td style="text-align:right">117.4</td><td style="text-align:right">59</td><td style="text-align:right">0.50</td><td style="text-align:right">2.5</td><td style="text-align:right">24</td><td style="text-align:right">128</td><td style="text-align:right">32000</td></tr>
+<tr><td>Qwen4B［63］</td><td style="text-align:right">1078</td><td style="text-align:right">0.57</td><td style="text-align:right">1882</td><td style="text-align:right">44.5</td><td style="text-align:right">59</td><td style="text-align:right">1.33</td><td style="text-align:right">7.5</td><td style="text-align:right">40</td><td style="text-align:right">128</td><td style="text-align:right">151936</td></tr>
+<tr><td>Qwen1.8B［63］</td><td style="text-align:right">1078</td><td style="text-align:right">0.23</td><td style="text-align:right">4709</td><td style="text-align:right">79.6</td><td style="text-align:right">59</td><td style="text-align:right">0.74</td><td style="text-align:right">3.7</td><td style="text-align:right">24</td><td style="text-align:right">128</td><td style="text-align:right">151936</td></tr>
+</tbody>
+</table>
+<p><strong>表6：</strong>OrinX チップ上で量子化・展開した後の、異なる LLM の推論性能。Qwen シリーズが最良の性能を達成した。</p>
+
+<h2 id="6-車載への展開とテスト">6　車載への展開とテスト</h2>
+<p>DriveVLM-Dual を 2 基の OrinX プロセッサを搭載した自動運転車両に展開し、OrinX-1 で高頻度のエンドツーエンド運転システムを、OrinX-2 で DriveVLM を動作させる。これら 2 つのシステムは非同期に動作し協調する。さらに DriveVLM を最適化し、OrinX 上で平均 410 ms の推論速度を達成した。このデュアルシステム展開の動画デモは次のリンクで見ることができる：<a href="https://www.youtube.com/watch?v=MMCOOTLMT74">https://www.youtube.com/watch?v=MMCOOTLMT74</a>。</p>
+<p>本節では、エッジデバイスへの実用的な展開に向けた知見を与えるいくつかの比較実験を示す。なお、すべての VLM は、一般的なデータセットと、自動運転向けに特別に設計した我々独自のデータセットで事前学習およびファインチューニングされている。</p>
+<p><strong>ベース LLM。</strong>車両のハードウェアのメモリと帯域幅には限りがあるため、リアルタイム推論を維持するには過度に大きな LLM を使用できない。そこで、パラメータ数が 40 億未満のモデルを選択した。表 5 と表 6 に示すように、実験により、Orin アーキテクチャ上では「幅広く浅い」Qwen シリーズ（幅が広く層が少ない）のモデルが、「幅狭く深い」モデル（幅が狭く層が多い）よりも推論速度で優れることが明らかになった。</p>
+
+<table>
+<thead>
+<tr><th>バックボーン</th><th>トークン長</th><th>手法</th><th>重み付き合計</th><th>MMMU［57］<br />5%</th><th>SEEDBench［58］<br />20%</th><th>RefCOCO［59］<br />15%</th><th>SUP-AD<br />15%</th><th>Drivelm-QA［60］<br />7.5%</th><th>Drivelm-Grounding［60］<br />7.5%</th><th>RealworldQA［61］<br />15%</th><th>PointVQA<br />15%</th></tr>
+</thead>
+<tbody>
+<tr><td>ViT-L-336［50］</td><td>-</td><td>-</td><td style="text-align:right">0.421</td><td style="text-align:right">0.368</td><td style="text-align:right">0.657</td><td style="text-align:right">0.502</td><td style="text-align:right">0.553</td><td style="text-align:right">0.688</td><td style="text-align:right">0.742</td><td style="text-align:right">0.541</td><td style="text-align:right">0.583</td></tr>
+<tr><td>ViT-L-336</td><td>-</td><td>Fixed 1x2 + CA-256</td><td style="text-align:right">0.413</td><td style="text-align:right">0.388</td><td style="text-align:right">0.62</td><td style="text-align:right">0.327</td><td style="text-align:right">0.543</td><td style="text-align:right">0.699</td><td style="text-align:right">0.733</td><td style="text-align:right">0.536</td><td style="text-align:right">0.563</td></tr>
+<tr><td>ViT-L-336</td><td>-</td><td>Fixed 2x2 + CA-256</td><td style="text-align:right">0.405</td><td style="text-align:right">0.376</td><td style="text-align:right">0.618</td><td style="text-align:right">0.306</td><td style="text-align:right">0.518</td><td style="text-align:right">0.692</td><td style="text-align:right">0.731</td><td style="text-align:right">0.523</td><td style="text-align:right">0.594</td></tr>
+<tr><td>ViT-L-448</td><td>-</td><td>Fixed 1x2 + CA-256</td><td style="text-align:right">0.383</td><td style="text-align:right">0.391</td><td style="text-align:right">0.542</td><td style="text-align:right">0.184</td><td style="text-align:right">0.528</td><td style="text-align:right">0.689</td><td style="text-align:right">0.718</td><td style="text-align:right">0.470</td><td style="text-align:right">0.562</td></tr>
+<tr><td>ViT-L-336</td><td>-</td><td>Fixed 1x2 + S2</td><td style="text-align:right">0.368</td><td style="text-align:right">0.383</td><td style="text-align:right">0.511</td><td style="text-align:right">0.198</td><td style="text-align:right">0.469</td><td style="text-align:right">0.689</td><td style="text-align:right">0.718</td><td style="text-align:right">0.469</td><td style="text-align:right">0.314</td></tr>
+<tr><td>ViT-L-336</td><td>-</td><td>Fixed 1x2 + S2</td><td style="text-align:right">0.368</td><td style="text-align:right">0.381</td><td style="text-align:right">0.537</td><td style="text-align:right">0.207</td><td style="text-align:right">0.544</td><td style="text-align:right">0.698</td><td style="text-align:right">0.729</td><td style="text-align:right">0.460</td><td style="text-align:right">0.554</td></tr>
+<tr><td>ViT-L-336</td><td>-</td><td>DM-4 + CA-256</td><td style="text-align:right">0.409</td><td style="text-align:right">0.377</td><td style="text-align:right">0.610</td><td style="text-align:right">0.277</td><td style="text-align:right">0.544</td><td style="text-align:right">0.698</td><td style="text-align:right">0.726</td><td style="text-align:right">0.525</td><td style="text-align:right">0.554</td></tr>
+<tr><td>ViT-L-336</td><td>-</td><td>DM-6 + CA-256</td><td style="text-align:right">0.381</td><td style="text-align:right">0.381</td><td style="text-align:right">0.500</td><td style="text-align:right">0.162</td><td style="text-align:right">0.523</td><td style="text-align:right">0.700</td><td style="text-align:right">0.729</td><td style="text-align:right">0.466</td><td style="text-align:right">0.584</td></tr>
+<tr><td>ViT-L-336</td><td>-</td><td>DM-4 + PT</td><td style="text-align:right">0.426</td><td style="text-align:right">0.376</td><td style="text-align:right">0.653</td><td style="text-align:right">0.557</td><td style="text-align:right">0.585</td><td style="text-align:right">0.700</td><td style="text-align:right">0.743</td><td style="text-align:right">0.540</td><td style="text-align:right">0.598</td></tr>
+<tr><td>ViT-L-336</td><td>-</td><td>DM-4 + SM + LT</td><td style="text-align:right">0.413</td><td style="text-align:right">0.403</td><td style="text-align:right">0.617</td><td style="text-align:right">0.293</td><td style="text-align:right">0.550</td><td style="text-align:right">0.699</td><td style="text-align:right">0.737</td><td style="text-align:right">0.527</td><td style="text-align:right">0.532</td></tr>
+<tr><td>ViT-L-336</td><td>-</td><td>DM-4 + SM + AAP + LT</td><td style="text-align:right">0.406</td><td style="text-align:right">0.384</td><td style="text-align:right">0.610</td><td style="text-align:right">0.273</td><td style="text-align:right">0.518</td><td style="text-align:right">0.68</td><td style="text-align:right">0.726</td><td style="text-align:right">0.520</td><td style="text-align:right">0.533</td></tr>
+<tr><td>ViT-L-336</td><td>-</td><td>DM-4 + SM + CD + LT</td><td style="text-align:right">0.409</td><td style="text-align:right">0.388</td><td style="text-align:right">0.630</td><td style="text-align:right">0.480</td><td style="text-align:right">0.515</td><td style="text-align:right">0.700</td><td style="text-align:right">0.734</td><td style="text-align:right">0.524</td><td style="text-align:right">0.577</td></tr>
+<tr><td>SigLIP-L-384［68］</td><td>576</td><td>-</td><td style="text-align:right">0.432</td><td style="text-align:right">0.389</td><td style="text-align:right">0.631</td><td style="text-align:right">0.615</td><td style="text-align:right">0.624</td><td style="text-align:right">0.707</td><td style="text-align:right">0.749</td><td style="text-align:right">0.556</td><td style="text-align:right">0.560</td></tr>
+<tr><td>SigLIP-L-768</td><td>576</td><td>-</td><td style="text-align:right">0.438</td><td style="text-align:right">0.377</td><td style="text-align:right">0.642</td><td style="text-align:right">0.580</td><td style="text-align:right">0.638</td><td style="text-align:right">0.712</td><td style="text-align:right">0.764</td><td style="text-align:right">0.561</td><td style="text-align:right">0.556</td></tr>
+<tr><td>SigLIP-L-1152</td><td>576</td><td>-</td><td style="text-align:right">0.436</td><td style="text-align:right">0.377</td><td style="text-align:right">0.637</td><td style="text-align:right">0.595</td><td style="text-align:right">0.628</td><td style="text-align:right">0.715</td><td style="text-align:right">0.763</td><td style="text-align:right">0.571</td><td style="text-align:right">0.564</td></tr>
+<tr><td>SigLIP-L-384-768</td><td>576</td><td>PE</td><td style="text-align:right">0.434</td><td style="text-align:right">0.367</td><td style="text-align:right">0.632</td><td style="text-align:right">0.581</td><td style="text-align:right">0.631</td><td style="text-align:right">0.716</td><td style="text-align:right">0.762</td><td style="text-align:right">0.556</td><td style="text-align:right">0.554</td></tr>
+<tr><td>SigLIP-L-512-960</td><td>480</td><td>PE</td><td style="text-align:right">0.442</td><td style="text-align:right">0.369</td><td style="text-align:right">0.640</td><td style="text-align:right">0.557</td><td style="text-align:right">0.650</td><td style="text-align:right">0.719</td><td style="text-align:right">0.762</td><td style="text-align:right">0.579</td><td style="text-align:right">0.568</td></tr>
+</tbody>
+</table>
+<p><strong>表7：</strong>ViT の本来の入力解像度をより高い解像度へ拡張するための異なる手法の性能。「CA」はクロスアテンション、「DM」は Dynamic Max の略、「PT」はパッチ終端トークン（patch end token）の使用、「SM」は Spatial Merge、「LT」は行終端トークン（line end token）の使用、「AAP」は Adaptive Average Pooling の略、「CD」は Convolutional Down-sampling を表す。「PE」は位置埋め込みの補間（Position Embedding Interpolation）を表す。これらの手法の中では、SigLIP-L-384 に PE 補間を適用し、768 解像度の画像を入力として受け取るよう改変したものが、推論速度と性能の良好なトレードオフを達成する。</p>
+<a class="pg" data-page="11"></a>
+<table>
+<thead>
+<tr><th>プロジェクタ</th><th>元トークン数</th><th>圧縮後</th><th>出力 (ms)</th><th>プレフィル (ms)</th><th>Avg.</th><th>MMMU［57］</th><th>SEEDV2［58］</th><th>BDD［?］</th><th>Drivelm-QA［60］</th><th>Drivelm-grounding［60］</th><th>RealworldQA［61］</th><th>RefCOCO［59］</th><th>SUP-AD</th></tr>
+</thead>
+<tbody>
+<tr><td>MLP (Baseline)</td><td style="text-align:right">576</td><td style="text-align:right">576</td><td style="text-align:right">666.60</td><td style="text-align:right">707.93</td><td style="text-align:right">56.27</td><td style="text-align:right">37.90</td><td style="text-align:right">64.00</td><td style="text-align:right">53.90</td><td style="text-align:right">67.60</td><td style="text-align:right">71.70</td><td style="text-align:right">55.30</td><td style="text-align:right">44.40</td><td style="text-align:right">53.90</td></tr>
+<tr><td>LDPNetV2［62］</td><td style="text-align:right">576</td><td style="text-align:right">576</td><td style="text-align:right">661.70</td><td style="text-align:right">707.42</td><td style="text-align:right">50.53</td><td style="text-align:right">37.67</td><td style="text-align:right">56.71</td><td style="text-align:right">53.36</td><td style="text-align:right">68.90</td><td style="text-align:right">73.20</td><td style="text-align:right">48.30</td><td style="text-align:right">21.29</td><td style="text-align:right">54.70</td></tr>
+<tr><td>Perceiver Resampler［69］</td><td style="text-align:right">576</td><td style="text-align:right">576</td><td style="text-align:right">637.20</td><td style="text-align:right">666.20</td><td style="text-align:right">49.71</td><td style="text-align:right">39.93</td><td style="text-align:right">58.84</td><td style="text-align:right">52.21</td><td style="text-align:right">68.37</td><td style="text-align:right">71.90</td><td style="text-align:right">49.61</td><td style="text-align:right">19.01</td><td style="text-align:right">48.70</td></tr>
+<tr><td>Pixel shuffle</td><td style="text-align:right">576</td><td style="text-align:right">256</td><td style="text-align:right">610.70</td><td style="text-align:right">655.92</td><td style="text-align:right">52.02</td><td style="text-align:right">40.42</td><td style="text-align:right">60.20</td><td style="text-align:right">55.19</td><td style="text-align:right">68.72</td><td style="text-align:right">71.52</td><td style="text-align:right">51.44</td><td style="text-align:right">28.23</td><td style="text-align:right">48.40</td></tr>
+<tr><td>LDPNetV2</td><td style="text-align:right">576</td><td style="text-align:right">256</td><td style="text-align:right">605.32</td><td style="text-align:right">652.79</td><td style="text-align:right">54.73</td><td style="text-align:right">38.93</td><td style="text-align:right">62.19</td><td style="text-align:right">54.82</td><td style="text-align:right">68.57</td><td style="text-align:right">72.78</td><td style="text-align:right">50.59</td><td style="text-align:right">34.32</td><td style="text-align:right">59.30</td></tr>
+<tr><td>Pixel shuffle</td><td style="text-align:right">576</td><td style="text-align:right">144</td><td style="text-align:right">604.98</td><td style="text-align:right">645.61</td><td style="text-align:right">49.40</td><td style="text-align:right">38.98</td><td style="text-align:right">61.63</td><td style="text-align:right">56.06</td><td style="text-align:right">69.18</td><td style="text-align:right">73.18</td><td style="text-align:right">51.05</td><td style="text-align:right">30.67</td><td style="text-align:right">58.80</td></tr>
+<tr><td>LDPNetV2</td><td style="text-align:right">576</td><td style="text-align:right">144</td><td style="text-align:right">597.15</td><td style="text-align:right">646.77</td><td style="text-align:right">55.56</td><td style="text-align:right">38.93</td><td style="text-align:right">62.63</td><td style="text-align:right">56.23</td><td style="text-align:right">68.93</td><td style="text-align:right">72.48</td><td style="text-align:right">50.59</td><td style="text-align:right">33.14</td><td style="text-align:right">59.30</td></tr>
+<tr><td>LDPNetV2</td><td style="text-align:right">576</td><td style="text-align:right">64</td><td style="text-align:right">616.20</td><td style="text-align:right">645.18</td><td style="text-align:right">56.24</td><td style="text-align:right">39.40</td><td style="text-align:right">61.80</td><td style="text-align:right">54.60</td><td style="text-align:right">68.80</td><td style="text-align:right">72.60</td><td style="text-align:right">51.00</td><td style="text-align:right">41.88</td><td style="text-align:right">61.20</td></tr>
+</tbody>
+</table>
+<p><strong>表8：</strong>視覚トークン圧縮のための異なる手法の性能。LDPNetV2 を用いて元のトークンを元のトークン数の 75% に圧縮すると、性能と速度の最良のトレードオフが得られる。</p>
+<p><span class="yakuchu">（訳注：原表の BDD 列の引用番号は「[?]」となっており、参照先が欠落している。また本文では「画像トークン数を 75% 削減」とあり、表の 576→144 もこれに対応するが、キャプションの「元のトークン数の 75% に圧縮」とは食い違っている。）</span></p>
+
+<table>
+<thead>
+<tr><th></th><th>Base + q4f16_1</th><th>Eagle［72］+ q4f16_1</th><th>Medusa［73］+ q4f16_ft</th><th>Eagle + q4f16_ft</th><th>Eagle + q4f16_ft<br />+ Shrink Vocab Size(1024)</th></tr>
+</thead>
+<tbody>
+<tr><td>量子化方式</td><td>q4f16_1</td><td>q4f16_1</td><td>q4f16_ft</td><td>q4f16_ft</td><td>q4f16_ft</td></tr>
+<tr><td>入力サイズ</td><td>(384, 960)</td><td>(384, 960)</td><td>(384, 960)</td><td>(384, 960)</td><td>(384, 960)</td></tr>
+<tr><td>プレフィルトークン数</td><td style="text-align:right">604</td><td style="text-align:right">604</td><td style="text-align:right">613</td><td style="text-align:right">604</td><td style="text-align:right">613</td></tr>
+<tr><td>出力トークン数</td><td style="text-align:right">37</td><td style="text-align:right">39</td><td style="text-align:right">41</td><td style="text-align:right">41</td><td style="text-align:right">41</td></tr>
+<tr><td>プレフィル速度 (tok/s)</td><td style="text-align:right">1818</td><td style="text-align:right">1793</td><td style="text-align:right">2160.64</td><td style="text-align:right">2230</td><td style="text-align:right">2175.35</td></tr>
+<tr><td>デコード速度 (tok/s)</td><td style="text-align:right">109</td><td style="text-align:right">172</td><td style="text-align:right">232.34</td><td style="text-align:right">295.04</td><td style="text-align:right">518.3</td></tr>
+<tr><td>プレフィル遅延 (s)</td><td style="text-align:right">0.332</td><td style="text-align:right">0.340</td><td style="text-align:right">0.284</td><td style="text-align:right">0.276</td><td style="text-align:right">0.274</td></tr>
+<tr><td>デコード遅延 (s)</td><td style="text-align:right">0.328</td><td style="text-align:right">0.216</td><td style="text-align:right">0.176</td><td style="text-align:right">0.130</td><td style="text-align:right">0.071</td></tr>
+<tr><td>高速化率</td><td style="text-align:right">1</td><td style="text-align:right">1.57</td><td style="text-align:right">2.17</td><td style="text-align:right">2.7</td><td style="text-align:right">4.33</td></tr>
+</tbody>
+</table>
+<p><strong>表9：</strong>異なる投機的サンプリング手法の性能。「Shrink Vocab Size」は、語彙を最も頻繁に使われる 1024 語に削減することを意味する。「q4f16_1」は、効率的なモデル圧縮のために 16 ビット浮動小数点表現を用いる 4 ビット量子化手法であり、「q4f16_ft」は量子化後の性能を高めるためのその後のファインチューニングを含む。</p>
+
+<p><strong>視覚エンコーダ。</strong>自動運転における細粒度の視覚理解には高解像度の画像が不可欠である。表 7 に示すように、視覚エンコーダとして用いる基本的な ViT モデルと比較して、異なる GridPatch 戦略や PE（位置埋め込み；Position Embedding）補間など、いくつかの選択肢を検討した。最終的に、リアルタイム推論のために、より単純な PE 補間付きの SigLIP-L-384 モデルを選択し、元の 384 解像度の PE 補間と、追加の畳み込み層によるパラメータのファインチューニングによって高解像度入力を実現した。</p>
+<p><strong>視覚トークンの圧縮。</strong>高解像度画像による計算負荷の増大に対処するため、表 8 に示すように、LDPNetv2［62］を実装して、性能を損なうことなく画像トークン数を 75% 削減した。さらに、LDPNetv2 の平均プーリング層を畳み込み層に置き換えることで性能を向上させた。</p>
+<p><strong>動画入力。</strong>自動運転のシナリオでは、物体の運動の変化を正確に評価するために、より多くの時間的文脈が必要である。我々は短期メモリバンク［70］の戦略を採用し、過去フレームの視覚特徴を特徴キューに一時的に保存する。現在時刻の特徴のみを抽出し、LLM へ射影する前に複数の過去フレームと融合する。基本的な時空間プーリングに加え、SE［71］ブロックを追加して複数の時間フレームの重み付き融合を行った。</p>
+<p><strong>投機的サンプリング。</strong>投機的サンプリング（Speculative Sampling）は、ありそうな出力を先回りして生成することで推論を高速化するために用いられる。この手法は予測生成のレイテンシを削減し、精度を大きく損なうことなく大幅な高速化を実現する。表 9 に示すように、OrinX チップ向けに特別に設計した我々の推論フレームワーク上で、Medusa［73］と Eagle［72］の 2 つの投機的サンプリング手法を評価した。Eagle はデコード遅延において 2.7 × の高速化を達成し（Medusa は 2.17 ×）、車両へのリアルタイム展開を実現可能にした。</p>
+
+<h2 id="7-結論">7　結論</h2>
+<a class="pg" data-page="12"></a>
+<p>まとめると、本論文では DriveVLM と DriveVLM-Dual を提案した。DriveVLM は VLM を活用し、複雑な運転環境の解釈において大きな進歩を遂げている。DriveVLM-Dual は既存の 3D 知覚と計画のアプローチを相乗させることでこれらの能力をさらに高め、VLM に固有の空間推論と計算上の課題に効果的に対処する。さらに、自動運転のための計画に向けたシーン理解タスクを、評価指標およびデータセット構築プロトコルとともに定義した。DriveVLM と DriveVLM-Dual は、公開ベンチマークと我々のベンチマークにおいて、特に入り組んだ動的なシナリオへの対処で最先端手法を上回った。最後に、量産車での車載展開とテストを通じて DriveVLM-Dual の有効性を検証した。</p>
+
+<h2 id="謝辞">謝辞</h2>
+<p>論文執筆にご協力いただいた清華大学の Chenxu Hu 氏に感謝する。車載展開に関する実験に尽力いただいた Li Auto の Xu Bian、Hongkun Chen、Sui Cong、Chengze Guan、Mingyu Guo、Yue Jiang、Qi Jiang、Pengfei Ji、Wei Xiao、Dafeng Wei、Zijian Wang、Zhao Yang、Chenglong Zhao、Simeng Zhao、Jian Zhou の各氏に感謝する。</p>
+
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>I. Barabas, A. Todoruţ, N. Cordoş, and A. Molea. Current challenges in autonomous driving. In <em>IOP conference series: materials science and engineering</em>, volume 252, page 012096. IOP Publishing, 2017.</li>
+<li>C. R. Qi, H. Su, K. Mo, and L. J. Guibas. Pointnet: Deep learning on point sets for 3d classification and segmentation. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pages 652–660, 2017.</li>
+<li>A. H. Lang, S. Vora, H. Caesar, L. Zhou, J. Yang, and O. Beijbom. Pointpillars: Fast encoders for object detection from point clouds. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 12697–12705, 2019.</li>
+<li>Y. Wang, V. C. Guizilini, T. Zhang, Y. Wang, H. Zhao, and J. Solomon. Detr3d: 3d object detection from multi-view images via 3d-to-2d queries. In <em>Conference on Robot Learning</em>, pages 180–191. PMLR, 2022.</li>
+<li>Z. Li, W. Wang, H. Li, E. Xie, C. Sima, T. Lu, Y. Qiao, and J. Dai. Bevformer: Learning bird's-eye-view representation from multi-camera images via spatiotemporal transformers. In <em>European conference on computer vision</em>, pages 1–18. Springer, 2022.</li>
+<li>J. Gao, C. Sun, H. Zhao, Y. Shen, D. Anguelov, C. Li, and C. Schmid. Vectornet: Encoding hd maps and agent dynamics from vectorized representation. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, June 2020.</li>
+<li>H. Zhao, J. Gao, T. Lan, C. Sun, B. Sapp, B. Varadarajan, Y. Shen, Y. Shen, Y. Chai, C. Schmid, C. Li, and D. Anguelov. Tnt: Target-driven trajectory prediction. In J. Kober, F. Ramos, and C. Tomlin, editors, <em>Proceedings of the 2020 Conference on Robot Learning</em>, volume 155 of <em>Proceedings of Machine Learning Research</em>, pages 895–904. PMLR, 16–18 Nov 2021.</li>
+<li>Y. Liu, J. Zhang, L. Fang, Q. Jiang, and B. Zhou. Multimodal motion prediction with stacked transformers. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 7577–7586, 2021.</li>
+<li>J. Gu, C. Sun, and H. Zhao. Densetnt: End-to-end trajectory prediction from dense goal sets. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pages 15303–15312, 2021.</li>
+<li>N. Nayakanti, R. Al-Rfou, A. Zhou, K. Goel, K. S. Refaat, and B. Sapp. Wayformer: Motion forecasting via simple &amp; efficient attention networks. In <em>2023 IEEE International Conference on Robotics and Automation (ICRA)</em>, pages 2980–2987. IEEE, 2023.</li>
+</ol>
+<a class="pg" data-page="13"></a>
+<ol class="refs" start="11">
+<li>D. A. Pomerleau. Alvinn: An autonomous land vehicle in a neural network. <em>Advances in neural information processing systems</em>, 1, 1988.</li>
+<li>M. Bansal, A. Krizhevsky, and A. Ogale. Chauffeurnet: Learning to drive by imitating the best and synthesizing the worst. <em>arXiv preprint arXiv:1812.03079</em>, 2018.</li>
+<li>Z. Li, F. Nie, Q. Sun, F. Da, and H. Zhao. Uncertainty-aware decision transformer for stochastic driving environments. <em>arXiv preprint arXiv:2309.16397</em>, 2023.</li>
+<li>Y. Zeng, H. Zhang, J. Zheng, J. Xia, G. Wei, Y. Wei, Y. Zhang, and T. Kong. What matters in training a gpt4-style language model with multimodal inputs? <em>arXiv preprint arXiv:2307.02469</em>, 2023.</li>
+<li>Z. Xu, Y. Zhang, E. Xie, Z. Zhao, Y. Guo, K. K. Wong, Z. Li, and H. Zhao. Drivegpt4: Interpretable end-to-end autonomous driving via large language model. <em>arXiv preprint arXiv:2310.01412</em>, 2023.</li>
+<li>D. Zhu, J. Chen, X. Shen, X. Li, and M. Elhoseiny. Minigpt-4: Enhancing vision-language understanding with advanced large language models. <em>arXiv preprint arXiv:2304.10592</em>, 2023.</li>
+<li>H. Liu, C. Li, Q. Wu, and Y. J. Lee. Visual instruction tuning, 2023.</li>
+<li>J. Bai, S. Bai, S. Yang, S. Wang, S. Tan, P. Wang, J. Lin, C. Zhou, and J. Zhou. Qwen-vl: A versatile vision-language model for understanding, localization, text reading, and beyond. <em>arXiv preprint arXiv:2308.12966</em>, 2023.</li>
+<li>W. Dai, J. Li, D. Li, A. M. H. Tiong, J. Zhao, W. Wang, B. Li, P. Fung, and S. Hoi. Instructblip: Towards general-purpose vision-language models with instruction tuning, 2023.</li>
+<li>P. Zhang, X. Dong, B. Wang, Y. Cao, C. Xu, L. Ouyang, Z. Zhao, S. Ding, S. Zhang, H. Duan, W. Zhang, H. Yan, X. Zhang, W. Li, J. Li, K. Chen, C. He, X. Zhang, Y. Qiao, D. Lin, and J. Wang. Internlm-xcomposer: A vision-language large model for advanced text-image comprehension and composition, 2023.</li>
+<li>W. Wang, Q. Lv, W. Yu, W. Hong, J. Qi, Y. Wang, J. Ji, Z. Yang, L. Zhao, X. Song, et al. Cogvlm: Visual expert for pretrained language models. <em>arXiv preprint arXiv:2311.03079</em>, 2023.</li>
+<li>D. Driess, F. Xia, M. S. M. Sajjadi, C. Lynch, A. Chowdhery, B. Ichter, A. Wahid, J. Tompson, Q. Vuong, T. Yu, W. Huang, Y. Chebotar, P. Sermanet, D. Duckworth, S. Levine, V. Vanhoucke, K. Hausman, M. Toussaint, K. Greff, A. Zeng, I. Mordatch, and P. Florence. Palm-e: An embodied multimodal language model, 2023.</li>
+<li>A. Brohan, N. Brown, J. Carbajal, Y. Chebotar, J. Dabis, C. Finn, K. Gopalakrishnan, K. Hausman, A. Herzog, J. Hsu, et al. Rt-1: Robotics transformer for real-world control at scale. <em>arXiv preprint arXiv:2212.06817</em>, 2022.</li>
+<li>A. Brohan, N. Brown, J. Carbajal, Y. Chebotar, X. Chen, K. Choromanski, T. Ding, D. Driess, A. Dubey, C. Finn, P. Florence, C. Fu, M. G. Arenas, K. Gopalakrishnan, K. Han, K. Hausman, A. Herzog, J. Hsu, B. Ichter, A. Irpan, N. Joshi, R. Julian, D. Kalashnikov, Y. Kuang, I. Leal, L. Lee, T.-W. E. Lee, S. Levine, Y. Lu, H. Michalewski, I. Mordatch, K. Pertsch, K. Rao, K. Reymann, M. Ryoo, G. Salazar, P. Sanketi, P. Sermanet, J. Singh, A. Singh, R. Soricut, H. Tran, V. Vanhoucke, Q. Vuong, A. Wahid, S. Welker, P. Wohlhart, J. Wu, F. Xia, T. Xiao, P. Xu, S. Xu, T. Yu, and B. Zitkovich. Rt-2: Vision-language-action models transfer web knowledge to robotic control. In <em>arXiv preprint arXiv:2307.15818</em>, 2023.</li>
+<li>W. Huang, C. Wang, R. Zhang, Y. Li, J. Wu, and L. Fei-Fei. Voxposer: Composable 3d value maps for robotic manipulation with language models. <em>arXiv preprint arXiv:2307.05973</em>, 2023.</li>
+</ol>
+<a class="pg" data-page="14"></a>
+<ol class="refs" start="26">
+<li>A. Padalkar, A. Pooley, A. Jain, A. Bewley, A. Herzog, A. Irpan, A. Khazatsky, A. Rai, A. Singh, A. Brohan, et al. Open x-embodiment: Robotic learning datasets and rt-x models. <em>arXiv preprint arXiv:2310.08864</em>, 2023.</li>
+<li>R. Chekroun, M. Toromanoff, S. Hornauer, and F. Moutarde. Gri: General reinforced imitation and its application to vision-based autonomous driving. <em>Robotics</em>, 12(5):127, 2023.</li>
+<li>D. Chen, V. Koltun, and P. Krähenbühl. Learning to drive from a world on rails. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pages 15590–15599, 2021.</li>
+<li>M. Toromanoff, E. Wirbel, and F. Moutarde. End-to-end model-free reinforcement learning for urban driving using implicit affordances. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 7153–7162, 2020.</li>
+<li>W. Zeng, W. Luo, S. Suo, A. Sadat, B. Yang, S. Casas, and R. Urtasun. End-to-end interpretable neural motion planner. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 8660–8669, 2019.</li>
+<li>B. Wei, M. Ren, W. Zeng, M. Liang, B. Yang, and R. Urtasun. Perceive, attend, and drive: Learning spatial attention for safe self-driving. In <em>2021 IEEE International Conference on Robotics and Automation (ICRA)</em>, pages 4875–4881. IEEE, 2021.</li>
+<li>P. Hu, A. Huang, J. Dolan, D. Held, and D. Ramanan. Safe local motion planning with self-supervised freespace forecasting. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 12732–12741, 2021.</li>
+<li>S. Casas, A. Sadat, and R. Urtasun. Mp3: A unified model to map, perceive, predict and plan. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 14403–14412, 2021.</li>
+<li>Y. Hu, J. Yang, L. Chen, K. Li, C. Sima, X. Zhu, S. Chai, S. Du, T. Lin, W. Wang, et al. Planning-oriented autonomous driving. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 17853–17862, 2023.</li>
+<li>K. Renz, K. Chitta, O.-B. Mercea, A. Koepke, Z. Akata, and A. Geiger. Plant: Explainable planning transformers via object-level representations. <em>arXiv preprint arXiv:2210.14222</em>, 2022.</li>
+<li>L. Chen, P. Wu, K. Chitta, B. Jaeger, A. Geiger, and H. Li. End-to-end autonomous driving: Challenges and frontiers. <em>arXiv preprint arXiv:2306.16927</em>, 2023.</li>
+<li>A. Hu, L. Russell, H. Yeo, Z. Murez, G. Fedoseev, A. Kendall, J. Shotton, and G. Corrado. Gaia-1: A generative world model for autonomous driving. <em>arXiv preprint arXiv:2309.17080</em>, 2023.</li>
+<li>Z. Yang, X. Jia, H. Li, and J. Yan. A survey of large language models for autonomous driving. <em>arXiv preprint arXiv:2311.01043</em>, 2023.</li>
+<li>D. Wu, W. Han, T. Wang, X. Dong, X. Zhang, and J. Shen. Referring multi-object tracking. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 14633–14642, 2023.</li>
+<li>A. Geiger, P. Lenz, C. Stiller, and R. Urtasun. Vision meets robotics: The kitti dataset. <em>The International Journal of Robotics Research</em>, 32(11):1231–1237, 2013.</li>
+<li>T. Deruyttere, S. Vandenhende, D. Grujicic, L. Van Gool, and M.-F. Moens. Talk2car: Taking control of your self-driving car. <em>arXiv preprint arXiv:1909.10838</em>, 2019.</li>
+<li>D. Wu, W. Han, T. Wang, Y. Liu, X. Zhang, and J. Shen. Language prompt for autonomous driving. <em>arXiv preprint arXiv:2309.04379</em>, 2023.</li>
+</ol>
+<a class="pg" data-page="15"></a>
+<ol class="refs" start="43">
+<li>T. Qian, J. Chen, L. Zhuo, Y. Jiao, and Y.-G. Jiang. Nuscenes-qa: A multi-modal visual question answering benchmark for autonomous driving scenario. <em>arXiv preprint arXiv:2305.14836</em>, 2023.</li>
+<li>H. Caesar, V. Bankiti, A. H. Lang, S. Vora, V. E. Liong, Q. Xu, A. Krishnan, Y. Pan, G. Baldan, and O. Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 11621–11631, 2020.</li>
+<li>J. Kim, A. Rohrbach, T. Darrell, J. Canny, and Z. Akata. Textual explanations for self-driving vehicles. In <em>Proceedings of the European conference on computer vision (ECCV)</em>, pages 563–578, 2018.</li>
+<li>Y. Xu, X. Yang, L. Gong, H.-C. Lin, T.-Y. Wu, Y. Li, and N. Vasconcelos. Explainable object-induced action decision for autonomous vehicles. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 9523–9532, 2020.</li>
+<li>E. Sachdeva, N. Agarwal, S. Chundi, S. Roelofs, J. Li, B. Dariush, C. Choi, and M. Kochenderfer. Rank2tell: A multimodal driving dataset for joint importance ranking and reasoning. <em>arXiv preprint arXiv:2309.06597</em>, 2023.</li>
+<li>S. Malla, C. Choi, I. Dwivedi, J. H. Choi, and J. Li. Drama: Joint risk localization and captioning in driving. In <em>Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision</em>, pages 1043–1052, 2023.</li>
+<li>J. Wei, X. Wang, D. Schuurmans, M. Bosma, F. Xia, E. Chi, Q. V. Le, D. Zhou, et al. Chain-of-thought prompting elicits reasoning in large language models. <em>Advances in Neural Information Processing Systems</em>, 35:24824–24837, 2022.</li>
+<li>A. Dosovitskiy, L. Beyer, A. Kolesnikov, D. Weissenborn, X. Zhai, T. Unterthiner, M. Dehghani, M. Minderer, G. Heigold, S. Gelly, et al. An image is worth 16x16 words: Transformers for image recognition at scale. <em>arXiv preprint arXiv:2010.11929</em>, 2020.</li>
+<li>B. Jiang, S. Chen, Q. Xu, B. Liao, J. Chen, H. Zhou, Q. Zhang, W. Liu, C. Huang, and X. Wang. Vad: Vectorized scene representation for efficient autonomous driving. <em>arXiv preprint arXiv:2303.12077</em>, 2023.</li>
+<li>OpenAI. Gpt-4 technical report, 2023.</li>
+<li>T. Khurana, P. Hu, A. Dave, J. Ziglar, D. Held, and D. Ramanan. Differentiable raycasting for self-supervised occupancy forecasting. In <em>European Conference on Computer Vision</em>, pages 353–369. Springer, 2022.</li>
+<li>S. Hu, L. Chen, P. Wu, H. Li, J. Yan, and D. Tao. St-p3: End-to-end vision-based autonomous driving via spatial-temporal feature learning. In <em>European Conference on Computer Vision</em>, pages 533–549. Springer, 2022.</li>
+<li>L. Xu, H. Huang, and J. Liu. Sutd-trafficqa: A question answering benchmark and an efficient network for video reasoning over traffic events. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 9878–9888, 2021.</li>
+<li>J.-T. Zhai, Z. Feng, J. Du, Y. Mao, J.-J. Liu, Z. Tan, Y. Zhang, X. Ye, and J. Wang. Rethinking the open-loop evaluation of end-to-end autonomous driving in nuscenes. <em>arXiv preprint arXiv:2305.10430</em>, 2023.</li>
+<li>X. Yue, Y. Ni, K. Zhang, T. Zheng, R. Liu, G. Zhang, S. Stevens, D. Jiang, W. Ren, Y. Sun, et al. Mmmu: A massive multi-discipline multimodal understanding and reasoning benchmark for expert agi. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 9556–9567, 2024.</li>
+</ol>
+<a class="pg" data-page="16"></a>
+<ol class="refs" start="58">
+<li>B. Li, R. Wang, G. Wang, Y. Ge, Y. Ge, and Y. Shan. Seed-bench: Benchmarking multimodal llms with generative comprehension. <em>arXiv preprint arXiv:2307.16125</em>, 2023.</li>
+<li>L. Yu, P. Poirson, S. Yang, A. C. Berg, and T. L. Berg. Modeling context in referring expressions. In <em>Computer Vision–ECCV 2016: 14th European Conference, Amsterdam, The Netherlands, October 11-14, 2016, Proceedings, Part II 14</em>, pages 69–85. Springer, 2016.</li>
+<li>C. Sima, K. Renz, K. Chitta, L. Chen, H. Zhang, C. Xie, P. Luo, A. Geiger, and H. Li. Drivelm: Driving with graph visual question answering. <em>arXiv preprint arXiv:2312.14150</em>, 2023.</li>
+<li>X.ai. Grok-1.5 vision preview. <a href="https://x.ai/blog/grok-1.5v">https://x.ai/blog/grok-1.5v</a>, 2024.</li>
+<li>X. Chu, L. Qiao, X. Lin, S. Xu, Y. Yang, Y. Hu, F. Wei, X. Zhang, B. Zhang, X. Wei, et al. Mobilevlm: A fast, reproducible and strong vision language assistant for mobile devices. <em>arXiv preprint arXiv:2312.16886</em>, 2023.</li>
+<li>Q. Team. Introducing qwen1.5, February 2024. URL <a href="https://qwenlm.github.io/blog/qwen1.5/">https://qwenlm.github.io/blog/qwen1.5/</a>.</li>
+<li>G. Team, T. Mesnard, C. Hardin, R. Dadashi, S. Bhupatiraju, S. Pathak, L. Sifre, M. Rivière, M. S. Kale, J. Love, et al. Gemma: Open models based on gemini research and technology. <em>arXiv preprint arXiv:2403.08295</em>, 2024.</li>
+<li>S. Hu, Y. Tu, X. Han, C. He, G. Cui, X. Long, Z. Zheng, Y. Fang, Y. Huang, W. Zhao, et al. Minicpm: Unveiling the potential of small language models with scalable training strategies. <em>arXiv preprint arXiv:2404.06395</em>, 2024.</li>
+<li>M. Abdin, S. A. Jacobs, A. A. Awan, J. Aneja, A. Awadallah, H. Awadalla, N. Bach, A. Bahree, A. Bakhtiari, H. Behl, et al. Phi-3 technical report: A highly capable language model locally on your phone. <em>arXiv preprint arXiv:2404.14219</em>, 2024.</li>
+<li>H. Liu, C. Li, Y. Li, and Y. J. Lee. Improved baselines with visual instruction tuning. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 26296–26306, 2024.</li>
+<li>X. Zhai, B. Mustafa, A. Kolesnikov, and L. Beyer. Sigmoid loss for language image pre-training. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pages 11975–11986, 2023.</li>
+<li>J.-B. Alayrac, J. Donahue, P. Luc, A. Miech, I. Barr, Y. Hasson, K. Lenc, A. Mensch, K. Millican, M. Reynolds, et al. Flamingo: a visual language model for few-shot learning. <em>Advances in neural information processing systems</em>, 35:23716–23736, 2022.</li>
+<li>B. He, H. Li, Y. K. Jang, M. Jia, X. Cao, A. Shah, A. Shrivastava, and S.-N. Lim. Ma-lmm: Memory-augmented large multimodal model for long-term video understanding. <em>arXiv preprint arXiv:2404.05726</em>, 2024.</li>
+<li>J. Hu, L. Shen, and G. Sun. Squeeze-and-excitation networks. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pages 7132–7141, 2018.</li>
+<li>Y. Li, F. Wei, C. Zhang, and H. Zhang. Eagle: Speculative sampling requires rethinking feature uncertainty. <em>arXiv preprint arXiv:2401.15077</em>, 2024.</li>
+<li>T. Cai, Y. Li, Z. Geng, H. Peng, and T. Dao. Medusa: Simple framework for accelerating llm generation with multiple decoding heads, 2023.</li>
+</ol>
+
+<a class="pg" data-page="17"></a>
+<h2 id="a-sup-ad-データセット">A　SUP-AD データセット</h2>
+<h3 id="a.1-メタアクション">A.1　メタアクション</h3>
+<p><strong>メタアクションの統計。</strong>運転戦略を形式的に表現するためにメタアクション系列を用いる。メタアクションは 17 のカテゴリに分類される。図 5 に示すように、各メタアクションがメタアクション系列の 1 番目／2 番目／3 番目に現れる分布を示す。これは、SUP-AD データセットにおけるメタアクションがかなり多様であることを示している。また、シーンあたりのメタアクションの長さの分布を図 6 に示す。ほとんどのシーンは 2 つまたは 3 つのメタアクションを含み、複雑な運転戦略を伴う少数のシーンは 4 つ以上のメタアクションを含む。</p>
+<p><strong>メタアクションのアノテーション。</strong>各運転シーンのメタアクション系列は、将来フレームにおける実際の運転戦略に基づいて人手でアノテーションされる。これらのメタアクションは完全な運転戦略を網羅するよう設計されており、自車両の将来軌道と一貫するように構成されている。これらは 3 つの主要なクラスに分けられる。</p>
+<ol>
+<li><strong>速度制御の行動。</strong>自車状態データ内の加速信号とブレーキ信号から識別されるこれらの行動には、これらの行動は自車状態データ内の加速信号とブレーキ信号から識別できる。それらには<em>加速</em>（speed up）、<em>減速</em>（slow down）、<em>急減速</em>（slow down rapidly）、<em>ゆっくり直進</em>（go straight slowly）、<em>一定速度で直進</em>（go straight at a constant speed）、<em>停止</em>（stop）、<em>待機</em>（wait）、<em>後退</em>（reverse）が含まれる。<span class="yakuchu">（訳注：原文でこの項目の文が重複・破綻しており（「these actions include These actions can be discerned …」）、その構造のまま訳出した。）</span></li>
+<li><strong>旋回の行動。</strong>ステアリングホイールの信号から推定されるこれらの行動は、<em>左折</em>（turn left）、<em>右折</em>（turn right）、<em>U ターン</em>（turn around）からなる。</li>
+<li><strong>車線制御の行動。</strong>車線選択の判断を含むこれらの行動は、ステアリングホイールの信号と、地図または知覚データのいずれかとの組み合わせから導出される。これには<em>左へ車線変更</em>（change lane to the left）、<em>右へ車線変更</em>（change lane to the right）、<em>左へわずかに寄る</em>（shift slightly to the left）、<em>右へわずかに寄る</em>（shift slightly to the right）が含まれる。</li>
+</ol>
+
+<h3 id="a.2-シナリオカテゴリ">A.2　シナリオカテゴリ</h3>
+<p>SUP-AD データセットは運転シナリオの 1,000 本の動画クリップから構成される。図 7 に示すように、40 以上のカテゴリにわたる幅広い運転シナリオを網羅している。以下に一部のシナリオの説明を示す。</p>
+<p><strong>AEB Data（AEB データ）</strong>：自動緊急ブレーキ（Automatic Emergency Braking; AEB）のデータ。</p>
+<p><strong>Road Construction（道路工事）</strong>：前方に注意標識、バリア、工事機材がある一時的な作業区域。</p>
+<p><strong>Close-range Cut-ins（近距離の割り込み）</strong>：他車両が自車両の車線に突然割り込むこと。</p>
+<p><strong>Roundabout（ラウンドアバウト）</strong>：車両が連続した環状路を走行する形式の交差点。</p>
+<p><strong>Animals Crossing Road（道路を横断する動物）</strong>：自車両の前方で道路を横断する動物。</p>
+<p><strong>Braking（ブレーキ）</strong>：自車両の人間のドライバーがブレーキを踏むこと。</p>
+<p><strong>Traffic Police Officers（交通警察官）</strong>：交通を管理・誘導する交通警察官。</p>
+<p><strong>Blocking Traffic Lights（信号機の遮蔽）</strong>：大型車両が交通信号の視認を妨げていること。</p>
+<p><strong>Cutting into Other Vehicle（他車両への割り込み）</strong>：前方の他車両の車線に割り込むこと。</p>
+<p><strong>Ramp（ランプ）</strong>：高速道路で本線と分岐路を結ぶ曲線状の道路。</p>
+<p><strong>Debris on the Road（道路上の落下物）</strong>：さまざまな種類の落下物がある道路。</p>
+<p><strong>Narrow Roads（狭い道路）</strong>：慎重な走行が必要な狭い道路。</p>
+<p><strong>Pedestrians Popping Out（歩行者の飛び出し）</strong>：自車両の前方に歩行者が飛び出し、減速またはブレーキが必要となること。</p>
+<p><strong>People on Bus Posters（バス広告の人物）</strong>：知覚システムを妨げる可能性のあるポスターを掲げたバス。</p>
+<a class="pg" data-page="18"></a>
+<figure><img src="figs/fig5.png" alt="図5" /></figure>
+<p><strong>図5：各メタアクションが、メタアクション系列の 1 番目、2 番目、3 番目にそれぞれ現れる分布。</strong></p>
+<p class="yakuchu">図中ラベル：First place＝1 番目、Second place＝2 番目、Third place＝3 番目。Change lane to the left＝左へ車線変更、Change lane to the right＝右へ車線変更、Go straight at a constant speed＝一定速度で直進、Go straight slowly＝ゆっくり直進、Reverse＝後退、Shift slightly to the left＝左へわずかに寄る、Shift slightly to the right＝右へわずかに寄る、Slow down＝減速、Speed up＝加速、Speed up rapidly＝急加速、Stop＝停止、Turn around＝U ターン、Turn left＝左折、Turn right＝右折、Wait＝待機。<span class="yakuchu">（訳注：図の横軸は 15 カテゴリで、本文の「17 カテゴリ」と一致しない。また本文 A.1 の「slow down rapidly（急減速）」は図になく、代わりに「Speed up rapidly（急加速）」がある。）</span></p>
+
+<figure><img src="figs/fig6.png" alt="図6" /></figure>
+<p><strong>図6：シーンあたりのメタアクションの長さの分布。</strong></p>
+<p class="yakuchu">図中ラベル：One meta action＝メタアクション 1 つ（26.3%）、Two meta actions＝メタアクション 2 つ（37.4%）、Three meta actions＝メタアクション 3 つ（30.8%）、Four or more meta actions＝メタアクション 4 つ以上（5.5%）</p>
+
+<a class="pg" data-page="19"></a>
+<figure><img src="figs/fig7.jpg" alt="図7" /></figure>
+<p><strong>図7：SUP-AD データセットにおける多様な運転シナリオ。</strong></p>
+
+<p><strong>Merging into High Speed（高速道路への合流）</strong>：低速道路から高速道路へ走行し、加速が必要となること。</p>
+<p><strong>Barrier Gate（遮断機）</strong>：上げ下げでき、道路をふさぐ遮断機。</p>
+<p><strong>Fallen Trees（倒木）</strong>：道路上の倒木で、潜在的な危険を避けるため慎重な走行が必要なもの。</p>
+<p><strong>Complex Environments（複雑な環境）</strong>：慎重な走行を必要とする複雑な運転環境。</p>
+<p><strong>Mixed Traffic（混合交通）</strong>：自動車、歩行者、自転車が同一または隣接する車道に現れる混雑したシナリオ。</p>
+<p><strong>Crossing Rivers（河川の横断）</strong>：橋を走行して川を渡ること。</p>
+<a class="pg" data-page="20"></a>
+<figure><img src="figs/fig8.jpg" alt="図8" /></figure>
+<p><strong>図8：SUP-AD データセットにおける転倒した自転車・オートバイの例。</strong>自車両の前方で自転車が倒れており、自車両は車線変更が必要である。</p>
+<p class="yakuchu">図中ラベル：Scene Summary＝シーン要約：自車両は逆走車線から正しい方向の車線へ車線変更する。前方には自転車が倒れている。／Weather＝天候：曇り、Time＝時間帯：昼間、Lane Options＝車線の選択肢：右車線、Road Environment＝道路環境：市街地。Critical Object＝重要物体：Class＝クラス：自転車、Characteristics＝特性：車両の前方に倒れている、Influence＝影響：車両の将来の経路をふさいでいる。Meta Action＝メタアクション：［「減速」「右へ車線変更」「ゆっくり直進」］、Decision Description＝意思決定記述：減速し、右後方から車両が来ていないことを確認してから右へ車線変更する。</p>
+
+<p><strong>Screen（遮蔽幕）</strong>：片側に遮蔽幕（スクリーン）がある道路で、知覚システムを妨げる可能性があるもの。</p>
+<p><strong>Herds of Cattle and Sheep（牛や羊の群れ）</strong>：牛や羊の群れがいる田舎道で、これらの動物を驚かせないよう慎重な運転が必要なもの。</p>
+<p><strong>Vulnerable Road Users（交通弱者）</strong>：歩行者、自転車運転者、オートバイ運転者など、道路の利用中に負傷しやすい道路利用者。</p>
+<p><strong>Road with Gallet（砕石の散らばった道路）</strong>：路面一面に砕石（原文表記は gallet）が散らばった、ほこりっぽい道路。</p>
+<p>残りのシナリオカテゴリは次のとおりである：Motorcycles and Trikes（オートバイと三輪車）、Intersection（交差点）、People carrying Umbrella（傘を差した人）、Vehicles Carrying Cars（車両運搬車）、Vehicles Carrying Branches（枝を積んだ車両）、Vehicles with Pipes（パイプを積んだ車両）、Strollers（ベビーカー）、Children（子ども）、Tunnel（トンネル）、Down Ramp（下りランプ）、Sidewalk Stalls（歩道の露店）、Rainy Day（雨天）、Crossing Train Tracks（踏切の横断）、Unprotected U-turns（保護されていない U ターン）、Snowfall（降雪）、Large Vehicles Invading（大型車両のはみ出し）、Falling Leaves（落ち葉）、Fireworks（花火）、Water Sprinklers（散水車）、Potholes（路面の穴）、Overturned Motorcycles（転倒したオートバイ）、Self-ignition and Fire（自然発火と火災）、Kites（凧）、Agricultural Machinery（農業機械）。</p>
+
+<h3 id="a.3-アノテーションの例">A.3　アノテーションの例</h3>
+<p>図 8、9、10、11、12、13 にアノテーション内容のさらなる例を示す。これらの例のシナリオカテゴリは、それぞれ転倒した自転車・オートバイ、牛や羊の群れ、倒木、河川の横断、遮断機、降雪である。</p>
+
+<figure><img src="figs/fig9.jpg" alt="図9" /></figure>
+<p><strong>図9：SUP-AD データセットにおける牛や羊の群れの例。</strong>牛の群れが自車両の前方をゆっくり移動しており、自車両はゆっくり進んで牛との安全な距離を保つ必要がある。</p>
+<p class="yakuchu">図中ラベル：シーン要約：自車両は現在の車線を直進しており、車線の前方にはゆっくり移動する牛の群れがいる。／天候：曇り、時間帯：昼間、車線の選択肢：自車線（Own Lane）、道路環境：山地（Mountain）。重要物体：クラス：牛の群れ、特性：自車線の前方をゆっくり移動している、影響：自車両の走行速度に影響する。メタアクション：［「減速」「ゆっくり直進」］、意思決定記述：速度を落とし、牛の群れとの安全な距離を保ちながらゆっくり進む。</p>
+
+<a class="pg" data-page="21"></a>
+<figure><img src="figs/fig10.jpg" alt="図10" /></figure>
+<p><strong>図10：SUP-AD データセットにおける倒木の例。</strong>木が突然自車両の方へ倒れてきており、自車両は直ちに減速する必要がある。</p>
+<p class="yakuchu">図中ラベル：シーン要約：自車両は現在の道路を前進しており、左前方から木が突然自車両の方へ倒れてくる。／天候：曇り、時間帯：昼間、車線の選択肢：自車線、道路環境：国道（National Road）。重要物体：クラス：木、特性：左前方で自車両の方へ傾いている、影響：自車両の前進をふさいでいる。メタアクション：［「急減速」「停止」「待機」］、意思決定記述：直ちに減速して停止し、倒木が撤去されるのを待ってから走行を再開する。</p>
+
+<figure><img src="figs/fig11.jpg" alt="図11" /></figure>
+<p><strong>図11：SUP-AD データセットにおける河川の横断の例。</strong>自車両は車両 1 台しか通れない幅の橋を渡ろうとしており、停止せずに走行する必要がある。</p>
+<p class="yakuchu">図中ラベル：シーン要約：自車両は現在の道路を前方の橋に向かって一定速度で走行している。橋の幅は車両 1 台しか通れない。／天候：曇り、時間帯：昼間、車線の選択肢：車線表示なし（No Lane Marking）、道路環境：狭い橋（Narrow Bridge）。重要物体：クラス：狭い橋、特性：車両 1 台のみ通行可能な幅、影響：停止禁止。メタアクション：［「減速」「ゆっくり直進」］、意思決定記述：ブレーキをかけて減速し、橋の上で停止せずにゆっくり橋へ向かって走行する。</p>
+
+<figure><img src="figs/fig12.jpg" alt="図12" /></figure>
+<p><strong>図12：SUP-AD データセットにおける遮断機の例。</strong>横向きのバーが公園の入口をふさいでおり、自車両は停止して進行の許可を待つ必要がある。</p>
+<p class="yakuchu">図中ラベル：シーン要約：自車両は公園の入口に向かって左折しており、前方の入口を横向きのバーがふさいでいる。／天候：曇り、時間帯：昼間、車線の選択肢：車線表示なし、道路環境：公園（Park）。重要物体：クラス：横木（Crossbar）、特性：前方の出入口にある、影響：車両の走行経路をふさいでいる。メタアクション：［「減速」「停止」「待機」］、意思決定記述：「減速して横向きの遮断機の手前で停止し、進行の許可を待つ。」</p>
+<a class="pg" data-page="22"></a>
+<figure><img src="figs/fig13.jpg" alt="図13" /></figure>
+<p><strong>図13：SUP-AD データセットにおける降雪の例。</strong>道路の大部分が雪に覆われており、自車両は雪のないタイヤ跡をたどって慎重に前進する必要がある。</p>
+<p class="yakuchu">図中ラベル：Scene Summary＝シーン要約：自車両は現在、雪に覆われた道路を、路面上の雪のないタイヤ跡をたどりながらゆっくり走行している。／Critical Object: None＝重要物体：なし、Weather＝天候：雪（Snowy）、Time＝時間帯：昼間、Lane Options＝車線の選択肢：車線表示なし、Road Environment＝道路環境：雪に覆われた道路。Meta Action＝メタアクション：［「ゆっくり直進」］、Decision Description＝意思決定記述：「低速で慎重に前進を続ける。」</p>
+
+<h2 id="b-評価方法">B　評価方法</h2>
+<p>自動運転システムにとって、運転シーンを正確に解釈し、論理的で適切な判断を下す能力は最も重要である。本論文で示したように、自動運転における VLM の評価は 2 つの主要な構成要素、すなわちシーン記述／解析の評価とメタアクションの評価に集中している。</p>
+
+<h3 id="b.1-シーン記述解析の評価">B.1　シーン記述／解析の評価</h3>
+<p>シーン記述／解析の評価に関して、運転シーンを解釈し言語化する過程には本質的な主観性がある。似た記述をテキストで表現する妥当な方法は数多くあるため、固定された指標でシーン記述を効果的に評価することは難しい。この課題を克服するため、GPT-4 を用いて、モデルが生成したシーン記述と人手でアノテーションした正解との類似度を評価する。まず、GPT-4 にプロンプトを与えて各シーン記述から個々の情報を抽出させる。続いて、抽出した各情報の一致状況に基づいて結果を採点し集計する。</p>
+<p>シーン記述の正解ラベルは、環境記述と事象の要約の両方を含む。環境条件の記述には、天候条件、時間条件、道路環境、車線状況が含まれる。事象の要約は重要物体の特性と影響である。GPT-4 を用いて、環境記述と事象の要約の両方から固有の重要情報を抽出する。抽出された情報は次に比較され、定量化される。一致した各ペアには、一致の程度（完全、部分的、なし）に基づいて推定されたスコアが割り当てられる。ハルシネーションによる情報の事例にはペナルティが科され、全体のスコアから差し引かれる。これらのスコアの総計がシーン記述スコアとなる。</p>
+<p>\[ \text{Score} = \frac{1.0 \times n_{\text{matched}} + 0.5 \times n_{\text{partial}}}{n_{\text{gt}}} - \frac{0.25 \times n_{\text{hallucination}}}{n_{\text{gt}}} \tag{2} \]</p>
+
+<a class="pg" data-page="23"></a>
+<p>シーン記述を評価するための GPT-4 へのプロンプトは、表 10 に示すように注意深く設計されている。まず、ロールプロンプトを用いて、適切な運転スタイルについて包括的な理解を持つ、知的で論理的な評価者としての役割を確立する。次に入力形式を指定し、GPT-4 に対して、そのタスクが出力記述と正解記述を比較することであると伝える。この比較は、両方の記述からの重要情報の抽出と解析に基づく。最後に、プロンプトは採点の基準と評価出力の形式を概説し、評価プロセスへの構造化された体系的なアプローチを保証する。</p>
+
+<table>
+<tbody>
+<tr><td><strong>システムプロンプト：</strong><br />あなたは豊富な運転経験を持つ聡明で論理的な評価者であり、合理的で論理的な評価結果を出すよう最善を尽くす。</td></tr>
+<tr><td><strong>入力プロンプト：</strong><br />2 つの運転シナリオの記述が与えられる。一方は参照記述、もう一方はモデルからの出力記述である。参照記述から重要情報を抽出し、それを比較基準として出力記述の近さを比較せよ。加えて、各情報の完全性を評価せよ。抽出される重要情報は、環境条件と重要事象に分類できる。環境条件の情報には、天候、時間帯、道路環境、車線状況が含まれる。重要事象は自車両の運転判断に関わる事象を記述するもので、通常は「重要物体 + 動詞/形容詞 + 自車両への影響」の形式で与えられる。重要事象の例は次のようなものである：工事区域が前方の自車線と右車線をふさいでいるため、車はそれを迂回する必要がある。それでは参照記述と出力記述を与える。<br />
+参照記述：<br />
+天候：晴れ。―― 時間帯：昼。―― 道路環境：市街地。―― 車線の選択肢：左車線、自車線、右車線。―― 自車線の位置：中央車線。<br />
+重要事象：前方に通過車両を検問している警察官がいる。あなたの車線の前方にいる警察官は、検問のため停止するようあなたに合図している。左車線にも車両が並んでいる。右車線は合流車線で現在分離されているため、右へ車線変更することはできない。<br />
+出力記述：<br />
+天候：晴れ。―― 時間帯：昼。<br />
+あなたの前方の遠くを走行している車両がある。左右に交通警察官がおり、交通警察官は停止を合図している。<br />
+抽出した重要情報を用いて 2 つの記述を比較し、0 から 1.0 のスケールで類似度スコアを出力するとともに、類似度スケールを計算した論理を説明せよ。一致した各重要情報は 1.0 点、部分的に一致した各重要情報は 0.5 点とする。ハルシネーションにもペナルティを科す。出力に存在するが参照に存在しない重要情報があれば、-0.25 点を割り当てる。最終スコアは、合計スコアを参照記述から抽出した重要情報の数で割ったものである。例えば、合計スコアが 1.5 で参照記述の重要情報の総数が 3 であれば、最終スコアは 1.5/3 = 0.5 となる。抽出と評価の詳細な過程を出力せよ。</td></tr>
+<tr><td><strong>応答：</strong><br />
+参照記述の重要情報：<br />
+1. 天候：晴れ（環境条件）<br />
+2. 時間帯：昼（環境条件）<br />
+3. 道路環境：市街地（環境条件）<br />
+4. 車線の選択肢：左車線、自車線、右車線（環境条件）<br />
+5. 自車線の位置：中央車線（環境条件）<br />
+6. 前方で警察官が車両を検問している（重要事象）<br />
+7. 自車両前方の警察官が停止を合図している（重要事象）<br />
+8. 左車線に車両が並んでいる（重要事象）<br />
+9. 合流車線で現在分離されているため右車線へ変更できない（重要事象）<br />
+出力記述の重要情報：<br />
+1. 天候：晴れ。<br />
+2. 時間帯：昼。<br />
+3. ドライバーの前方の遠くを走行している車両<br />
+4. 左右に交通警察官<br />
+5. 交通警察官が停止を合図<br />
+出力を参照と比較すると：<br />
+- 重要情報 1、2、6、7 が一致し、それぞれ 1.0 点（天候と時間帯、警察官とその停止の合図）<br />
+- 出力の重要情報 3 は参照に記載されていないため、-0.25 点を減点。<br />
+得点なし：<br />
+- 重要情報 3、4、5、8、9。<br />
+合計スコア = (1.0 + 1.0 + 1.0 + 1.0 - 0.25) / 9 = 0.417。</td></tr>
+</tbody>
+</table>
+<p><strong>表10：GPT-4 によるシーン記述の評価プロセス。</strong>提案する評価方法は、構造化されたシーン記述から情報を抽出して評価できるだけでなく、非構造化の記述にも適用できる。</p>
+
+<h3 id="b.2-メタアクションの評価">B.2　メタアクションの評価</h3>
+<p>メタアクション系列の評価プロセスでは、一致したメタアクションの数と順序の両方を考慮する必要がある。モデルの出力とアノテーションされた正解を比較するために動的計画法を用いる。我々の動的計画法のアプローチは最長共通部分列を求める方法に類似しているが、2 つの追加の考慮事項がある。</p>
+<a class="pg" data-page="24"></a>
+<p>第 1 の考慮事項は、メタアクションごとの重みが等しくないことを考慮するものである。例えば、「<em>Slow Down</em>（減速）」「<em>Wait</em>（待機）」「<em>Go Straight Slowly</em>（ゆっくり直進）」といった一部のメタアクションは、行動そのものよりも態度に重点を置いている。メタアクション系列におけるこれらの行動の有無は、運転判断の基本的な意味の本質を変えるものではなく、むしろ運転戦略をより積極的に、あるいはより慎重にするよう修飾するものである。例えば、「<em>Slow Down -&gt; Stop -&gt; Wait</em>」というメタアクション系列は、メタアクション「Stop」のみからなる系列と同様の運転判断を伝える。したがって、これらの系列は「Turn Left」や「Change Lane to the Right」といった他のメタアクションと同等のペナルティを受けるべきではない。そこで、これらを「保守的行動」として指定し、系列評価において一致しない場合には軽減したペナルティを適用する。</p>
+<p>第 2 の考慮事項は、異なるメタアクション系列の間に意味的な等価性がありうることに対処するものである。例えば、「<em>Change Lane to the Left -&gt; Speed Up -&gt; Go Straight At a Constant Speed -&gt; Change Lane to the Right</em>」と「<em>Change Lane to the Left -&gt; Speed Up Rapidly -&gt; Go Straight At a Constant Speed -&gt; Change Lane to the Right</em>」という系列は、いずれも前方の低速車両を追い越すための妥当なアプローチを表しうる。異なるメタアクション系列が似た意味を伝えうることを踏まえ、表 11 に示すように、まず GPT-4 を用いて、唯一の正解メタアクション系列に加えて、意味的に同等な変種系列を生成する。評価の後続の系列照合段階では、これらすべての変種を、人手でアノテーションした正解とともに考慮する。そして最高スコアの照合を、最終的な判断評価の確定スコアとして採用する。</p>
+
+<table>
+<tbody>
+<tr><td><strong>プロンプト：</strong><br />
+あらかじめ定義された行動トークンの集合と参照運転行動の系列が与えられたとき、似た意味を持つが、定義済み行動トークンからわずかに異なる行動トークンを選んだ代替の行動系列をすべて見つけよ。<br />
+定義済み行動トークン：[Speed up（加速）, Slow down（減速）, Speed up rapidly（急加速）, Slow down rapidly（急減速）, Go straight slowly（ゆっくり直進）, Go straight at a constant speed（一定速度で直進）, Turn left（左折）, Turn right（右折）, Change lane to the left（左へ車線変更）, Change lane to the right（右へ車線変更）, Shift slightly to the left（左へわずかに寄る）, Shift slightly to the right（右へわずかに寄る）, Stop（停止）, Wait（待機）, Turn around（U ターン）, Reverse（後退）]。<br />
+例えば、参照運転行動系列が Slow down -&gt; Shift slightly to the right -&gt; Go straight at a constant speed であれば、似た意味を持つ代替行動系列は次のようになりうる：<br />
+1. Slow down -&gt; Change lane to the right -&gt; Go straight at a constant speed;<br />
+2. Slow down rapidly -&gt; Shift slightly to the right -&gt; Go straight at a constant speed;<br />
+3. Slow down -&gt; Change lane to the right -&gt; Go straight slowly;<br />
+4. Slow down -&gt; Shift slightly to the right -&gt; Go straight slowly.<br />
+では、参照行動系列が Slow down -&gt; Shift slightly to the right -&gt; Go straight at a constant speed のとき、代替の行動系列は何か。</td></tr>
+<tr><td><strong>応答：</strong><br />
+参照系列 "Slow down -&gt; Shift slightly to the right -&gt; Go straight at a constant speed." が与えられたとき、提供された行動トークンに基づく、似た意味を持つ代替行動系列は次のとおりである：<br />
+1. Slow down -&gt; Change lane to the right -&gt; Go straight at a constant speed.<br />
+2. Slow down rapidly -&gt; Shift slightly to the right -&gt; Go straight at a constant speed.<br />
+3. Slow down -&gt; Change lane to the right -&gt; Go straight slowly.<br />
+4. Slow down -&gt; Shift slightly to the right -&gt; Go straight slowly. この例はあなたが質問の中で提示したものである。<br />
+トークンと文脈に基づけば、これらは確かに適切な代替系列である。</td></tr>
+</tbody>
+</table>
+<p><strong>表11：GPT-4 による代替行動系列の生成例。</strong></p>
+
+<a class="pg" data-page="25"></a>
+<p>動的計画法の状態は 2 次元行列に保存される。各行は正解行動系列中のメタアクションに、各列はモデル出力の行動系列中のメタアクションに対応し、\(S^{r,c}\) と表記する。動的計画法は、両系列の最初のメタアクションから再帰的な計算を開始する。2 次元行列の各要素は、現在の照合位置における最適な合計スコアと、その最適な照合をもたらした直前の照合条件を保持する。我々の動的計画法アルゴリズムでは、3 つの遷移式がそれぞれ異なる場合を扱う：照合欠落に対する \(S_{\text{missing}}\)、冗長な照合に対する \(S_{\text{redundant}}\)、照合成功に対する \(S_{\text{matching}}\) である。照合成功は、参照系列の \(r^{th}\) 番目の位置とモデル生成系列の \(c^{th}\) 番目の位置のメタアクションが同一であるときに起こる。照合欠落の場合、参照系列の \(r^{th}\) 番目の位置のメタアクションは一致しておらず、参照系列の \(r-1^{th}\) 番目の位置とモデル生成系列の \(c^{th}\) 番目の位置との比較に進む。逆に、冗長な照合は、モデル生成系列の \(c^{th}\) 番目の位置のメタアクションが一致していないことを意味し、参照系列の \(r^{th}\) 番目の位置とモデル生成系列の \(c-1^{th}\) 番目の位置をさらに調べることになる。これらの場合の変換式は次のとおりである。</p>
+<p>\[ \begin{aligned} S^{r,c}_{\text{missing}} &= S^{r-1,c} - p_{\text{missing}}, \\ S^{r,c}_{\text{redundant}} &= S^{r,c-1} - p_{\text{redundant}}, \\ S^{r,c}_{\text{matching}} &= S^{r-1,c-1} + s_{\text{matching}}, \\ S^{r,c} &= \max(S^{r,c}_{\text{missing}}, S^{r,c}_{\text{redundant}}, S^{r,c}_{\text{matching}}), \end{aligned} \tag{3} \]</p>
+<p>ここで \(s_{\text{matching}} = 1.0\) は照合成功後の報酬スコアを表す。欠落または冗長とみなされた行動が保守的行動に分類される場合、ペナルティ \(p_{\text{missing}}\) と \(p_{\text{redundant}}\) は \(s_{\text{matching}}\) の半分、すなわち 0.5 と定める。逆に、行動が保守的でない場合、両ペナルティには \(s_{\text{matching}}\) と同じ大きさ、すなわち 1.0 を割り当てる。このアプローチは、重要なメタアクションを省略することと、存在しないメタアクションを誤って導入することが、行動系列の有効性を同程度に損なうという前提に基づいている。最終スコア \(Score_{\text{action}}\) は、選択された参照メタアクション系列の長さで割るものとし、次のように定式化される。</p>
+<p>\[ Score_{\text{action}} = \frac{S^{r,c}}{N_r} \tag{4} \]</p>
+
+<h2 id="c-定性的な結果">C　定性的な結果</h2>
+<p>DriveVLM の有効性と頑健性をさらに示すため、図 14、15、16、17、18 に追加の可視化結果を示す。図 14 では、DriveVLM は前方のゆっくり走行する車両を認識し、追い越しのために車線変更するという運転判断を出している。図 15 と図 16 では、DriveVLM は通常とは異なる車両の種類と倒木を正確に特定しており、ロングテール物体を認識する能力を示している。図 17 では、手のジェスチャで進行を合図する交通警察官が DriveVLM によって正確に捉えられている。図 18 では、DriveVLM はラウンドアバウトという道路環境を認識することに成功し、曲線経路の計画軌道を生成している。</p>
+<a class="pg" data-page="26"></a>
+<figure><img src="figs/fig14.jpg" alt="図14" /></figure>
+<p><strong>図14：DriveVLM の出力の可視化。</strong>DriveVLM は前方のゆっくり走行する車両を認識し、追い越しのために車線変更する運転判断を出している。</p>
+<p class="yakuchu">図中ラベル（凡例）：DriveVLM＝DriveVLM の応答、System Prompt＝システムプロンプト、Planned Trajectory＝計画軌道。T - 3〜T＝入力フレームの時刻。<br />
+対話の訳：［プロンプト］これらは運転動画から一定間隔で取り出したいくつかのフレームである：&lt;img&gt;&lt;/img&gt;…&lt;img&gt;&lt;/img&gt;。あなたがこのシナリオで運転していると仮定して、シーンの状況を記述せよ。<br />
+［DriveVLM］シーン状況：天候：晴れ。時間帯：夜。道路環境：市街地。車線の選択肢：自車線、右車線。自車線の位置：最も左の車線。<br />
+［プロンプト］自車両の次の運転判断に影響する前方視野内の重要物体を列挙し、段階的にボックスで囲め。<br />
+［DriveVLM］前方視野に重要物体が 1 つある。物体は ['Sedan']（セダン）を含む。Object 1:&lt;ref&gt;Sedan&lt;/ref&gt;&lt;box&gt;(404,519),(488,633)&lt;/box&gt;。<br />
+［プロンプト］照合された 2D 物体：- 画像領域 [404, 519, 488, 633] のセダン。照合情報：BEV ビューの物体 [18.86, 1.77]、過去軌道：[(13.9,1.3), (9.2,0.8), (4.3,0.4), (-0.1,0.2)]。照合情報に基づいて物体の特性を記述し、その影響を示せ。<br />
+［DriveVLM］特性：自車線の前方をゆっくり走行している。｜影響：自車両の将来の経路をふさいでいる。<br />
+［プロンプト］自車状態：過去軌道（直近 2 秒）：[(-5.30,0.04), (-10.47,0.16), (-15.38,0.36), (-20.47,0.65)]。ナビゲーション：MAINTAIN（維持）。提供された情報とこれまでの解析に基づいて、現在のシーンを要約せよ。<br />
+［DriveVLM］シーン状況：天候：晴れ。時間帯：昼。道路環境：市街地。車線の選択肢：自車線、左車線。自車線の位置：最も右の車線。重要事象：自車両は現在の車線に沿って一定速度を維持しており、前方にゆっくり走行するセダンがあり、右後方の車線には接近する車両はない。<br />
+［プロンプト］以上の解析と現在のシナリオに基づいて、次に取る運転のメタアクションと判断を決定せよ。<br />
+［DriveVLM］メタアクション：['Change lane to the right'（右へ車線変更）, 'Go straight at a constant speed'（一定速度で直進）]。判断：前方車両との安全な距離を保ち、右へ車線変更して走行を続ける。<br />
+［プロンプト］以上の判断と解析に基づいて、自車両の 3s 先までの将来軌道を計画せよ。<br />
+［DriveVLM］[(5.3,0.0),(10.5,0.1),(15.6,0.2),(20.7,0.3),(25.8,0.4),(30.9,0.5)]<br />
+<span class="yakuchu">（訳注：原図では、最初のシーン状況（夜、自車線・右車線、最も左の車線）と要約時のシーン状況（昼、自車線・左車線、最も右の車線）が食い違っている。原図のまま訳出した。）</span></p>
+
+<a class="pg" data-page="27"></a>
+<figure><img src="figs/fig15.jpg" alt="図15" /></figure>
+<p><strong>図15：DriveVLM の出力の可視化。</strong>DriveVLM は前方の通常とは異なる車両の種類を特定している。</p>
+<p class="yakuchu">図中ラベル（凡例）：DriveVLM＝DriveVLM の応答、System Prompt＝システムプロンプト、Planned Trajectory＝計画軌道。<br />
+対話の訳：［プロンプト］（図14と同じ、シーン状況の記述を求めるプロンプト）<br />
+［DriveVLM］シーン状況：天候：晴れ。時間帯：昼。道路環境：市街地。車線の選択肢：自車線、左車線。自車線の位置：最も右の車線。<br />
+［プロンプト］（図14と同じ、重要物体の列挙を求めるプロンプト）<br />
+［DriveVLM］前方視野に重要物体が 1 つある。物体は ['Water-spraying vehicle']（散水車）を含む。Object 1:&lt;ref&gt;Water-spraying vehicle&lt;/ref&gt;&lt;box&gt;(374,446),(456,596)&lt;/box&gt;。<br />
+［プロンプト］照合された 2D 物体：- 画像領域 [374, 446, 456, 596] の散水車。照合情報：BEV ビューの物体 [26.03, 4.09]、過去軌道：[(26.3,4.1), (27.0,4.0), (28.2,4.1), (29.6,4.2)]。照合情報に基づいて物体の特性を記述し、その影響を示せ。<br />
+［DriveVLM］特性：現在の道路の前方にいる散水車。｜影響：影響なし。<br />
+［プロンプト］自車状態：過去軌道（直近 2 秒）：[(-4.17,-0.00),(-8.51,-0.02),(-12.97,-0.06),(-17.60,-0.10)]。ナビゲーション：MAINTAIN（維持）。提供された情報とこれまでの解析に基づいて、現在のシーンを要約せよ。<br />
+［DriveVLM］シーン状況：天候：晴れ。時間帯：昼。道路環境：市街地。車線の選択肢：自車線、左車線。自車線の位置：最も右の車線。重要事象：自車両は現在の道路を直進しており、道路の前方に散水車がいるが、自車両には影響しない。<br />
+［プロンプト］（図14と同じ、メタアクションと判断の決定を求めるプロンプト）<br />
+［DriveVLM］メタアクション：['Go straight at a constant speed'（一定速度で直進）]。判断：前方車両との安全な距離を保って走行を続ける。<br />
+［プロンプト］（図14と同じ、3s 先までの将来軌道の計画を求めるプロンプト）<br />
+［DriveVLM］[(4.1,-0.0),(8.2,-0.0),(12.2,-0.0),(16.2,-0.1),(20.1,-0.1),(24.0,-0.1)]</p>
+<a class="pg" data-page="28"></a>
+<figure><img src="figs/fig16.jpg" alt="図16" /></figure>
+<p><strong>図16：DriveVLM の出力の可視化。</strong>DriveVLM は倒木とその位置を正確に検出し、続いて適切な迂回軌道を計画している。</p>
+<p class="yakuchu">図中ラベル（凡例）：DriveVLM＝DriveVLM の応答、System Prompt＝システムプロンプト、Planned Trajectory＝計画軌道。<br />
+対話の訳：［プロンプト］（図14と同じ、シーン状況の記述を求めるプロンプト）<br />
+［DriveVLM］シーン状況：天候：晴れ。時間帯：昼。道路環境：市街地。車線の選択肢：自車線、左車線。自車線の位置：最も右の車線。<br />
+［プロンプト］（図14と同じ、重要物体の列挙を求めるプロンプト）<br />
+［DriveVLM］前方視野に重要物体が 1 つある。物体は ['Fallen tree']（倒木）を含む。Object 1:&lt;ref&gt;Fallen tree&lt;/ref&gt;&lt;box&gt;(353,413),(483,566)&lt;/box&gt;。<br />
+［プロンプト］照合されなかった 2D 物体：- 画像領域 [353, 413, 483, 566] の倒木。照合情報に基づいて物体の特性を記述し、その影響を示せ。<br />
+［DriveVLM］特性：自車両の左前方の車線上にある。｜影響：自車両の将来の経路をふさいでいる。<br />
+［プロンプト］自車状態：過去軌道（直近 2 秒）：[(-6.21,-0.05),(-12.39,-0.20),(-18.43,-0.43),(-24.44,-0.67)]。ナビゲーション：MAINTAIN（維持）。提供された情報とこれまでの解析に基づいて、現在のシーンを要約せよ。<br />
+［DriveVLM］シーン状況：天候：晴れ。時間帯：昼。道路環境：市街地。車線の選択肢：自車線、左車線。自車線の位置：最も右の車線。重要事象：自車両は現在の車線を一定速度で直進しており、前方では倒木が左車線をふさいでいる。<br />
+［プロンプト］（図14と同じ、メタアクションと判断の決定を求めるプロンプト）<br />
+［DriveVLM］メタアクション：['Slow down'（減速）, 'Shift slightly to the right'（右へわずかに寄る）, 'Go straight slowly'（ゆっくり直進）]。判断：減速し、倒木を避けるために右へ寄り、走行を続ける。<br />
+［プロンプト］（図14と同じ、3s 先までの将来軌道の計画を求めるプロンプト）<br />
+［DriveVLM］[(6.1,-0.0),(12.1,-0.1),(18.1,-0.2),(24.1,-0.3),(30.1,-0.4),(36.1,-0.5)]</p>
+
+<a class="pg" data-page="29"></a>
+<figure><img src="figs/fig17.jpg" alt="図17" /></figure>
+<p><strong>図17：DriveVLM の出力の可視化。</strong>手のジェスチャで進行を合図する交通警察官が、DriveVLM によって正確に捉えられている。</p>
+<p class="yakuchu">図中ラベル（凡例）：DriveVLM＝DriveVLM の応答、System Prompt＝システムプロンプト、Planned Trajectory＝計画軌道。<br />
+対話の訳：［プロンプト］（図14と同じ、シーン状況の記述を求めるプロンプト）<br />
+［DriveVLM］シーン状況：天候：曇り。時間帯：昼。道路環境：市街地。車線の選択肢：自車線。自車線の位置：DNA。<br />
+［プロンプト］（図14と同じ、重要物体の列挙を求めるプロンプト）<br />
+［DriveVLM］前方視野に重要物体が 2 つある。物体は ['Traffic police', 'Traffic police']（交通警察官、交通警察官）を含む。Object 1:&lt;ref&gt;Traffic police&lt;/ref&gt;&lt;box&gt;(134,523),(350,741)&lt;/box&gt;。Object 2:&lt;ref&gt;Traffic police&lt;/ref&gt;&lt;box&gt;(694,525),(805,795)&lt;/box&gt;。<br />
+［プロンプト］照合されなかった 2D 物体：- 画像領域 [134, 523, 350, 741] の交通警察官。照合情報に基づいて物体の特性を記述し、その影響を示せ。<br />
+［DriveVLM］特性：前方の道路左側にいる交通警察官｜影響：自車両が進行できることを合図している。<br />
+［プロンプト］- 画像領域 [694, 525, 805, 795] の交通警察官。照合情報に基づいて物体の特性を記述し、その影響を示せ。<br />
+［DriveVLM］特性：前方の道路右側にいる交通警察官｜影響：自車両が進行できることを合図している。<br />
+［プロンプト］自車状態：過去軌道（直近 2 秒）：[(-1.77,0.00),(-3.65,0.01),(-5.61,0.03),(-7.66,0.04)]。ナビゲーション：MAINTAIN（維持）。提供された情報とこれまでの解析に基づいて、現在のシーンを要約せよ。<br />
+［DriveVLM］シーン状況：天候：曇り。時間帯：昼。道路環境：市街地。車線の選択肢：自車線。自車線の位置：DNA。重要事象：自車両は直進しており、前方の道路の両側にいる交通警察官が進行してよいと合図している。<br />
+［プロンプト］（図14と同じ、メタアクションと判断の決定を求めるプロンプト）<br />
+［DriveVLM］メタアクション：['Go straight at a constant speed'（一定速度で直進）]。判断：一定速度を維持して直進を続ける。<br />
+［プロンプト］（図14と同じ、3s 先までの将来軌道の計画を求めるプロンプト）<br />
+［DriveVLM］[(1.8,0.0),(3.6,0.0),(5.5,0.0),(7.4,0.0),(9.4,0.0),(11.5,0.1)]</p>
+<a class="pg" data-page="30"></a>
+<figure><img src="figs/fig18.jpg" alt="図18" /></figure>
+<p><strong>図18：DriveVLM の出力の可視化。</strong>DriveVLM はラウンドアバウトという道路環境を認識することに成功し、曲線経路の計画軌道を生成している。</p>
+<p class="yakuchu">図中ラベル（凡例）：DriveVLM＝DriveVLM の応答、System Prompt＝システムプロンプト、Planned Trajectory＝計画軌道。<br />
+対話の訳：［プロンプト］（図14と同じ、シーン状況の記述を求めるプロンプト）<br />
+［DriveVLM］シーン状況：天候：晴れ。時間帯：夜。道路環境：ラウンドアバウト。車線の選択肢：交差点。自車線の位置：該当なし。<br />
+［プロンプト］（図14と同じ、重要物体の列挙を求めるプロンプト）<br />
+［DriveVLM］前方視野に重要物体が 1 つある。物体は [SUV'] を含む。Object 1:&lt;ref&gt;Water-spraying vehicle&lt;/ref&gt;&lt;box&gt;(590,545),(955,676)&lt;/box&gt;。<span class="yakuchu">（訳注：原図では物体が SUV とされる一方、&lt;ref&gt; タグ内は「Water-spraying vehicle（散水車）」となっており、食い違っている。）</span><br />
+［プロンプト］照合された 2D 物体：- 画像領域 [590, 545, 955, 676] の SUV。照合情報：BEV ビューの物体 [16.23, 2.84]、過去軌道：[(14.7,5.3), (13.7,7.7), (13.0,9.9), (12.8,12.4)]。照合情報に基づいて物体の特性を記述し、その影響を示せ。<br />
+［DriveVLM］特性：自車両の前方でラウンドアバウトを周回している。｜影響：影響なし。<br />
+［プロンプト］自車状態：過去軌道（直近 2 秒）：[(-3.04,-0.11),(-5.84,-0.42),(-8.22,-0.83),(-10.29,-1.28)]。ナビゲーション：MAINTAIN（維持）。提供された情報とこれまでの解析に基づいて、現在のシーンを要約せよ。<br />
+［DriveVLM］シーン状況：天候：晴れ。時間帯：夜。道路環境：ラウンドアバウト。車線の選択肢：交差点。自車線の位置：該当なし。重要事象：自車両はラウンドアバウトの道路を走行しており、SUV が前方のラウンドアバウトを周回しているが、自車両には影響しない。<br />
+［プロンプト］（図14と同じ、メタアクションと判断の決定を求めるプロンプト）<br />
+［DriveVLM］メタアクション：['Go straight at a constant speed'（一定速度で直進）, 'Turn right'（右折）]。判断：安全な距離を保って走行を続ける。<br />
+［プロンプト］（図14と同じ、3s 先までの将来軌道の計画を求めるプロンプト）<br />
+［DriveVLM］[(3.0,-0.1),(5.9,-0.4),(8.7,-0.9),(11.3,-1.6),(13.7,-2.7),(16.0,-4.2)]</p>
+</body>
+</html>

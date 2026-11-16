@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill)" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>CoVLA 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="CoVLA: Comprehensive Vision-Language-Action Dataset for Autonomous Driving" />
+  <meta name="short-name" content="CoVLA" />
+  <meta name="authors" content="Hidehisa Arai, Keita Miwa, Kento Sasaki, Kohei Watanabe, Yu Yamaguchi, Shunsuke Aoki, Issei Yamamoto（Turing Inc.）" />
+  <meta name="source-pdf" content="52_CoVLA_2408.10845.pdf" />
+  <meta name="source-pages" content="14" />
+  <meta name="pdf-href" content="52_CoVLA_2408.10845.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="80 時間超・10,000 本の実走行動画に、自動生成したフレーム単位の言語キャプションとセンサフュージョンによる将来軌跡を付与した大規模な視覚・言語・行動（VLA）データセット CoVLA を構築し、CLIP/Llama-2 ベースの VLA モデル CoVLA-Agent で走行シーン記述と軌跡予測を示した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; }
+body{font-family:'Noto Sans JP','Noto Sans CJK JP','Yu Gothic','Meiryo',sans-serif;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1;color:#182634;max-width:1020px;margin:0 auto;padding:48px 38px;background:#fff;font-size:16px}
+h1{font-size:30px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:18px}
+h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:24px}
+h3{margin-top:2em;font-size:20px;color:#244b64}
+h4{margin-top:1.6em;font-size:17px;color:#244b64}
+p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+figure{margin:20px 0}
+figcaption{display:none}
+table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0}
+th,td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+th{background:#eaf1f5}
+td:first-child{white-space:nowrap}
+blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+code{font-family:Consolas,'Courier New',monospace;white-space:pre-wrap}
+pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+a{color:#215c80;overflow-wrap:anywhere}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+.src-meta{color:#5b6b78;font-size:13px;margin-top:-10px}
+ol.refs li{margin-bottom:6px;font-size:14px}
+@media (max-width: 700px){
+ body{padding:20px 16px;font-size:15px}
+ h1{font-size:22px}h2{font-size:19px}h3{font-size:17px}
+ table{display:block;overflow-x:auto}
+ #TOC{padding:14px 16px}
+}
+@media print{
+ body{font-size:10pt;padding:0;max-width:none}
+ h1{font-size:23pt}h2{font-size:17pt;break-after:avoid}h3{font-size:13pt;break-after:avoid}
+ p{orphans:3;widows:3}table{font-size:7pt;break-inside:avoid}img{max-height:180mm;break-inside:avoid}
+ pre{font-size:7pt;white-space:pre-wrap}a{color:inherit}#TOC{break-after:page}
+ @page{size:A4;margin:18mm 15mm}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">CoVLA 全文日本語訳</h1>
+<p class="src-meta">原文PDF: <a href="52_CoVLA_2408.10845.pdf">52_CoVLA_2408.10845.pdf</a>（14ページ）　／　<a href="index.html">原文と並べて読む</a>　／　翻訳生成日: 2026-11-16</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#covla-comprehensive-vision-language-action-dataset-for-autonomous-driving" id="toc-covla-comprehensive-vision-language-action-dataset-for-autonomous-driving">CoVLA: Comprehensive Vision-Language-Action Dataset for Autonomous Driving</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a><ul>
+<li><a href="#2.1-自動運転のためのデータセット" id="toc-2.1-自動運転のためのデータセット">2.1　自動運転のためのデータセット</a></li>
+<li><a href="#2.2-運転タスクのための-mllm" id="toc-2.2-運転タスクのための-mllm">2.2　運転タスクのための MLLM</a></li>
+</ul></li>
+<li><a href="#3-データセット" id="toc-3-データセット">3　データセット</a><ul>
+<li><a href="#3.1-構築" id="toc-3.1-構築">3.1　構築</a></li>
+<li><a href="#3.2-分析" id="toc-3.2-分析">3.2　分析</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a><ul>
+<li><a href="#4.1-モデル" id="toc-4.1-モデル">4.1　モデル</a></li>
+<li><a href="#4.2-実験設定" id="toc-4.2-実験設定">4.2　実験設定</a></li>
+<li><a href="#4.3-結果" id="toc-4.3-結果">4.3　結果</a></li>
+<li><a href="#4.4-考察" id="toc-4.4-考察">4.4　考察</a></li>
+</ul></li>
+<li><a href="#5-結論" id="toc-5-結論">5　結論</a></li>
+<li><a href="#謝辞" id="toc-謝辞">謝辞</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#a-ヒューリスティックな軌跡フィルタリング" id="toc-a-ヒューリスティックな軌跡フィルタリング">A　ヒューリスティックな軌跡フィルタリング</a></li>
+<li><a href="#b-データセット公開のためのプライバシー保護" id="toc-b-データセット公開のためのプライバシー保護">B　データセット公開のためのプライバシー保護</a></li>
+<li><a href="#c-covla-dataset-のデータ例" id="toc-c-covla-dataset-のデータ例">C　CoVLA-Dataset のデータ例</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+<a class="pg" data-page="1"></a>
+<h1 id="covla-comprehensive-vision-language-action-dataset-for-autonomous-driving">CoVLA: Comprehensive Vision-Language-Action Dataset for Autonomous Driving</h1>
+<p>Hidehisa Arai<sup>*</sup>、Keita Miwa<sup>*</sup>、Kento Sasaki<sup>*</sup>、Kohei Watanabe、Yu Yamaguchi、Shunsuke Aoki、Issei Yamamoto<br />
+Turing Inc.<br />
+<a href="https://turingmotors.github.io/covla-ad/">https://turingmotors.github.io/covla-ad/</a><br />
+arXiv:2408.10845v3 [cs.CV]、2025年10月14日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>52_CoVLA_2408.10845.pdf</code>（全 14 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+<blockquote><p>脚注*：同等の貢献。</p></blockquote>
+
+<figure><img src="figs/fig1.jpg" alt="図1" /></figure>
+<p><strong>図1：CoVLA フレームワークの概要。</strong>我々は、自動運転のための包括的なデータセットである <strong>CoVLA-Dataset</strong> を構築した。これは、互いに重複しない 10,000 本のビデオクリップ、走行シナリオを記述するフレーム単位の言語キャプション、および将来軌跡としての行動（action）を含む。また、車両の将来軌跡を予測し、その挙動と理由をテキストで説明できる VLM ベースの経路計画モデル <strong>CoVLA-Agent</strong> も示す。</p>
+<p class="yakuchu">図中ラベル：Raw Driving Data＝生の走行データ、&gt;1000h Multi-sensor Data＝1000 時間超のマルチセンサデータ、Front-facing camera (&gt;1080p 20Hz)＝前方カメラ（1080p 超、20Hz）、Speed＝速度、Throttle/Brake＝アクセル／ブレーキ、Steering＝ステアリング、Radar＝レーダ、IMU＝慣性計測装置、GNSS＝全球測位衛星システム、Sampling＝サンプリング、Sensor fusion＝センサフュージョン、Object detection＝物体検出、Caption generation＝キャプション生成、Comprehensive Dataset for Autonomous Driving＝自動運転のための包括的データセット、Vision＝視覚、30s x 10,000 videos＝30 秒×10,000 本の動画、Position／Speed＝位置／速度、Leading vehicle＝先行車、Traffic light＝信号機、Object detection model＝物体検出モデル、Position／Signal＝位置／信号、Language＝言語、Frame-level captions＝フレーム単位のキャプション、"The ego vehicle is moving slowly and turning right. There is a traffic light displaying a green signal ..."＝「自車はゆっくりと右折中である。青信号を表示している信号機がある…」、Rule-based algorithm＝ルールベースのアルゴリズム、Behavior captions＝挙動キャプション、Reasoning captions＝推論キャプション、Object of concern／Scene recognition＝注意対象物体／シーン認識、Action＝行動、Future trajectories＝将来軌跡、Sensor signals＝センサ信号、Reconstructed trajectory＝再構成された軌跡、Control information＝制御情報、Throttle/brake position＝アクセル／ブレーキ位置、Steering angle＝操舵角、Turn signal＝方向指示器、LLM-based Path Planning Model＝LLM ベースの経路計画モデル、Single frame＝単一フレーム、Text instruction＝テキスト指示、"Describe the traffic scene."＝「交通シーンを説明せよ。」、CLIP/Llama-2 based model＝CLIP／Llama-2 ベースのモデル、Special tokens＝特殊トークン、Predicted trajectory＝予測軌跡、Behavior &amp; reasoning description＝挙動と理由の説明</p>
+
+<h2 id="要旨">要旨</h2>
+<a class="pg" data-page="2"></a>
+<p><em>自動運転、とりわけ複雑で予期しないシナリオの走行には、高度な推論・計画能力が求められる。マルチモーダル大規模言語モデル（MLLM）はこのための有望な手段となるが、その利用は主に複雑な環境文脈の理解や高レベルの運転コマンドの生成に限られており、エンドツーエンドの経路計画にまで適用を広げた研究はほとんどない。研究上の大きなボトルネックは、視覚・言語・行動を網羅する大規模なアノテーション付きデータセットが存在しないことである。この問題に対処するため、我々は 80 時間を超える実世界の走行動画からなる大規模データセット CoVLA（Comprehensive Vision-Language-Action）Dataset を提案する。本データセットは、自動化されたデータ処理とキャプション生成パイプラインに基づく新規でスケーラブルな手法を用いて、正確な走行軌跡と、走行環境および運転操作を詳細に記述した自然言語の説明とを対にして生成している。この手法は生の車載センサデータを活用するため、規模とアノテーションの豊富さの両面で既存のデータセットを上回ることができる。CoVLA を用いて、我々は多様な走行シナリオにおいて視覚・言語・行動を扱える MLLM の運転能力を調査する。結果は、一貫した言語出力と行動出力を生成する我々のモデルの高い能力を示しており、自動運転分野における Vision-Language-Action（VLA）モデルの可能性を強調するものである。本データセットは、VLA モデルの学習と評価のための包括的な基盤を提供することで、頑健かつ解釈可能でデータ駆動型の自動運転システムのための枠組みを確立し、より安全で信頼性の高い自動運転車の実現に貢献する。本データセットは学術目的で公開されている。</em></p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>自動運転技術における重要な課題は、多様で予測不能な走行環境の「ロングテール」に対処することにある［35, 63］。自動運転車は一般的なシナリオだけでなく、まれで複雑な状況にも対応しなければならず、そのためには多様な世界知識と高度な推論能力が必要となる［20］。これには、環境に対する深い理解と、物体の認識にとどまらずその挙動を解釈し、それに応じて行動を計画するまでに及ぶ推論能力が求められる。視覚認識と言語理解・行動計画をシームレスに統合する Vision-Language-Action（VLA）モデルは、この目標に向けた有望な道筋として台頭してきた。とりわけロボティクス［4, 28, 40］と自動運転［45］における VLA の近年の進展は、より頑健で知的な運転システムを実現する可能性を示している。</p>
+<p>しかし、VLA モデルを自動運転に適用するうえでの大きな障害は、視覚データを言語による説明および運転行動と効果的に組み合わせた大規模データセットが存在しないことである。既存のデータセットは、規模と包括的なアノテーションの点で不十分であることが多く、特に言語については多大な手作業を要することが多い。このことが、実世界の運転の複雑さに対応できる頑健な VLA モデルの開発と評価を制約している。</p>
+<p>本論文では、これらの制約を克服するために設計された新しい大規模データセット CoVLA（<strong>Co</strong>mprehensive <strong>V</strong>ision-<strong>L</strong>anguage-<strong>A</strong>ction）Dataset を紹介する。CoVLA-Dataset はラベル付けとキャプション付けにスケーラブルな自動化手法を用いており、合計 80 時間を超える動画からなる 10,000 件の実世界の走行シーンを収めた豊富なデータセットを作り出している。30 秒の各シーンには、同期した前方カメラ映像と車載センサのデータから導出された、正確な走行経路と自然言語による詳細な説明が含まれる。この豊富なデータセットにより、走行環境とエージェントの挙動をより深く理解することが可能になる。自動運転研究の推進におけるその有効性を示すため、我々は本データセットで学習した、軌跡予測と交通シーン記述生成のための VLA モデルである CoVLA-Agent を開発した。我々の知見は、複雑で高度な判断を要する状況においてさえ、この VLA モデルが一貫した精度の高い予測を行えることを示している。本論文の主な貢献は以下のとおりである。</p>
+<ul>
+<li>多様な走行シナリオに対する軌跡ターゲットと、フレームごとの詳細な状況説明を提供する大規模データセット CoVLA Dataset を導入する。</li>
+<li>センサフュージョンによって軌跡を正確に推定し、運転上重要な情報のフレーム単位のテキストキャプションを自動生成するスケーラブルな手法を提示する。</li>
+<li>CoVLA Dataset に基づく、解釈可能なエンドツーエンド自動運転のための新しい VLA モデル CoVLA-Agent を開発する。我々のモデルは、走行シーンの説明の生成と軌跡の予測を一貫して行える能力を示しており、より信頼性の高い自動運転への道を開くものである。</li>
+</ul>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<h3 id="2.1-自動運転のためのデータセット">2.1　自動運転のためのデータセット</h3>
+<p>自動運転の研究は、大規模データセットの発展と深く結びついてきた［29, 34］。これらのデータセットの進化には、より豊富なセンサとモダリティを取り込む明確な傾向が見られ、物体認識のような個別タスクへの注力から、シーン理解、動き予測、エンドツーエンド運転といったより複雑な課題へと移行してきた。初期の取り組みは主に交通環境の認識に焦点を当てており、歩行者認識［14, 18, 39, 62］、信号機・標識認識［3, 15, 19, 22, 41, 50, 61, 64］、走行シーンのセグメンテーション［5, 13, 38, 46, 60］などのタスク向けのデータセットが提案された。</p>
+<p>自動運転タスクの複雑化に伴い、さまざまなセンサのデータを取り込んだ大規模データセットが開発されるようになった。KITTI［21］はその先駆的な研究であり、前方カメラと LiDAR で記録した走行映像を提供している。また、3D バウンディングボックスのアノテーションと真値軌跡も含んでいる。Waymo Open Dataset［51］は同様のアプローチを採りつつ、規模と多様性の両方を大幅に向上させた。Argoverse 1［9］、Argoverse 2［55］、nuScenes［7］は、マルチセンサ情報と 3D バウンディングボックスのアノテーションに加えて高精度地図（HD-Map）を提供しており、動き予測タスクにより適したものとなっている。同じく HD-Map を含む Lyft L5［23］と nuPlan［8］は、計画タスクにより重点を置いている。これらの豊富なマルチモーダルデータセットは、3D 物体検出、軌跡予測、行動計画といった分野の研究を大きく前進させ、より複雑で現実的な走行シナリオに対応できるアルゴリズムの開発を可能にした。</p>
+<a class="pg" data-page="3"></a>
+<p>近年、大規模言語モデル（LLM）の発展により、複雑な走行環境の理解と運転操作の計画にマルチモーダル LLM（MLLM）を用いる試みが生まれている。これにより、交通環境に特化した Vision-Language データセットが登場した。BDD-X［27］は、走行動画における自車の行動の背後にある理由を記述した、人手でアノテーションされた自由形式のキャプションを提供している。BDD-OIA［56］データセットでは、自車の反応を引き起こす物体に関する閉形式（closed-form）の説明が、推奨行動とともに提供されている。同様に、DRAMA［36］は走行中のリスクの特定を目的とした閉形式および自由形式のキャプションを提供している。また、リスク事象に関連する物体のアノテーションと推奨行動コマンドも含んでいる。OpenDV-2K［58］は公開動画から作成された大規模データセットであり、自動生成されたテキストキャプションと運転行動コマンドでアノテーションされている。しかし、これらのデータセットは行動として高レベルの運転コマンド（例：「停止」や「左折」）のみを提供しており、詳細な運転操作の表現やエンドツーエンド自動運転システムの学習に不可欠な、きめ細かい軌跡情報を欠いていることが多い。HAD［26］、Talk2Car［17］、Talk2Car-Trajectory［16］、DriveLM［49］は、よりきめ細かい行動アノテーションとして軌跡情報を含む Vision-Language データセットである。しかし、これらのデータセットは規模、特に収録する走行シナリオの多様性と複雑さの点で限られていることが多く、真に頑健で汎化可能な VLA モデルの開発を支える能力を妨げている。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">データセット</th><th rowspan="2">年</th><th colspan="2">視覚データ</th><th colspan="3">言語データ</th><th colspan="2">行動データ</th></tr>
+<tr><th>フレーム数</th><th>ソース</th><th>種類</th><th>方法</th><th>件数</th><th>種類</th><th>方法</th></tr>
+</thead>
+<tbody>
+<tr><td>BDD-X［27］</td><td>2018</td><td style="text-align:right">26.2K</td><td>BDD［59］</td><td>Caption</td><td>Manual</td><td style="text-align:right">26K</td><td>—</td><td>—</td></tr>
+<tr><td>BDD-OIA［56］</td><td>2020</td><td style="text-align:right">22.9K</td><td>BDD［59］</td><td>Caption</td><td>Manual</td><td style="text-align:right">27K</td><td>Command</td><td>Manual</td></tr>
+<tr><td>DRAMA［36］</td><td>2023</td><td style="text-align:right">17.8K</td><td>Original (Real)</td><td>Caption</td><td>Manual</td><td style="text-align:right">17K</td><td>Command</td><td>Manual</td></tr>
+<tr><td>OpenDV-2K［58］</td><td>2024</td><td style="text-align:right">65.1M</td><td>YouTube Public Datasets</td><td>Caption</td><td>Auto (Single)</td><td style="text-align:right">65.1M</td><td>Command</td><td>Auto</td></tr>
+<tr><td>HAD［26］</td><td>2019</td><td style="text-align:right">1.1M</td><td>HDD［44］</td><td>Caption</td><td>Manual</td><td style="text-align:right">47K</td><td>Traj, Command</td><td>Base</td></tr>
+<tr><td>Talk2Car［17］</td><td>2019</td><td style="text-align:right">400K</td><td>nuScenes［6］</td><td>Caption</td><td>Manual</td><td style="text-align:right">12K</td><td>Traj</td><td>Base</td></tr>
+<tr><td>Talk2Car-Trajectory［16］</td><td>2022</td><td style="text-align:right">400K</td><td>nuScenes［6］</td><td>Caption</td><td>Manual</td><td style="text-align:right">12K</td><td>Traj, Command</td><td>Base, Manual</td></tr>
+<tr><td>DriveLM-nuScenes［49］</td><td>2023</td><td style="text-align:right">4.8K</td><td>nuScenes［6］</td><td>QA</td><td>Manual</td><td style="text-align:right">445K</td><td>Traj</td><td>Base</td></tr>
+<tr><td>DriveLM-CARLA［49］</td><td>2023</td><td style="text-align:right">183K</td><td>Original (Sim)</td><td>QA</td><td>Auto (Single)</td><td style="text-align:right">3.76M</td><td>Traj</td><td>Sim</td></tr>
+<tr><td><strong>CoVLA (ours)</strong></td><td>2024</td><td style="text-align:right">6M</td><td>Original (Real)</td><td>Caption</td><td>Auto (Multi)</td><td style="text-align:right">6M</td><td>Traj</td><td>GPS/IMU</td></tr>
+</tbody>
+</table>
+<p><strong>表1：言語データと行動データを備えた走行データセットの比較。</strong></p>
+<p class="yakuchu">表中の語：Original (Real)＝独自収集（実環境）、Original (Sim)＝独自収集（シミュレーション）、YouTube Public Datasets＝YouTube・公開データセット、Caption＝キャプション、QA＝質問応答、Manual＝人手、Auto (Single)＝自動（単一）、Auto (Multi)＝自動（複数）、Command＝コマンド、Traj＝軌跡、Base＝元データセット由来、Sim＝シミュレーション、ours＝本研究</p>
+
+<h3 id="2.2-運転タスクのための-mllm">2.2　運転タスクのための MLLM</h3>
+<p>実世界の走行シナリオの複雑でしばしば予測不能な性質、特に走行分布の「ロングテール」に属するもの（例：通行止めの道路での走行）に対処するには、自動運転システムにより高度な推論と意思決定の能力が必要となる。近年の研究では、MLLM を自動運転システムに組み込み、その強力な推論能力と言語理解能力を活用してこれらの課題に対処することにますます焦点が当てられている。たとえば ADAPT［24］は、視覚言語モデル（VLM）を用いて運転行動の自然言語による説明を生成し、その背後にある理由を提示することで、システムの解釈可能性を高めている。言語モデルを用いて運転行動を予測する初期の試みでは、GPT-3.5 と GPT-4［1］を用いて状況説明から高レベルの運転コマンドを予測していた［20, 54］。こうした初期の取り組みが、より最近の研究の基礎を築いた。それらの研究では、LLM をファインチューニングして、軌跡［49, 57］や、操舵や加速などの制御信号［10, 37, 47］といったさまざまな種類の運転行動をテキスト出力によって予測することが検討されている。これらの手法が言語を通じて運転操作を直接扱うのに対し、LMDrive［48］と DriveMLM［53］は、Transformer の出力からの埋め込みをデコーダに渡すことで制御信号を予測する。CarLLaVA［45］は LLaVA アーキテクチャを用い、画像、車速、目標位置座標を入力として軌跡を予測する。特筆すべきことに、この手法は CARLA leaderboard 2.0 において既存手法を大きく上回る性能を達成しており、複雑な軌跡予測タスクに対する VLM の有効性を示している。</p>
+
+<h2 id="3-データセット">3　データセット</h2>
+<a class="pg" data-page="4"></a>
+<p>本節では CoVLA-Dataset を詳しく取り上げ、その構造、内容、そして自動運転研究のためのこの貴重なリソースを作成するために用いた手法を詳述する。我々は、多様な実世界の走行シナリオを網羅していること、同期したマルチモーダルデータストリーム（前方カメラ、車両信号、その他のセンサ）、そして大規模なアノテーション付きデータ（合計 80 時間超の動画からなる 10,000 件の走行シーンで、それぞれが正確なフレーム単位の軌跡と説明的なキャプションのアノテーションを持つ）を特に強調する。この大規模な VLA データセットを作成するため、我々は生データからシーン説明と真値軌跡を自動生成する、新しくスケーラブルな手法を開発した。</p>
+
+<figure><img src="figs/fig2.jpg" alt="図2" /></figure>
+<p><strong>図2：データセット生成パイプラインの概要。</strong>動画フレームとセンサ信号に自動でラベル付けを行い、軌跡やその他のラベルを生成する。さらに、動画フレームに自動キャプション付けを適用し、挙動キャプションと推論キャプションの両方を生成する。</p>
+<p class="yakuchu">図中ラベル：Video frames＝動画フレーム、Sensor signals＝センサ信号、IMU/GNSS＝IMU／GNSS、Radar＝レーダ、Speed＝速度、Throttle/brake＝アクセル／ブレーキ、Steering＝ステアリング、Object detection＝物体検出、Kalman Filter＝カルマンフィルタ、Object labels＝物体ラベル、Traffic light＝信号機、Leading vehicle＝先行車、Trajectories＝軌跡、Speed Steering IMU＝速度・操舵・IMU、Text instruction as facts＝事実としてのテキスト指示、Rule-based algorithm＝ルールベースのアルゴリズム、Behavior captions＝挙動キャプション、"The ego vehicle is moving straight at a high speed. There is a traffic light displaying a green..."＝「自車は高速で直進している。…青を表示している信号機がある…」、Reasoning captions＝推論キャプション、"What the driver of ego vehicle should be careful is to maintain a safe distance to the leading vehicle ..."＝「自車の運転者が注意すべきことは、先行車との安全な車間距離を保つことである…」、Concatenate＝連結</p>
+
+<h3 id="3.1-構築">3.1　構築</h3>
+<h4>3.1.1　生データ</h4>
+<p>我々は実世界の走行データを取得するために複数のデータ収集車両を開発し、日本の東京周辺に配備した。取得するデータには、前方カメラ、Controller Area Network（CAN）バス、全球測位衛星システム（GNSS）、慣性計測装置（IMU）のセンサデータが含まれる。</p>
+<ul>
+<li><strong>データ収集期間：</strong>6 か月（夏から冬）。結果として 1000 時間を超える生データが得られた。</li>
+<li><strong>データ収集環境：</strong>東京およびその周辺のさまざまな場所（都市中心部、複雑な高速道路のインターチェンジ、狭い住宅街の道路、曲がりくねった道のある山間部）、さまざまな天候（晴れ、曇り、雨、豪雨）、さまざまな時間帯（日中、夕方、夜間）。</li>
+<li><strong>機材：</strong>前方カメラ（1928×1208 ピクセル、20 FPS、H.265 コーデック）、CAN バス（アクセル／ブレーキペダル位置、ステアリングホイール角、方向指示器の状態、ギア位置、車速）、GNSS と IMU（タイムスタンプ付きのバイナリ形式）、車載ストレージ装置。</li>
+</ul>
+
+<h4>3.1.2　データサンプリング</h4>
+<p>1,000 時間を超える生の走行データから、次の基準を満たす数百時間分を慎重に選択する。(1) 車両がドライブギアの状態で記録されたこと、(2) 最高速度が 100 km/h を超えないこと、(3) GNSS データが途切れなく利用可能であること。</p>
+<p>走行シナリオの多様性を重視するため、所与の特徴量の集合について事前に計算した経験分布に反比例する重み付けを行って、個々のデータ点をサンプリングする。具体的には、バランスをとる特徴量として操舵角の絶対値の最大値、加速度の絶対値の最大値、および方向指示器を選び、前二者にはビン分割を適用する。これらのカテゴリ特徴量の経験的な同時分布を計算する。平滑化パラメータ \( \delta = 50 \) で加法平滑化［11］を適用した後、これらの値の逆数をサンプリング時の確率の重みとして用いる。これらの調整に基づき、この方法で多様な 30 秒のシーンを 10,000 件選択した。その結果、合計 6,000,000 の動画フレームとなり、これは 83.3 時間分の走行データに相当する。</p>
+
+<h4>3.1.3　自動ラベル付け</h4>
+<p><strong>軌跡。</strong>VLA モデルが予測することになる将来軌跡データを取得するため、GNSS と IMU のセンサを用いたカルマンフィルタ［25］によって車両の走行経路を推定する。各タイムスタンプについて、その後 3 秒間（60 フレーム）の将来軌跡のデータ点をアノテーションする。軌跡データは、データ収集車両を中心とするグローバル座標系で表現される。場合によっては GNSS データの不安定さにより、大きな振動を特徴とする誤った軌跡が生じることがある。我々はヒューリスティックな手法を導入して、これらの不正確な軌跡を特定し、データセットから除去する。詳細は補足資料で報告する。</p>
+<p><strong>物体。</strong>信号機は走行環境において最も重要な物体の一つであり、その状態を正確に検出することは VLA モデルの学習を強力に支える。我々は信号機検出のために特別に設計された深層学習モデル（OpenLenda-s<sup>1</sup>）を用いてデータにアノテーションを付ける。このモデルは信号機の色だけでなく矢印信号の方向も正確に識別でき、各フレームの信号機情報を包括的に把握することを可能にする。</p>
+<blockquote><p>脚注1：<a href="https://github.com/turingmotors/openlenda/releases/tag/v0.1.0">https://github.com/turingmotors/openlenda/releases/tag/v0.1.0</a></p></blockquote>
+<a class="pg" data-page="5"></a>
+<p>加えて、先行車の正確な検出と追跡は、交通の流れを理解し潜在的な危険を予測するうえで極めて重要であり、我々のデータセットのもう一つの不可欠な要素となっている。頑健性を確保するため、レーダと前方カメラの両方のデータを組み合わせるセンサフュージョン手法を採用する。我々のデータセットには、検出された先行車について、その速度、加速度、自車に対する相対位置を含む包括的な情報が含まれる。</p>
+
+<figure><img src="figs/fig3.jpg" alt="図3" /></figure>
+<p><strong>図3：CoVLA-Dataset のフレーム例。</strong>推定された軌跡（<strong>緑色の線</strong>）と、キャプショナーモデルが生成したキャプションを示す。<strong>重要な物体</strong>は青の太字で強調し、キャプション中の<strong>誤り</strong>は赤の太字で示している。</p>
+<p class="yakuchu">図中キャプションの訳（上段左から）：(1)「自車は中程度の速度で直進している。シーンに信号機はない。<strong>曇り</strong>である。車は<strong>狭い道路</strong>を走行している。自車の運転者は<strong>道路を横断する歩行者</strong>、特に車両前方で道路を横断している<strong>青いバッグを持った</strong>高齢の<strong>男性</strong>に注意すべきである」。(2)「自車は<strong>非常に高い速度</strong>で直進している。シーンに信号機はない。<strong>晴れ</strong>である。車は<strong>高速道路</strong>を走行している。歩行者は見当たらない。自車の運転者が注意すべきことは、<strong>パトカー</strong>やその他の道路上の車両との安全な車間距離を保つことである」。(3)「自車は先行車に追従しながら加速しつつ中程度の速度で直進している。シーンに信号機はない。<strong>雨</strong>である。車は<strong>高速道路を</strong>走行している（赤字＝誤り）。歩行者は見当たらない。自車の運転者が注意すべきことは、前方の<strong>トラック</strong>との安全な車間距離を保つことである。<strong>それが大きな白いタンクを積んでいるため</strong>」。（下段左から）(4)「自車は加速しつつ中程度の速度で直進している。シーンに信号機は<strong>ない</strong>。歩行者は見当たらない。自車の運転者が注意すべきことは道路の<strong>右側</strong>（赤字＝誤り）の<strong>一時停止標識</strong>である。運転者は必要に応じて停止できるよう備えるべきである」。(5)「自車はゆっくりと<strong>右折</strong>している。自車の近くに<strong>青信号</strong>を表示している信号機がある。<strong>雨</strong>である。車は広い道路を走行している。歩行者は見当たらない。自車の運転者が注意すべきことは、雨で<strong>路面が濡れて滑りやすい</strong>ため、他の車両との安全な車間距離を保つことである」。(6)「自車は加速しつつ中程度の速度で直進している。シーンに信号機はない。車は<strong>狭い道路</strong>を走行している。歩行者は見当たらない。自車の運転者が注意すべきことは、<strong>駐車車両</strong>、<strong>石垣</strong>、<strong>木製の柵</strong>（赤字＝誤り）など道路脇の物体に衝突しないようにすることである」。</p>
+
+<h4>3.1.4　自動キャプション付け</h4>
+<p><strong>ルールベースのキャプション付け。</strong>キャプションは vision-language-action データセットに不可欠であるが、人手によるアノテーションには大きな課題がある。人手のアノテーションはコストと時間がかかり、キャプションの品質の不一致にもしばしば悩まされる。これらの制約に対処しスケーラビリティを確保するため、我々は自動キャプション付けの手法を開発した。</p>
+<p>我々の手法の第 1 段階として、自然言語によるルールベースのキャプションを生成する。速度、加速度、軌跡の曲率、先行車の有無、信号機の状態など、車両の運動と検出された物体のさまざまな側面を考慮し、データセットの各フレームについて包括的なルールベースのキャプションを生成する。</p>
+<p><strong>VLM ベースのキャプション付け。</strong>ルールベースのキャプション付けは効率的で費用対効果が高いものの、自然言語としての豊かさに欠けることが多く、特定の標識や珍しい物体などの重要な詳細を見落とす可能性がある。キャプションの表現力と情報量を高めるため、事前学習済みの VLM を用いてルールベースのキャプションを拡張する。OpenDV-2K［58］などの一部のデータセットは BLIP-2［30］のようなモデルによる単一フレームの自動キャプション付けを用いているが、この手法では走行シナリオに本来備わっている重要な時間的情報を捉えられない。この制約に対処するため、時空間モデリングに長け、動画の質問応答とキャプション付けのタスクで高い性能を示す大規模動画言語モデルである、事前学習済みの VideoLLaMA 2<sup>2</sup> を用いる［12］。</p>
+<blockquote><p>脚注2：<a href="https://huggingface.co/DAMO-NLP-SG/VideoLLaMA2-7B">https://huggingface.co/DAMO-NLP-SG/VideoLLaMA2-7B</a></p></blockquote>
+<p>キャプショナーモデルは 60 フレーム（3 秒）のウィンドウ単位で動作し、入力動画からサンプリングした、ウィンドウの最初と最後のフレームを含む 8 枚の代表フレームを処理する。処理負荷を管理するため、30 秒の各シーンは 10 個のウィンドウに分割される。この手法により、100,000 件の VLM 生成キャプションと、ルールベースと VLM 生成の両キャプションを統合した後の 6,000,000 件の結合キャプションが得られる。キャプション生成は 8 基の NVIDIA H100 GPU を用いて行われ、全工程が 1 日以内に完了する。これは人手によるアノテーションと比べて大幅な時間短縮を示している。</p>
+
+<a class="pg" data-page="6"></a>
+<p><strong>ハルシネーションの抑制。</strong>VLM の既知の課題として、特に視覚的質問応答や画像キャプション付けのようなタスクにおいて、視覚的内容を正確に反映しないキャプションを生成する、すなわちハルシネーションを生じる傾向がある［2, 33］。</p>
+<p>この問題を軽減するため、我々は包括的なルールベースのキャプションを事実上の制約として用いる。これらのキャプションは、ルールでまだカバーされていない追加情報でキャプションを補うよう指示するプロンプトとともに、文脈として VLM に与えられる。この補足情報は、モデルに問い合わせてその内部のトークン確率分布を調べることで導出され、道路の種類（例：狭い／広い、高速道路／一般道、トンネル内／トンネル外）、天候（例：晴れ、曇り、雨）、潜在的なリスク（例：歩行者の存在）、その他の関連要因に関する詳細を含む。たとえば天候を判定するには、クエリ「What is the weather in this video?」が与えられたときの各天候関連トークン（例：「sunny」、「cloudy」、「rainy」）の確率を計算し、最も確率の高いトークンを選択する。こうして拡張したルールベースのキャプションを事実のアンカーとして用い、走行環境内の潜在的リスクの特定に焦点を当てた自由形式のキャプションを生成するよう VLM にプロンプトを与える。</p>
+
+<figure><img src="figs/fig4_a.png" alt="図4(a)" /></figure>
+<p>(a) サンプリング前後の速度分布。</p>
+<figure><img src="figs/fig4_b.png" alt="図4(b)" /></figure>
+<p>(b) サンプリング前後の操舵角分布。</p>
+<p><strong>図4：車速と操舵角のデータ分布。</strong>赤い棒はサンプリング前の分布を、黄色の棒はサンプリング後の分布を表す。(b) では見やすさのため対数スケールを用いていることに注意されたい。</p>
+<p class="yakuchu">図中ラベル：Relative Frequency (%)＝相対頻度（%）、Speed (km/h)＝速度（km/h）、Steering Angle (Degrees)＝操舵角（度）、All Data＝全データ、Sampled Data＝サンプリング後のデータ</p>
+
+<h3 id="3.2-分析">3.2　分析</h3>
+<p><strong>統計。</strong>3.1.2 節で述べたシーンサンプリング手法の影響を評価するため、まず主要な運転パラメータの分布を分析する。図4a と図4b に示すように、車速と操舵角の分布はサンプリング後により一様になっており、低速のデータ点が目に見えて増加し、操舵角の 0 度付近の中央のピークが小さくなっている。これにより、さまざまな範囲にわたってよりバランスのとれた表現となっている。その結果、CoVLA-Dataset は多様な運転操作を示しており、方向指示器が作動しているフレームが 16.11%、信号機が写っているフレームが 22.90% である。発進／停止、旋回、車線変更を含むこの多様性は、自動運転システムにおける頑健な認識、意思決定、制御のアルゴリズムの必要性を強調している。</p>
+<p><strong>比較。</strong>表1 に示すように、我々の CoVLA-Dataset はいくつかの重要な利点を示している。我々は OpenDV-2K［58］と同様に、自動ラベル付けと MLLM ベースの自動キャプション付けを用いてデータセットを構築している。この自動化された手法は、自動運転研究において増加傾向にある大規模データセットの構築に不可欠であり［31］、人手のアノテーションに依存するデータセットよりも大幅に大きなデータセットの開発を可能にする。さらに、我々のデータセットには GPS と IMU のデータから導出した軌跡アノテーションが組み込まれているが、これは OpenDV-2K のように十分なメタデータを欠くデータセットにはない特徴である。</p>
+<p>CoVLA-Dataset は、視覚・言語・行動のモダリティをシームレスに統合している点で他のデータセットと一線を画している。この統合は、さまざまなセンサからの同期した実世界データの取得と、我々の自動ラベル付け・キャプション付けパイプラインとの組み合わせによって実現されている。この包括的なアノテーションは走行環境のあらゆる関連する側面を捉えており、自動運転システムの学習と評価にとって貴重なリソースとなっている。</p>
+<p><strong>自動キャプション付けの限界。</strong>図3 は CoVLA-Dataset からサンプリングしたフレームを示しており、成功例と、自動キャプション付けが課題に直面した事例の両方を強調している。提案手法はスケーラブルで詳細な動画キャプション付けを効果的に可能にするものの、生成されたキャプションを分析すると、さらに改善すべき点が明らかになる。</p>
+<p>我々は主に 2 つのカテゴリの誤りを特定した。第一に、キャプション付けモデルは時折物体のハルシネーションを示し、「木製の柵（wooden fence）」のようにシーンに存在しない物体を記述する。さらに、VLM は時折物体の位置やシーンの要素を誤認し、たとえば左側の物体を誤って「右側（right-side）」とラベル付けする。</p>
+<p>我々が明らかにしたもう一つの限界は、地域特有のランドマーク、特に日本に固有のものの認識である。たとえば、日本の交通標識は日本語の文字を含むなど独自のデザインや意味を持つことが多く、適切な識別と解釈が必要となる。</p>
+<p>これらの知見は、より頑健な物体検出アルゴリズム、走行環境に関するより多くの知識を備えた文脈を考慮したキャプション付けモデル、文化的に多様な学習データセットの開発など、今後の研究の重要な領域を浮き彫りにしている。</p>
+<a class="pg" data-page="7"></a>
+<h2 id="4-実験">4　実験</h2>
+<p>本節では、CoVLA-Dataset の豊富さを自動運転タスクに活用するベースラインモデル CoVLA-Agent の開発と評価の方法論を示す。データセット、モデル構成、学習手順、評価指標を含む実験設定を詳述し、結果を分析する。</p>
+
+<h3 id="4.1-モデル">4.1　モデル</h3>
+<p><strong>アーキテクチャ。</strong>図5 に示す CoVLA-Agent は、自動運転のために設計された VLA モデルである。言語モデルとして事前学習済みの Llama-2（7B）［52］を、視覚エンコーダとして CLIP ViT-L（224×224 ピクセル）［43］を用いる。加えて、我々のモデルは自車の速度を入力として受け取り、多層パーセプトロン（MLP）を用いてこれを埋め込みベクトルに変換する。CLIP ViT-L によって抽出された視覚特徴は、速度埋め込みおよびテキスト埋め込みと連結された後、Llama-2 モデルに入力される。軌跡予測には、特殊トークンを軌跡クエリとして用いる。これらの軌跡クエリの出力は MLP 層で処理され、3 秒間の時間範囲にわたる、現在位置を基準とした車両の予測軌跡を表す 10 個の \( (x, y, z) \) 座標の系列となる。</p>
+<p><strong>学習。</strong>このアーキテクチャに基づき、交通シーン記述生成と軌跡予測の 2 つのタスクで CoVLA-Agent を学習する。交通シーン記述生成では損失関数として交差エントロピー損失を用い、軌跡予測では平均二乗誤差損失を用いる。最終的に、学習は両方の損失を等しく重み付けした結合損失関数の最小化を目指す。</p>
+
+<figure><img src="figs/fig5.jpg" alt="図5" /></figure>
+<p><strong>図5：CoVLA-Agent のアーキテクチャ。</strong></p>
+<p class="yakuchu">図中ラベル：Traffic scene description＝交通シーンの説明、Trajectory＝軌跡、10x＝10 個、Trajectory queries＝軌跡クエリ、Ego speed＝自車速度、Projection (MLP)＝射影（MLP）、Vision Encoder (CLIP ViT-L)＝視覚エンコーダ（CLIP ViT-L）、Text Tokenizer＝テキストトークナイザ、SYSTEM: A chat between a curious user and ...＝システム：好奇心旺盛なユーザと…との対話、USER: &lt;image&gt; Describe the traffic scene.＝ユーザ：&lt;image&gt; 交通シーンを説明せよ。、ASSISTANT: The ego vehicle is moving at ... &lt;/s&gt;.＝アシスタント：自車は…で走行している &lt;/s&gt;。</p>
+
+<h3 id="4.2-実験設定">4.2　実験設定</h3>
+<p><strong>データ。</strong>CoVLA-Agent は CoVLA-Dataset で学習する。データセットの 10,000 シーンを、学習・検証・テストにそれぞれ 70/15/15 の割合で分割する。各シーンについて 2Hz の頻度でフレームをサンプリングし、その後 3 秒間の軌跡座標点（合計 60 座標点）をすべて含んでいないフレームは除外する。これら 60 座標点から、将来軌跡を表す 10 点を一様にサンプリングする。この処理により、学習用 302,989 サンプル、検証用 64,153 サンプル、テスト用 64,920 サンプルからなるデータサブセットが得られる。効率的なモデル学習のため、学習・検証データセットを LLaVA のインストラクションチューニング形式［32］に前処理する。図5 に示すこの形式は、システムプロンプト、ユーザ指示、アシスタントの応答から構成される。</p>
+<p><strong>条件。</strong>キャプション付けタスクがその後の軌跡予測に与える影響を調べるため、2 つの条件を用意する。CoVLA-Agent が軌跡を予測する前にキャプションを生成する<em>予測キャプション</em>（predicted caption）条件と、軌跡予測の際に予測キャプションの代わりに実際のキャプションを用いる<em>真値キャプション</em>（ground truth caption）条件である。</p>
+<p><strong>評価指標。</strong>軌跡予測の精度を評価するため、平均変位誤差（ADE）と最終変位誤差（FDE）の両方を計算する［42］。ADE は、全時間ステップにわたる予測軌跡点と真値軌跡点の間のユークリッド距離の平均として計算される。FDE は、予測された最終点と真値の最終点の間のユークリッド距離を測る。</p>
+<p>\[ \mathrm{ADE} = \frac{1}{T}\sum_{t=1}^{T}\sqrt{(x_t-\hat{x}_t)^2+(y_t-\hat{y}_t)^2+(z_t-\hat{z}_t)^2} \]</p>
+<p>\[ \mathrm{FDE} = \sqrt{(x_T-\hat{x}_T)^2+(y_T-\hat{y}_T)^2+(z_T-\hat{z}_T)^2} \]</p>
+
+<h3 id="4.3-結果">4.3　結果</h3>
+<p>表2 に定性的な結果<span class="yakuchu">（訳注：原文は "qualitative results" だが、表2 は ADE／FDE による定量的比較であり、「定量的」の誤記と思われる）</span>を示す。真値キャプションは、予測キャプションの ADE（0.955）と FDE（2.239）と比べて、より低い ADE（0.814）と FDE（1.655）を達成している。この結果は、CoVLA-Agent が予測キャプションを用いる場合よりも真値キャプションを用いる場合に良い性能を示すことを示している。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">条件</th><th colspan="2">評価指標</th></tr>
+<tr><th>ADE ↓</th><th>FDE ↓</th></tr>
+</thead>
+<tbody>
+<tr><td>predicted caption（予測キャプション）</td><td style="text-align:right">0.955</td><td style="text-align:right">2.239</td></tr>
+<tr><td>ground truth caption（真値キャプション）</td><td style="text-align:right"><strong>0.814</strong></td><td style="text-align:right"><strong>1.655</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表2：異なる条件の定量的比較。</strong></p>
+
+<a class="pg" data-page="8"></a>
+<h3 id="4.4-考察">4.4　考察</h3>
+<p>さまざまな走行シナリオにわたって我々のモデルの性能を分析する。</p>
+<p>図6a は直線道路での正確な軌跡予測を示し、図6b は高速道路での合流の成功例を示している。図6c は、交通規制のために自車が右車線にいるシーンを示している。交通誘導員が右車線前方の赤い車を停止させている。それらを避けるため、我々のモデルは左車線に戻る軌跡を予測している。我々の手法は、このような複雑な交通規制のシーンにおいても正確な経路を生成できる。</p>
+<p>図6d は交差点における軌跡予測の結果を示している。このシーンでは、真値キャプションに「<em>moving straight</em>（直進している）」という語句が含まれ、その条件で予測された軌跡は直進である。対照的に、「<em>turning right</em>（右折している）」という語句を含む予測キャプションに基づいて予測された軌跡は、右折の軌跡を正確に反映している。この結果は、このようなシーンにおいて単一フレームから意図を推定することの難しさを示す一方で、CoVLA-Agent における言語モダリティと行動モダリティの間の一貫性も裏付けている。</p>
+<p>これらのキャプション誤りが軌跡に与える影響を調べるため、予測キャプションの誤りが ADE と FDE にどのように影響するかを調査する。具体的には、ある単語が真値のルールベースのキャプション部分には現れるが予測キャプションには現れない場合、およびその逆の場合について、キャプション中の単語ごとの ADE と FDE の平均値を分析する。ストップワードを除き、出現頻度が 10 を超える単語のうち ADE と FDE の値が最も大きくなった上位 10 語を表3 に示す。ただし、その順位は 2 つの指標の間で異なる。大きな ADE と FDE は、予測キャプションに不一致がある場合、特に「deceleration（減速）」、「left（左）」、「curve（カーブ）」、「turning（旋回）」など車両の運動方向や加速度に関連する単語で生じる。これらの観察に基づき、生成キャプションを用いて予測した軌跡の性能が相対的に低いのは、主に単一フレームから意図を推定することの難しさによるものと考えられる。</p>
+
+<table>
+<thead>
+<tr><th>単語</th><th>平均 ADE ↓</th><th>平均 FDE ↓</th><th>頻度</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>deceleration</strong></td><td style="text-align:right">2.236</td><td style="text-align:right">5.458</td><td style="text-align:right">324</td></tr>
+<tr><td><strong>left</strong></td><td style="text-align:right">2.037</td><td style="text-align:right">5.009</td><td style="text-align:right">274</td></tr>
+<tr><td><strong>acceleration</strong></td><td style="text-align:right">1.826</td><td style="text-align:right">4.790</td><td style="text-align:right">50</td></tr>
+<tr><td><strong>curve</strong></td><td style="text-align:right">1.527</td><td style="text-align:right">3.608</td><td style="text-align:right">167</td></tr>
+<tr><td>following</td><td style="text-align:right">1.400</td><td style="text-align:right">3.192</td><td style="text-align:right">20</td></tr>
+<tr><td><strong>turning</strong></td><td style="text-align:right">1.343</td><td style="text-align:right">3.288</td><td style="text-align:right">636</td></tr>
+<tr><td><strong>right</strong></td><td style="text-align:right">1.324</td><td style="text-align:right">3.282</td><td style="text-align:right">810</td></tr>
+<tr><td>appear</td><td style="text-align:right">1.244</td><td style="text-align:right">3.044</td><td style="text-align:right">93</td></tr>
+<tr><td>present</td><td style="text-align:right">1.244</td><td style="text-align:right">3.044</td><td style="text-align:right">93</td></tr>
+<tr><td>signal</td><td style="text-align:right">1.229</td><td style="text-align:right">3.049</td><td style="text-align:right">117</td></tr>
+</tbody>
+</table>
+<p><strong>表3：平均 ADE と FDE が最も大きい上位 10 語。</strong>これらの単語は、単一フレームからの推定が難しい運動に対応している。運動を明示的に表す単語は太字で示している。</p>
+
+<figure><img src="figs/fig6_a.jpg" alt="図6(a)" /></figure>
+<p>(a) 片側 3 車線の一般道のシーン。前方に銀色のタンクローリーがいる。</p>
+<figure><img src="figs/fig6_b.jpg" alt="図6(b)" /></figure>
+<p>(b) 高速道路のシーン。自車は本線上の銀色のバスの後ろに合流しようとしている。</p>
+<figure><img src="figs/fig6_c.jpg" alt="図6(c)" /></figure>
+<p>(c) 交通規制のシーン。自車は右車線におり、左車線に戻る必要がある。</p>
+<figure><img src="figs/fig6_d.jpg" alt="図6(d)" /></figure>
+<p>(d) 交差点のシーン。信号は青である。右車線には数台の車が並んでいる。</p>
+<p><strong>図6：さまざまな交通シーンにおける CoVLA-Agent による軌跡予測の結果。</strong><strong>赤い線</strong>は予測キャプション条件での予測軌跡、<strong>青い線</strong>は真値キャプション条件で予測された軌跡、<strong>緑の線</strong>は真値の軌跡である。</p>
+
+<p>これらの挙動は、我々の CoVLA-Dataset によってモデルが一貫したキャプションと軌跡を生成できるようになったことを示しており、多様な走行シーンに対応する優れた能力を示すとともに、複雑なシナリオに対処する自動運転モデルの学習に有用であることを示している。CoVLA-Dataset は、自動運転車への VLA モデルの応用に関する今後の研究を加速させる。</p>
+
+<h2 id="5-結論">5　結論</h2>
+<p>本研究では、VLA モデルによる自動運転のための新しいデータセット CoVLA-Dataset を提示した。スケーラブルな自動化手法を活用することで、詳細な言語アノテーションで充実させた大規模で包括的なデータセットを構築した。この頑健なデータセットに基づき、洗練された VLA 自動運転モデル CoVLA-Agent を開発した。評価結果は、一貫した言語出力と行動出力を生成するこのモデルの高い能力を裏付けている。これらの知見は、VLA マルチモーダルモデルの変革的な可能性を浮き彫りにし、自動運転研究における今後の革新への道を開くものである。</p>
+
+<h2 id="謝辞">謝辞</h2>
+<p>本論文は、国立研究開発法人新エネルギー・産業技術総合開発機構（NEDO）の助成事業 JPNP20017 の結果得られたものである。</p>
+<a class="pg" data-page="9"></a>
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した（各項目末尾の被引用ページへのリンク番号は省略）。</p>
+<ol class="refs">
+<li>Josh Achiam, Steven Adler, Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Florencia Leoni Aleman, Diogo Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat, et al. Gpt-4 technical report. <em>arXiv preprint arXiv:2303.08774</em>, 2023.</li>
+<li>Zechen Bai, Pichao Wang, Tianjun Xiao, Tong He, Zongbo Han, Zheng Zhang, and Mike Zheng Shou. Hallucination of multimodal large language models: A survey. <em>arXiv preprint arXiv:2404.18930</em>, 2024.</li>
+<li>Karsten Behrendt, Libor Novak, and Rami Botros. A deep learning approach to traffic lights: Detection, tracking, and classification. In <em>2017 IEEE International Conference on Robotics and Automation (ICRA)</em>, pages 1370–1377. IEEE, 2017.</li>
+<li>Anthony Brohan, Noah Brown, Justice Carbajal, Yevgen Chebotar, Xi Chen, Krzysztof Choromanski, Tianli Ding, Danny Driess, Avinava Dubey, Chelsea Finn, Pete Florence, Chuyuan Fu, Montse Gonzalez Arenas, Keerthana Gopalakrishnan, Kehang Han, Karol Hausman, Alex Herzog, Jasmine Hsu, Brian Ichter, Alex Irpan, Nikhil Joshi, Ryan Julian, Dmitry Kalashnikov, Yuheng Kuang, Isabel Leal, Lisa Lee, Tsang-Wei Edward Lee, Sergey Levine, Yao Lu, Henryk Michalewski, Igor Mordatch, Karl Pertsch, Kanishka Rao, Krista Reymann, Michael Ryoo, Grecia Salazar, Pannag Sanketi, Pierre Sermanet, Jaspiar Singh, Anikait Singh, Radu Soricut, Huong Tran, Vincent Vanhoucke, Quan Vuong, Ayzaan Wahid, Stefan Welker, Paul Wohlhart, Jialin Wu, Fei Xia, Ted Xiao, Peng Xu, Sichun Xu, Tianhe Yu, and Brianna Zitkovich. Rt-2: Vision-language-action models transfer web knowledge to robotic control. In <em>arXiv preprint arXiv:2307.15818</em>, 2023.</li>
+<li>Gabriel J Brostow, Jamie Shotton, Julien Fauqueur, and Roberto Cipolla. Segmentation and recognition using structure from motion point clouds. In <em>Computer Vision–ECCV 2008: 10th European Conference on Computer Vision, Marseille, France, October 12-18, 2008, Proceedings, Part I 10</em>, pages 44–57. Springer, 2008.</li>
+<li>Holger Caesar, Varun Bankiti, Alex H. Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, June 2020.</li>
+<li>Holger Caesar, Varun Bankiti, Alex H Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 11621–11631, 2020.</li>
+<li>Holger Caesar, Juraj Kabzan, Kok Seang Tan, Whye Kit Fong, Eric Wolff, Alex Lang, Luke Fletcher, Oscar Beijbom, and Sammy Omari. nuplan: A closed-loop ml-based planning benchmark for autonomous vehicles. <em>arXiv preprint arXiv:2106.11810</em>, 2021.</li>
+<li>Ming-Fang Chang, John Lambert, Patsorn Sangkloy, Jagjeet Singh, Slawomir Bak, Andrew Hartnett, De Wang, Peter Carr, Simon Lucey, Deva Ramanan, et al. Argoverse: 3d tracking and forecasting with rich maps. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 8748–8757, 2019.</li>
+<li>Long Chen, Oleg Sinavski, Jan Hünermann, Alice Karnsund, Andrew James Willmott, Danny Birch, Daniel Maund, and Jamie Shotton. Driving with llms: Fusing object-level vector modality for explainable autonomous driving. <em>arXiv preprint arXiv:2310.01957</em>, 2023.</li>
+<li>Stanley F Chen and Joshua Goodman. An empirical study of smoothing techniques for language modeling. <em>Computer Speech &amp; Language</em>, 13(4):359–394, 1999.</li>
+<li>Zesen Cheng, Sicong Leng, Hang Zhang, Yifei Xin, Xin Li, Guanzheng Chen, Yongxin Zhu, Wenqi Zhang, Ziyang Luo, Deli Zhao, et al. Videollama 2: Advancing spatial-temporal modeling and audio understanding in video-llms. <em>arXiv preprint arXiv:2406.07476</em>, 2024.</li>
+<li>Marius Cordts, Mohamed Omran, Sebastian Ramos, Timo Rehfeld, Markus Enzweiler, Rodrigo Benenson, Uwe Franke, Stefan Roth, and Bernt Schiele. The cityscapes dataset for semantic urban scene understanding. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pages 3213–3223, 2016.</li>
+<li>Navneet Dalal and Bill Triggs. Histograms of oriented gradients for human detection. In <em>2005 IEEE computer society conference on computer vision and pattern recognition (CVPR'05)</em>, volume 1, pages 886–893. Ieee, 2005.</li>
+<li>Raoul De Charette and Fawzi Nashashibi. Real time visual traffic lights recognition based on spot light detection and adaptive traffic lights templates. In <em>2009 IEEE Intelligent Vehicles Symposium</em>, pages 358–363. IEEE, 2009.</li>
+<li>Thierry Deruyttere, Dusan Grujicic, Matthew B Blaschko, and Marie-Francine Moens. Talk2car: Predicting physical trajectories for natural language commands. <em>Ieee Access</em>, 10:123809–123834, 2022.</li>
+<li>Thierry Deruyttere, Simon Vandenhende, Dusan Grujicic, Luc Van Gool, and Marie-Francine Moens. Talk2Car: Taking control of your self-driving car. In Kentaro Inui, Jing Jiang, Vincent Ng, and Xiaojun Wan, editors, <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)</em>, pages 2088–2098, Hong Kong, China, Nov. 2019. Association for Computational Linguistics.</li>
+<li>Piotr Dollar, Christian Wojek, Bernt Schiele, and Pietro Perona. Pedestrian detection: An evaluation of the state of the art. <em>IEEE transactions on pattern analysis and machine intelligence</em>, 34(4):743–761, 2011.</li>
+<li>Andreas Fregin, Julian Muller, Ulrich Krebel, and Klaus Dietmayer. The driveu traffic light dataset: Introduction and comparison with existing datasets. In <em>2018 IEEE international conference on robotics and automation (ICRA)</em>, pages 3376–3383. IEEE, 2018.</li>
+<li>Daocheng Fu, Xin Li, Licheng Wen, Min Dou, Pinlong Cai, Botian Shi, and Yu Qiao. Drive like a human: Rethinking autonomous driving with large language models. In <em>Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision</em>, pages 910–919, 2024.</li>
+</ol>
+<a class="pg" data-page="10"></a>
+<ol class="refs" start="21">
+<li>Andreas Geiger, Philip Lenz, and Raquel Urtasun. Are we ready for autonomous driving? the kitti vision benchmark suite. In <em>2012 IEEE conference on computer vision and pattern recognition</em>, pages 3354–3361. IEEE, 2012.</li>
+<li>Sebastian Houben, Johannes Stallkamp, Jan Salmen, Marc Schlipsing, and Christian Igel. Detection of traffic signs in real-world images: The german traffic sign detection benchmark. In <em>The 2013 international joint conference on neural networks (IJCNN)</em>, pages 1–8. Ieee, 2013.</li>
+<li>John Houston, Guido Zuidhof, Luca Bergamini, Yawei Ye, Long Chen, Ashesh Jain, Sammy Omari, Vladimir Iglovikov, and Peter Ondruska. One thousand and one hours: Self-driving motion prediction dataset. In <em>Conference on Robot Learning</em>, pages 409–418. PMLR, 2021.</li>
+<li>Bu Jin, Xinyu Liu, Yupeng Zheng, Pengfei Li, Hao Zhao, Tong Zhang, Yuhang Zheng, Guyue Zhou, and Jingjing Liu. Adapt: Action-aware driving caption transformer. In <em>2023 IEEE International Conference on Robotics and Automation (ICRA)</em>, pages 7554–7561. IEEE, 2023.</li>
+<li>Rudolph Emil Kalman. A new approach to linear filtering and prediction problems. 1960.</li>
+<li>Jinkyu Kim, Teruhisa Misu, Yi-Ting Chen, Ashish Tawari, and John Canny. Grounding human-to-vehicle advice for self-driving vehicles. In <em>The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2019.</li>
+<li>Jinkyu Kim, Anna Rohrbach, Trevor Darrell, John Canny, and Zeynep Akata. Textual explanations for self-driving vehicles. <em>Proceedings of the European Conference on Computer Vision (ECCV)</em>, 2018.</li>
+<li>Moo Jin Kim, Karl Pertsch, Siddharth Karamcheti, Ted Xiao, Ashwin Balakrishna, Suraj Nair, Rafael Rafailov, Ethan Foster, Grace Lam, Pannag Sanketi, Quan Vuong, Thomas Kollar, Benjamin Burchfiel, Russ Tedrake, Dorsa Sadigh, Sergey Levine, Percy Liang, and Chelsea Finn. Openvla: An open-source vision-language-action model. <em>arXiv preprint arXiv:2406.09246</em>, 2024.</li>
+<li>Hongyang Li, Yang Li, Huijie Wang, Jia Zeng, Huilin Xu, Pinlong Cai, Li Chen, Junchi Yan, Feng Xu, Lu Xiong, Jingdong Wang, Futang Zhu, Chunjing Xu, Tiancai Wang, Fei Xia, Beipeng Mu, Zhihui Peng, Dahua Lin, and Yu Qiao. Open-sourced data ecosystem in autonomous driving: the present and future. <em>SCIENTIA SINICA Informationis</em>, 2024.</li>
+<li>Junnan Li, Dongxu Li, Silvio Savarese, and Steven Hoi. BLIP-2: Bootstrapping language-image pre-training with frozen image encoders and large language models. In Andreas Krause, Emma Brunskill, Kyunghyun Cho, Barbara Engelhardt, Sivan Sabato, and Jonathan Scarlett, editors, <em>Proceedings of the 40th International Conference on Machine Learning</em>, volume 202 of <em>Proceedings of Machine Learning Research</em>, pages 19730–19742. PMLR, 23–29 Jul 2023.</li>
+<li>Lincan Li, Wei Shao, Wei Dong, Yijun Tian, Kaixiang Yang, and Wenjie Zhang. Data-centric evolution in autonomous driving: A comprehensive survey of big data system, data mining, and closed-loop technologies. <em>arXiv preprint arXiv:2401.12888</em>, 2024.</li>
+<li>Haotian Liu, Chunyuan Li, Qingyang Wu, and Yong Jae Lee. Visual instruction tuning. In A. Oh, T. Naumann, A. Globerson, K. Saenko, M. Hardt, and S. Levine, editors, <em>Advances in Neural Information Processing Systems</em>, volume 36, pages 34892–34916. Curran Associates, Inc., 2023.</li>
+<li>Hanchao Liu, Wenyuan Xue, Yifei Chen, Dapeng Chen, Xiutian Zhao, Ke Wang, Liping Hou, Rongjun Li, and Wei Peng. A survey on hallucination in large vision-language models, 2024.</li>
+<li>Mingyu Liu, Ekim Yurtsever, Jonathan Fossaert, Xingcheng Zhou, Walter Zimmer, Yuning Cui, Bare Luka Zagar, and Alois C Knoll. A survey on autonomous driving datasets: Statistics, annotation quality, and a future outlook. <em>IEEE Transactions on Intelligent Vehicles</em>, 2024.</li>
+<li>Osama Makansi, Özgün Cicek, Yassine Marrakchi, and Thomas Brox. On exposing the challenging long tail in future prediction of traffic actors. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pages 13147–13157, 2021.</li>
+<li>Srikanth Malla, Chiho Choi, Isht Dwivedi, Joon Hee Choi, and Jiachen Li. Drama: Joint risk localization and captioning in driving. In <em>Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)</em>, pages 1043–1052, January 2023.</li>
+<li>Jiageng Mao, Yuxi Qian, Hang Zhao, and Yue Wang. Gpt-driver: Learning to drive with gpt. <em>arXiv preprint arXiv:2310.01415</em>, 2023.</li>
+<li>Gerhard Neuhold, Tobias Ollmann, Samuel Rota Bulo, and Peter Kontschieder. The mapillary vistas dataset for semantic understanding of street scenes. In <em>Proceedings of the IEEE international conference on computer vision</em>, pages 4990–4999, 2017.</li>
+<li>Lukáš Neumann, Michelle Karg, Shanshan Zhang, Christian Scharfenberger, Eric Piegert, Sarah Mistr, Olga Prokofyeva, Robert Thiel, Andrea Vedaldi, Andrew Zisserman, et al. Nightowls: A pedestrians at night dataset. In <em>Computer Vision–ACCV 2018: 14th Asian Conference on Computer Vision, Perth, Australia, December 2–6, 2018, Revised Selected Papers, Part I 14</em>, pages 691–705. Springer, 2019.</li>
+<li>Abhishek Padalkar, Acorn Pooley, Ajinkya Jain, Alex Bewley, Alex Herzog, Alex Irpan, Alexander Khazatsky, Anant Rai, Anikait Singh, Anthony Brohan, et al. Open x-embodiment: Robotic learning datasets and rt-x models. <em>arXiv preprint arXiv:2310.08864</em>, 2023.</li>
+<li>Mark Philip Philipsen, Morten Bornø Jensen, Andreas Møgelmose, Thomas B Moeslund, and Mohan M Trivedi. Traffic light detection: A learning algorithm and evaluations on challenging dataset. In <em>2015 IEEE 18th International Conference on Intelligent Transportation Systems</em>, pages 2341–2345. IEEE, 2015.</li>
+<li>Tran Phong, Haoran Wu, Cunjun Yu, Panpan Cai, Sifa Zheng, and David Hsu. What truly matters in trajectory prediction for autonomous driving? <em>Advances in Neural Information Processing Systems</em>, 36, 2024.</li>
+</ol>
+<a class="pg" data-page="11"></a>
+<ol class="refs" start="43">
+<li>Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, Gretchen Krueger, and Ilya Sutskever. Learning transferable visual models from natural language supervision. In Marina Meila and Tong Zhang, editors, <em>Proceedings of the 38th International Conference on Machine Learning</em>, volume 139 of <em>Proceedings of Machine Learning Research</em>, pages 8748–8763. PMLR, 18–24 Jul 2021.</li>
+<li>Vasili Ramanishka, Yi-Ting Chen, Teruhisa Misu, and Kate Saenko. Toward driving scene understanding: A dataset for learning driver behavior and causal reasoning. In <em>Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2018.</li>
+<li>Katrin Renz, Long Chen, Ana-Maria Marcu, Jan Hünermann, Benoit Hanotte, Alice Karnsund, Jamie Shotton, Elahe Arani, and Oleg Sinavski. Carllava: Vision language models for camera-only closed-loop driving. <em>arXiv preprint arXiv:2406.10165</em>, 2024.</li>
+<li>Timo Scharwächter, Markus Enzweiler, Uwe Franke, and Stefan Roth. Efficient multi-cue scene segmentation. In <em>German Conference on Pattern Recognition</em>, pages 435–445. Springer, 2013.</li>
+<li>Hao Sha, Yao Mu, Yuxuan Jiang, Li Chen, Chenfeng Xu, Ping Luo, Shengbo Eben Li, Masayoshi Tomizuka, Wei Zhan, and Mingyu Ding. Languagempc: Large language models as decision makers for autonomous driving. <em>arXiv preprint arXiv:2310.03026</em>, 2023.</li>
+<li>Hao Shao, Yuxuan Hu, Letian Wang, Guanglu Song, Steven L Waslander, Yu Liu, and Hongsheng Li. Lmdrive: Closed-loop end-to-end driving with large language models. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 15120–15130, 2024.</li>
+<li>Chonghao Sima, Katrin Renz, Kashyap Chitta, Li Chen, Hanxue Zhang, Chengen Xie, Ping Luo, Andreas Geiger, and Hongyang Li. Drivelm: Driving with graph visual question answering. <em>arXiv preprint arXiv:2312.14150</em>, 2023.</li>
+<li>Johannes Stallkamp, Marc Schlipsing, Jan Salmen, and Christian Igel. Man vs. computer: Benchmarking machine learning algorithms for traffic sign recognition. <em>Neural networks</em>, 32:323–332, 2012.</li>
+<li>Pei Sun, Henrik Kretzschmar, Xerxes Dotiwalla, Aurelien Chouard, Vijaysai Patnaik, Paul Tsui, James Guo, Yin Zhou, Yuning Chai, Benjamin Caine, et al. Scalability in perception for autonomous driving: Waymo open dataset. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 2446–2454, 2020.</li>
+<li>Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine Babaei, Nikolay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, et al. Llama 2: Open foundation and fine-tuned chat models. <em>arXiv preprint arXiv:2307.09288</em>, 2023.</li>
+<li>Wenhai Wang, Jiangwei Xie, ChuanYang Hu, Haoming Zou, Jianan Fan, Wenwen Tong, Yang Wen, Silei Wu, Hanming Deng, Zhiqi Li, et al. Drivemlm: Aligning multi-modal large language models with behavioral planning states for autonomous driving. <em>arXiv preprint arXiv:2312.09245</em>, 2023.</li>
+<li>Licheng Wen, Daocheng Fu, Xin Li, Xinyu Cai, Tao MA, Pinlong Cai, Min Dou, Botian Shi, Liang He, and Yu Qiao. Dilu: A knowledge-driven approach to autonomous driving with large language models. In <em>The Twelfth International Conference on Learning Representations</em>, 2024.</li>
+<li>Benjamin Wilson, William Qi, Tanmay Agarwal, John Lambert, Jagjeet Singh, Siddhesh Khandelwal, Bowen Pan, Ratnesh Kumar, Andrew Hartnett, Jhony Kaesemodel Pontes, et al. Argoverse 2: Next generation datasets for self-driving perception and forecasting. <em>arXiv preprint arXiv:2301.00493</em>, 2023.</li>
+<li>Y. Xu, X. Yang, L. Gong, H. Lin, T. Wu, Y. Li, and N. Vasconcelos. Explainable object-induced action decision for autonomous vehicles. In <em>2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, pages 9520–9529, Los Alamitos, CA, USA, jun 2020. IEEE Computer Society.</li>
+<li>Zhenhua Xu, Yujia Zhang, Enze Xie, Zhen Zhao, Yong Guo, Kenneth KY Wong, Zhenguo Li, and Hengshuang Zhao. Drivegpt4: Interpretable end-to-end autonomous driving via large language model. <em>arXiv preprint arXiv:2310.01412</em>, 2023.</li>
+<li>Jiazhi Yang, Shenyuan Gao, Yihang Qiu, Li Chen, Tianyu Li, Bo Dai, Kashyap Chitta, Penghao Wu, Jia Zeng, Ping Luo, Jun Zhang, Andreas Geiger, Yu Qiao, and Hongyang Li. Generalized predictive model for autonomous driving. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, 2024.</li>
+<li>Fisher Yu, Haofeng Chen, Xin Wang, Wenqi Xian, Yingying Chen, Fangchen Liu, Vashisht Madhavan, and Trevor Darrell. Bdd100k: A diverse driving dataset for heterogeneous multitask learning. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, June 2020.</li>
+<li>Fisher Yu, Haofeng Chen, Xin Wang, Wenqi Xian, Yingying Chen, Fangchen Liu, Vashisht Madhavan, and Trevor Darrell. Bdd100k: A diverse driving dataset for heterogeneous multitask learning. In <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>, pages 2636–2645, 2020.</li>
+<li>Jianming Zhang, Xin Zou, Li-Dan Kuang, Jin Wang, R Simon Sherratt, and Xioafeng Yu. Cctsdb 2021: a more comprehensive traffic sign detection benchmark. <em>Human-centric Computing and Information Sciences</em>, 12, 2022.</li>
+<li>Shanshan Zhang, Rodrigo Benenson, and Bernt Schiele. Citypersons: A diverse dataset for pedestrian detection. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pages 3213–3221, 2017.</li>
+<li>Weitao Zhou, Zhong Cao, Yunkang Xu, Nanshan Deng, Xiaoyu Liu, Kun Jiang, and Diange Yang. Long-tail prediction uncertainty aware trajectory planning for self-driving vehicles. In <em>2022 IEEE 25th International Conference on Intelligent Transportation Systems (ITSC)</em>, pages 1275–1282. IEEE, 2022.</li>
+<li>Zhe Zhu, Dun Liang, Songhai Zhang, Xiaolei Huang, Baoli Li, and Shimin Hu. Traffic-sign detection and classification in the wild. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pages 2110–2118, 2016.</li>
+</ol>
+
+<a class="pg" data-page="12"></a>
+<p><strong>CoVLA: Comprehensive Vision-Language-Action Dataset for Autonomous Driving<br />— 補足資料 —</strong></p>
+
+<h2 id="a-ヒューリスティックな軌跡フィルタリング">A　ヒューリスティックな軌跡フィルタリング</h2>
+<p>一部の事例で、軌跡データの不安定性が検出された。具体的には、次の 2 つの誤った挙動を特定した。</p>
+<ol>
+<li>大きなジャンプ</li>
+<li>誤った方向への移動</li>
+</ol>
+<p>大きなジャンプを検出するため、隣接する点の間の距離によって軌跡データをフィルタリングした。記録周波数 20 Hz、最高速度 100 km/h のもとでは、点の間の距離は最大でも 1.38 メートルとなるはずであり、これは次のように計算される。</p>
+<p>\[ \frac{100\,\mathrm{km/h} \times 1000\,\mathrm{m/km}}{3600\,\mathrm{s/h} \times 20} = 1.38\,\mathrm{m} \tag{1} \]</p>
+<p>許容率 1.15 を用いて、閾値を 1.59 メートルに設定した。この閾値を超えるすべての軌跡を除去した。</p>
+<p>誤った方向への移動を検出するため、全シーンから 400 サンプルを人手で確認し、43 件の無効な軌跡（10.75%）を特定した。観察により、これらの軌跡には 10 Hz の振動周波数が見られることが明らかになった。振動検出を実装するため、3 点移動平均を用いて軌跡を平滑化し、平滑化した軌跡と元の軌跡との差を計算した。次に、これらの差の分散を分析した。分散がある閾値を超えた場合、その軌跡を無効と分類した。この方法はテストデータセットにおいて適合率 0.64、再現率 0.75 を達成し、無効な軌跡の割合を 2.6% に低減した。この方法は偽陽性率が比較的高いものの、データセットの規模を考えれば許容できる。</p>
+
+<h2 id="b-データセット公開のためのプライバシー保護">B　データセット公開のためのプライバシー保護</h2>
+<p>我々は CoVLA-Dataset<sup>3</sup> を HuggingFace で公開した。プライバシー保護のため、Dashcam Anonymizer<sup>4</sup> を用いて CoVLA-Dataset の画像と動画中の人の顔とナンバープレートを匿名化した。</p>
+<blockquote><p>脚注3：<a href="https://huggingface.co/datasets/turing-motors/CoVLA-Dataset">https://huggingface.co/datasets/turing-motors/CoVLA-Dataset</a><br />
+脚注4：<a href="https://github.com/varungupta31/dashcam_anonymizer">https://github.com/varungupta31/dashcam_anonymizer</a></p></blockquote>
+
+<h2 id="c-covla-dataset-のデータ例">C　CoVLA-Dataset のデータ例</h2>
+<p>CoVLA-Dataset のサンプルデータを示す。各データ点には、画像、キャプション、車両状態が含まれる。実際のキャプションの例を図7 に示す。自動キャプション付けには、OpenLenda-s による信号機検出と、センサフュージョンによる前方車両の検出結果を用いる。車両状態の一覧を表4 に示す。各フレームには、速度、操舵角、軌跡の座標などの情報が含まれる。</p>
+
+<figure><img src="figs/fig7.jpg" alt="図7" /></figure>
+<p><strong>図7：</strong>CoVLA-Dataset における画像とキャプションの例。</p>
+<p class="yakuchu">図中キャプションの訳：「自車は<strong>先行車</strong>に追従しながら加速しつつ中程度の速度で直進している。自車の近くに<strong>青信号</strong>を表示している信号機がある。曇りである。車は広い道路を走行している。歩行者は見当たらない。自車の運転者が注意すべきことは、先行車との安全な車間距離を保ち、信号の変化に対応できるよう備えることである。」</p>
+<a class="pg" data-page="13"></a>
+<table>
+<thead>
+<tr><th>キー（Key）</th><th>値（Value）</th></tr>
+</thead>
+<tbody>
+<tr><td><code>frame_id</code></td><td>569</td></tr>
+<tr><td><code>image_path</code></td><td>images/2022-07-08–11-37-27–5_first/0569.png</td></tr>
+<tr><td><code>vEgo</code></td><td>7.43082332611084</td></tr>
+<tr><td><code>vEgoRaw</code></td><td>7.4395833015441895</td></tr>
+<tr><td><code>aEgo</code></td><td>0.6044138669967651</td></tr>
+<tr><td><code>steeringAngleDeg</code></td><td>0.6073870658874512</td></tr>
+<tr><td><code>steeringTorque</code></td><td>69.0</td></tr>
+<tr><td><code>brake</code></td><td>0.0</td></tr>
+<tr><td><code>brakePressed</code></td><td>false</td></tr>
+<tr><td><code>gas</code></td><td>0.20499999821186066</td></tr>
+<tr><td><code>gasPressed</code></td><td>true</td></tr>
+<tr><td><code>doorOpen</code></td><td>false</td></tr>
+<tr><td><code>seatbeltUnlatched</code></td><td>false</td></tr>
+<tr><td><code>gearShifter</code></td><td>drive</td></tr>
+<tr><td><code>leftBlinker</code></td><td>false</td></tr>
+<tr><td><code>rightBlinker</code></td><td>false</td></tr>
+<tr><td><code>orientations_calib</code></td><td>\( \begin{bmatrix} 2.9467956252753775 & 0.9174552319868815 & 2.2181786819453384 \end{bmatrix} \)</td></tr>
+<tr><td><code>orientations_ecef</code></td><td>\( \begin{bmatrix} 2.9243210649189977 & 0.9224135550861058 & 2.1900513923432348 \end{bmatrix} \)</td></tr>
+<tr><td><code>orientations_ned</code></td><td>\( \begin{bmatrix} -0.013463193567253392 & 0.006326533926443111 & -2.990125370637735 \end{bmatrix} \)</td></tr>
+<tr><td><code>positions_ecef</code></td><td>\( \begin{bmatrix} -3959574.486029379 & 3328427.354910454 & 3719065.7393601397 \end{bmatrix} \)</td></tr>
+<tr><td><code>velocities_calib</code></td><td>\( \begin{bmatrix} 7.317097759615114 & 0.003242519329502727 & 0.005369323447773883 \end{bmatrix} \)</td></tr>
+<tr><td><code>velocities_ecef</code></td><td>\( \begin{bmatrix} -2.6767882666706004 & 3.547338396353873 & -5.813015899212604 \end{bmatrix} \)</td></tr>
+<tr><td><code>accelerations_calib</code></td><td>\( \begin{bmatrix} 0.4734579094803297 & 0.08559864698994124 & -0.13132037594775653 \end{bmatrix} \)</td></tr>
+<tr><td><code>accelerations_device</code></td><td>\( \begin{bmatrix} 0.4736293760658642 & 0.07819260264673351 & -0.13526157094253702 \end{bmatrix} \)</td></tr>
+<tr><td><code>angular_velocities_calib</code></td><td>\( \begin{bmatrix} 0.011550541795216845 & 0.012243857869171634 & -0.007753300486330907 \end{bmatrix} \)</td></tr>
+<tr><td><code>angular_velocities_device</code></td><td>\( \begin{bmatrix} 0.011675888068301523 & 0.01206267096884485 & -0.007848971055415363 \end{bmatrix} \)</td></tr>
+<tr><td><code>timestamp</code></td><td>1657248173200</td></tr>
+<tr><td><code>extrinsic_matrix</code></td><td>\( \begin{bmatrix} -0.015688330416257182 & -0.9998769191404183 & 0.00012959444326649344 & 0.0 \\ -0.008260370686184616 & 2.879912020664621e-21 & -0.9999658837914467 & 1.2200000286102295 \\ 0.9998428078989188 & -0.01568886620613436 & -0.008259354077745229 & 0.0 \\ 0.0 & 0.0 & 0.0 & 1.0 \end{bmatrix} \)</td></tr>
+<tr><td><code>intrinsic_matrix</code></td><td>\( \begin{bmatrix} 2648.0 & 0.0 & 964.0 \\ 0.0 & 2648.0 & 604.0 \\ 0.0 & 0.0 & 1.0 \end{bmatrix} \)</td></tr>
+<tr><td><code>trajectory_count</code></td><td>60</td></tr>
+</tbody>
+</table>
+
+<a class="pg" data-page="14"></a>
+<table>
+<thead>
+<tr><th>キー（Key）</th><th>値（Value）</th></tr>
+</thead>
+<tbody>
+<tr><td><code>trajectory</code></td><td>\( \begin{bmatrix} 0.0 & -0.0 & 0.0 \\ \dots & \dots & \dots \\ 2.2367286927600376 & 0.021314714278469867 & 0.011369742248091336 \\ \dots & \dots & \dots \\ 4.529136516056675 & 0.05988551136966269 & 0.03572205827208557 \\ \dots & \dots & \dots \\ 6.919731941586808 & 0.08958899605082428 & 0.050459818682157966 \\ \dots & \dots & \dots \\ 9.301852576186251 & 0.1417775525229876 & 0.07520389298492622 \\ \dots & \dots & \dots \\ 11.677091075613516 & 0.2108797042962825 & 0.09371664992653018 \\ \dots & \dots & \dots \\ 14.027571172292527 & 0.28508464282229706 & 0.10760938523286476 \\ \dots & \dots & \dots \\ 16.350994760951718 & 0.38061347529509826 & 0.1208462683905208 \\ \dots & \dots & \dots \\ 18.675065252972097 & 0.4777731491748536 & 0.14622174266379429 \\ \dots & \dots & \dots \\ 20.998125620182435 & 0.5860796022647292 & 0.1657656398148593 \end{bmatrix} \)</td></tr>
+</tbody>
+</table>
+<p><strong>表4：</strong>車両状態リストの例。<span class="yakuchu">（訳注：原表は 13〜14 ページにまたがる 1 つの表であり、ここではページ境界で 2 つに分けて掲載した。キー名は原文のまま）</span></p>
+</body>
+</html>

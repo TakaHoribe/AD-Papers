@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Senna 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="Senna: Bridging Large Vision-Language Models and End-to-End Autonomous Driving" />
+  <meta name="short-name" content="Senna" />
+  <meta name="authors" content="Bo Jiang, Shaoyu Chen, Bencheng Liao, Xingyu Zhang, Wei Yin, Qian Zhang, Chang Huang, Wenyu Liu, Xinggang Wang（Huazhong University of Science and Technology、Horizon Robotics）" />
+  <meta name="source-pdf" content="54_Senna_2410.22313.pdf" />
+  <meta name="source-pages" content="13" />
+  <meta name="pdf-href" content="54_Senna_2410.22313.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="大規模視覚言語モデル（Senna-VLM）が自然言語の高レベル計画決定（メタアクション）を予測し、エンドツーエンドモデル（Senna-E2E）がそれを条件に精密な軌道を生成する構造化自動運転システム。計画指向 QA と 3 段階学習により、nuScenes と大規模データセット DriveX で最先端の計画性能を達成した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">Senna 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="54_Senna_2410.22313.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+    <div class="page" data-page="13" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">13</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#senna-bridging-large-vision-language-models-and-end-to-end-autonomous-driving" id="toc-senna-bridging-large-vision-language-models-and-end-to-end-autonomous-driving">Senna: Bridging Large Vision-Language Models and End-to-End Autonomous Driving</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a></li>
+<li><a href="#3-senna" id="toc-3-senna">3　Senna</a><ul>
+<li><a href="#3.1-運転シーン理解" id="toc-3.1-運転シーン理解">3.1　運転シーン理解</a></li>
+<li><a href="#3.2-senna-vlm" id="toc-3.2-senna-vlm">3.2　Senna-VLM</a></li>
+<li><a href="#3.3-senna-e2e" id="toc-3.3-senna-e2e">3.3　Senna-E2E</a></li>
+<li><a href="#3.4-学習戦略" id="toc-3.4-学習戦略">3.4　学習戦略</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a><ul>
+<li><a href="#4.1-実験設定" id="toc-4.1-実験設定">4.1　実験設定</a></li>
+<li><a href="#4.2-主要な結果" id="toc-4.2-主要な結果">4.2　主要な結果</a></li>
+<li><a href="#4.3-アブレーション研究" id="toc-4.3-アブレーション研究">4.3　アブレーション研究</a></li>
+<li><a href="#4.4-定性的結果" id="toc-4.4-定性的結果">4.4　定性的結果</a></li>
+</ul></li>
+<li><a href="#5-限界" id="toc-5-限界">5　限界</a></li>
+<li><a href="#6-結論" id="toc-6-結論">6　結論</a></li>
+<li><a href="#謝辞" id="toc-謝辞">謝辞</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#著者紹介" id="toc-著者紹介">著者紹介</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="senna-bridging-large-vision-language-models-and-end-to-end-autonomous-driving">Senna: Bridging Large Vision-Language Models and End-to-End Autonomous Driving</h1>
+<p>Bo Jiang、Shaoyu Chen、Bencheng Liao、Xingyu Zhang、Wei Yin、Qian Zhang、Chang Huang、Wenyu Liu（<em>Senior Member, IEEE</em>）、Xinggang Wang（<em>Senior Member, IEEE</em>）<br />
+Huazhong University of Science and Technology（B. Jiang、S. Chen、B. Liao、W. Liu、X. Wang）、Horizon Robotics（X. Zhang、W. Yin、Q. Zhang、C. Huang）<br />
+arXiv:2410.22313v1 [cs.CV]、2024年10月29日（Journal of LaTeX Class Files, Vol. 14, No. 8, October 2024 の書式）</p>
+<blockquote><p>翻訳について：原文 PDF は <code>54_Senna_2410.22313.pdf</code>（全 13 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<figure><img src="figs/fig1.png" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：</strong>Senna は、大規模視覚言語モデル（Senna-VLM）とエンドツーエンド運転モデル（Senna-E2E）からなる構造化された自動運転システムである。Senna-VLM は自然言語で高レベルの計画メタアクションを生成し、Senna-E2E は低レベルの計画軌道を予測する。我々は、大規模に自動ラベル付け可能な一連の計画指向 QA を設計し、3 段階の学習戦略と組み合わせることで、深い運転シーン理解と正確な計画を可能にする。</p>
+<p class="yakuchu">図中ラベル：Senna Model＝Senna モデル、Road: Urban＝道路：市街地、Weather: Cloudy＝天候：曇り、Time: Daytime＝時間帯：日中、Traffic Light: Green＝信号：青、VRU: Ped at &lt;4, 20&gt;＝交通弱者：&lt;4, 20&gt; に歩行者、Motion: Car at &lt;-5, 30&gt;: Keep, Straight＝動き：&lt;-5, 30&gt; の車は速度維持・直進、Meta-action: Keep, Straight＝メタアクション：速度維持・直進、Plan Explanation: Light is green / Road is clear / Watch out for the pedestrian aside＝計画の説明：信号は青／道路は空いている／脇の歩行者に注意、Planning Trajectories＝計画軌道、Text Input: System Prompts / User Instructions / Navigation Info.＝テキスト入力：システムプロンプト／ユーザ指示／ナビゲーション情報、Efficient Image Encoding＝効率的な画像エンコーディング、Driving Spatial Understanding＝運転の空間理解、Plug-and-Play＝プラグアンドプレイ、Senna Training＝Senna の学習、Vision Encoder＝視覚エンコーダ、Driving Vision Adapter＝運転用視覚アダプタ、Stage 1 Mix Pre-training＝段階 1 混合事前学習、Stage 2 Driving Fine-tuning＝段階 2 運転ファインチューニング、Stage 3 Planning Fine-tuning＝段階 3 計画ファインチューニング、Ground Truth Meta-action＝正解メタアクション、Senna Data＝Senna のデータ、Planning-Oriented Driving Scene Understanding＝計画指向の運転シーン理解、Scene Description＝シーン記述、Traffic Signal Detection＝信号検出、V.R.U. Identification＝交通弱者（VRU）の識別、Motion Prediction＝動き予測、Meta-action Planning＝メタアクション計画、Planning Explanation＝計画の説明、Perception＝知覚、Prediction＝予測、Planning＝計画（雪の結晶＝パラメータ凍結、炎＝学習対象）</p>
+
+<h2 id="要旨">要旨</h2>
+<p>エンドツーエンド自動運転は大規模データによって強力な計画能力を示しているが、常識が限られているために、複雑でまれなシナリオでは依然として苦戦している。対照的に、大規模視覚言語モデル（LVLM）はシーン理解と推論に優れている。今後の道筋は両アプローチの強みを融合することにある。LVLM を用いて軌道や制御信号を予測する従来手法は、LVLM が精密な数値予測に適していないため、最適ではない結果しか得られない。本論文では、LVLM（Senna-VLM）とエンドツーエンドモデル（Senna-E2E）を組み合わせた自動運転システム Senna を提示する。Senna は高レベルの計画を低レベルの軌道予測から分離する。Senna-VLM は自然言語で計画決定を生成し、Senna-E2E は精密な軌道を予測する。Senna-VLM は、効率的なシーン理解のために多画像エンコーディング手法と多視点プロンプトを利用する。さらに、計画指向の QA と 3 段階の学習戦略を導入し、常識を保持しつつ Senna-VLM の計画性能を向上させる。2 つのデータセットでの大規模な実験により、Senna が最先端の計画性能を達成することを示す。特に、大規模データセット DriveX で事前学習し nuScenes でファインチューニングすることで、Senna は事前学習なしのモデルと比べて平均計画誤差を 27.12%、衝突率を 33.33% 大幅に削減する。我々は、Senna のシナリオ横断的な汎化性と転移性が完全自動運転の実現に不可欠であると考える。コードとモデルは <a href="https://github.com/hustvl/Senna">https://github.com/hustvl/Senna</a> で公開予定である。</p>
+<p><strong>索引語：</strong>自動運転、エンドツーエンド、大規模視覚言語モデル、計画、マルチモダリティ</p>
+<blockquote><p>B. Jiang、S. Chen、B. Liao、W. Liu、X. Wang は Huazhong University of Science and Technology（中国・武漢 430074）に所属。X. Zhang、W. Yin、Q. Zhang、C. Huang は Horizon Robotics に所属。責任著者：Xinggang Wang（xgwang@hust.edu.cn）。</p></blockquote>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<a class="pg" data-page="2"></a>
+<p>自動運転は近年急速な発展を遂げている［1］–［3］。運転における知覚［4］–［6］、動き予測［7］–［9］、計画［10］–［12］の分野で大きな進歩があった。これらの発展は、より正確で安全な運転判断を実現するための確かな基盤となっている。その中でも、エンドツーエンド自動運転は重要なブレークスルーとして際立っている。大規模データに支えられ、エンドツーエンドの手法は目覚ましい計画能力を示してきた。また、大規模視覚言語モデル（LVLM）［13］–［17］は、ますます強力な画像理解・推論能力を示している。その常識と論理を活用することで、LVLM は運転環境を分析し、複雑なシナリオにおいて安全な判断を下すことができる。膨大な運転データを活用して自動運転における LVLM の性能を向上させ、LVLM とエンドツーエンドモデルを橋渡しすることは、安全で頑健かつ汎化可能な自動運転を実現するうえで極めて重要である。</p>
+
+<figure><img src="figs/fig2.png" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：</strong>従来手法は意思決定のステップなしに軌道を計画するため、モデルの学習が難しくなる。また LVLM は精密な軌道予測を苦手とする。Senna は構造化された計画アプローチを採用する。Senna-VLM は事前学習で得た常識と運転知識を活用して自然言語で高レベルの決定を行い、Senna-E2E がそれを用いて最終的な軌道を生成する。</p>
+<p class="yakuchu">図中ラベル：(a) Previous Method＝(a) 従来手法、(b) Ours＝(b) 提案手法、Image Sequence＝画像系列、Low Frequency Trajectory＝低頻度の軌道、End-to-end Model＝エンドツーエンドモデル、Output＝出力、Planning Trajectory＝計画軌道、"Accelerate, Right Turn"＝「加速、右折」、High-level Decision＝高レベルの決定、High-level Decision Making＝高レベルの意思決定、Low-level Trajectory Planning＝低レベルの軌道計画</p>
+
+<p>エンドツーエンド自動運転における一般的な方法は、意思決定のステップを経ずに将来の軌道や制御信号を直接予測することである。しかしこのアプローチは、解釈性に欠けるうえ、モデルの学習をより困難にする可能性がある。対照的に、人間の脳が詳細な判断を下す際には、階層的な高レベルの意思決定と低レベルの実行からなるシステムが重要な役割を果たしている［18］–［20］。さらに、エンドツーエンドモデルはしばしば常識を欠き、単純なシナリオで誤りを犯しうる。たとえば、カラーコーンを積んだトラックを道路封鎖と誤認し、不要なブレーキを引き起こすことがある。これらの限界がエンドツーエンドモデルの計画性能を妨げている。</p>
+<p>本論文では、主に次の 3 つの重要な問いを探究し、その答えを試みる。</p>
+<p><strong>LVLM をエンドツーエンドモデルとどう統合するか？</strong>自動運転の計画における LVLM の応用は、現在 2 つの主要なタイプに分類される。1 つは、LVLM を直接プランナとして用い、軌道点や制御信号を予測するものである［21］–［24］。しかし LVLM は本質的に精密な数学的計算に限界があり［25］、［26］、正確な数値の予測にはあまり適していない。もう 1 つは、LVLM をエンドツーエンドモデルと組み合わせるアプローチである。先駆的な先行研究［27］では、LVLM を用いて低頻度の軌道点を予測し、それをエンドツーエンドモデルが精緻化して高頻度の軌道を生成する。これにより LVLM が予測する点の数が減り、問題は部分的に緩和される。しかし LVLM が依然として軌道点を予測する必要があるため、問題は完全には解決されていない。</p>
+<p>本研究では、構造化された自動運転システム Senna を提案する。Senna は大規模視覚言語モデル（Senna-VLM）とエンドツーエンドモデル（Senna-E2E）を統合したもので、その名はブラジルの著名なレーシングドライバー Ayrton Senna に由来する。Senna の構造化された計画の考え方の核心は、高レベルの計画決定と低レベルの軌道予測を分離することにある。具体的には、Senna-VLM が自然言語で高レベルの計画決定を予測し、それを高次元特徴にエンコードして Senna-E2E に入力する。Senna-E2E はこの高レベルの決定を条件として、最終的な計画軌道を生成する。</p>
+<p>言語ベースの計画決定を予測することで、LVLM は事前学習した言語タスクから得た知識と常識を十分に活用でき、妥当な決定を生成しつつ精密な数値予測に伴う問題を回避できる。一方、エンドツーエンドモデルは正確な軌道予測に優れている。高レベルの意思決定と低レベルの軌道計画を分離することで、エンドツーエンドモデルの学習の複雑さを減らし、軌道計画の精度を向上させる。</p>
+<p>先行研究［23］、［27］と同様に、Senna-VLM は計画決定として定型化されたメタアクションを用いて予測空間を狭める。これにより LVLM の学習の難しさが軽減され、エンドツーエンドモデルとの統合も容易になる。単純なメタアクションエンコーダを用いて計画決定を高次元特徴に変換し、Senna-E2E に入力する。学習時には Senna-E2E は正解の計画決定を入力として用い、推論時には Senna-VLM が予測した決定に依拠する。</p>
+<p><strong>運転タスクに特化した LVLM をどう設計するか？</strong>現在よく使われている LVLM は、多画像入力に特化して最適化されていない［13］、［14］、［28］。運転タスク向けの従来の LVLM は、前方視点の入力のみをサポートして空間認識を制限し安全上のリスクを高めるか［21］、［29］、あるいは多画像入力に対応していても詳細な設計や有効性の検証を欠いている［23］、［27］。</p>
+<p>Senna-VLM は運転タスクに特化して設計されている。サラウンドビューのデータをエンコードするために多画像入力をサポートしており、これは運転シナリオの理解と安全性の確保に不可欠である。当初、我々は LLaVA-1.5［30］を用いてサラウンドビュー入力を統合しようとしたが、画像トークンが多すぎるために結果は不満足なものであった。これに対処するため、画像トークンをエンコード・圧縮する運転用視覚アダプタを提案し、サラウンドビューのシナリオ向けに特別に設計したプロンプトを導入する。これらの設計により、モデルはさまざまな視点からの画像特徴を区別し、空間的理解を獲得できる。</p>
+<a class="pg" data-page="3"></a>
+<p><strong>運転用 LVLM をどう効果的に学習させるか？</strong>運転タスク向けの LVLM を開発した後、最後のステップは効果的な学習を確実にすることであり、これには適切なデータと戦略の両方が必要である。データの面では、先行研究がさまざまなデータ戦略を提案しているが［31］–［33］、その多くは計画タスク向けに特化して設計されたものではなく、検出やグラウンディングなど他のタスク向けである。本論文では、運転計画におけるさまざまな種類の QA の重要性を初めて検証する。具体的には、運転シナリオにおける計画関連の手がかりに対する VLM の理解を高め、最終的により正確な計画を可能にするよう設計された一連の計画指向 QA を導入する。これらの QA には、運転シーンの記述、交通参加者の動きの意図予測、信号検出、メタアクション計画<em>など</em>が含まれる。人手アノテーションに依存していた先行研究［27］、［29］とは異なり、我々のデータ戦略は完全に自動のパイプラインによって大規模に生成できる。</p>
+<p>学習戦略については、既存手法の多くが汎用の事前学習の後に運転向けファインチューニングを行う方式を採用している［23］、［27］。しかし我々の実験結果は、これが最適な選択ではない可能性を示している。代わりに我々は、混合事前学習、運転ファインチューニング、計画ファインチューニングからなる Senna-VLM 向けの 3 段階学習戦略を提案する。実験結果は、提案する学習戦略が最良の計画性能をもたらすことを示している。</p>
+<p>Senna にはいくつかの利点がある。その構造化された計画戦略は、LVLM とエンドツーエンドモデルの強みを組み合わせて自動運転の安全性、頑健性、汎化性を向上させ、サラウンドビューと多画像入力のサポートは運転シーン理解の能力を効果的に高める。提案する計画指向 QA と 3 段階学習戦略により、Senna-VLM は常識を保持してモデル崩壊を防ぎつつ、より正確な計画決定を行えるようになる。</p>
+<p>本研究の主な貢献は次のようにまとめられる。</p>
+<ul>
+<li>LVLM とエンドツーエンドモデルを統合し、高レベルの決定から低レベルの軌道予測に至る構造化された計画を実現する自動運転システム Senna を提案する。Senna-VLM は常識と論理的推論を用いてシーンを分析し自然言語で決定を出力し、続いて Senna-E2E がその決定に基づいて具体的な計画軌道を生成する。</li>
+<li>Senna は、効率的な多画像エンコーディング戦略と入念に設計されたサラウンドビュープロンプトを採用し、運転シナリオの正確な知覚と空間的理解を可能にする。</li>
+<li>常識的知識を保持しつつ Senna の運転理解と計画性能を高めるため、一連の計画指向 QA と 3 段階学習戦略を設計する。</li>
+<li>nuScenes［34］データセットと大規模データセット DriveX での大規模な実験により、Senna の SOTA の計画性能を示す。特に、DriveX データセットの事前学習済み重みを活用して nuScenes データセットでファインチューニングすることで、Senna は大幅な性能向上を達成し、強力なシナリオ横断的汎化性と転移性を示す。これらの結果は、Senna の構造化された計画アプローチ、アーキテクチャ設計、学習戦略の有効性と汎用性を裏付けている。</li>
+</ul>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<p><strong>エンドツーエンド自動運転。</strong>従来の自動運転システムは、一般にルールベースのプランナ［35］–［37］を備えた段階的なモジュール設計を採用しており、モデルの汎化が限られ、計画性能に上限があるといった課題に直面する。対照的に、エンドツーエンド自動運転はニューラルネットワークを用いて知覚入力を計画出力に直接写像する。初期の研究［11］、［38］、［39］はこれをブラックボックス的なアプローチとして扱い、解釈性を欠くにもかかわらず、エンドツーエンド学習におけるニューラルネットワークの可能性を示した。近年の自動運転の急速な進歩に伴い、利用可能な運転データの爆発的増加がエンドツーエンドのアプローチを大きく後押ししている［2］、［3］、［40］–［43］。UniAD［2］は Transformer［44］を用いたマルチタスクフレームワークを導入し、物体追跡、軌道予測、地図予測、占有予測、計画を行う。これらの補助タスクからの追加の教師信号が、モデルの計画性能を大きく向上させる。VAD［3］はベクトル化されたシーン表現を導入し、精度と速度のより良いバランスを実現する。VADv2［43］はさらに確率的計画を提案し、決定論的な計画をマルチモーダルな軌道スコアリングに置き換えて計画の不確実性をより良く捉える。我々は VADv2 を拡張して高レベルの決定情報を取り込めるようにし、これを Senna のエンドツーエンドモデルとして用いる。</p>
+<p><strong>大規模視覚言語モデル。</strong>強力な理解能力と対話能力を示す大規模言語モデル（LLM）の登場［45］–［48］により、この能力を単一のテキストモダリティからマルチモーダルなシステムへ拡張するのは自然な流れであり、その中で視覚モダリティは最も重要なものの 1 つである［13］–［16］、［28］、［49］、［50］。CLIP［51］、［52］は画像とテキストのペアを用いた対照学習の先駆けとなり、モデルが自己教師ありの方法で大規模な事前学習を行えるようにした。BLIP［53］、［54］は、クロスモーダルな対照学習と生成タスクを通じて視覚モデルと言語モデルを橋渡しする。こうしたクロスモーダル学習戦略［51］、［55］–［57］を基盤として、LVLM は一連の進歩を遂げてきた。GPT-4V［17］は、複雑なシーンの理解とマルチタスク推論において顕著な性能を示す。LLaVA［13］、［30］は視覚的インストラクションチューニングを導入し、GPT-4 が生成した言語・画像の指示追従データをクロスモーダル学習に活用する。QwenVL［14］は視覚コネクタ、学習戦略、データを改良し、多言語理解と 3D 知覚に優れる。VILA［28］はクロスモーダル事前学習と教師ありファインチューニングの戦略を最適化することでマルチモーダル性能を向上させる。Qwen2-VL［58］は、より高度な Qwen2［48］を言語モデルとして採用し、マルチモーダル回転位置埋め込みと動的な数の視覚トークンを導入して、任意解像度の画像・動画入力をサポートする。</p>
+<a class="pg" data-page="4"></a>
+<p><strong>大規模視覚言語モデルと自動運転。</strong>LVLM の常識的知識、推論能力、解釈性は、エンドツーエンドモデルの欠点を効果的に補うことができる。Drive-with-LLMs［22］は、正解の運転知覚データと Transformer ネットワークを用いて知覚情報を潜在空間にエンコードし、それを LLM に入力して将来の計画軌道を予測する。DriveGPT4［21］は前方カメラの動画入力を受け取り、LVLM を用いて計画用の制御信号を予測し、決定の説明を提供する。LanguageMPC［59］は過去の正解知覚情報と HD マップを自然言語形式に変換し、思考の連鎖（chain of thought）推論を用いて運転シーンを分析し計画行動を生成する。DriveMLM［23］は、閉ループシミュレーション環境［60］において LVLM ベースの計画モデルの有効性を検証した。ELM［29］は、インターネット規模のクロスドメイン動画データを用いた LVLM の大規模事前学習を導入し、多様なソースとタスク固有の学習データを取り込むことで運転タスクにおける LVLM の性能が大きく向上することを示した。他のいくつかの研究も、運転タスクに特化したデータ収集戦略とデータセットを提案し、自動運転における LVLM の発展をさらに推し進めている［31］–［33］、［61］–［63］。DriveVLM［27］は LVLM をエンドツーエンドモデルと組み合わせた最初の研究であり、LVLM が低頻度の軌道を予測し、エンドツーエンドモデルがそれを精緻化して最終的な計画軌道を生成する。DriveVLM は nuScenes データセットと自ら提案したデータセットの両方で強力な計画性能を示している。しかし LVLM は精密な数学的計算に適していないため、LVLM で軌道点を予測すると最適でない性能になる可能性がある。我々は構造化された計画戦略を提案する。Senna-VLM は自然言語で高レベルの決定情報を予測し、LVLM が精密な数値を予測する必要をなくす。このアプローチは自然言語予測を伴う LVLM の事前学習タスクと整合しており、事前学習した知識を効果的に活用して正確な計画決定を行う。Senna-VLM が予測した決定に基づき、Senna-E2E が最終的な計画軌道を生成する。</p>
+
+<figure><img src="figs/fig3.png" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：Senna の全体アーキテクチャ。</strong>Senna は Senna-VLM と Senna-E2E の 2 つのモジュールからなる。Senna-VLM は多視点画像を効率的にエンコードし、周囲を見渡す視点からの空間的理解を実現する。入力シーン情報が与えられると、Senna-VLM は高レベルの計画決定を予測し、それはメタアクション特徴にエンコードされる。続いて Senna-E2E が、シーン情報とメタアクション特徴の両方に基づいて最終的な計画軌道を予測する。Senna は自動ラベル付けされた大規模運転データを用いて学習する。</p>
+<p class="yakuchu">図中ラベル：Scene Information＝シーン情報、Multi-view Image Sequence＝多視点画像系列、"Plan the meta-action for driving safely"＝「安全に運転するためのメタアクションを計画せよ」、User Instruction＝ユーザ指示、"Go Straight and Turn Right"＝「直進して右折」、Navigation Command＝ナビゲーションコマンド、Vision Encoder＝視覚エンコーダ、Driving Vision Adapter＝運転用視覚アダプタ、Text Encoder＝テキストエンコーダ、Image Tokens＝画像トークン、Text Tokens＝テキストトークン、Large Language Model＝大規模言語モデル、Meta-action Encoder＝メタアクションエンコーダ、3D Info.＝3D 情報、Future Trajectories＝将来軌道、Meta-Action Features＝メタアクション特徴、Perception＝知覚、Motion Prediction＝動き予測、Planning＝計画、Auto-labeled Large-scale Driving Data＝自動ラベル付けされた大規模運転データ、Traffic Signals＝交通信号、Critical Objects＝重要物体、Motion Intentions＝動きの意図、Scene Description＝シーン記述、Planning-Oriented Q&amp;As＝計画指向 Q&amp;A、Dynamic Objects＝動的物体、Static Maps＝静的地図、Ego Trajectories＝自車軌道</p>
+
+<h2 id="3-senna">3　Senna</h2>
+<p>本節では Senna を詳しく紹介する。図3 に Senna の全体アーキテクチャを示す。入力シーン情報には、多視点画像系列、ユーザ指示、ナビゲーションコマンドが含まれる。ユーザ指示はプロンプトとして Senna-VLM に入力され、それ以外は Senna-VLM と Senna-E2E の両方に送られる。Senna-VLM は画像情報とテキスト情報をそれぞれ画像トークンとテキストトークンにエンコードし、それらが LLM によって処理される。LLM は高レベルの決定を生成し、それはメタアクションエンコーダによって高次元特徴にエンコードされる。Senna-E2E は、シーン情報と Senna-VLM が生成したメタアクション特徴に基づいて最終的な計画軌道を予測する。我々は Senna-VLM の学習のために一連の計画指向 QA を設計しており、これらは人手アノテーションを必要とせず、自動ラベル付けパイプラインによって完全に大規模に生成できる。</p>
+<p>3.1 節では、運転シーン理解のための計画指向 QA を詳述する。3.2 節と 3.3 節では、それぞれ Senna-VLM と Senna-E2E の設計に焦点を当てる。3.4 節では、提案する 3 段階学習戦略を紹介する。</p>
+
+<h3 id="3.1-運転シーン理解">3.1　運転シーン理解</h3>
+<p>運転シーンにおける主要な要因を理解することは、安全かつ正確な計画にとって極めて重要である。我々は Senna-VLM の運転シーン理解を高めるため、一連の計画指向 QA を設計する。各種 QA の詳細を図7 に示す。これらの QA の生成に用いる 3D 物体検出ボックスや物体追跡軌道などの生データは、自動アノテーションシステムによって得ることができる。また、記述 QA は GPT-4o［17］のような LVLM で生成できる。以下、各種 QA について詳述する。</p>
+<p><strong>シーン記述。</strong>事前学習済み LVLM を用いて、サラウンドビュー画像に基づく運転シーンの記述を生成する。計画に無関係な冗長情報の生成を避けるため、必要な情報をプロンプト内で指定する。それには、交通状況、環境（<em>例えば</em>市街地、郊外<em>など</em>）、道路の種類（<em>例えば</em>舗装道路、高速道路）、天候、時間帯、路面状況（<em>例えば</em>路面が平滑か、障害物があるか）が含まれる。このようにプロンプトを構造化することで、簡潔かつ情報量の多いシーン記述を得ることができる。</p>
+<a class="pg" data-page="5"></a>
+<figure><img src="figs/fig4.png" loading="lazy" alt="図4" /></figure>
+<p><strong>図4：</strong>効率的な運転シーン理解のために提案する多視点プロンプトと画像エンコーディング手法。</p>
+<p class="yakuchu">図中ラベル：Large Language Model＝大規模言語モデル、Input Tokens＝入力トークン、"A man is walking on the roadside"＝「男性が道路脇を歩いている」、Language Response＝言語応答、User Instruction＝ユーザ指示、"What do you see in your &lt;FRONT RIGHT&gt; camera?"＝「&lt;FRONT RIGHT&gt;（右前方）カメラに何が見えるか？」、Driving Vision Adapter＝運転用視覚アダプタ、Text Encoder＝テキストエンコーダ、Image Features＝画像特徴、Multi-view Prompts＝多視点プロンプト、&lt;FRONT&gt;／&lt;FRONT LEFT&gt;／&lt;FRONT RIGHT&gt;／&lt;BACK RIGHT&gt;／&lt;BACK LEFT&gt;／&lt;BACK&gt;＝前方／左前方／右前方／右後方／左後方／後方、Vision Encoder＝視覚エンコーダ、Multi-view Image Sequence＝多視点画像系列</p>
+
+<p><strong>信号検出。</strong>交通信号にはさまざまな種類があるが、ここでは最も重要な信号機に主に焦点を当てる。信号機の状態は、赤、青、黄、なしの 4 種類に分類できる。ここで「なし」は、自車の前方に信号機が検出されないことを示す。</p>
+<p><strong>交通弱者の識別。</strong>環境内の交通弱者（VRU）を識別することで、これらの重要物体に対する Senna の知覚を高め、計画の安全性を向上させる。具体的には、正解の 3D 検出結果を用いて VRU のカテゴリと位置を取得し、その情報をテキスト形式で記述する。位置情報は自車を中心とし、自車に対する各 VRU の横方向および縦方向の距離を含む。距離知覚を構築しつつ学習の複雑さを減らすため、Senna-VLM には距離の整数部分のみを予測させる。</p>
+<p><strong>動きの意図予測。</strong>他車両の将来の動きの意図を正確に予測することは、安全な計画の前提条件である。ここでもメタアクションによるアプローチを採用し、Senna が周囲車両の将来の挙動を予測できるようにする。これにより、シーンの動的特徴に対する Senna の理解が高まり、より情報に基づいた決定が可能になる。</p>
+<p><strong>メタアクション計画。</strong>LVLM を精密な軌道予測に用いることを避けるため、自車の将来軌道を高レベル計画のためのメタアクションに変換する。具体的には、メタアクションは横方向と縦方向の決定からなる。横方向のメタアクションには <em>Left</em>（左）、<em>Straight</em>（直進）、<em>Right</em>（右）があり、縦方向のメタアクションには <em>Accelerate</em>（加速）、<em>Keep</em>（維持）、<em>Decelerate</em>（減速）、<em>Stop</em>（停止）がある。横方向のメタアクションは予測対象の将来時間ステップ \(T\) における横方向の変位に基づいて決定され、縦方向のメタアクションは予測期間中の速度変化によって決定される。最終的なメタアクションは、横方向と縦方向の両方のメタアクションからなる。</p>
+<p><strong>計画の説明。</strong>また、車両の正解の将来の動きに基づき、LVLM を用いて計画の説明も生成する。すなわち、車両の実際の将来の動き（<em>例えば</em>加速して左折する）を LVLM に伝え、そのような決定の理由を分析させる。プロンプトでは、他の交通参加者の挙動、ナビゲーション情報、路面状況、信号の状態といった、計画に影響を与える以下の要因を考慮して決定を分析するようモデルを誘導する。</p>
+
+<h3 id="3.2-senna-vlm">3.2　Senna-VLM</h3>
+<p>Senna-VLM は 4 つの構成要素からなる。視覚エンコーダ（Vision Encoder）は多視点画像系列 \(I \in \mathbb{R}^{N_{\mathrm{img}} \times H \times W \times 3}\) を入力として画像特徴を抽出し、それを運転用視覚アダプタ（Driving Vision Adapter）がさらにエンコード・圧縮して、画像トークン \(E_{\mathrm{img}} \in \mathbb{R}^{N_{\mathrm{img}} \times M_{\mathrm{img}} \times C}\) を得る。\(N_{\mathrm{img}}\)、\(M_{\mathrm{img}}\)、\(C\) はそれぞれ画像の枚数、画像 1 枚あたりの画像トークン数、LLM の特徴次元である。\(H\) と \(W\) はそれぞれ画像の高さと幅である。テキストエンコーダ（Text Encoder）はユーザ指示とナビゲーションコマンドをテキストトークン \(E_{\mathrm{txt}} \in \mathbb{R}^{M_{\mathrm{txt}} \times C}\) にエンコードする。ここで \(M_{\mathrm{txt}}\) はテキストトークン数である。画像トークンとテキストトークンの両方が LLM に入力され、LLM が高レベルの決定を予測する。実際には、LLM として Vicuna-v1.5-7b［64］を用いる。最後に、メタアクションエンコーダ（Meta-action Encoder）が決定をエンコードし、メタアクション特徴 \(e_{\mathrm{act}} \in \mathbb{R}^{D}\) を出力する。ここで \(D\) は Senna-E2E の特徴次元である。</p>
+<p>視覚エンコーダとして CLIP［51］の ViT-L/14 を用い、各画像を \(H = W = 224\) にリサイズすると、576 個の画像トークンが得られる。多画像入力では画像トークン数が過大になり、VLM の学習と推論が遅くなるだけでなく、モデル崩壊やデコードの失敗も引き起こす。そこで、運転用視覚アダプタモジュールを導入する。このモジュールは、先行研究［13］、［54］と同様に画像特徴を LLM の特徴空間に写像する機能を果たすだけでなく、画像トークン数を減らすために画像特徴の追加のエンコードと圧縮も行う。具体的には、画像クエリの集合 \(Q_{img} \in \mathbb{R}^{N_{\mathrm{img}} \times M_{\mathrm{img}} \times C}\) を採用して画像特徴をエンコードし、画像トークンを出力する。</p>
+<p>\[ E^{i}_{\mathrm{img}} = \texttt{MHSA}[Q^{i}_{\mathrm{img}}, \texttt{W} \cdot g(I^{i}), \texttt{W} \cdot g(I^{i})] \in \mathbb{R}^{M_{\mathrm{img}} \times C}, \tag{1} \]</p>
+<p>ここで \(\texttt{MHSA}\) はマルチヘッド自己注意［44］、\(g\) は視覚エンコーダ、\(\texttt{W}\) は画像特徴を射影するための線形層と GELU［65］活性化層からなる多層パーセプトロンである。\(E^{i}_{\mathrm{img}}\) と \(Q^{i}_{\mathrm{img}}\) は、それぞれ \(i\) 番目の画像 \(I^{i}\) に対する画像トークンと画像クエリを表す。我々の実験は、画像特徴をさらにエンコード・圧縮してもモデル性能が低下しないことを示している。一方、画像トークン数が過大であるとモデル崩壊やデコードの失敗につながる。</p>
+<p>Senna-VLM が異なる視点からの画像特徴を区別し空間的理解を構築できるよう、運転シナリオ向けにシンプルかつ効果的なサラウンドビュープロンプトを設計する。前方視点を例にとると、対応するプロンプトは <code>&lt;FRONT VIEW&gt;:\n&lt;image&gt;\n</code> である。ここで <code>&lt;image&gt;</code> は LLM 用の特殊トークンであり、生成時に画像トークンに置き換えられる。図4 に、提案する多視点プロンプトと画像エンコーディング手法の設計を示す。</p>
+<a class="pg" data-page="6"></a>
+<p>最後に、LLM が出力する高レベルの決定をメタアクション特徴 \(e_{\mathrm{act}}\) に変換するメタアクションエンコーダ \(\varphi\) を提案する。定型化されたメタアクションの集合を用いるため、メタアクションエンコーダ \(\varphi\) は学習可能な埋め込みの集合 \(E_{\mathrm{act}} \in \mathbb{R}^{N_{\mathrm{act}} \times D}\) を用いてメタアクションからメタアクション特徴への 1 対 1 の写像を実現する。ここで \(N_{\mathrm{act}}\) はメタアクションの数である。式 2 にメタアクション特徴の生成過程を示す。</p>
+<p>\[ e_{\mathrm{act}} = \varphi(\texttt{LLM}[\texttt{concat}(\{E^{i}_{\mathrm{view}}, E^{i}_{\mathrm{img}}\}^{N_{\mathrm{img}}}_{i=1}, E_{\mathrm{txt}})]), \tag{2} \]</p>
+<p>ここで \(E^{i}_{\mathrm{view}}\) は \(i\) 番目の画像に対応するサラウンドビュープロンプトである。\(\texttt{LLM}\) は Senna の大規模言語モデルである。その後、メタアクション特徴は Senna-E2E に入力され、計画軌道の予測に用いられる。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">手法</th><th rowspan="2">Acc.（%）↑</th><th colspan="3">経路（F1）↑</th><th colspan="4">速度（F1）↑</th><th rowspan="2">BLEU-4 ↑</th><th rowspan="2">CIDEr ↑</th><th rowspan="2">METEOR ↑</th></tr>
+<tr><th>straight</th><th>left</th><th>right</th><th>keep</th><th>acc.</th><th>dec.</th><th>stop</th></tr>
+</thead>
+<tbody>
+<tr><td>QwenVL［14］</td><td style="text-align:right">7.66</td><td style="text-align:right">78.95</td><td style="text-align:right">4.87</td><td style="text-align:right">1.14</td><td style="text-align:right">3.28</td><td style="text-align:right">2.89</td><td style="text-align:right">15.14</td><td style="text-align:right">1.21</td><td style="text-align:right">8.97</td><td style="text-align:right">4.01</td><td style="text-align:right">31.04</td></tr>
+<tr><td>VILA［28］</td><td style="text-align:right">6.95</td><td style="text-align:right">31.70</td><td style="text-align:right">0.00</td><td style="text-align:right">2.52</td><td style="text-align:right">65.37</td><td style="text-align:right">10.79</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">14.65</td><td style="text-align:right">9.67</td><td style="text-align:right">36.43</td></tr>
+<tr><td>LLaVA-1.5［30］</td><td style="text-align:right">21.34</td><td style="text-align:right">87.18</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">64.78</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">14.05</td><td style="text-align:right">5.71</td><td style="text-align:right">36.94</td></tr>
+<tr><td>QwenVL†［14］</td><td style="text-align:right">56.38</td><td style="text-align:right"><strong>96.01</strong></td><td style="text-align:right">90.48</td><td style="text-align:right">89.80</td><td style="text-align:right">66.49</td><td style="text-align:right">49.88</td><td style="text-align:right">45.22</td><td style="text-align:right">64.78</td><td style="text-align:right">25.89</td><td style="text-align:right">19.91</td><td style="text-align:right">46.54</td></tr>
+<tr><td>VILA†［28］</td><td style="text-align:right">63.03</td><td style="text-align:right">95.74</td><td style="text-align:right"><strong>90.74</strong></td><td style="text-align:right">88.30</td><td style="text-align:right">73.65</td><td style="text-align:right">43.14</td><td style="text-align:right">49.81</td><td style="text-align:right">77.65</td><td style="text-align:right">23.50</td><td style="text-align:right">17.23</td><td style="text-align:right">44.17</td></tr>
+<tr><td>LLaVA-1.5†［30］</td><td style="text-align:right">64.48</td><td style="text-align:right">96.00</td><td style="text-align:right">89.04</td><td style="text-align:right">89.57</td><td style="text-align:right">74.94</td><td style="text-align:right">44.24</td><td style="text-align:right">52.68</td><td style="text-align:right">78.96</td><td style="text-align:right">25.97</td><td style="text-align:right">21.62</td><td style="text-align:right">45.08</td></tr>
+<tr><td>Senna</td><td style="text-align:right"><strong>71.21</strong></td><td style="text-align:right">95.60</td><td style="text-align:right">89.37</td><td style="text-align:right"><strong>90.09</strong></td><td style="text-align:right"><strong>80.18</strong></td><td style="text-align:right"><strong>58.83</strong></td><td style="text-align:right"><strong>61.99</strong></td><td style="text-align:right"><strong>80.10</strong></td><td style="text-align:right"><strong>31.04</strong></td><td style="text-align:right"><strong>34.31</strong></td><td style="text-align:right"><strong>50.44</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表1：DriveX 検証データセットにおける高レベル計画とシーン記述の評価結果。</strong>Senna は従来手法と比べて運転シナリオをより深く理解しており、より正確な計画決定につながっている。† は DriveX データセットでファインチューニングしたことを示す。"acc." は加速（accelerate）、"dec." は減速（decelerate）を表す。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">手法</th><th colspan="4">L2（m）↓</th><th colspan="4">衝突率（%）↓</th></tr>
+<tr><th>1s</th><th>2s</th><th>3s</th><th>平均</th><th>1s</th><th>2s</th><th>3s</th><th>平均</th></tr>
+</thead>
+<tbody>
+<tr><td>IL［66］</td><td style="text-align:right">0.44</td><td style="text-align:right">1.15</td><td style="text-align:right">2.47</td><td style="text-align:right">1.35</td><td style="text-align:right">0.08</td><td style="text-align:right">0.27</td><td style="text-align:right">1.95</td><td style="text-align:right">0.77</td></tr>
+<tr><td>NMP［67］</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">2.31</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">1.92</td><td style="text-align:right">-</td></tr>
+<tr><td>SA-NMP［67］</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">2.05</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">1.59</td><td style="text-align:right">-</td></tr>
+<tr><td>FF［68］</td><td style="text-align:right">0.55</td><td style="text-align:right">1.20</td><td style="text-align:right">2.54</td><td style="text-align:right">1.43</td><td style="text-align:right">0.06</td><td style="text-align:right">0.17</td><td style="text-align:right">1.07</td><td style="text-align:right">0.43</td></tr>
+<tr><td>EO［69］</td><td style="text-align:right">0.67</td><td style="text-align:right">1.36</td><td style="text-align:right">2.78</td><td style="text-align:right">1.60</td><td style="text-align:right">0.04</td><td style="text-align:right">0.09</td><td style="text-align:right">0.88</td><td style="text-align:right">0.33</td></tr>
+<tr><td>ST-P3［12］</td><td style="text-align:right">1.33</td><td style="text-align:right">2.11</td><td style="text-align:right">2.90</td><td style="text-align:right">2.11</td><td style="text-align:right">0.23</td><td style="text-align:right">0.62</td><td style="text-align:right">1.27</td><td style="text-align:right">0.71</td></tr>
+<tr><td>UniAD［2］</td><td style="text-align:right">0.48</td><td style="text-align:right">0.96</td><td style="text-align:right">1.65</td><td style="text-align:right">1.03</td><td style="text-align:right">0.05</td><td style="text-align:right">0.17</td><td style="text-align:right">0.71</td><td style="text-align:right">0.31</td></tr>
+<tr><td>VAD-Base*［3］</td><td style="text-align:right">0.17</td><td style="text-align:right">0.34</td><td style="text-align:right">0.60</td><td style="text-align:right">0.37</td><td style="text-align:right">0.07</td><td style="text-align:right">0.10</td><td style="text-align:right">0.24</td><td style="text-align:right">0.14</td></tr>
+<tr><td>DriveVLM*［27］</td><td style="text-align:right">0.15</td><td style="text-align:right">0.29</td><td style="text-align:right">0.48</td><td style="text-align:right">0.31</td><td style="text-align:right">0.05</td><td style="text-align:right"><strong>0.08</strong></td><td style="text-align:right">0.17</td><td style="text-align:right">0.10</td></tr>
+<tr><td>Senna*</td><td style="text-align:right"><strong>0.11</strong></td><td style="text-align:right"><strong>0.21</strong></td><td style="text-align:right"><strong>0.35</strong></td><td style="text-align:right"><strong>0.22</strong></td><td style="text-align:right"><strong>0.04</strong></td><td style="text-align:right"><strong>0.08</strong></td><td style="text-align:right"><strong>0.13</strong></td><td style="text-align:right"><strong>0.08</strong></td></tr>
+<tr><td>VAD-Base［3］</td><td style="text-align:right">0.41</td><td style="text-align:right">0.70</td><td style="text-align:right">1.05</td><td style="text-align:right">0.72</td><td style="text-align:right">0.07</td><td style="text-align:right">0.17</td><td style="text-align:right">0.41</td><td style="text-align:right">0.22</td></tr>
+<tr><td>Senna</td><td style="text-align:right">0.37</td><td style="text-align:right">0.54</td><td style="text-align:right">0.86</td><td style="text-align:right">0.59</td><td style="text-align:right">0.09</td><td style="text-align:right">0.12</td><td style="text-align:right">0.33</td><td style="text-align:right">0.18</td></tr>
+<tr><td>Senna†</td><td style="text-align:right"><strong>0.26</strong></td><td style="text-align:right"><strong>0.42</strong></td><td style="text-align:right"><strong>0.61</strong></td><td style="text-align:right"><strong>0.43</strong></td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right"><strong>0.11</strong></td><td style="text-align:right"><strong>0.21</strong></td><td style="text-align:right"><strong>0.12</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表2：nuScenes 検証データセットにおける軌道計画の結果。</strong>* は自車状態の特徴を入力として用いることを示す。nuScenes データセットでの実験では、公平な比較のため Senna を VAD［3］と組み合わせている。† は DriveX データセットで事前学習した重みで初期化したことを示す。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">手法</th><th rowspan="2">計画情報</th><th colspan="3">L2（m）↓</th></tr>
+<tr><th>1s</th><th>2s</th><th>3s</th></tr>
+</thead>
+<tbody>
+<tr><td>VADv2［43］</td><td>G.T. Meta-action</td><td style="text-align:right">0.37</td><td style="text-align:right">1.08</td><td style="text-align:right">2.24</td></tr>
+<tr><td>VADv2［43］</td><td>None</td><td style="text-align:right">0.55</td><td style="text-align:right">1.46</td><td style="text-align:right">3.10</td></tr>
+<tr><td>DriveVLM†［27］</td><td>Low Freq. Traj.</td><td style="text-align:right">0.61</td><td style="text-align:right">1.44</td><td style="text-align:right">3.00</td></tr>
+<tr><td>Senna</td><td>Pred. Meta-action</td><td style="text-align:right"><strong>0.49</strong></td><td style="text-align:right"><strong>1.27</strong></td><td style="text-align:right"><strong>2.62</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表3：DriveX 検証データセットにおける軌道計画の結果。</strong>†：Senna と同じ視覚エンコーダと LLM を用いて我々が再現した DriveVLM［27］。Low Freq. Traj. は低頻度の軌道（Low Frequency Trajectory）を表す。</p>
+<p class="yakuchu">表中語：G.T. Meta-action＝正解メタアクション、None＝なし、Pred. Meta-action＝予測メタアクション</p>
+
+<h3 id="3.3-senna-e2e">3.3　Senna-E2E</h3>
+<p>Senna-E2E は VADv2［43］を拡張したものである。具体的には、Senna-E2E への入力は多視点画像系列、ナビゲーションコマンド、メタアクション特徴からなる。Senna-E2E は 3 つのモジュールで構成される。動的物体を検出しローカル地図を生成する知覚モジュール、動的物体の将来軌道を予測する動き予測モジュール、そして計画トークンの集合を用いて注意機構［44］によりシーン特徴と相互作用させ計画軌道 \(V\) を予測する計画モジュールである。メタアクション特徴は、Senna-E2E に対する追加の相互作用トークンとして統合する。メタアクション特徴は埋め込みベクトルの形式であるため、Senna-VLM は他のエンドツーエンドモデルとも容易に組み合わせることができる。Senna-E2E \(\Phi\) の軌道計画過程は次のように定式化できる。</p>
+<p>\[ V = \Phi(I, e_{\mathrm{nav}}, e_{\mathrm{act}}) \in \mathbb{R}^{T \times 2}, \tag{3} \]</p>
+<p>ここで \(e_{\mathrm{nav}}\) はナビゲーションコマンドである。</p>
+
+<h3 id="3.4-学習戦略">3.4　学習戦略</h3>
+<p>我々は Senna-VLM のための 3 段階学習戦略を提案する。第 1 段階は混合事前学習（Mix Pre-training）であり、Senna-VLM の他のモジュールのパラメータを凍結したまま、単一画像データを用いて運転用視覚アダプタを学習する。これにより画像特徴を LLM の特徴空間に写像できるようになる。「混合」とは、LLaVA［13］で用いられた指示追従データと我々が提案する運転シーン記述データを含む、複数のソースのデータを用いることを指す。第 2 段階は運転ファインチューニング（Driving Fine-tuning）であり、3.1 節で提案した計画指向 QA のうちメタアクション計画 QA を除いたものに基づいて Senna-VLM をファインチューニングする。この段階では、単一画像入力の代わりにサラウンドビューの多画像入力を用いる。第 3 段階は計画ファインチューニング（Planning Fine-tuning）であり、メタアクション計画 QA のみを用いて Senna-VLM をさらにファインチューニングする。第 2 段階と第 3 段階の両方で、凍結したままの視覚エンコーダを除き、Senna-VLM の全パラメータをファインチューニングする。</p>
+<p>Senna-E2E については、学習段階では正解メタアクションを入力として用い、推論段階では Senna-VLM が予測したメタアクションに依拠する。</p>
+<a class="pg" data-page="7"></a>
+<table>
+<thead>
+<tr><th rowspan="2">ID</th><th rowspan="2">Meta Action</th><th rowspan="2">Scene Desc.</th><th rowspan="2">Traffic Light</th><th rowspan="2">Plan Expl.</th><th rowspan="2">VRU Idet.</th><th rowspan="2">Mot. Pred.</th><th rowspan="2">Acc.（%）↑</th><th colspan="3">経路（F1）↑</th><th colspan="4">速度（F1）↑</th></tr>
+<tr><th>straight</th><th>left</th><th>right</th><th>keep</th><th>acc.</th><th>dec.</th><th>stop</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">52.67</td><td style="text-align:right">90.69</td><td style="text-align:right">77.08</td><td style="text-align:right">69.97</td><td style="text-align:right">72.24</td><td style="text-align:right">9.26</td><td style="text-align:right">13.78</td><td style="text-align:right">69.42</td></tr>
+<tr><td>2</td><td>✓</td><td></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">53.65</td><td style="text-align:right">94.04</td><td style="text-align:right">89.13</td><td style="text-align:right">83.38</td><td style="text-align:right">58.83</td><td style="text-align:right">40.59</td><td style="text-align:right">34.81</td><td style="text-align:right">79.30</td></tr>
+<tr><td>3</td><td>✓</td><td>✓</td><td></td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">57.39</td><td style="text-align:right">94.61</td><td style="text-align:right">88.27</td><td style="text-align:right">88.37</td><td style="text-align:right">66.13</td><td style="text-align:right">43.52</td><td style="text-align:right">37.47</td><td style="text-align:right">78.87</td></tr>
+<tr><td>4</td><td>✓</td><td>✓</td><td>✓</td><td></td><td>✓</td><td>✓</td><td style="text-align:right">67.91</td><td style="text-align:right">95.12</td><td style="text-align:right">89.32</td><td style="text-align:right">87.95</td><td style="text-align:right">77.70</td><td style="text-align:right">51.20</td><td style="text-align:right">52.57</td><td style="text-align:right">78.75</td></tr>
+<tr><td>5</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td></td><td>✓</td><td style="text-align:right">68.44</td><td style="text-align:right">95.43</td><td style="text-align:right"><strong>90.75</strong></td><td style="text-align:right"><strong>91.17</strong></td><td style="text-align:right">78.24</td><td style="text-align:right">53.80</td><td style="text-align:right">53.36</td><td style="text-align:right">79.72</td></tr>
+<tr><td>6</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td></td><td style="text-align:right">68.70</td><td style="text-align:right">95.12</td><td style="text-align:right">89.11</td><td style="text-align:right">86.88</td><td style="text-align:right">78.40</td><td style="text-align:right">52.99</td><td style="text-align:right">51.60</td><td style="text-align:right">78.53</td></tr>
+<tr><td>7</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right"><strong>71.21</strong></td><td style="text-align:right"><strong>95.60</strong></td><td style="text-align:right">89.37</td><td style="text-align:right">90.09</td><td style="text-align:right"><strong>80.18</strong></td><td style="text-align:right"><strong>58.83</strong></td><td style="text-align:right"><strong>61.99</strong></td><td style="text-align:right"><strong>80.10</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表4：計画指向 QA の有効性に関するアブレーション。</strong>"Desc." は記述（Description）、"Expl." は説明（Explanation）、"VRU Idet." は交通弱者の識別（Vulnerable Road User Identification）、"Mot. Pred." は動きの意図予測（Motion Intention Prediction）を表す。</p>
+<p class="yakuchu">表中語：Meta Action＝メタアクション、Scene Desc.＝シーン記述、Traffic Light＝信号機、Plan Expl.＝計画の説明</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">画像視点</th><th rowspan="2">Acc.（%）↑</th><th colspan="3">経路（F1）↑</th><th colspan="4">速度（F1）↑</th></tr>
+<tr><th>stra.</th><th>left</th><th>right</th><th>keep</th><th>acc.</th><th>dec.</th><th>stop</th></tr>
+</thead>
+<tbody>
+<tr><td>Front</td><td style="text-align:right">64.91</td><td style="text-align:right">94.16</td><td style="text-align:right">86.90</td><td style="text-align:right">83.27</td><td style="text-align:right">76.24</td><td style="text-align:right">51.78</td><td style="text-align:right">50.53</td><td style="text-align:right">79.74</td></tr>
+<tr><td>Surround</td><td style="text-align:right"><strong>71.21</strong></td><td style="text-align:right"><strong>95.60</strong></td><td style="text-align:right"><strong>89.37</strong></td><td style="text-align:right"><strong>90.09</strong></td><td style="text-align:right"><strong>80.18</strong></td><td style="text-align:right"><strong>58.83</strong></td><td style="text-align:right"><strong>61.99</strong></td><td style="text-align:right"><strong>80.10</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表5：入力画像の視点に関するアブレーション。</strong>"Front" は前方視点の画像のみを入力として用いることを意味する。"Surround" はサラウンドビューの複数画像を入力として用いることを表す。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">Train. Data</th><th rowspan="2">Acc.（%）↑</th><th colspan="3">経路（F1）↑</th><th colspan="4">速度（F1）↑</th></tr>
+<tr><th>stra.</th><th>left</th><th>right</th><th>keep</th><th>acc.</th><th>dec.</th><th>stop</th></tr>
+</thead>
+<tbody>
+<tr><td>100k</td><td style="text-align:right">57.45</td><td style="text-align:right">94.47</td><td style="text-align:right">89.69</td><td style="text-align:right">85.78</td><td style="text-align:right">71.38</td><td style="text-align:right">38.82</td><td style="text-align:right">42.18</td><td style="text-align:right">66.89</td></tr>
+<tr><td>200k</td><td style="text-align:right">64.78</td><td style="text-align:right">95.40</td><td style="text-align:right">88.65</td><td style="text-align:right">88.48</td><td style="text-align:right">76.49</td><td style="text-align:right">47.33</td><td style="text-align:right">49.30</td><td style="text-align:right">75.08</td></tr>
+<tr><td>400k</td><td style="text-align:right">67.09</td><td style="text-align:right">95.40</td><td style="text-align:right">89.97</td><td style="text-align:right">89.22</td><td style="text-align:right">77.62</td><td style="text-align:right">54.49</td><td style="text-align:right">51.04</td><td style="text-align:right">76.76</td></tr>
+<tr><td>800k</td><td style="text-align:right"><strong>71.21</strong></td><td style="text-align:right"><strong>95.60</strong></td><td style="text-align:right"><strong>89.37</strong></td><td style="text-align:right"><strong>90.09</strong></td><td style="text-align:right"><strong>80.18</strong></td><td style="text-align:right"><strong>58.83</strong></td><td style="text-align:right"><strong>61.99</strong></td><td style="text-align:right"><strong>80.10</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表7：学習データセットの規模に関するアブレーション。</strong></p>
+<p class="yakuchu">表中語：Train. Data＝学習データ量</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">画像トークン数</th><th rowspan="2">Acc.（%）↑</th><th colspan="3">経路（F1）↑</th><th colspan="4">速度（F1）↑</th></tr>
+<tr><th>stra.</th><th>left</th><th>right</th><th>keep</th><th>acc.</th><th>dec.</th><th>stop</th></tr>
+</thead>
+<tbody>
+<tr><td>32×6</td><td style="text-align:right">69.36</td><td style="text-align:right">95.41</td><td style="text-align:right">87.71</td><td style="text-align:right"><strong>91.18</strong></td><td style="text-align:right">79.46</td><td style="text-align:right">55.05</td><td style="text-align:right">49.55</td><td style="text-align:right">80.63</td></tr>
+<tr><td>64×6</td><td style="text-align:right">70.42</td><td style="text-align:right">95.41</td><td style="text-align:right">88.01</td><td style="text-align:right">90.78</td><td style="text-align:right">80.07</td><td style="text-align:right">55.97</td><td style="text-align:right">51.37</td><td style="text-align:right"><strong>81.52</strong></td></tr>
+<tr><td>128×6</td><td style="text-align:right"><strong>71.21</strong></td><td style="text-align:right"><strong>95.60</strong></td><td style="text-align:right"><strong>89.37</strong></td><td style="text-align:right">90.09</td><td style="text-align:right"><strong>80.18</strong></td><td style="text-align:right"><strong>58.83</strong></td><td style="text-align:right"><strong>61.99</strong></td><td style="text-align:right">80.10</td></tr>
+<tr><td>256×6</td><td style="text-align:right">56.13</td><td style="text-align:right">94.45</td><td style="text-align:right">88.70</td><td style="text-align:right">88.59</td><td style="text-align:right">69.52</td><td style="text-align:right">39.40</td><td style="text-align:right">48.27</td><td style="text-align:right">40.68</td></tr>
+<tr><td>512×6</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td></tr>
+<tr><td>576×6</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td><td style="text-align:right">0.00</td></tr>
+</tbody>
+</table>
+<p><strong>表6：画像トークン数に関するアブレーション。</strong>ここでいう「画像トークン」とは、各画像が Senna の運転用視覚アダプタモジュールによってエンコード・圧縮された後に生成されるトークンを指す。</p>
+
+<table>
+<thead>
+<tr><th>手法</th><th>モデル規模</th><th>入力画像数</th><th>プロンプトトークン数</th><th>出力トークン数</th><th>デコード遅延</th></tr>
+</thead>
+<tbody>
+<tr><td>QwenVL［14］</td><td style="text-align:right">9.6B</td><td style="text-align:right">1</td><td style="text-align:right">648</td><td style="text-align:right">10</td><td style="text-align:right">1.22s</td></tr>
+<tr><td>VILA［28］</td><td style="text-align:right">7.1B</td><td style="text-align:right">1</td><td style="text-align:right">742</td><td style="text-align:right">11</td><td style="text-align:right">0.48s</td></tr>
+<tr><td>LLaVA-1.5［30］</td><td style="text-align:right">7.1B</td><td style="text-align:right">1</td><td style="text-align:right">808</td><td style="text-align:right">11</td><td style="text-align:right">0.51s</td></tr>
+<tr><td>Senna<sub>128</sub></td><td style="text-align:right">7.1B</td><td style="text-align:right">6</td><td style="text-align:right">1000</td><td style="text-align:right">11</td><td style="text-align:right">0.58s</td></tr>
+<tr><td>Senna<sub>64</sub></td><td style="text-align:right">7.1B</td><td style="text-align:right">6</td><td style="text-align:right">616</td><td style="text-align:right">11</td><td style="text-align:right">0.42s</td></tr>
+<tr><td>Senna<sub>32</sub></td><td style="text-align:right">7.1B</td><td style="text-align:right">6</td><td style="text-align:right">424</td><td style="text-align:right">11</td><td style="text-align:right">0.35s</td></tr>
+</tbody>
+</table>
+<p><strong>表8：推論遅延に関するアブレーション。</strong>速度は NVIDIA GeForce RTX 4090 GPU で評価した。Senna<sub>128</sub> は各画像を 128 トークンでエンコードする Senna モデルを表し、Senna<sub>64</sub> と Senna<sub>32</sub> も同様である。</p>
+
+<h2 id="4-実験">4　実験</h2>
+<h3 id="4.1-実験設定">4.1　実験設定</h3>
+<p><strong>データセット。</strong>Senna の性能を 2 つのデータセットで評価する。1 つ目は nuScenes データセット［34］であり、1,000 の運転シーンからなり、各シーンは約 20 秒続く。サラウンドビューのカメラ画像、LiDAR 点群<em>など</em>多様なセンサデータをサポートしている。さらに、3D バウンディングボックス、自車軌道、道路地図を含む豊富なアノテーションも提供している。</p>
+<p>nuScenes データセットに加え、大規模データセット DriveX でも Senna を評価する。DriveX は 1000K の運転クリップからなり、各クリップは 3 秒間である。DriveX データセットは多様でバランスの取れた運転データを含む。図5 にデータセット内のメタアクションの分布を示す。学習セットとして 800k クリップ、検証セットとして 200k クリップを無作為にサンプリングした。nuScenes と同様に、DriveX はサラウンドビュー画像と多様なアノテーションを提供し、より幅広いシーンと運転行動を特徴とする。特に断らない限り、Senna は DriveX の学習セットで学習し、報告する指標はその検証セットに基づく。</p>
+<p><strong>評価指標。</strong>先行研究［23］、［27］に従い、高レベルの運転決定の評価には正解率と F1 スコアを用いる。運転シーン記述については、評価指標として BLEU-4［70］、CIDEr［71］、METEOR［72］を採用する。最後に、軌道計画については、変位誤差と衝突率を主要な指標として用いる。</p>
+
+<h3 id="4.2-主要な結果">4.2　主要な結果</h3>
+<a class="pg" data-page="8"></a>
+<p><strong>メタアクション計画。</strong>表1 に、QwenVL、LLaVA、VILA を含む最先端のオープンソース LVLM と比較した、高レベル計画とシーン記述における Senna の性能を示す。最初の 3 行の結果は、元のモデルを直接評価して得たものである。事前学習済みの重みを用いたモデルは、その学習目的が運転関連のタスクに特化したものではなく一般的な理解と対話に向けられているため、運転タスクでは性能が低いことがわかる。Senna の利点をさらに検証するため、これらのモデルを同じ学習パイプラインで DriveX データセットでもファインチューニングした。示されているとおり、Senna は高レベル計画とシーン記述の両方で他のモデルを上回る。他手法の最良の結果と比べて、Senna は計画の正解率を 10.44% 向上させる。さらに、減速のような運転安全上最も重要な決定において、F1 スコアは 52.68 から 61.99 に上昇し、17.67% の改善を達成している。これは、運転シーンの分析と空間的理解における Senna の優れた能力を浮き彫りにしている。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">ID</th><th colspan="3">事前学習</th><th colspan="3">ファインチューニング</th><th rowspan="2">Acc.（%）↑</th><th colspan="3">経路（F1）↑</th><th colspan="4">速度（F1）↑</th></tr>
+<tr><th>Driving</th><th>General</th><th>Mix</th><th>Driving</th><th>Planning</th><th>Mix</th><th>stra.</th><th>left</th><th>right</th><th>keep</th><th>acc.</th><th>dec.</th><th>stop</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>✓</td><td></td><td></td><td></td><td></td><td>✓</td><td style="text-align:right">60.01</td><td style="text-align:right">94.29</td><td style="text-align:right">88.46</td><td style="text-align:right">86.56</td><td style="text-align:right">73.55</td><td style="text-align:right">38.39</td><td style="text-align:right">48.58</td><td style="text-align:right">70.88</td></tr>
+<tr><td>2</td><td>✓</td><td></td><td></td><td>✓</td><td>✓</td><td></td><td style="text-align:right">61.91</td><td style="text-align:right">94.20</td><td style="text-align:right">88.55</td><td style="text-align:right">86.95</td><td style="text-align:right">75.67</td><td style="text-align:right">40.95</td><td style="text-align:right">48.08</td><td style="text-align:right">72.05</td></tr>
+<tr><td>3</td><td></td><td>✓</td><td></td><td></td><td></td><td>✓</td><td style="text-align:right">58.53</td><td style="text-align:right">94.67</td><td style="text-align:right">89.81</td><td style="text-align:right">86.59</td><td style="text-align:right">71.90</td><td style="text-align:right">38.61</td><td style="text-align:right">41.24</td><td style="text-align:right">69.85</td></tr>
+<tr><td>4</td><td></td><td>✓</td><td></td><td>✓</td><td>✓</td><td></td><td style="text-align:right">65.12</td><td style="text-align:right">95.29</td><td style="text-align:right"><strong>90.12</strong></td><td style="text-align:right">88.46</td><td style="text-align:right">75.78</td><td style="text-align:right">51.38</td><td style="text-align:right">52.25</td><td style="text-align:right">77.22</td></tr>
+<tr><td>5</td><td></td><td></td><td>✓</td><td></td><td></td><td>✓</td><td style="text-align:right">66.81</td><td style="text-align:right">95.35</td><td style="text-align:right">89.83</td><td style="text-align:right">88.87</td><td style="text-align:right">77.28</td><td style="text-align:right">53.44</td><td style="text-align:right">51.41</td><td style="text-align:right">76.37</td></tr>
+<tr><td>6</td><td></td><td></td><td>✓</td><td>✓</td><td>✓</td><td></td><td style="text-align:right"><strong>71.21</strong></td><td style="text-align:right"><strong>95.60</strong></td><td style="text-align:right">89.37</td><td style="text-align:right"><strong>90.09</strong></td><td style="text-align:right"><strong>80.18</strong></td><td style="text-align:right"><strong>58.83</strong></td><td style="text-align:right"><strong>61.99</strong></td><td style="text-align:right"><strong>80.10</strong></td></tr>
+</tbody>
+</table>
+<p><strong>表9：学習パイプラインに関するアブレーション。</strong>事前学習とファインチューニングの両フェーズにおいて、"Driving" はメタアクション計画 QA を除いた、我々の提案する計画指向 QA を指す。"Mix" はそれぞれのフェーズで両方のデータセットを用いることを指す。"General" は LLaVA［13］で導入された汎用データセットを表す。ファインチューニングのフェーズにおいて、"Planning" はメタアクション計画 QA データを用いることを指す。</p>
+
+<p><strong>軌道計画。</strong>表2 に nuScenes データセットにおける Senna の軌道計画性能を示す。公平な比較のため、エンドツーエンドモデルとして VADv2 の代わりに VAD を用いる。LVLM とエンドツーエンドモデルを組み合わせた従来の SOTA 手法［27］と比べて、Senna は平均計画変位誤差を 29.03%、衝突率を 20.00% 効果的に削減する。先行研究［73］で指摘されているように自車状態の特徴を用いることに伴う潜在的な問題を避けるため、自車状態の特徴を用いない場合の結果も報告する。DriveX データセットで事前学習した重みでモデルを初期化し nuScenes データセットでファインチューニングすることで、Senna は最先端の計画性能を達成し、VAD［3］と比べて平均計画変位誤差を 40.28%、平均衝突率を 45.45% 大幅に削減する。Senna の性能は DriveX データセットでの事前学習とそれに続く nuScenes データセットでのファインチューニングによって大きく向上しており、その強力な汎化性と転移性を示している。</p>
+<p>表3 に DriveX データセットにおける軌道計画の結果を示す。エンドツーエンドモデル VADv2 に加えて、2 つの比較モデルを追加で導入する。1 つ目のモデルは、提案する構造化計画戦略の性能上限を検証するため、正解の計画メタアクションを追加の入力特徴として取り込むものである。2 つ目のモデルは我々が再現した DriveVLM［27］であり、LVLM とエンドツーエンドモデルの間の接続役として、メタアクションの代わりに低頻度の軌道を予測する。</p>
+<p>表3 に示すように、正解の計画メタアクションを利用する VADv2 が最も低い計画誤差を達成しており、提案する構造化計画戦略の有効性を裏付けている。低頻度の軌道を接続役として予測する DriveVLM† は、VADv2 に対してわずかな改善しか示さない。これに対し、提案する Senna はすべての手法の中で最良の計画性能を発揮し、平均計画変位誤差を 14.27% 大幅に削減する。<span class="yakuchu">（訳注：表3 の値から 1s・2s・3s の L2 の平均を計算すると、Senna（1.46）は VADv2（None、約 1.70）に対し約 14.29%、DriveVLM†（約 1.68）に対し約 13.27% の削減となり、本文の 14.27% とはわずかに一致しない。また「すべての手法の中で最良」は正解メタアクションを用いる上限モデルを除いた比較である。）</span></p>
+
+<h3 id="4.3-アブレーション研究">4.3　アブレーション研究</h3>
+<p><strong>計画指向 QA。</strong>表4 に、提案する計画指向 QA の有効性を検証するアブレーション研究の結果を示す。メタアクション QA は我々の評価の中核をなす要素であるため、これを除外すると Senna の計画正解率は大きく影響を受ける（ID 1）。シナリオ記述 QA と信号検出 QA がない場合も加速・減速の決定に影響が出る。信号のあるシナリオでの発進と停止がこれらの QA と密接に結びついているためである（ID 2–3）。さらに、他のいずれかの QA を省略しても決定の正解率が低下する（ID 4–6）。すべての種類の QA を用いて Senna を学習させたとき、最適な計画性能が得られる（ID 7）。</p>
+<p><strong>画像視点。</strong>表5 に示すように、サラウンドビューの多画像入力を取り入れた後、Senna の計画正解率は 64.91% から 71.21% に向上した。これは、Senna の画像エンコーディング戦略とサラウンドビュープロンプトの設計の有効性を示しており、運転環境を理解し正確な計画決定を行うモデルの能力を高めている。</p>
+<p><strong>画像トークン数。</strong>表6 に、サラウンドビューの多画像入力を用いる際に画像トークン数を変えた場合の結果を示す。表の最終行に示すように、Senna の視覚エンコーダの元の出力は 576 個の画像トークンを含む。観察されるように、これはモデル崩壊を招き、デコードの失敗につながる。画像トークン数を 512 に減らしても問題は解決しない。画像トークン数を 256 に減らすとモデルは正常に出力し始めるが、計画正解率は依然として最適ではない。最良の結果は画像トークン数を 128 に設定したときに得られる。画像トークンを 64 や 32 にさらに減らしても計画正解率への影響は小さく、提案する多画像エンコーディング戦略の有効性と頑健性を示している。</p>
+<p><strong>学習データセットの規模。</strong>学習データセットの規模に関するアブレーション研究を行い、その結果を表7 に示す。示されているように、学習データが比較的少ない場合でも、Senna に大きなモデル劣化は生じない。しかし学習データが増えるにつれて Senna の決定正解率は着実に向上しており、その優れたスケーリング能力を浮き彫りにしている。</p>
+<a class="pg" data-page="9"></a>
+<p><strong>推論速度。</strong>表8 は、すべて同じ長さのプロンプトを用いて評価した、Senna と他モデルの推論速度を比較したものである。他のモデルが単一画像であるのに対し 6 枚の入力画像を用いながらも、Senna は効率的な多画像エンコーディング戦略により同等あるいはより速い推論速度を達成する。各画像を 128 トークンにエンコードする場合、より多くのプロンプトトークンを扱うにもかかわらず、Senna のデコード遅延は LLaVA-1.5［30］のそれに近い。さらに、画像 1 枚あたりのトークン数を 64 および 32 に減らすことで、Senna のデコード遅延はそれぞれ 0.42 秒および 0.35 秒にまで短縮され、LLaVA-1.5 に対して推論速度がそれぞれ 17.6% および 39.7% 大きく改善される。<span class="yakuchu">（訳注：表8 の値から遅延の削減率を計算すると、0.51 秒→0.42 秒で 17.6%、0.51 秒→0.35 秒では約 31.4% となり、後者は本文の 39.7% と一致しない。）</span></p>
+
+<figure><img src="figs/fig5.png" loading="lazy" alt="図5" /></figure>
+<p><strong>図5：</strong>DriveX データセットにおけるメタアクションデータ分布の可視化。</p>
+<p class="yakuchu">図中ラベル：Keep, Straight＝維持・直進（15.18%）、Keep, Left＝維持・左（14.85%）、Keep, right＝維持・右（15.95%）、Decelerate, Straight＝減速・直進（15.36%）、Accelerate, Straight＝加速・直進（13.46%）、Accelerate, Left＝加速・左（6.70%）、Accelerate, right＝加速・右（3.54%）、Stop, Straight＝停止・直進（14.74%）</p>
+
+<p><strong>学習パイプライン。</strong>学習パイプラインの有効性を検証し、その結果を表9 に示す。Senna は、提案する 3 段階学習戦略、すなわち混合事前学習、運転ファインチューニング、計画ファインチューニングを適用することで最良の性能を達成する。</p>
+
+<h3 id="4.4-定性的結果">4.4　定性的結果</h3>
+<p>図6 に Senna の定性的結果を示す。DriveX 検証セットにおける運転シーン記述、高レベルの意思決定、計画の説明の性能に加え、nuScenes データセットにおけるゼロショット能力も示している。Senna は印象的な汎化能力を示す。シーン記述に関しては、Senna は道路を横断する歩行者、信号機、カラーコーンなど、運転シナリオにおける重要な動的・静的要素を正確に捉える。計画の説明に関しては、正確なシーン記述と分析、そして計画メタアクションに基づき、Senna は自らの決定の背後にある理由を効果的に説明する。これらの詳細な記述と計画の説明は、翻って、より情報に基づいた決定を下す Senna の能力をさらに高める。</p>
+
+<h2 id="5-限界">5　限界</h2>
+<p>本論文は主に、運転指向の LVLM の設計と学習戦略、およびそのエンドツーエンドモデルとの効果的な統合を検証した。しかし実運用においては、大規模モデルの推論速度が、システムが自動運転のリアルタイム要件を満たすことを妨げる可能性がある。この問題は将来、推論遅延を減らすために 2B モデルのようなより小さな視覚言語モデルを利用し、推論を加速するハードウェアレベルの最適化と組み合わせることで緩和できる可能性がある。さらに、我々の実験は、データセットの規模が大きくなるにつれて Senna の計画性能が大きく向上し、収穫逓減の兆候は見られないことを示している。データが限られていることを踏まえると、Senna はまだ性能の上限に達しておらず、学習データが増え続けるにつれてさらなる改善の余地があると考えられる。</p>
+
+<h2 id="6-結論">6　結論</h2>
+<p>我々は、LVLM とエンドツーエンドモデルを統合し、高レベルの意思決定から低レベルの軌道計画に至る構造化された計画を行う自動運転システム Senna を提案した。大規模な実験により、Senna の優れた性能、印象的なシナリオ横断的汎化性、転移性が示され、言語ベースの計画を通じて LVLM とエンドツーエンドモデルを組み合わせる可能性が浮き彫りになった。事前に定義されていない、きめ細かな言語指示を探究して制御可能な軌道計画を実現することが、今後の研究の方向性である。</p>
+
+<h2 id="謝辞">謝辞</h2>
+<p>本研究は National Natural Science Foundation of China（NSFC No. 62276108）の支援を受けた。</p>
+
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>Y. Wang, V. C. Guizilini, T. Zhang, Y. Wang, H. Zhao, and J. Solomon, "Detr3d: 3d object detection from multi-view images via 3d-to-2d queries," in <em>CoRL</em>, 2022.</li>
+<li>Y. Hu, J. Yang, L. Chen, K. Li, C. Sima, X. Zhu, S. Chai, S. Du, T. Lin, W. Wang <em>et al.</em>, "Planning-oriented autonomous driving," in <em>CVPR</em>, 2023.</li>
+<li>B. Jiang, S. Chen, Q. Xu, B. Liao, J. Chen, H. Zhou, Q. Zhang, W. Liu, C. Huang, and X. Wang, "Vad: Vectorized scene representation for efficient autonomous driving," in <em>ICCV</em>, 2023.</li>
+<li>J. Philion and S. Fidler, "Lift, splat, shoot: Encoding images from arbitrary camera rigs by implicitly unprojecting to 3d," in <em>ECCV</em>, 2020.</li>
+<li>Z. Li, W. Wang, H. Li, E. Xie, C. Sima, T. Lu, Q. Yu, and J. Dai, "Bevformer: Learning bird's-eye-view representation from multi-camera images via spatiotemporal transformers," <em>arXiv preprint arXiv:2203.17270</em>, 2022.</li>
+<li>B. Liao, S. Chen, X. Wang, T. Cheng, Q. Zhang, W. Liu, and C. Huang, "Maptr: Structured modeling and learning for online vectorized hd map construction," <em>arXiv preprint arXiv:2208.14437</em>, 2022.</li>
+<li>Y. Chai, B. Sapp, M. Bansal, and D. Anguelov, "Multipath: Multiple probabilistic anchor trajectory hypotheses for behavior prediction," <em>arXiv preprint arXiv:1910.05449</em>, 2019.</li>
+<li>J. Gu, C. Hu, T. Zhang, X. Chen, Y. Wang, Y. Wang, and H. Zhao, "Vip3d: End-to-end visual trajectory prediction via 3d agent queries," <em>arXiv preprint arXiv:2208.01582</em>, 2022.</li>
+<li>B. Jiang, S. Chen, X. Wang, B. Liao, T. Cheng, J. Chen, H. Zhou, Q. Zhang, W. Liu, and C. Huang, "Perceive, interact, predict: Learning dynamic and static clues for end-to-end motion prediction," <em>arXiv preprint arXiv:2212.02181</em>, 2022.</li>
+<li>M. Toromanoff, E. Wirbel, and F. Moutarde, "End-to-end model-free reinforcement learning for urban driving using implicit affordances," in <em>CVPR</em>, 2020.</li>
+<li>A. Prakash, K. Chitta, and A. Geiger, "Multi-modal fusion transformer for end-to-end autonomous driving," in <em>CVPR</em>, 2021.</li>
+<li>S. Hu, L. Chen, P. Wu, H. Li, J. Yan, and D. Tao, "St-p3: End-to-end vision-based autonomous driving via spatial-temporal feature learning," in <em>ECCV</em>, 2022.</li>
+<li>H. Liu, C. Li, Q. Wu, and Y. J. Lee, "Visual instruction tuning," in <em>NeurIPS</em>, 2024.</li>
+</ol>
+<a class="pg" data-page="10"></a>
+<figure><img src="figs/fig6.jpg" loading="lazy" alt="図6" /></figure>
+<p><strong>図6：Senna の定性的結果。</strong>赤枠と赤字のテキストは、運転判断に関係する重要な情報を強調している。</p>
+<p class="yakuchu">図中テキスト（上から順に）：Scene Description＝シーン記述、Planning Explanation＝計画の説明、Zero-shot＝ゼロショット（nuScenes での例）。<br />
+(1) シーン記述：「画像は視界の良い日中の市街地の運転シーンを示している。道路上には数台の自転車がおり、<strong>前方で歩行者が道路を横断している</strong>。太陽が照っているため、時間帯はおそらく朝か昼である。<strong>信号は青である</strong>が、運転者は警戒を怠らず、歩行者が通過するのを待ってから曲がり終えるべきである。」 計画（Decelerate, Turn Left＝減速、左折）：「ナビゲーションコマンドは左折であり、信号は青だが、減速して歩行者が横断し終えるのを待ってから左折を進めるべきである。」<br />
+(2) シーン記述：「この画像は夕方の市街地の道路を示している。<strong>前方でセダンが右折しており、遠くでは数人の歩行者が道路を横断している。</strong>路面は平滑に見える。<strong>信号は青である</strong>が、前方の車と歩行者の両方の動きを観察するために慎重な運転が必要である。」 計画（Accelerate, Turn Right＝加速、右折）：「信号は青で、ナビゲーションコマンドは右折であり、前方の道路は空いている。現在の速度は 1 m/s なので、加速して右折を完了すべきである。」<br />
+(3) シーン記述：「この画像は日中のにぎやかな通りを描いている。手前には<strong>ブレーキランプを点灯させた白い車があり</strong>、減速中または停止中であることを示している。交差点では 1 台のバスが曲がっており、何人かの自転車が待っている。<strong>信号は赤であり</strong>、車両に対する停止信号を示している。」 計画（Stop, Straight＝停止、直進）：「ナビゲーションコマンドは直進だが、前方の信号が赤なので、信号が青に変わるまで前の車の後ろで停止したまま待ってから進むべきである。」<br />
+(4) ゼロショット。シーン記述：「画像は晴天の日中の市街地の道路シーンを描いている。画像内に信号機は見えない。<strong>道路の両脇にカラーコーンが置かれており</strong>、工事または保守作業の可能性を示唆している。画像の左側では<strong>歩行者が道路を横断している</strong>。運転者は減速するか停止して、歩行者が渡り終えてから進むべきである。」 計画（Keep, Straight＝維持、直進）：「道路の両側に多数のカラーコーンがあり、歩行者が道路を横断しているため、低速で慎重に進み、横断歩道で停止して歩行者の通過を待つべきである。」<br />
+(5) ゼロショット。シーン記述：「画像は天候の良い夕方のシーンを描いている。<strong>前方に青信号がはっきりと見え</strong>、<strong>道路脇に数台の車両が駐車している</strong>。前方の道路は空いており、全体として穏やかで静かな運転環境である。」 計画（Accelerate, Straight＝加速、直進）：「ナビゲーションコマンドは直進であり、前方の信号は青で道路は空いている。現在の速度は 3 m/s なので、加速して交差点を通過すべきである。」</p>
+<a class="pg" data-page="11"></a>
+<figure><img src="figs/fig7.png" loading="lazy" alt="図7" /></figure>
+<p><strong>図7：</strong>提案する計画指向 QA の可視化。</p>
+<p class="yakuchu">図中テキスト：Input Multi-View Images＝入力多視点画像。Question＝質問、Answer＝回答。<br />
+System Message（システムメッセージ）：「好奇心旺盛なユーザと人工知能アシスタントの間のチャット。アシスタントはユーザの質問に対して有用で詳細かつ丁寧な回答を行う。」に続き、<code>&lt;FRONT VIEW&gt;:\n&lt;image&gt;\n&lt;FRONT LEFT VIEW&gt;:\n&lt;image&gt;\n&lt;FRONT RIGHT VIEW&gt;:\n&lt;image&gt;\n&lt;BACK LEFT VIEW&gt;:\n&lt;image&gt;\n&lt;BACK RIGHT VIEW&gt;:\n&lt;image&gt;\n&lt;BACK VIEW&gt;:\n&lt;image&gt;\n</code>（原文のまま）。<br />
+Scene Description（シーン記述）　質問：「あなたが運転していると仮定し、運転計画の主要な要因を含む運転シーンの記述を生成せよ。交通状況、天候、時間帯、路面状況（平滑な路面か障害物があるか）を含めること。記述は、情報に基づいた意思決定を容易にするよう簡潔かつ正確であること。」 回答：「画像は日中のにぎやかな市街地の交差点を描いている。複数の車両があり、一部は信号で停止している。横断歩道を渡る歩行者が見える。天候は晴れのようで、路面は平滑で目に見える障害物はない。」<br />
+Traffic Signal Detection（信号検出）　質問：「車の視点からの前向き画像が与えられたとき、車の挙動に影響する信号機があるかどうかを識別せよ。'Red'、'Green'、'Yellow'、'None' のいずれかで答えよ。」 回答：「Red（赤）。」<br />
+Vulnerable Road User Identification（交通弱者の識別）　質問：「前方 20 メートル以内に、自転車、バイク、歩行者などの交通弱者は見えるか？」 回答：「歩行者が 12 メートル前方、3 メートル左にいる。」<br />
+Motion Intention Prediction（動きの意図予測）　質問：「あなたが運転していると仮定する。これから前方視点内の動的物体の位置と速度の情報を与える。それらの将来の運転行動を予測せよ。運転行動は SPEED の決定と PATH の決定に分けられる。SPEED には KEEP、ACCELERATE、DECELERATE、STOP があり、PATH には STRAIGHT、RIGHT_CHANGE、LEFT_CHANGE、RIGHT_TURN、LEFT_TURN がある。動的物体の位置と速度の情報は次のとおりである。Object 1：車、25 メートル前方、2 メートル左、速度 5 m/s。Object 2：車、4 メートル前方、4 メートル左、速度 0 m/s。前方視点の画像に基づいてこれらの物体の将来の運転行動を予測せよ。例えば、正しい形式の回答は次のようになる。Object 1: KEEP, STRAIGHT　Object 2: DECELERATE, RIGHT_TURN」 回答：「Object 1: KEEP, LEFT_TURN. Object 2: STOP, STRAIGHT.」<br />
+Meta-action Planning（メタアクション計画）　質問：「現在の速度は 2 m/s、ナビゲーションコマンドは『直進（go straight）』である。運転シーンとナビゲーション情報の理解に基づき、今後 3 秒間の計画は何か？ SPEED の計画と PATH の計画を答えよ。SPEED には KEEP、ACCELERATE、DECELERATE、STOP があり、PATH には STRAIGHT、RIGHT_CHANGE、LEFT_CHANGE、RIGHT_TURN、LEFT_TURN がある。例えば、正しい回答形式は 'KEEP, LEFT_CHANGE' のようなものである。」 回答：「DECELERATE, STRAIGHT.」<br />
+Planning Explanation（計画の説明）　質問：「あなたが運転していると仮定する。現在の速度は 0 m/s、ナビゲーションコマンドは『直進』であり、今後 3 秒間の運転決定は DECELERATE, STRAIGHT である。他の交通参加者の挙動、ナビゲーション情報、路面状況、信号の状態を含む運転環境に基づいて、この決定を下した理由を分析せよ。」 回答：「私の計画決定は DECELERATE, STRAIGHT である。赤信号の交差点に近づいているためである。したがって、完全に停止するまで減速し、信号が青に変わるのを待ってから進むべきである。」<br />
+（訳注：メタアクション計画の例では現在速度が 2 m/s であるのに対し、計画の説明の例では 0 m/s で DECELERATE（減速）とされており、両例の設定は原図のとおり一致していない。）</p>
+
+<a class="pg" data-page="12"></a>
+<ol class="refs" start="14">
+<li>J. Bai, S. Bai, S. Yang, S. Wang, S. Tan, P. Wang, J. Lin, C. Zhou, and J. Zhou, "Qwen-vl: A frontier large vision-language model with versatile abilities," <em>arXiv preprint arXiv:2308.12966</em>, 2023.</li>
+<li>W. Wang, Q. Lv, W. Yu, W. Hong, J. Qi, Y. Wang, J. Ji, Z. Yang, L. Zhao, X. Song <em>et al.</em>, "Cogvlm: Visual expert for pretrained language models," <em>arXiv preprint arXiv:2311.03079</em>, 2023.</li>
+<li>Z. Chen, J. Wu, W. Wang, W. Su, G. Chen, S. Xing, M. Zhong, Q. Zhang, X. Zhu, L. Lu <em>et al.</em>, "Internvl: Scaling up vision foundation models and aligning for generic visual-linguistic tasks," in <em>CVPR</em>, 2024.</li>
+<li>J. Achiam, S. Adler, S. Agarwal, L. Ahmad, I. Akkaya, F. L. Aleman, D. Almeida, J. Altenschmidt, S. Altman, S. Anadkat <em>et al.</em>, "Gpt-4 technical report," <em>arXiv preprint arXiv:2303.08774</em>, 2023.</li>
+<li>M. M. Botvinick, "Hierarchical models of behavior and prefrontal function," <em>Trends in cognitive sciences</em>, 2008.</li>
+<li>E. Koechlin, C. Ody, and F. Kouneiher, "The architecture of cognitive control in the human prefrontal cortex," <em>Science</em>, 2003.</li>
+<li>D. Badre, "Cognitive control, hierarchy, and the rostro–caudal organization of the frontal lobes," <em>Trends in cognitive sciences</em>, 2008.</li>
+<li>Z. Xu, Y. Zhang, E. Xie, Z. Zhao, Y. Guo, K. K. Wong, Z. Li, and H. Zhao, "Drivegpt4: Interpretable end-to-end autonomous driving via large language model," <em>arXiv preprint arXiv:2310.01412</em>, 2023.</li>
+<li>L. Chen, O. Sinavski, J. Hünermann, A. Karnsund, A. J. Willmott, D. Birch, D. Maund, and J. Shotton, "Driving with llms: Fusing object-level vector modality for explainable autonomous driving," <em>arXiv preprint arXiv:2310.01957</em>, 2023.</li>
+<li>W. Wang, J. Xie, C. Hu, H. Zou, J. Fan, W. Tong, Y. Wen, S. Wu, H. Deng, Z. Li <em>et al.</em>, "Drivemlm: Aligning multi-modal large language models with behavioral planning states for autonomous driving," <em>arXiv preprint arXiv:2312.09245</em>, 2023.</li>
+<li>S. Wang, Z. Yu, X. Jiang, S. Lan, M. Shi, N. Chang, J. Kautz, Y. Li, and J. M. Alvarez, "Omnidrive: A holistic llm-agent framework for autonomous driving with 3d perception, reasoning and planning," <em>arXiv preprint arXiv:2405.01533</em>, 2024.</li>
+<li>S. Frieder, L. Pinchetti, R.-R. Griffiths, T. Salvatori, T. Lukasiewicz, P. Petersen, and J. Berner, "Mathematical capabilities of chatgpt," in <em>NeurIPS</em>, 2024.</li>
+<li>D. Hendrycks, C. Burns, S. Kadavath, A. Arora, S. Basart, E. Tang, D. Song, and J. Steinhardt, "Measuring mathematical problem solving with the math dataset," <em>arXiv preprint arXiv:2103.03874</em>, 2021.</li>
+<li>X. Tian, J. Gu, B. Li, Y. Liu, C. Hu, Y. Wang, K. Zhan, P. Jia, X. Lang, and H. Zhao, "Drivevlm: The convergence of autonomous driving and large vision-language models," <em>arXiv preprint arXiv:2402.12289</em>, 2024.</li>
+<li>J. Lin, H. Yin, W. Ping, P. Molchanov, M. Shoeybi, and S. Han, "Vila: On pre-training for visual language models," in <em>CVPR</em>, 2024.</li>
+<li>Y. Zhou, L. Huang, Q. Bu, J. Zeng, T. Li, H. Qiu, H. Zhu, M. Guo, Y. Qiao, and H. Li, "Embodied understanding of driving scenarios," <em>arXiv preprint arXiv:2403.04593</em>, 2024.</li>
+<li>H. Liu, C. Li, Y. Li, and Y. J. Lee, "Improved baselines with visual instruction tuning," in <em>CVPR</em>, 2024.</li>
+<li>C. Sima, K. Renz, K. Chitta, L. Chen, H. Zhang, C. Xie, P. Luo, A. Geiger, and H. Li, "Drivelm: Driving with graph visual question answering," <em>arXiv preprint arXiv:2312.14150</em>, 2023.</li>
+<li>D. Wu, W. Han, T. Wang, Y. Liu, X. Zhang, and J. Shen, "Language prompt for autonomous driving," <em>arXiv preprint arXiv:2309.04379</em>, 2023.</li>
+<li>T. Qian, J. Chen, L. Zhuo, Y. Jiao, and Y.-G. Jiang, "Nuscenes-qa: A multi-modal visual question answering benchmark for autonomous driving scenario," in <em>AAAI</em>, 2024.</li>
+<li>H. Caesar, V. Bankiti, A. H. Lang, S. Vora, V. E. Liong, Q. Xu, A. Krishnan, Y. Pan, G. Baldan, and O. Beijbom, "nuscenes: A multimodal dataset for autonomous driving," in <em>CVPR</em>, 2020.</li>
+<li>B. Paden, M. Čáp, S. Z. Yong, D. Yershov, and E. Frazzoli, "A survey of motion planning and control techniques for self-driving urban vehicles," <em>IEEE Transactions on intelligent vehicles</em>, 2016.</li>
+<li>S. Thrun, M. Montemerlo, H. Dahlkamp, D. Stavens, A. Aron, J. Diebel, P. Fong, J. Gale, M. Halpenny, G. Hoffmann <em>et al.</em>, "Stanley: The robot that won the darpa grand challenge," <em>Journal of field Robotics</em>, 2006.</li>
+<li>C. Urmson, J. Anhalt, D. Bagnell, C. Baker, R. Bittner, M. Clark, J. Dolan, D. Duggins, T. Galatali, C. Geyer <em>et al.</em>, "Autonomous driving in urban environments: Boss and the urban challenge," <em>Journal of field Robotics</em>, 2008.</li>
+<li>F. Codevilla, E. Santana, A. M. López, and A. Gaidon, "Exploring the limitations of behavior cloning for autonomous driving," in <em>ICCV</em>, 2019.</li>
+<li>D. A. Pomerleau, "Alvinn: An autonomous land vehicle in a neural network," in <em>NeurIPS</em>, 1988.</li>
+<li>Z. Zhang, A. Liniger, D. Dai, F. Yu, and L. Van Gool, "End-to-end urban driving by imitating a reinforcement learning coach," in <em>ICCV</em>, 2021.</li>
+<li>X. Jia, Y. Gao, L. Chen, J. Yan, P. L. Liu, and H. Li, "Driveadapter: Breaking the coupling barrier of perception and planning in end-to-end autonomous driving," in <em>ICCV</em>, 2023.</li>
+<li>B. Liao, S. Chen, Y. Zhang, B. Jiang, Q. Zhang, W. Liu, C. Huang, and X. Wang, "Maptrv2: An end-to-end framework for online vectorized hd map construction," <em>arXiv preprint arXiv:2308.05736</em>, 2023.</li>
+<li>S. Chen, B. Jiang, H. Gao, B. Liao, Q. Xu, Q. Zhang, C. Huang, W. Liu, and X. Wang, "Vadv2: End-to-end vectorized autonomous driving via probabilistic planning," <em>arXiv preprint arXiv:2402.13243</em>, 2024.</li>
+<li>A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, Ł. Kaiser, and I. Polosukhin, "Attention is all you need," in <em>NeurIPS</em>, 2017.</li>
+<li>T. Brown, B. Mann, N. Ryder, M. Subbiah, J. D. Kaplan, P. Dhariwal, A. Neelakantan, P. Shyam, G. Sastry, A. Askell <em>et al.</em>, "Language models are few-shot learners," in <em>NeurIPS</em>, 2020.</li>
+<li>H. Touvron, T. Lavril, G. Izacard, X. Martinet, M.-A. Lachaux, T. Lacroix, B. Rozière, N. Goyal, E. Hambro, F. Azhar <em>et al.</em>, "Llama: Open and efficient foundation language models," <em>arXiv preprint arXiv:2302.13971</em>, 2023.</li>
+<li>R. Anil, A. M. Dai, O. Firat, M. Johnson, D. Lepikhin, A. Passos, S. Shakeri, E. Taropa, P. Bailey, Z. Chen <em>et al.</em>, "Palm 2 technical report," <em>arXiv preprint arXiv:2305.10403</em>, 2023.</li>
+<li>A. Yang, B. Yang, B. Hui, B. Zheng, B. Yu, C. Zhou, C. Li, C. Li, D. Liu, F. Huang <em>et al.</em>, "Qwen2 technical report," <em>arXiv preprint arXiv:2407.10671</em>, 2024.</li>
+<li>D. Zhu, J. Chen, X. Shen, X. Li, and M. Elhoseiny, "Minigpt-4: Enhancing vision-language understanding with advanced large language models," <em>arXiv preprint arXiv:2304.10592</em>, 2023.</li>
+<li>W. Dai, J. Li, D. Li, A. M. H. Tiong, J. Zhao, W. Wang, B. Li, P. Fung, and S. Hoi, "Instructblip: Towards general-purpose vision-language models with instruction tuning," 2023.</li>
+<li>A. Radford, J. W. Kim, C. Hallacy, A. Ramesh, G. Goh, S. Agarwal, G. Sastry, A. Askell, P. Mishkin, J. Clark <em>et al.</em>, "Learning transferable visual models from natural language supervision," in <em>ICML</em>, 2021.</li>
+<li>Y. Fang, W. Wang, B. Xie, Q. Sun, L. Wu, X. Wang, T. Huang, X. Wang, and Y. Cao, "Eva: Exploring the limits of masked visual representation learning at scale," in <em>CVPR</em>, 2023.</li>
+<li>J. Li, D. Li, C. Xiong, and S. Hoi, "Blip: Bootstrapping language-image pre-training for unified vision-language understanding and generation," in <em>ICML</em>, 2022.</li>
+<li>J. Li, D. Li, S. Savarese, and S. Hoi, "Blip-2: Bootstrapping language-image pre-training with frozen image encoders and large language models," in <em>ICML</em>, 2023.</li>
+<li>C. Jia, Y. Yang, Y. Xia, Y.-T. Chen, Z. Parekh, H. Pham, Q. Le, Y.-H. Sung, Z. Li, and T. Duerig, "Scaling up visual and vision-language representation learning with noisy text supervision," in <em>ICML</em>, 2021.</li>
+<li>J. Lu, D. Batra, D. Parikh, and S. Lee, "Vilbert: Pretraining task-agnostic visiolinguistic representations for vision-and-language tasks," in <em>NeurIPS</em>, 2019.</li>
+<li>H. Tan and M. Bansal, "Lxmert: Learning cross-modality encoder representations from transformers," <em>arXiv preprint arXiv:1908.07490</em>, 2019.</li>
+<li>P. Wang, S. Bai, S. Tan, S. Wang, Z. Fan, J. Bai, K. Chen, X. Liu, J. Wang, W. Ge <em>et al.</em>, "Qwen2-vl: Enhancing vision-language model's perception of the world at any resolution," <em>arXiv preprint arXiv:2409.12191</em>, 2024.</li>
+<li>H. Sha, Y. Mu, Y. Jiang, L. Chen, C. Xu, P. Luo, S. E. Li, M. Tomizuka, W. Zhan, and M. Ding, "Languagempc: Large language models as decision makers for autonomous driving," <em>arXiv preprint arXiv:2310.03026</em>, 2023.</li>
+<li>A. Dosovitskiy, G. Ros, F. Codevilla, A. Lopez, and V. Koltun, "Carla: An open urban driving simulator," in <em>CoRL</em>, 2017.</li>
+<li>D. Wu, W. Han, T. Wang, X. Dong, X. Zhang, and J. Shen, "Referring multi-object tracking," in <em>CVPR</em>, 2023.</li>
+<li>T. Deruyttere, S. Vandenhende, D. Grujicic, L. Van Gool, and M.-F. Moens, "Talk2car: Taking control of your self-driving car," <em>arXiv preprint arXiv:1909.10838</em>, 2019.</li>
+<li>J. Kim, A. Rohrbach, T. Darrell, J. Canny, and Z. Akata, "Textual explanations for self-driving vehicles," in <em>Proceedings of the European conference on computer vision (ECCV)</em>, 2018, pp. 563–578.</li>
+<li>L. Zheng, W.-L. Chiang, Y. Sheng, S. Zhuang, Z. Wu, Y. Zhuang, Z. Lin, Z. Li, D. Li, E. Xing <em>et al.</em>, "Judging llm-as-a-judge with mt-bench and chatbot arena," in <em>NeurIPS</em>, 2023.</li>
+<li>D. Hendrycks and K. Gimpel, "Gaussian error linear units (gelus)," <em>arXiv preprint arXiv:1606.08415</em>, 2016.</li>
+<li>N. D. Ratliff, J. A. Bagnell, and M. A. Zinkevich, "Maximum margin planning," in <em>Proceedings of the 23rd international conference on Machine learning</em>, 2006, pp. 729–736.</li>
+</ol>
+<a class="pg" data-page="13"></a>
+<ol class="refs" start="67">
+<li>W. Zeng, W. Luo, S. Suo, A. Sadat, B. Yang, S. Casas, and R. Urtasun, "End-to-end interpretable neural motion planner," in <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, 2019, pp. 8660–8669.</li>
+<li>P. Hu, A. Huang, J. Dolan, D. Held, and D. Ramanan, "Safe local motion planning with self-supervised freespace forecasting," in <em>CVPR</em>, 2021.</li>
+<li>T. Khurana, P. Hu, A. Dave, J. Ziglar, D. Held, and D. Ramanan, "Differentiable raycasting for self-supervised occupancy forecasting," in <em>ECCV</em>, 2022.</li>
+<li>K. Papineni, S. Roukos, T. Ward, and W.-J. Zhu, "Bleu: a method for automatic evaluation of machine translation," in <em>ACL</em>, 2002.</li>
+<li>R. Vedantam, C. Lawrence Zitnick, and D. Parikh, "Cider: Consensus-based image description evaluation," in <em>CVPR</em>, 2015.</li>
+<li>S. Banerjee and A. Lavie, "Meteor: An automatic metric for mt evaluation with improved correlation with human judgments," in <em>Proceedings of the acl workshop on intrinsic and extrinsic evaluation measures for machine translation and/or summarization</em>, 2005.</li>
+<li>Z. Li, Z. Yu, S. Lan, J. Li, J. Kautz, T. Lu, and J. M. Alvarez, "Is ego status all you need for open-loop end-to-end autonomous driving?" in <em>CVPR</em>, 2024.</li>
+</ol>
+
+<h2 id="著者紹介">著者紹介</h2>
+<p class="yakuchu">（訳注：原文の著者顔写真は掲載していない。）</p>
+<p><strong>Bo Jiang</strong>　2021 年に Central South University（中国）でデータサイエンス・ビッグデータ技術の学士号（B.E.）を取得。現在、Huazhong University of Science and Technology（中国）の博士課程に在籍。研究分野はマルチモーダル学習、自動運転、身体性 AI（embodied AI）。</p>
+<p><strong>Shaoyu Chen</strong>　2019 年に Huazhong University of Science and Technology（HUST、中国・武漢）の School of Electronic Information and Communications で学士号（B.E.）を取得。現在、HUST で博士課程に在籍。研究分野は 3D ビジョンと自動運転。</p>
+<p><strong>Bencheng Liao</strong>　2020 年に Huazhong University of Science and Technology（中国・武漢）の School of Electronic Information and Communications で学士号（B.E.）を取得。現在、Huazhong University of Science and Technology の Institute of Artificial Intelligence および School of Electronic Information and Communications の博士課程に在籍。研究分野は物体検出、3D ビジョン、自動運転。</p>
+<p><strong>Xingyu Zhang</strong>　2020 年に Xidian University でコンピュータ科学・技術の学士号を、2023 年に Xi'an Jiaotong University でコンピュータ科学・技術の修士号を取得。現在 Horizon Robotics の研究員として、自動運転、大規模マルチモーダルモデル、世界モデルに取り組んでいる。研究分野は視覚言語モデルを用いた自動運転と世界モデルシミュレーション。</p>
+<p><strong>Wei Yin</strong>　Horizon Robotics の研究科学者。以前は Australian Institute of Machine Learning（AIML）、University of Adelaide で博士号を取得。研究分野は世界モデル、3D 再構成、深度推定。</p>
+<p><strong>Qian Zhang</strong>　2008 年と 2011 年に Central South University（中国・長沙）でそれぞれ学士号（B.E.）と修士号（M.S.）を、2014 年に Institute of Automation, Chinese Academy of Sciences（中国・北京）でパターン認識・知能システムの博士号を取得。現在の研究分野はコンピュータビジョンと機械学習。</p>
+<p><strong>Chang Huang</strong>　2003 年と 2007 年に Tsinghua University でそれぞれコンピュータ科学の学士号（B.S.）と博士号を取得。Horizon Robotics の共同創業者兼 CTO。同社の BPU（Brain Processing Unit）計算プロセッサアーキテクチャ、コンピュータビジョン、深層学習の社内研究開発を主導した。</p>
+<p><strong>Wenyu Liu（SM'15）</strong>　1986 年に Tsinghua University（中国・北京）でコンピュータ科学の学士号（B.S.）を、1991 年と 2001 年に Huazhong University of Science and Technology（HUST、中国・武漢）でいずれも電子・情報工学の修士号（M.S.）と博士号を取得。現在、HUST の School of Electronic Information and Communications の教授兼副学部長。研究分野はコンピュータビジョン、マルチメディア、機械学習。</p>
+<p><strong>Xinggang Wang</strong>　2009 年と 2014 年に Huazhong University of Science and Technology（HUST、中国・武漢）でそれぞれ学士号（B.S.）と博士号を取得。現在、HUST の School of Electronic Information and Communications の教授。Image and Vision Computing の共同編集長、Pattern Recognition の副編集委員、CVPR および ICCV のエリアチェアを務める。研究分野はコンピュータビジョンと深層学習。</p>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>
