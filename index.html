@@ -23,6 +23,10 @@ p.sum{margin:10px 0 6px;font-size:14px}
 .info{color:#7a8794;font-size:12px}
 input#q{width:100%;box-sizing:border-box;font-size:16px;padding:10px 12px;border:1px solid #ccd6df;margin-top:18px;border-radius:0;-webkit-appearance:none}
 .links a{display:inline-block;padding:4px 0}
+section.story{margin:26px 0 8px;padding:20px 24px;background:#fff8ec;border:1px solid #e8c98f;border-left:5px solid #c47f17}
+section.story .tag{display:inline-block;font-size:12px;font-weight:bold;color:#fff;background:#c47f17;padding:1px 10px;border-radius:10px;margin-bottom:8px}
+section.story a.ttl{font-size:21px}
+h2.sec{font-size:18px;color:#244b64;margin:34px 0 0;border-bottom:1px solid #ccd6df;padding-bottom:8px}
 @media (max-width:700px){
  body{padding:20px 16px}
  h1{font-size:22px}
@@ -34,7 +38,14 @@ input#q{width:100%;box-sizing:border-box;font-size:16px;padding:10px 12px;border
 </head>
 <body>
 <h1>Autonomous Driving Papers 全文日本語訳</h1>
-<p class="count">65 件　／　更新: 2026-11-16 19:26　／　タイトルをクリックすると原文と訳文を並べて読めます（スマホ・タブレット縦では上下に並びます）</p>
+<p class="count">65 件　／　更新: 2026-11-16 19:56　／　タイトルをクリックすると原文と訳文を並べて読めます（スマホ・タブレット縦では上下に並びます）</p>
+<section class="story">
+  <div class="tag">メインストーリー</div>
+  <a class="ttl" href="guide/ad-history-guide.pdf">Transformer以降の自動運転技術：エポックで読む論文・企業ブログガイド 2017–2026</a>
+  <p class="sum">知覚のBEV化からEnd-to-End、世界モデル、Vision-Language-Actionまで。技術のつながりと歴史を76件の一次情報でたどる全体の地図。まずここで流れをつかみ、下の各論文を原文と訳文で読み進める。</p>
+  <div class="links"><a href="guide/ad-history-guide.pdf">PDF で読む</a></div>
+</section>
+<h2 class="sec">論文（原文と全文日本語訳）</h2>
 <input id="q" type="search" placeholder="タイトル・著者・要約で絞り込み" oninput="(function(v){document.querySelectorAll('li.card').forEach(function(c){c.style.display=c.textContent.toLowerCase().indexOf(v.toLowerCase())>=0?'':'none'})})(this.value)" />
 <ul class="list">
 <li class="card">
