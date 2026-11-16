@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Wayformer 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="Wayformer: Motion Forecasting via Simple &amp; Efficient Attention Networks" />
+  <meta name="short-name" content="Wayformer" />
+  <meta name="authors" content="Nigamaa Nayakanti, Rami Al-Rfou, Aurick Zhou, Kratarth Goel, Khaled S. Refaat, Benjamin Sapp（Waymo）" />
+  <meta name="source-pdf" content="14_Wayformer_2207.05844.pdf" />
+  <meta name="source-pages" content="20" />
+  <meta name="pdf-href" content="14_Wayformer_2207.05844.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="自動運転の動き予測のため、注意機構のみからなる単純で均質なエンコーダ・デコーダ型アーキテクチャ群 Wayformer を提案。早期・後期・階層的融合と、因子分解注意・潜在クエリ注意による効率化を比較し、単純な早期融合で WOMD と Argoverse の両方で最先端の性能を達成した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">Wayformer 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="14_Wayformer_2207.05844.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+    <div class="page" data-page="13" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">13</div></div>
+    <div class="page" data-page="14" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">14</div></div>
+    <div class="page" data-page="15" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">15</div></div>
+    <div class="page" data-page="16" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">16</div></div>
+    <div class="page" data-page="17" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">17</div></div>
+    <div class="page" data-page="18" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">18</div></div>
+    <div class="page" data-page="19" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">19</div></div>
+    <div class="page" data-page="20" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">20</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wayformer-motion-forecasting-via-simple--efficient-attention-networks" id="toc-wayformer-motion-forecasting-via-simple--efficient-attention-networks">Wayformer: Motion Forecasting via Simple &amp; Efficient Attention Networks</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-マルチモーダルなシーン理解" id="toc-2-マルチモーダルなシーン理解">2　マルチモーダルなシーン理解</a></li>
+<li><a href="#3-wayformer" id="toc-3-wayformer">3　Wayformer</a><ul>
+<li><a href="#3.1-融合" id="toc-3.1-融合">3.1　融合</a></li>
+<li><a href="#3.2-注意機構" id="toc-3.2-注意機構">3.2　注意機構</a></li>
+<li><a href="#3.3-軌道のデコーディング" id="toc-3.3-軌道のデコーディング">3.3　軌道のデコーディング</a></li>
+<li><a href="#3.4-軌道の集約" id="toc-3.4-軌道の集約">3.4　軌道の集約</a></li>
+</ul></li>
+<li><a href="#4-実験設定" id="toc-4-実験設定">4　実験設定</a><ul>
+<li><a href="#4.1-データセット" id="toc-4.1-データセット">4.1　データセット</a></li>
+<li><a href="#4.2-学習の詳細とハイパーパラメータ" id="toc-4.2-学習の詳細とハイパーパラメータ">4.2　学習の詳細とハイパーパラメータ</a></li>
+</ul></li>
+<li><a href="#5-結果" id="toc-5-結果">5　結果</a><ul>
+<li><a href="#5.1-多軸注意" id="toc-5.1-多軸注意">5.1　多軸注意</a></li>
+<li><a href="#5.2-因子分解注意" id="toc-5.2-因子分解注意">5.2　因子分解注意</a></li>
+<li><a href="#5.3-潜在クエリ" id="toc-5.3-潜在クエリ">5.3　潜在クエリ</a></li>
+<li><a href="#5.4-ベンチマーク結果" id="toc-5.4-ベンチマーク結果">5.4　ベンチマーク結果</a></li>
+</ul></li>
+<li><a href="#6-関連研究" id="toc-6-関連研究">6　関連研究</a></li>
+<li><a href="#7-限界" id="toc-7-限界">7　限界</a></li>
+<li><a href="#謝辞" id="toc-謝辞">謝辞</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#付録" id="toc-付録">付録</a></li>
+<li><a href="#a-因子分解潜在クエリ注意" id="toc-a-因子分解潜在クエリ注意">A　因子分解潜在クエリ注意</a></li>
+<li><a href="#b-ハイパーパラメータ" id="toc-b-ハイパーパラメータ">B　ハイパーパラメータ</a></li>
+<li><a href="#c-軌道集約の詳細" id="toc-c-軌道集約の詳細">C　軌道集約の詳細</a></li>
+<li><a href="#d-sota-wayformer-の詳細" id="toc-d-sota-wayformer-の詳細">D　SOTA Wayformer の詳細</a></li>
+<li><a href="#e-評価指標" id="toc-e-評価指標">E　評価指標</a></li>
+<li><a href="#f-定性的な優位例" id="toc-f-定性的な優位例">F　定性的な優位例</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="wayformer-motion-forecasting-via-simple--efficient-attention-networks">Wayformer: Motion Forecasting via Simple &amp; Efficient Attention Networks</h1>
+<p>Nigamaa Nayakanti<sup>*</sup>、Rami Al-Rfou<sup>*</sup>、Aurick Zhou、Kratarth Goel、Khaled S. Refaat、Benjamin Sapp<br />
+Waymo（nigamaa@waymo.com、rmyeid@waymo.com、aurickz@waymo.com、kratarth@waymo.com、krefaat@waymo.com、bensapp@waymo.com）<br />
+arXiv:2207.05844v1 [cs.CV]、2022年7月12日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>14_Wayformer_2207.05844.pdf</code>（全 20 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+<blockquote><p>脚注*：貢献度は同等。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p>自動運転のための動き予測（motion forecasting）は困難なタスクである。複雑な走行シナリオは、静的入力と動的入力の不均質な混合をもたらすからである。道路形状、車線の接続関係、時間変化する信号機の状態、そして動的に変化するエージェント集合の履歴とそれらの相互作用に関する情報を、どのように表現し融合すれば効果的な符号化が得られるかは、未解決の問題である。この多様な入力特徴をモデル化するために、多くの手法は、モダリティ固有の多様なモジュールを備えた、同様に複雑なシステムを設計することを提案してきた。その結果、スケールさせること、拡張すること、あるいは品質と効率のトレードオフを厳密に調整することが難しいシステムになっている。</p>
+<p>本論文では、動き予測のための、単純かつ均質な注意機構ベースのアーキテクチャ群である Wayformer を提案する。Wayformer は、注意機構ベースのシーンエンコーダとデコーダからなる簡潔なモデル記述を提供する。シーンエンコーダにおいては、入力モダリティの早期融合（early fusion）、後期融合（late fusion）、階層的融合（hierarchical fusion）の選択を検討する。各融合方式について、因子分解注意（factorized attention）または潜在クエリ注意（latent query attention）によって効率と品質をトレードオフする戦略を探る。早期融合は、構成が単純であるにもかかわらず、モダリティに依存しないだけでなく、Waymo Open Motion Dataset（WOMD）と Argoverse の両リーダーボードで最先端の結果を達成することを示し、我々の設計思想の有効性を実証する。</p>
+<p><strong>キーワード：</strong>動き予測、軌道予測、自動運転、Transformer、ロボティクス、学習</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>本研究では、実世界の走行環境におけるエージェント（歩行者、車両、自転車）の将来行動予測という一般的なタスクに焦点を当てる。これは安全で快適な人間とロボットの相互作用に不可欠なタスクであり、自動運転のような影響の大きいロボティクス応用を可能にする。</p>
+
+<figure><img src="figs/fig1.png" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：</strong>エンコーダ／デコーダの Transformer ネットワークの組としての Wayformer アーキテクチャ。このモデルはマルチモーダルなシーンデータを入力として受け取り、軌道のマルチモーダルな分布を出力する。</p>
+<p class="yakuchu">図中ラベル：Scene Encoder＝シーンエンコーダ、Trajectory Decoder＝軌道デコーダ、projection＝射影、TLS＝信号機状態、Road Graph＝道路グラフ、History＝履歴、Agent Interaction＝エージェント相互作用、Learned Seeds＝学習されたシード</p>
+
+<p>このようなシーン理解に必要なモデル化は、多くの理由で困難である。第一に、<em>出力</em>が非常に非構造的かつマルチモーダルである。たとえば、車両を運転する人は、観測者には未知の多数の潜在的な意図のうちの 1 つを実行しうるため、多様で互いに排他的な起こりうる未来にわたる分布を表現する必要がある。第二の課題は、<em>入力</em>がエージェントの過去の物理的状態、静的な道路情報（たとえば車線の位置とその接続関係）、時間変化する信号機情報など、モダリティの不均質な混合からなることである。</p>
+<a class="pg" data-page="2"></a>
+<p>これまでの多くの研究は、マルチモーダルな出力をどのようにモデル化するかに取り組み［1, 2, 3, 4, 5, 6］、また異なる入力タイプを融合するための人手で設計したアーキテクチャを開発してきたが、それらはそれぞれ独自の前処理（たとえば画像のラスタ化［7, 2, 8］）を必要とする。ここでは、<em>入力空間</em>のマルチモダリティに焦点を当て、複雑で不均質なアーキテクチャを避け、より単純なアーキテクチャのパラメータ化につながる、単純でありながら効果的なモダリティ非依存のフレームワークを開発する。このようにアーキテクチャ群を簡潔に記述することで設計空間が単純になり、モデルの計算量と容量を調整することによって、モデルの品質とレイテンシのトレードオフをより直接的かつ効果的に制御できるようになる。</p>
+<p>品質や効率を犠牲にすることなく複雑さを抑えるには、時間次元と空間次元に同時に存在するマルチモーダルな特徴を扱える、汎用的なモデル化のプリミティブを見つける必要がある。最近、いくつかの手法が、動き予測問題のためのネットワークとして Transformer ネットワークを提案している［9, 10, 11, 12, 13］。これらの手法は単純化されたモデルアーキテクチャを提供するが、依然としてドメインの専門知識と、モダリティ固有の過度な調整を必要とする。［14］は、一度に 1 つのモダリティを逐次的に処理するクロス注意層の積み重ねを提案した。各モダリティを処理する順序は設計者に委ねられており、すべての可能性を列挙するのは組合せ的に不可能である。［3］は、モダリティごとに別々のエンコーダを使用することを提案した。そこでは、ネットワークの種類とその容量をモダリティごとに調整できる。その後、各モダリティの埋め込みは平坦化され、1 本のベクトルとして予測器に入力される。これらの手法は多くの自由度を許すが、探索空間を大幅に増大させる。効率的なネットワークアーキテクチャ探索や、多大な人手による入力と手作業の設計がなければ、モデル化の選択肢のごく一部しか探索されないため、選ばれたモデルは最適でない可能性が高い。</p>
+<p>我々の実験は、動き予測の領域がオッカムの剃刀に従うことを示唆している。我々は、最も単純な設計上の選択と最小限のドメイン固有の仮定によって最先端の結果を示す。これは従来研究とは際立って対照的である。シミュレーションおよび実際の自動運転車（AV）でテストしたところ、これらの Wayformer モデルはシーンを良好に理解していることを示した。</p>
+<p>我々の貢献は次のようにまとめられる。</p>
+<ul>
+<li>2 つの基本的なプリミティブを持つモデル群を設計する。1 つは<em>自己注意エンコーダ</em>であり、1 つ以上のモダリティを時間次元と空間次元にわたって融合する。もう 1 つは<em>クロス注意デコーダ</em>であり、走行シーンの要素に注意を向けて多様な軌道の集合を生成する。</li>
+<li>異なる入力モダリティを、どのように、いつ融合するかが異なる、シーンエンコーダの 3 つの変種を検討する。</li>
+<li>提案モデルを動き予測の実用的なリアルタイム制約内に収めるため、自己注意を高速化する 2 つの一般的な手法、<em>因子分解注意</em>と<em>潜在クエリ注意</em>を検討する。</li>
+<li>WOMD と Argoverse の両チャレンジで最先端の結果を達成する。</li>
+</ul>
+
+<h2 id="2-マルチモーダルなシーン理解">2　マルチモーダルなシーン理解</h2>
+<p>走行シナリオは、道路情報、信号機の状態、エージェントの履歴、エージェント間の相互作用など、マルチモーダルなデータからなる。本節では、我々の設定におけるこれらのモダリティの表現を詳述する。読みやすさのため、次の記号を定義する。\(A\) はモデル化する自エージェント（ego-agent）の数、\(T\) は履歴において考慮する過去および現在の時間ステップ数を表し、特徴量のサイズは \(D_m\) である。モダリティ \(m\) については、モデル化する各エージェントに対する「文脈オブジェクトの集合」（すなわち他の道路利用者の表現）を表す第 4 の次元（\(S_m\)）を持つ場合がある。</p>
+<p><strong>エージェント履歴</strong>　は、過去のエージェント状態の系列と現在の状態を含む \([A, T, 1, D_h]\)。各時間ステップ \(t \in T\) について、エージェントの状態を定める特徴量、たとえば x、y、速度、加速度、バウンディングボックスなどを考慮する。均質性のため、文脈次元 \(S_h = 1\) を含める。</p>
+<p><strong>エージェント相互作用</strong>　相互作用テンソル \([A, T, S_i, D_i]\) はエージェント間の関係を表す。モデル化する各エージェント \(a \in A\) について、その周囲で最も近い一定数の文脈エージェント \(c_i \in S_i\) を考慮する。これらの文脈エージェントは、モデル化するエージェントの行動に影響を与えるエージェントを表す。\(D_i\) の特徴量は、各文脈エージェントの物理的状態（上記の \(D_h\) と同様）を表すが、自エージェントの座標系に変換されている。</p>
+<p><strong>道路グラフ</strong>　道路グラフ \([A, 1, S_r, D_r]\) はエージェント周辺の道路特徴を含む。［2］に従い、道路グラフのセグメントをポリラインとして表現する。すなわち、端点で指定され種別情報が付与された線分の集まりで道路形状を近似する。モデル化するエージェントに最も近い \(S_r\) 個の道路グラフセグメントを使用する。道路特徴には時間次元がないが、他のモダリティとの均質性のため、大きさ 1 の時間次元を含める。</p>
+<a class="pg" data-page="3"></a>
+<figure><img src="figs/fig2.png" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：</strong>異なる段階でマルチモーダル入力を融合する Wayformer のシーンエンコーダ。後期融合はモダリティごとに注意エンコーダを専用に割り当てるのに対し、早期融合はすべての入力を 1 つのクロスモーダルエンコーダ内で処理する。最後に、階層的融合は両方の手法を組み合わせる。</p>
+<p class="yakuchu">図中ラベル：Scene Encoder＝シーンエンコーダ、Attention Encoder＝注意エンコーダ、Attention Encoder (Cross Modal)＝注意エンコーダ（クロスモーダル）、Concatenation＝連結、(a) Late Fusion＝後期融合、(b) Early Fusion＝早期融合、(c) Hierarchical Fusion＝階層的融合</p>
+
+<p><strong>信号機状態</strong>　各エージェント \(a \in A\) について、信号機情報 \([A, T, S_{tls}, D_{tls}]\) は、そのエージェントに最も近い信号機の状態を含む。各信号機点 \(tls \in S_{tls}\) は、信号の位置と信頼度を記述する特徴量 \(D_{tls}\) を持つ。</p>
+
+<h2 id="3-wayformer">3　Wayformer</h2>
+<p>Wayformer モデル群は、シーンエンコーダとデコーダという 2 つの主要な構成要素からなるように設計する。シーンエンコーダは主として、走行シーンを要約する 1 つ以上の注意エンコーダで構成される。デコーダは 1 つ以上の標準的な Transformer のクロス注意ブロックの積み重ねであり、学習された初期クエリが入力され、シーン符号化とのクロス注意を経て軌道を生成する。図1 は、マルチモーダル入力を処理してシーン符号化を生成する Wayformer モデルを示している。このシーン符号化は、出力空間のマルチモダリティをカバーする \(k\) 個の起こりうる軌道をデコーダが生成するための文脈として機能する。</p>
+<p><strong>座標系</strong>　我々のモデルは単一エージェントの未来を生成するように学習されるため、現在の時間ステップにおける自エージェントの位置と向きを中心にシーンの空間的特徴を平行移動・回転させることで、シーンを自己中心座標系に変換する。</p>
+<p><strong>射影層</strong>　異なる入力モダリティは同じ数の特徴量を共有するとは限らないため、すべてのモダリティを時間次元と空間次元 \([S, T]\) に沿って連結する前に、共通の次元 \(D\) に射影する。単純な変換 \(\mathrm{Projection}(x_i) = \mathrm{relu}(\mathbf{W} x_i + b)\)（ただし \(x_i \in \mathbb{R}^{D_m}\)、\(b \in \mathbb{R}^{D}\)、\(\mathbf{W} \in \mathbb{R}^{D \times D_m}\)）で十分であることがわかった。具体的には、形状 \([A, T, S_m, D_m]\) の入力が与えられたとき、その最後の次元を射影して大きさ \([A, T, S_m, D]\) のテンソルを生成する。</p>
+<p><strong>位置埋め込み</strong>　自己注意は本来的に置換同変であるため、系列エンコーダではなく集合エンコーダとみなすことができる。しかし、データが特定の順序に従うモダリティ、たとえば異なる時間ステップにわたるエージェント状態については、置換同変性を破って系列情報を利用することが有益である。これは一般に位置埋め込みによって行われる。単純さのため、すべてのモダリティに学習可能な位置埋め込みを加える。すべてのモダリティが順序を持つわけではないので、学習可能な位置埋め込みは最初はゼロに設定し、モダリティ内の順序を利用する必要があるかどうかをモデルに学習させる。</p>
+
+<h3 id="3.1-融合">3.1　融合</h3>
+<p>異なるモダリティに射影と位置埋め込みを適用したら、シーンエンコーダはすべてのモダリティの情報を組み合わせて環境の表現を生成する。具体的には、シーン表現 \(\boldsymbol{Z} = \mathit{Encoder}(\{m_0, m_1, \ldots, m_k\})\) を学習することを目指す。ここで \(m_i \in \mathbb{R}^{A \times (T \times S_m) \times D}\)、\(\boldsymbol{Z} \in \mathbb{R}^{A \times L \times D}\) であり、\(L\) はハイパーパラメータである。</p>
+<p>しかし、入力ソースの多様性により、この統合は自明ではないタスクとなる。モダリティは同じ抽象度やスケールで表現されているとは限らない：{ピクセル vs オブジェクト}。したがって、一部のモダリティは他より多くの計算を必要とする可能性がある。計算量とパラメータ数をモダリティ間でどう配分するかはアプリケーション固有であり、人手で設計するのは容易でない。我々は、{後期、早期、階層的} という 3 つの融合レベルを提案することで、このプロセスの単純化を試みる。</p>
+<a class="pg" data-page="4"></a>
+<p><strong>後期融合</strong>　これは動き予測モデルで最も一般的に用いられる手法であり、各モダリティが専用のエンコーダを持つ（図2 を参照）。出力に追加の射影層を導入しないよう、これらのエンコーダの幅は等しく設定する。さらに、探索空間を扱いやすい範囲に絞り込むため、すべてのエンコーダで同じ深さを共有する。モダリティ間の情報伝達は、軌道デコーダのクロス注意層でのみ許される。</p>
+
+<figure><img src="figs/fig3.jpg" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：</strong>Wayformer で検討したエンコーダアーキテクチャのまとめ。(a) はさまざまなエンコーダブロックの概要を示し、(b) はこれらのブロックがどのように配置されてエンコーダを構成するかを説明する。</p>
+<p class="yakuchu">図中ラベル：Temporal Encoder Block＝時間エンコーダブロック、Spatial Encoder Block＝空間エンコーダブロック、Multi-Axis Encoder Block＝多軸エンコーダブロック、Multi-Axis Latent Query Encoder Block＝多軸潜在クエリエンコーダブロック、Add &amp; Norm＝加算と正規化、Multi-head Attention＝マルチヘッド注意、Temporal Self Attention＝時間方向の自己注意、Spatial Self Attention＝空間方向の自己注意、Spatial and Temporal Self Attention＝空間・時間方向の自己注意、Spatial and Temporal Cross Attention with Latent Query＝潜在クエリによる空間・時間方向のクロス注意、Latent Query＝潜在クエリ、Multi-Axis Attention Encoders＝多軸注意エンコーダ、Latent Query Attention＝潜在クエリ注意、Factorized Attention Encoders＝因子分解注意エンコーダ、Sequential Attention＝逐次注意、Interleaved Attention＝交互注意、(a) Encoder Blocks＝エンコーダブロック、(b) Encoders＝エンコーダ</p>
+
+<p><strong>早期融合</strong>　早期融合は、各モダリティに自己注意エンコーダを専用に割り当てる代わりに、モダリティ固有のパラメータを射影層のみに削減する（図2 を参照）。このパラダイムでは、シーンエンコーダは単一の自己注意エンコーダ（「クロスモーダルエンコーダ」）からなり、最小限の帰納バイアスのもとで、モダリティ間の重要度の割り当てにおいてネットワークに最大限の柔軟性を与える。</p>
+<p><strong>階層的融合</strong>　前述の 2 つの両極端の妥協として、容量をモダリティ固有の自己注意エンコーダとクロスモーダルエンコーダとの間で階層的に分割する。後期融合と同様に、幅と深さは注意エンコーダとクロスモーダルエンコーダで共通である。これにより、シーンエンコーダの深さが、モダリティ固有のエンコーダとクロスモーダルエンコーダとの間で実質的に分割される（図2）。</p>
+
+<h3 id="3.2-注意機構">3.2　注意機構</h3>
+<p>Transformer ネットワークは、2 つの要因により、大規模な多次元系列に対してうまくスケールしない。(a) 自己注意は入力系列長の 2 乗のオーダーである。(b) 位置ごとのフィードフォワードネットワークは高コストなサブネットワークである。以下の節では、より効果的なスケーリングを可能にする Transformer ネットワークのさまざまな高速化について議論する。</p>
+<p><strong>多軸注意</strong>　これは、空間次元と時間次元の両方にわたって同時に自己注意を適用する、標準の Transformer の設定を指す（図3b を参照）。計算上は最も高コストになると予想される。多軸注意を用いた早期・後期・階層的融合の計算量は \(\mathcal{O}(S_m^2 \times T^2)\) である。</p>
+<p><strong>因子分解注意</strong>　自己注意の計算量は入力系列長の 2 乗である。多次元系列では、追加の各次元が入力サイズを乗算的に増大させるため、この問題はより顕著になる。たとえば、一部の入力モダリティは時間次元と空間次元の両方を持つため、計算コストは \(\mathcal{O}(S_m^2 \times T^2)\) でスケールする。これを緩和するため、2 つの次元に沿った因子分解注意［15, 16］を検討する。これは、各次元に個別に自己注意を適用することで入力系列の多次元構造を活用し、自己注意サブネットワークのコストを \(\mathcal{O}(S_m^2 \times T^2)\) から \(\mathcal{O}(S_m^2) + \mathcal{O}(T^2)\) に削減する。ただし、\(\sum_m \mathcal{S}_m \times T \lt\lt 12 \times D\) の場合には、依然として線形項が支配的になりやすいことに注意されたい［17］。</p>
+<p>因子分解注意は多軸注意と比べて計算量を削減できる可能性があるが、各次元に自己注意を適用する順序を決めるという複雑さをもたらす。本研究では、因子分解注意の 2 つのパラダイムを比較する（図3b を参照）。</p>
+<ul>
+<li><strong>逐次注意：</strong>\(N\) 層のエンコーダが、\(N/2\) 個の時間エンコーダブロックと、それに続く \(N/2\) 個の空間エンコーダブロックからなる。</li>
+<li><strong>交互注意：</strong>\(N\) 層のエンコーダが、時間エンコーダブロックと空間エンコーダブロックを \(N/2\) 回交互に繰り返したものからなる。</li>
+</ul>
+<a class="pg" data-page="5"></a>
+<p><strong>潜在クエリ注意</strong>　大きな入力系列の計算コストに対処するもう 1 つの手法は、最初のエンコーダブロックで潜在クエリ［18, 19］を用いることである。そこでは入力 \(x \in \mathbb{R}^{A \times L_{\text{in}} \times D}\) が潜在空間 \(z \in \mathbb{R}^{A \times L_{\text{out}} \times D}\) に写像される。これらの潜在表現 \(z \in \mathbb{R}^{A \times L_{\text{out}} \times D}\) は、この潜在空間の配列を受け取って返す一連のエンコーダブロックによってさらに処理される（図3a を参照）。これにより潜在空間の解像度を完全に自由に設定でき、各ブロックの自己注意部分と位置ごとのフィードフォワードネットワークの両方の計算コストを削減できる。削減値（\(R = L_{\text{out}}/L_{\text{in}}\)）は入力系列長に対する割合として設定する。削減係数 \(R\) は、後期融合および階層的融合のすべての注意エンコーダで一定に保つ。</p>
+
+<h3 id="3.3-軌道のデコーディング">3.3　軌道のデコーディング</h3>
+<p>我々の焦点はエンコーダにおいて異なるモダリティの情報をどのように統合するかにあるため、学習と出力形式については単純に［2, 3］に従う。そこでは Wayformer の予測器は、エージェントがとりうる軌道を表現するために混合ガウス分布を出力する。予測を生成するために Transformer デコーダを用いる。このデコーダには \(k\) 個の学習された初期クエリ \((\boldsymbol{S}_i \in \mathbb{R}^h)_{i=1}^k\) の集合が入力され、それらをエンコーダからのシーン埋め込みとクロス注意させることで、出力混合ガウス分布の各成分の埋め込みを生成する。</p>
+<p>混合分布の特定の成分の埋め込み \(Y_i\) が与えられたとき、その成分の正規化されていない対数尤度を出力する線形射影層によって混合尤度を推定する。軌道を生成するには、別の線形層を用いて \(Y_i\) を射影し、4 つの時系列 \(T_i = \{\mu_x^t, \mu_y^t, \log\sigma_x^t, \log\sigma_y^t\}_{t=1}^T\) を出力する。これらは各時間ステップにおける予測ガウス分布の平均と対数標準偏差に対応する。</p>
+<p>学習時には、［2, 3］に従い、損失を分類損失と回帰損失に分解する。\(k\) 個の予測ガウス分布 \((T_i)_{i=1}^k\) が与えられたとき、\(\hat{i}\) を、真値の軌道 \(G\) に平均が最も近いガウス分布のインデックスとする。混合尤度はインデックス \(\hat{i}\) を選択する対数尤度で学習し、ガウス分布 \(T_{\hat{i}}\) は真値の軌道の対数確率を最大化するように学習する。</p>
+<p>\[ \max \underbrace{\log \Pr(\hat{i} \mid Y)}_{\text{分類損失}} + \underbrace{\log \Pr(G \mid T_{\hat{i}})}_{\text{回帰損失}} . \tag{1} \]</p>
+
+<h3 id="3.4-軌道の集約">3.4　軌道の集約</h3>
+<p>予測器が多数のモードを持つ混合ガウスモデル（GMM）を出力する場合、それほど多くの成分を持つ混合分布について推論するのは難しいことがあり、また、ベンチマークの評価指標は考慮する軌道の数を制限することが多い。そこで評価時には、元の出力混合分布の多様性を保ちつつ考慮するモードの数を減らすために、［3］に従って軌道の集約を適用する。集約手法の詳細については付録 C と［3］を参照されたい。</p>
+
+<h2 id="4-実験設定">4　実験設定</h2>
+<h3 id="4.1-データセット">4.1　データセット</h3>
+<p><strong>Waymo Open Motion Dataset（WOMD）</strong>　は、都市部および郊外環境における実世界の走行から得られた 103K 件の 20 秒のシナリオから時間窓で切り出した 1.1M 件の事例からなる。各事例は 1 秒間の履歴状態と 8 秒間の未来からなり、これを 5Hz で再サンプリングする。物体エージェントの状態は、位置、エージェントの寸法、速度ベクトルと加速度ベクトル、向き、角速度、方向指示器の状態などの属性を含む。このデータセットの長い（8 秒）時間ホライズンは、広い視野を捉え、軌道の大きな出力空間にスケールするモデルの能力を試す。</p>
+<p><strong>Argoverse データセット</strong>　は、動き予測のための軌道履歴、文脈エージェント、車線中心線の入力を含む 333K 件のシナリオからなる。軌道は 10Hz でサンプリングされ、2 秒間の履歴と 3 秒間の未来予測ホライズンを持つ。</p>
+
+<h3 id="4.2-学習の詳細とハイパーパラメータ">4.2　学習の詳細とハイパーパラメータ</h3>
+<p>これらのデータセットに付随するコンペティション固有の評価指標を用いてモデルを比較する（付録 E を参照）。すべての評価指標について、モデルが出力する（軌道集約後の）尤度の高い上位 \(k = 6\) 個のモードのみを考慮し、各モードの平均のみを用いる。</p>
+<p>すべての実験において、AdamW オプティマイザ［20］を用い、初期学習率 2e-4 から 1M ステップかけて 0 まで線形に減衰させてモデルを学習する。モデルはそれぞれ 16 個の TPU v3 コアを用い、コアあたりのバッチサイズ 16、すなわちステップあたりの総バッチサイズ 256 事例で学習する。</p>
+<p>モデルの容量を変えるため、隠れ層のサイズを \(\{64, 128, 256\}\)、深さを \(\{1, 2, 4\}\) 層の中から検討する。Transformer ブロックのフィードフォワードネットワークの中間サイズは、隠れ層サイズの 2 倍または 4 倍のいずれかに固定する。</p>
+
+<a class="pg" data-page="6"></a>
+<p>5.1〜5.3 節のアーキテクチャの検討では、各予測器は \(m = 6\) 成分の混合ガウス分布を出力し、軌道集約は行わない。5.4 節のベンチマーク結果では、各予測器は \(m = 64\) 成分の混合ガウス分布を出力し、3.4 節で述べた軌道集約手法を用いて混合成分を削減する。潜在クエリを用いる実験では、元の入力解像度を元の系列長の 0.25、0.5、0.75、0.9 倍に削減して実験する。ハイパーパラメータの完全な説明は付録 B に含める。</p>
+
+<figure><img src="figs/fig4.png" loading="lazy" alt="図4" /></figure>
+<p><strong>図4：</strong>多軸注意を用いた異なる融合モデルの MinADE。</p>
+<p class="yakuchu">図中ラベル：Pareto Frontier＝パレートフロンティア、Fusion＝融合方式、Early＝早期、Hierarchical＝階層的、Late＝後期、Latency (ms)＝レイテンシ（ms）、Parameters＝パラメータ数、(a) Efficiency＝効率、(b) Capacity＝容量</p>
+
+<h2 id="5-結果">5　結果</h2>
+<p>本節では、異なる融合戦略を、素の自己注意（多軸）および因子分解注意や学習されたクエリのようなより最適化された手法と組み合わせた場合のトレードオフを示す実験を提示する。アブレーション研究（5.1〜5.3 節）では、さまざまな容量（0.3M〜20M パラメータ）のモデルを WOMD で 1M ステップ学習した。現行世代の GPU での推論レイテンシ、容量、および品質の代理指標としての minADE を報告する。</p>
+
+<h3 id="5.1-多軸注意">5.1　多軸注意</h3>
+<p>これらの実験では、早期・階層的・後期融合（3.1 節）を多軸注意と組み合わせて Wayformer モデルを学習する。図（4a）では、低レイテンシ（\(x \le 16\) ms）のモデルについては、後期融合が最適な選択であることを示す。これらのモデルは、シーン符号化の段階でモダリティ間の相互作用がないため、計算コストが低い。階層的モデルにクロスモーダルエンコーダを加えると、（\(16\text{ms} \lt x \lt 32\text{ms}\)）の範囲のモデルでさらなる品質向上が得られる。最後に、より高い計算コスト（\(x \gt 32\text{ms}\)）では、早期融合が階層的融合に匹敵しうることがわかる。次に、学習可能なパラメータ数で測った容量の関数としてモデルの品質を調べる（図4b）。小さなモデルは早期融合で最も良い性能を示すが、モデル容量が増えるにつれて、融合方式の選択に対する感度は劇的に低下する。</p>
+
+<h3 id="5.2-因子分解注意">5.2　因子分解注意</h3>
+<p>モデルの計算量を削減するため、空間次元と時間次元に同時に注意を向ける代わりに、因子分解注意を用いてモデルを学習する。クロスモーダルエンコーダのために異なるモダリティを組み合わせる際には、まず道路グラフのモダリティを他のモダリティと共通の時間次元にタイル状に複製し、その後モダリティを空間次元に沿って連結する。シーンエンコーダの後、予測器に入力する前に、符号化を時間次元についてプーリングする。</p>
+
+<figure><img src="figs/fig5.png" loading="lazy" alt="図5" /></figure>
+<p><strong>図5：</strong>因子分解注意は品質を向上させるが、高速化するのは後期融合モデルのみである。</p>
+<p class="yakuchu">図中ラベル：Attention＝注意方式、Interleaved＝交互、Sequential＝逐次、Multi-axis＝多軸、Latency (ms)＝レイテンシ（ms）、(a) Early Fusion＝早期融合、(b) Late Fusion＝後期融合、(c) Hierarchical Fusion＝階層的融合</p>
+
+<p>2 種類の因子分解注意、すなわち逐次と交互を検討する（図5）。第一に、逐次と交互の因子分解注意は、すべての融合方式にわたって同程度の性能を示すことを観察した。第二に、早期融合と後期融合の場合に因子分解注意を適用することで品質が向上したことは驚きであった（図5a、5b）。最後に、レイテンシの改善が見られたのは後期融合モデルのみであった（図5b）。これは、早期融合と階層的融合で用いられるクロスモーダルエンコーダにおいて、道路グラフを共通の時間次元にタイル状に複製すると、トークン数が大幅に増加するためである。</p>
+<h3 id="5.3-潜在クエリ">5.3　潜在クエリ</h3>
+<a class="pg" data-page="7"></a>
+<p>この検討では、図5 に示すように<span class="yakuchu">（訳注：内容からみて図6 の誤りと思われる）</span>、最初の層で入力系列長をさまざまな水準で削減した多軸潜在クエリエンコーダを用いてモデルを学習する。潜在クエリの数は Transformer ネットワークの入力サイズに対する割合として計算され、0.0% はベースラインモデル（図4 で示した、潜在クエリなしの多軸注意）を示す。</p>
+
+<figure><img src="figs/fig6.png" loading="lazy" alt="図6" /></figure>
+<p><strong>図6：</strong>潜在クエリは、品質を大きく劣化させることなくモデルのレイテンシを削減する。</p>
+<p class="yakuchu">図中ラベル：Reduction＝削減率、Latency (ms)＝レイテンシ（ms）、(a) Early Fusion＝早期融合、(b) Late Fusion＝後期融合、(c) Hierarchical Fusion＝階層的融合</p>
+
+<p>図6 は潜在クエリを適用した結果を示している。潜在クエリは、品質の低下をほとんど、あるいはまったく伴わずに、すべての融合モデルを 2〜16 倍高速化する。早期融合と階層的融合は依然として最良の品質の結果を出しており、クロスモーダル相互作用の段階の重要性を示している。</p>
+
+<h3 id="5.4-ベンチマーク結果">5.4　ベンチマーク結果</h3>
+<p>Wayformer モデルを、動き予測の代表的なベンチマークにおいて競合モデルと比較することで、得られた知見を検証する。早期融合モデルを選ぶのは、実装の複雑さを増すことなく階層的モデルの品質に匹敵するからである。さらに、モデルの容量が増えるにつれて、融合方式の選択に対する感度は低くなる（図4b を参照）。潜在クエリを使用するのは、目立った品質低下なしにモデルを高速化するからであり、一部のモデルでは、品質をさらに向上させるため因子分解注意と組み合わせる（付録 A を参照）。さらに、リーダーボード提出で最先端（SOTA）の結果を出すための標準的な慣行であるアンサンブルを適用する。ベンチマークで報告した Wayformer モデルの完全なハイパーパラメータは付録 D に報告する。</p>
+<p>WOMD に対するアンサンブルでは、モデルは単一の共有エンコーダを持つが、\(N = 3\) 個の別々の Transformer デコーダを使用する。アンサンブル全体の予測を統合するには、単純に各予測器のすべての混合成分を結合して合計 \(N \times 64\) 個のモードを得て、混合確率を再正規化する。その後、結合した混合分布に軌道集約手法（3.4 節）を適用し、出力モード数を所望の数 \(k = 6\) まで減らす。</p>
+<p>表1 に、Waymo Open Motion Dataset と Argoverse データセットでの結果を示す。それぞれの評価には、各データセットで使用される標準的な評価指標を用いる（付録 E を参照）。Waymo Open Motion Dataset では、Wayformer の早期融合モデルはいずれも、すべての評価指標で他のモデルを上回る。入力モダリティの早期融合は、注意の構造（多軸注意か因子分解注意か）によらず、全体としてより良い評価指標をもたらす。</p>
+<p>Argoverse のリーダーボードについては、それぞれ独自のエンコーダと \(N = 10\) 個の Transformer デコーダを持つ 15 個のレプリカを学習する。\(N\) 個のデコーダにわたる予測を統合するために、3.4 節の集約手法に従い、各モデルについて \(k = 6\) 個のモードを得る。次に、同じ集約手法（3.4 節）に従ってこのようなレプリカ 15 個をアンサンブルし、\(N \times 6\) 個のモードを \(k = 6\) 個に減らす。</p>
+
+<table>
+<thead>
+<tr><th rowspan="2">モデル</th><th rowspan="2"></th><th colspan="5">Waymo Open Motion Dataset</th><th colspan="4">Argoverse データセット</th></tr>
+<tr><th>minFDE (↓)</th><th>minADE (↓)</th><th>MR (↓)</th><th>Overlap (↓)</th><th>mAP* (↑)</th><th>Brier-minFDE* (↓)</th><th>minFDE (↓)</th><th>MR (↓)</th><th>minADE (↓)</th></tr>
+</thead>
+<tbody>
+<tr><td>SceneTransformer ［11］</td><td></td><td style="text-align:right">1.212</td><td style="text-align:right">0.612</td><td style="text-align:right">0.156</td><td style="text-align:right">0.147</td><td style="text-align:right">0.279</td><td style="text-align:right">1.8868</td><td style="text-align:right">1.2321</td><td style="text-align:right">0.1255</td><td style="text-align:right">0.8026</td></tr>
+<tr><td>DenseTNT ［21］</td><td></td><td style="text-align:right">1.551</td><td style="text-align:right">1.039</td><td style="text-align:right">0.157</td><td style="text-align:right">0.178</td><td style="text-align:right">0.328</td><td style="text-align:right">1.9759</td><td style="text-align:right">1.2858</td><td style="text-align:right">0.1285</td><td style="text-align:right">0.8817</td></tr>
+<tr><td>MultiPath ［2］</td><td></td><td style="text-align:right">2.040</td><td style="text-align:right">0.880</td><td style="text-align:right">0.345</td><td style="text-align:right">0.166</td><td style="text-align:right">0.409</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td></tr>
+<tr><td>MultiPath++ ［3］</td><td></td><td style="text-align:right">1.158</td><td style="text-align:right">0.556</td><td style="text-align:right">0.134</td><td style="text-align:right">0.131</td><td style="text-align:right">0.409</td><td style="text-align:right">1.7932</td><td style="text-align:right">1.2144</td><td style="text-align:right">0.1324</td><td style="text-align:right">0.7897</td></tr>
+<tr><td>LaneConv</td><td></td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">2.0539</td><td style="text-align:right">1.3622</td><td style="text-align:right">0.1600</td><td style="text-align:right">0.8703</td></tr>
+<tr><td>LaneRCNN ［22］</td><td></td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">2.1470</td><td style="text-align:right">1.4526</td><td style="text-align:right">0.1232</td><td style="text-align:right">0.9038</td></tr>
+<tr><td>mmTransformer ［14］</td><td></td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">2.0328</td><td style="text-align:right">1.3383</td><td style="text-align:right">0.1540</td><td style="text-align:right">0.8346</td></tr>
+<tr><td>TNT ［23］</td><td></td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">2.1401</td><td style="text-align:right">1.4457</td><td style="text-align:right">0.1300</td><td style="text-align:right">0.9400</td></tr>
+<tr><td>DCMS ［24］</td><td></td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">1.7564</td><td style="text-align:right"><strong>1.1350</strong></td><td style="text-align:right"><strong>0.1094</strong></td><td style="text-align:right"><strong>0.7659</strong></td></tr>
+<tr><td rowspan="2">Wayformer 早期融合</td><td>注意方式：LQ + Multi-Axis</td><td style="text-align:right">1.128</td><td style="text-align:right"><strong>0.545</strong></td><td style="text-align:right"><strong>0.123</strong></td><td style="text-align:right"><strong>0.127</strong></td><td style="text-align:right"><strong>0.419</strong></td><td style="text-align:right"><strong>1.7408</strong></td><td style="text-align:right">1.1615</td><td style="text-align:right">0.1186</td><td style="text-align:right">0.7675</td></tr>
+<tr><td>注意方式：LQ + Factorized</td><td style="text-align:right"><strong>1.126</strong></td><td style="text-align:right"><strong>0.545</strong></td><td style="text-align:right"><strong>0.123</strong></td><td style="text-align:right"><strong>0.127</strong></td><td style="text-align:right">0.412</td><td style="text-align:right">1.7451</td><td style="text-align:right">1.1625</td><td style="text-align:right">0.1192</td><td style="text-align:right">0.7672</td></tr>
+</tbody>
+</table>
+<p><strong>表1：</strong>Waymo Open Motion Dataset 2021 および Argoverse 2021 における Wayformer モデルと主要な SOTA ベースライン。* はリーダーボードの順位付けに用いられる評価指標を示す。LQ は潜在クエリを表す。</p>
+
+<h2 id="6-関連研究">6　関連研究</h2>
+<a class="pg" data-page="8"></a>
+<p><strong>動き予測アーキテクチャ：</strong>　自動運転応用への関心の高まりとベンチマーク［25, 26, 27］の利用可能性により、動き予測モデルが盛んに研究されるようになった。成功したモデル化手法は、シーンの異なる静的・動的・社会的・時間的側面を表すマルチモーダル入力を融合する。モデルの一群はコンピュータビジョンの文献に大きく依拠しており、入力を多チャネルのラスタ化されたトップダウン画像として描画する［4, 2, 28, 29, 7, 23］。この手法では、シーン要素間の関係はトップダウンの正射影平面に描画され、時空間畳み込みネットワークによってモデル化される。しかし、畳み込みの局所的な構造は画像入力の処理には適しているものの、長距離の時空間的関係を捉えるのには効果的でない。一般的な代替手法は、エンティティ中心の手法を用いることであり、そこではエージェントの状態履歴は通常、RNN［10, 30, 31, 32］や時間方向の畳み込み［33］のような系列モデル化手法によって符号化される。道路要素は、姿勢と意味情報を符号化する基本的なプリミティブ（たとえば区分線形セグメント）で近似される。エンティティ間の関係のモデル化は情報集約のプロセスとして表されることが多く、モデルはプーリング［23, 34, 31, 35, 10, 28］、ソフト注意［10, 23］、またはグラフニューラルネットワーク［36, 33, 30］を用いる。提案手法と同様に、最近のいくつかのモデルは Transformer［37］を使用している。Transformer は NLP における系列モデル化の一般的な最先端の選択肢であり［38, 39］、検出［40, 41, 42］、追跡［43］、分類［41, 44］といったコンピュータビジョンの中核的タスクでも有望な結果を示している。</p>
+<p><strong>反復的クロス注意</strong>　マルチモーダルデータを符号化する最近の手法は、一度に 1 つのモダリティを逐次的に処理することである［14, 19, 9］。［14］は {エージェント履歴、近傍エージェント、地図} の順でシーンを取り込む。彼らは、複数のモダリティにわたって一度に自己注意を行うことは計算コストが高いと主張している。［9］は、エージェント履歴と文脈エージェントを自己注意によって事前に符号化し、エージェントの符号化をクエリとして地図にクロス注意する。自己注意とクロス注意の順序は設計者の直感に大きく依存しており、我々の知る限り、これまでアブレーションされたことはない。</p>
+<p><strong>因子分解注意</strong>　高次元データを平坦化すると長い系列となり、自己注意の計算が法外に高コストになる。［16］は、計算コストを緩和するために各注意演算を単一の軸に限定することを提案し、この手法を画像の自己回帰生成モデルに適用した。同様に、［15］は自己注意ベースの分類器を構築する際に、動画入力の空間次元と時間次元を因子分解している。層をまたいで交互に適用されるこの軸ベースの注意は、Transformer ベースの動き予測モデル［9］やグラフニューラルネットワークの手法［12］で採用されている。{時間、社会／空間} の次元にわたって注意を適用する順序は、2 つの一般的なパターンで研究されてきた。(a) 時間優先［31, 35, 45］、(b) 社会／空間優先［46, 47］である。3.2 節では、「逐次」モードを検討し、［9］と同様に注意の次元を交互に切り替える交互モードと対比する。</p>
+<p><strong>マルチモーダル符号化</strong>　［13］は、時間次元と空間次元に独立に注意を向けると情報の損失につながると主張した。さらに、符号化プロセスの早い段階ですべての入力が互いに自己注意できるようにすると、複雑さが減り、入力系列長の増加に伴う Transformer の計算量のスケーリングに対処するためにアーキテクチャを手作りする必要性も減る［48］。しかし、自己注意は大きな入力に対して計算コストが高いことが知られており［49］、近年、そのスケーラビリティを改善する手法に大きな関心が寄せられている。従来研究の完全な議論については、包括的なサーベイ［50］を参照されたい。有力な手法の 1 つは、学習された潜在クエリを用いて、Transformer エンコーダのクエリベクトルの数を元の入力系列長から切り離すことである［18］。これにより、Transformer の出力の解像度を入力とは無関係に任意のスケールに設定でき、モデルの計算コストを柔軟に調整できる。この手法は入力に何の構造も仮定しないため魅力的であり、マルチモーダル入力の融合に効果的であることが実証されている［48］。我々はこのようなフレームワークに着想を得て、自動運転領域における動き予測タスクに適用した場合のその利点についての検討を提示する。</p>
+
+<h2 id="7-限界">7　限界</h2>
+<p>本研究の範囲には次の限界がある。(1) 自己中心的なモデル化は、密なシーンでは計算の繰り返しを伴う。これは、グローバル座標系でシーンを一度だけ符号化することで緩和できる。(2) 我々のシステムの入力は世界の疎で抽象的な状態記述であり、高度に相互作用的なシーンにおけるいくつかの重要なニュアンス、たとえば歩行者からの視覚的手がかりや、車両の細粒度の輪郭や車輪角の情報を捉えられない。知覚と予測をエンドツーエンドで学習することで改善が得られる可能性がある。(3) 起こりうる未来にわたる分布をエージェントごとに独立にモデル化し、また意図が与えられたもとで各エージェントについて時間的に条件付き独立としてモデル化している。これらの単純化の仮定により効率的な計算が可能になるが、組合せ的に多数の未来を十分に記述することはできない。複数エージェントの、時間的に因果的なモデルは、相互作用的な状況でさらなる利点を示す可能性がある。</p>
+<a class="pg" data-page="9"></a>
+<h2 id="謝辞">謝辞</h2>
+<p>アンサンブル戦略について助力いただいた Balakrishnan Varadarajan 氏、ならびに本論文に有益なフィードバックをいただいた Dragomir Anguelov 氏と Eugene Ie 氏に感謝する。</p>
+
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ol class="refs">
+<li>N. Rhinehart, K. Kitani, and P. Vernaza. R2P2: A reparameterized pushforward policy for diverse, precise generative path forecasting. In <em>ECCV</em>, 2018.</li>
+<li>Y. Chai, B. Sapp, M. Bansal, and D. Anguelov. Multipath: Multiple probabilistic anchor trajectory hypotheses for behavior prediction. In <em>CoRL</em>, 2019.</li>
+<li>B. Varadarajan, A. S. Hefny, A. Srivastava, K. S. Refaat, N. Nayakanti, A. Cornman, K. Chen, B. Douillard, C. P. Lam, D. Anguelov, and B. Sapp. Multipath++: Efficient information fusion and trajectory aggregation for behavior prediction. In <em>ICRA</em>, 2021.</li>
+<li>H. Cui, V. Radosavljevic, F.-C. Chou, T.-H. Lin, T. Nguyen, T.-K. Huang, J. Schneider, and N. Djuric. Multimodal trajectory predictions for autonomous driving using deep convolutional networks. In <em>2019 International Conference on Robotics and Automation (ICRA)</em>, pages 2090–2096. IEEE, 2019.</li>
+<li>C. Tang and R. R. Salakhutdinov. Multiple futures prediction. In <em>nips</em>, 2019.</li>
+<li>J. Liang, L. Jiang, K. Murphy, T. Yu, and A. Hauptmann. The garden of forking paths: Towards multi-future trajectory prediction. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pages 10508–10518, 2020.</li>
+<li>S. Casas, W. Luo, and R. Urtasun. Intentnet: Learning to predict intention from raw sensor data. In <em>Conf. on Robot Learning</em>, 2018.</li>
+<li>W. Zeng, W. Luo, S. Suo, A. Sadat, B. Yang, S. Casas, and R. Urtasun. End-to-end interpretable neural motion planner. In <em>CVPR</em>, 2019.</li>
+<li>R. Girgis, F. Golemo, F. Codevilla, J. A. D'Souza, S. E. Kahou, F. Heide, and C. J. Pal. Latent variable nested set transformers &amp; autobots. <em>CoRR</em>, abs/2104.00563, 2021. URL <a href="https://arxiv.org/abs/2104.00563">https://arxiv.org/abs/2104.00563</a>.</li>
+<li>J. P. Mercat, T. Gilles, N. E. Zoghby, G. Sandou, D. Beauvois, and G. P. Gil. Multi-head attention for multi-modal joint vehicle motion forecasting. <em>2020 IEEE International Conference on Robotics and Automation (ICRA)</em>, pages 9638–9644, 2020.</li>
+<li>J. Ngiam, B. Caine, V. Vasudevan, Z. Zhang, H. L. Chiang, J. Ling, R. Roelofs, A. Bewley, C. Liu, A. Venugopal, D. Weiss, B. Sapp, Z. Chen, and J. Shlens. Scene transformer: A unified multi-task model for behavior prediction and planning. <em>CoRR</em>, abs/2106.08417, 2021. URL <a href="https://arxiv.org/abs/2106.08417">https://arxiv.org/abs/2106.08417</a>.</li>
+<li>C. Yu, X. Ma, J. Ren, H. Zhao, and S. Yi. Spatio-temporal graph transformer networks for pedestrian trajectory prediction. In <em>ECCV</em>, 2020.</li>
+<li>Y. Yuan, X. Weng, Y. Ou, and K. Kitani. Agentformer: Agent-aware transformers for socio-temporal multi-agent forecasting. <em>ArXiv</em>, abs/2103.14023, 2021.</li>
+<li>Y. Liu, J. Zhang, L. Fang, Q. Jiang, and B. Zhou. Multimodal motion prediction with stacked transformers. <em>2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, pages 7573–7582, 2021.</li>
+<li>A. Arnab, M. Dehghani, G. Heigold, C. Sun, M. Lučić, and C. Schmid. Vivit: A video vision transformer. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)</em>, pages 6836–6846, October 2021.</li>
+<li>J. Ho, N. Kalchbrenner, D. Weissenborn, and T. Salimans. Axial attention in multidimensional transformers. <em>arXiv preprint arXiv:1912.12180</em>, 2019.</li>
+</ol>
+<a class="pg" data-page="10"></a>
+<ol class="refs" start="17">
+<li>J. Kaplan, S. McCandlish, T. J. Henighan, T. B. Brown, B. Chess, R. Child, S. Gray, A. Radford, J. Wu, and D. Amodei. Scaling laws for neural language models. <em>ArXiv</em>, abs/2001.08361, 2020.</li>
+<li>J. Lee, Y. Lee, J. Kim, A. R. Kosiorek, S. Choi, and Y. W. Teh. Set transformer: A framework for attention-based permutation-invariant neural networks. In <em>ICML</em>, 2019.</li>
+<li>A. Jaegle, F. Gimeno, A. Brock, A. Zisserman, O. Vinyals, and J. Carreira. Perceiver: General perception with iterative attention. In <em>ICML</em>, 2021.</li>
+<li>I. Loshchilov and F. Hutter. Decoupled weight decay regularization. In <em>ICLR</em>, 2019.</li>
+<li>J. Gu, C. Sun, and H. Zhao. Densetnt: End-to-end trajectory prediction from dense goal sets. <em>CoRR</em>, abs/2108.09640, 2021. URL <a href="https://arxiv.org/abs/2108.09640">https://arxiv.org/abs/2108.09640</a>.</li>
+<li>W. Zeng, M. Liang, R. Liao, and R. Urtasun. Lanercnn: Distributed representations for graph-centric motion forecasting. <em>CoRR</em>, abs/2101.06653, 2021. URL <a href="https://arxiv.org/abs/2101.06653">https://arxiv.org/abs/2101.06653</a>.</li>
+<li>H. Zhao, J. Gao, T. Lan, C. Sun, B. Sapp, B. Varadarajan, Y. Shen, Y. Shen, Y. Chai, C. Schmid, et al. Tnt: Target-driven trajectory prediction. <em>arXiv preprint arXiv:2008.08294</em>, 2020.</li>
+<li>M. Ye, J. Xu, X. Xu, T. Cao, and Q. Chen. Dcms: Motion forecasting with dual consistency and multi-pseudo-target supervision, 2022.</li>
+<li>M. Chang, J. Lambert, P. Sangkloy, J. Singh, S. Bak, A. Hartnett, D. Wang, P. Carr, S. Lucey, D. Ramanan, and J. Hays. Argoverse: 3d tracking and forecasting with rich maps. <em>CoRR</em>, abs/1911.02620, 2019. URL <a href="http://arxiv.org/abs/1911.02620">http://arxiv.org/abs/1911.02620</a>.</li>
+<li>J. Houston, G. Zuidhof, L. Bergamini, Y. Ye, A. Jain, S. Omari, V. Iglovikov, and P. Ondruska. One thousand and one hours: Self-driving motion prediction dataset. <em>CoRR</em>, abs/2006.14480, 2020. URL <a href="https://arxiv.org/abs/2006.14480">https://arxiv.org/abs/2006.14480</a>.</li>
+<li>S. Ettinger, S. Cheng, B. Caine, C. Liu, H. Zhao, S. Pradhan, Y. Chai, B. Sapp, C. R. Qi, Y. Zhou, Z. Yang, A. Chouard, P. Sun, J. Ngiam, V. Vasudevan, A. McCauley, J. Shlens, and D. Anguelov. Large scale interactive motion forecasting for autonomous driving : The waymo open motion dataset. <em>CoRR</em>, abs/2104.10133, 2021. URL <a href="https://arxiv.org/abs/2104.10133">https://arxiv.org/abs/2104.10133</a>.</li>
+<li>N. Lee, W. Choi, P. Vernaza, C. B. Choy, P. H. S. Torr, and M. K. Chandraker. DESIRE: distant future prediction in dynamic scenes with interacting agents. <em>CoRR</em>, abs/1704.04394, 2017. URL <a href="http://arxiv.org/abs/1704.04394">http://arxiv.org/abs/1704.04394</a>.</li>
+<li>J. Hong, B. Sapp, and J. Philbin. Rules of the road: Predicting driving behavior with a convolutional model of semantic interactions. <em>CoRR</em>, abs/1906.08945, 2019. URL <a href="http://arxiv.org/abs/1906.08945">http://arxiv.org/abs/1906.08945</a>.</li>
+<li>S. Khandelwal, W. Qi, J. Singh, A. Hartnett, and D. Ramanan. What-if motion prediction for autonomous driving. <em>ArXiv</em>, 2020.</li>
+<li>A. Alahi, K. Goel, V. Ramanathan, A. Robicquet, L. Fei-Fei, and S. Savarese. Social lstm: Human trajectory prediction in crowded spaces. <em>2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, pages 961–971, 2016.</li>
+<li>N. Rhinehart, R. McAllister, K. Kitani, and S. Levine. Precog: Prediction conditioned on goals in visual multi-agent settings. In <em>ECCV</em>, 2019.</li>
+<li>M. Liang, B. Yang, R. Hu, Y. Chen, R. Liao, S. Feng, and R. Urtasun. Learning lane graph representations for motion forecasting. <em>arXiv preprint arXiv:2007.13732</em>, 2020.</li>
+<li>J. Gao, C. Sun, H. Zhao, Y. Shen, D. Anguelov, C. Li, and C. Schmid. VectorNet: Encoding hd maps and agent dynamics from vectorized representation. In <em>CVPR</em>, 2020.</li>
+</ol>
+<a class="pg" data-page="11"></a>
+<ol class="refs" start="35">
+<li>A. Gupta, J. Johnson, L. Fei-Fei, S. Savarese, and A. Alahi. Social gan: Socially acceptable trajectories with generative adversarial networks. In <em>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, June 2018.</li>
+<li>S. Casas, C. Gulino, R. Liao, and R. Urtasun. Spagnn: Spatially-aware graph neural networks for relational behavior forecasting from sensor data. In <em>IEEE Intl. Conf. on Robotics and Automation</em>. IEEE, 2020.</li>
+<li>A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, Ł. Kaiser, and I. Polosukhin. Attention is all you need. In <em>NeurIPS</em>, 2017.</li>
+<li>J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova. BERT: Pre-training of deep bidirectional transformers for language understanding. <em>arXiv preprint arXiv:1810.04805</em>, 2018.</li>
+<li>T. B. Brown, B. Mann, N. Ryder, M. Subbiah, J. Kaplan, P. Dhariwal, A. Neelakantan, P. Shyam, G. Sastry, A. Askell, S. Agarwal, A. Herbert-Voss, G. Krueger, T. Henighan, R. Child, A. Ramesh, D. M. Ziegler, J. Wu, C. Winter, C. Hesse, M. Chen, E. Sigler, M. Litwin, S. Gray, B. Chess, J. Clark, C. Berner, S. McCandlish, A. Radford, I. Sutskever, and D. Amodei. Language models are few-shot learners. <em>CoRR</em>, abs/2005.14165, 2020. URL <a href="https://arxiv.org/abs/2005.14165">https://arxiv.org/abs/2005.14165</a>.</li>
+<li>N. Carion, F. Massa, G. Synnaeve, N. Usunier, A. Kirillov, and S. Zagoruyko. End-to-end object detection with transformers. In A. Vedaldi, H. Bischof, T. Brox, and J.-M. Frahm, editors, <em>Computer Vision – ECCV 2020</em>, pages 213–229, Cham, 2020. Springer International Publishing. ISBN 978-3-030-58452-8.</li>
+<li>I. Bello, B. Zoph, A. Vaswani, J. Shlens, and Q. V. Le. Attention augmented convolutional networks. <em>CoRR</em>, abs/1904.09925, 2019. URL <a href="http://arxiv.org/abs/1904.09925">http://arxiv.org/abs/1904.09925</a>.</li>
+<li>A. Srinivas, T. Lin, N. Parmar, J. Shlens, P. Abbeel, and A. Vaswani. Bottleneck transformers for visual recognition. <em>CoRR</em>, abs/2101.11605, 2021. URL <a href="https://arxiv.org/abs/2101.11605">https://arxiv.org/abs/2101.11605</a>.</li>
+<li>W. Hung, H. Kretzschmar, T. Lin, Y. Chai, R. Yu, M. Yang, and D. Anguelov. Soda: Multi-object tracking with soft data association. <em>CoRR</em>, abs/2008.07725, 2020. URL <a href="https://arxiv.org/abs/2008.07725">https://arxiv.org/abs/2008.07725</a>.</li>
+<li>P. Ramachandran, N. Parmar, A. Vaswani, I. Bello, A. Levskaya, and J. Shlens. Stand-alone self-attention in vision models. <em>CoRR</em>, abs/1906.05909, 2019. URL <a href="http://arxiv.org/abs/1906.05909">http://arxiv.org/abs/1906.05909</a>.</li>
+<li>V. Kosaraju, A. Sadeghian, R. Martín-Martín, I. D. Reid, S. H. Rezatofighi, and S. Savarese. Social-bigat: Multimodal trajectory forecasting using bicycle-gan and graph attention networks. In <em>NeurIPS</em>, 2019.</li>
+<li>Y. Huang, H. Bi, Z. Li, T. Mao, and Z. qi Wang. Stgat: Modeling spatial-temporal interactions for human trajectory prediction. <em>2019 IEEE/CVF International Conference on Computer Vision (ICCV)</em>, pages 6271–6280, 2019.</li>
+<li>T. Salzmann, B. Ivanovic, P. Chakravarty, and M. Pavone. Trajectron++: Multi-agent generative trajectory forecasting with heterogeneous data for control. <em>CoRR</em>, abs/2001.03093, 2020. URL <a href="http://arxiv.org/abs/2001.03093">http://arxiv.org/abs/2001.03093</a>.</li>
+<li>A. Jaegle, S. Borgeaud, J.-B. Alayrac, C. Doersch, C. Ionescu, D. Ding, S. Koppula, A. Brock, E. Shelhamer, O. J. H'enaff, M. M. Botvinick, A. Zisserman, O. Vinyals, and J. Carreira. Perceiver io: A general architecture for structured inputs &amp; outputs. <em>ArXiv</em>, abs/2107.14795, 2021.</li>
+<li>Y. Tay, M. Dehghani, S. Abnar, Y. Shen, D. Bahri, P. Pham, J. Rao, L. Yang, S. Ruder, and D. Metzler. Long range arena: A benchmark for efficient transformers. <em>ArXiv</em>, abs/2011.04006, 2021.</li>
+<li>Y. Tay, M. Dehghani, D. Bahri, and D. Metzler. Efficient transformers: A survey. <em>ArXiv</em>, abs/2009.06732, 2020.</li>
+</ol>
+
+<a class="pg" data-page="12"></a>
+<h2 id="付録">付録</h2>
+<h2 id="a-因子分解潜在クエリ注意">A　因子分解潜在クエリ注意</h2>
+<p>図7a は因子分解潜在クエリ注意エンコーダブロックの実装を示し、図7b はそれらがエンコーダの構成にどのように用いられるかを示している。具体的には、因子分解注意（逐次または交互）において、図3 の最初の時間エンコーダブロックと最初の空間エンコーダブロックを、それぞれ時間潜在クエリエンコーダブロックと空間潜在クエリエンコーダブロックに置き換える。</p>
+
+<figure><img src="figs/fig7.jpg" loading="lazy" alt="図7" /></figure>
+<p><strong>図7：</strong>Wayformer で検討したエンコーダアーキテクチャのまとめ。(a) はさまざまなエンコーダブロックの概要を示し、(b) はこれらのブロックがどのように配置されてエンコーダを構成するかを説明する。</p>
+<p class="yakuchu">図中ラベル：Temporal Encoder Block＝時間エンコーダブロック、Temporal Latent Query Encoder Block＝時間潜在クエリエンコーダブロック、Spatial Encoder Block＝空間エンコーダブロック、Spatial Latent Query Encoder Block＝空間潜在クエリエンコーダブロック、Add &amp; Norm＝加算と正規化、Multi-head Attention＝マルチヘッド注意、Temporal Self Attention＝時間方向の自己注意、Temporal Cross Attention with latent query＝潜在クエリによる時間方向のクロス注意、Social Self Attention＝社会（空間）方向の自己注意、Social Cross Attention with latent query＝潜在クエリによる社会（空間）方向のクロス注意、Latent Query＝潜在クエリ、Factorized Latent Query Attention Encoders＝因子分解潜在クエリ注意エンコーダ、Sequential Attention＝逐次注意、Interleaved Attention＝交互注意、(a) Encoder Blocks＝エンコーダブロック、(b) Encoders＝エンコーダ</p>
+
+<h2 id="b-ハイパーパラメータ">B　ハイパーパラメータ</h2>
+<table>
+<thead><tr><th>ハイパーパラメータ</th><th>値</th></tr></thead>
+<tbody>
+<tr><td>隠れ層サイズ（Hidden size）</td><td>{128, 256, 512}</td></tr>
+<tr><td>中間サイズ（Intermediate size）</td><td>{2x, 4x} 隠れ層サイズ</td></tr>
+<tr><td>エンコーダ層数</td><td>[2, 16]</td></tr>
+<tr><td>デコーダ層数</td><td>[2, 16]</td></tr>
+<tr><td>潜在クエリ比率</td><td>{0.25, 0.5, 0.75 1.0}</td></tr>
+<tr><td>GMM モード数</td><td>64</td></tr>
+<tr><td>オプティマイザ</td><td>AdamW</td></tr>
+<tr><td>初期学習率</td><td>2e-4</td></tr>
+<tr><td>学習ステップ数</td><td>1000000</td></tr>
+<tr><td>学習率の減衰</td><td>linear（線形）</td></tr>
+<tr><td>バッチサイズ</td><td>256</td></tr>
+</tbody>
+</table>
+<p><strong>表2：</strong>WOMD で行ったすべてのアブレーション実験にわたるモデルと学習のハイパーパラメータ。<span class="yakuchu">（訳注：隠れ層サイズは 4.2 節では {64, 128, 256} と記されており、本表と一致しない。）</span></p>
+
+<table>
+<thead><tr><th>ハイパーパラメータ</th><th>WOMD</th><th>Argoverse</th></tr></thead>
+<tbody>
+<tr><td>履歴の最大時間ステップ数（現在の時間ステップを含む）</td><td style="text-align:right">11</td><td style="text-align:right">20</td></tr>
+<tr><td>道路グラフ特徴の最大数</td><td style="text-align:right">512</td><td style="text-align:right">1024</td></tr>
+<tr><td>文脈エージェントの最大数</td><td style="text-align:right">64</td><td style="text-align:right">64</td></tr>
+<tr><td>信号機の最大数</td><td style="text-align:right">32</td><td style="text-align:right">32</td></tr>
+</tbody>
+</table>
+<p><strong>表3：</strong>WOMD および Argoverse<span class="yakuchu">（訳注：原文は「Arogverse」と誤記）</span>の入力特徴を生成するためのハイパーパラメータ。すべての実験で固定。</p>
+<a class="pg" data-page="13"></a>
+<h2 id="c-軌道集約の詳細">C　軌道集約の詳細</h2>
+<p>距離の閾値 \(D\) が与えられたとき、軌道集約手法はまず、すべての出力モードが最も近い重心から最終距離 \(D\) 以内に収まるような、最少の重心モードを選択しようとする。集約アルゴリズムは、まだカバーされていないモードのうち合計尤度を最大限にカバーする出力モードを貪欲に選択することで重心モードを反復的に選び、すべての出力モードがカバーされるまで続ける。</p>
+<p>これらの \(k\) 個の重心モードを初期化した後、集約アルゴリズムは改良段階に進み、初期の重心モードから出発して \(k\)-means クラスタリングに類似した別の反復手続きを実行する。各反復において、各重心モードはそれに割り当てられたすべての出力モードの重み付き平均となり、その後、出力モードは新たな最も近い重心モードに再割り当てされる。</p>
+
+<h2 id="d-sota-wayformer-の詳細">D　SOTA Wayformer の詳細</h2>
+<p>WOMD と Argoverse のベンチマーク結果に用いたハイパーパラメータを、それぞれ表4 と表5 に記す。</p>
+
+<table>
+<thead><tr><th>ハイパーパラメータ</th><th>Multi-axis Latent Query</th><th>Factorized Latent Query</th></tr></thead>
+<tbody>
+<tr><td>隠れ層サイズ</td><td>256</td><td>256</td></tr>
+<tr><td>中間サイズ</td><td>1024</td><td>1024</td></tr>
+<tr><td>エンコーダ層数</td><td>2</td><td>4</td></tr>
+<tr><td>デコーダ層数</td><td>8</td><td>4</td></tr>
+<tr><td>潜在クエリ</td><td>192</td><td>時間潜在 4 個、空間潜在 192 個（4 time latents, 192 spatial latents）</td></tr>
+<tr><td>GMM モード数</td><td>64</td><td>64</td></tr>
+<tr><td>アンサンブルサイズ</td><td>3</td><td>3</td></tr>
+<tr><td>オプティマイザ</td><td>AdamW</td><td>AdamW</td></tr>
+<tr><td>初期学習率</td><td>2e-4</td><td>2e-4</td></tr>
+<tr><td>学習率の減衰</td><td>linear</td><td>linear</td></tr>
+<tr><td>学習ステップ数</td><td>1200000</td><td>1000000</td></tr>
+<tr><td>バッチサイズ</td><td>256</td><td>256</td></tr>
+<tr><td>集約の初期距離閾値</td><td>2.3</td><td>2.3</td></tr>
+<tr><td>集約の改良反復回数</td><td>3</td><td>3</td></tr>
+<tr><td>集約の最大軌道数</td><td>6</td><td>6</td></tr>
+</tbody>
+</table>
+<p><strong>表4：</strong>Waymo Open Motion 2021 Dataset でのベンチマーク実験におけるモデルと学習のハイパーパラメータ。</p>
+
+<h2 id="e-評価指標">E　評価指標</h2>
+<p>これらのデータセットに付随するコンペティション固有の評価指標を用いてモデルを比較する。すべての評価指標について、モデルが出力する（軌道集約後の）尤度の高い上位 \(k = 6\) 個のモードのみを考慮し、各モードの平均のみを用いる。</p>
+<p>具体的には、使用するデータセットに基づく標準的な評価で用いられる評価手順から採った、以下の評価指標を報告する。</p>
+<p>\(\mathbf{minDE_k^t}\)（最小距離誤差）：モデルが出力する尤度の高い上位 \(k\) 個の軌道を考慮し、時間ステップ \(t\) における真値の軌道までの最小距離を計算する。</p>
+<p>\(\mathbf{MR^t}\)（ミス率）：各予測軌道について、時刻 \(t\) において予測対象エージェントの真値の軌道に十分近いかどうかを計算する。ミス率は、予測軌道のいずれも真値に十分近くない予測対象エージェントの割合である。軌道が十分に近いとどのように判定するかの詳細は、WOMD の評価指標の定義［27］に譲る。</p>
+<p>\(\mathbf{minADE_k}\)（最小平均距離誤差）：\(minDE_k^t\) と同様であるが、距離はすべての時間ステップにわたる平均として計算される。</p>
+<a class="pg" data-page="14"></a>
+<p>\(\mathbf{mAP}\)：予測軌道の各集合について、陽性は高々 1 つである。すなわち、真値に最も近く、かつ真値から距離 \(\tau\) 以内にあるものである。その他の予測軌道はミスとして報告される。これから、さまざまな閾値における適合率と再現率を計算できる。WOMD の評価指標の定義［27］に従い、エージェントの将来軌道は行動バケットに分割され、エージェントごとにありうる真陽性と偽陽性を用いて適合率-再現率曲線の下の面積を計算し、行動バケットごとの平均適合率（Average Precision）を得る。全体の mAP の値は、各行動バケットの AP の平均である。</p>
+
+<table>
+<thead><tr><th>ハイパーパラメータ</th><th>Multi-axis Latent Query</th><th>Factorized Latent Query</th></tr></thead>
+<tbody>
+<tr><td>エンコーダの隠れ層サイズ</td><td>128</td><td>256</td></tr>
+<tr><td>エンコーダの中間サイズ</td><td>512</td><td>1536</td></tr>
+<tr><td>デコーダの隠れ層サイズ</td><td>128</td><td>128</td></tr>
+<tr><td>デコーダの中間サイズ</td><td>512</td><td>768</td></tr>
+<tr><td>エンコーダ層数</td><td>4</td><td>4</td></tr>
+<tr><td>デコーダ層数</td><td>6</td><td>6</td></tr>
+<tr><td>潜在クエリ</td><td>1024</td><td>時間潜在 6 個、空間潜在 192 個（6 time latents, 192 spatial latents）</td></tr>
+<tr><td>GMM モード数</td><td>6</td><td>6</td></tr>
+<tr><td>アンサンブルサイズ</td><td>10</td><td>10</td></tr>
+<tr><td>オプティマイザ</td><td>AdamW</td><td>AdamW</td></tr>
+<tr><td>初期学習率</td><td>2e-4</td><td>2e-4</td></tr>
+<tr><td>学習率の減衰</td><td>linear</td><td>linear</td></tr>
+<tr><td>学習ステップ数</td><td>1000000</td><td>1000000</td></tr>
+<tr><td>バッチサイズ</td><td>4</td><td>4</td></tr>
+<tr><td>集約の初期距離閾値</td><td>2.9</td><td>2.9</td></tr>
+<tr><td>集約の改良反復回数</td><td>5</td><td>5</td></tr>
+<tr><td>集約の最大軌道数</td><td>6</td><td>6</td></tr>
+</tbody>
+</table>
+<p><strong>表5：</strong>Argoverse 2021 Dataset でのベンチマーク実験におけるモデルと学習のハイパーパラメータ。</p>
+
+<p>\(\mathbf{Overlap^t}\)：最も尤度の高い軌道予測の時間ステップのうち、予測が他のエージェントの対応する時間ステップの実際の将来軌道と重なる時間ステップの割合。</p>
+<p>\(\mathbf{minFDE}\)（最小最終変位誤差）：最良の予測軌道の終点と真値との間の L2 距離。</p>
+<p>\(\mathbf{brier-minFDE}\)：minFDE と Brier スコア \((1-p)^2\) の和として定義される。ここで \(p\) は最良の予測軌道の確率である。</p>
+
+<h2 id="f-定性的な優位例">F　定性的な優位例</h2>
+<p>本節では、WOMD のシーンにおける Wayformer（WF）の予測例を、MultiPath++（MP++）モデル［3］と比較して示す。以下のすべての例において、(a) 色相は時間ホライズン（0 秒〜8 秒）を示し、透明度は確率を示す。(b) 長方形は車両を示し、正方形は歩行者または自転車を示す。</p>
+<a class="pg" data-page="15"></a>
+<figure><img src="figs/fig8.jpg" loading="lazy" alt="図8" /></figure>
+<p><strong>図8：</strong>このシナリオは、左側に駐車場がある多車線道路を表している。ここでは、いくつかの車両に対する WF の予測が、MP++ よりも安全で道路に沿ったものであることがわかる。例：(a) 車両 A は駐車場から出て道路に合流しようとしている。MP++ の予測は完全に道路外にあるのに対し、WF の予測は道路のルールに従っている。(b) MP++ では車両 B、C、D の予測が互いに重なり合い、互いの衝突を予測している。しかし WF は、D が前方の車両に道を譲り、C が D に、B が C に道を譲ることを正しく予測している。(c) 駐車場内を走行する車両 E に対する MP++ の予測は、すでに駐車している車両を通り抜けているのに対し、WF は相互作用をよりよく理解し、衝突しない予測を生成している。</p>
+<p class="yakuchu">図中ラベル：(a) MultiPath++ (MP++)、(b) Wayformer (WF)、t = +0s〜t = +8s＝時間ホライズン（色相）、p = 0.0〜p = 1.0＝確率（透明度）、A〜E＝エージェント</p>
+
+<figure><img src="figs/fig9.jpg" loading="lazy" alt="図9" /></figure>
+<p><strong>図9：</strong>このシナリオは T 字路を表している。ここでは (a) 左折しようとしている自転車 B が見られる。MP++ の予測は道路外にあり、利用可能な道路を越えて進んでいる。しかし WF の予測は道路のルールに従い、左折という同じ行動に対して複数の速度プロファイルを提示している。(b) 歩行者（歩行者 A）についても、より良い予測が見られる。MP++ はこの歩行者が対向車のある車道に歩み出ると予測している。しかし WF の予測は歩道に制約されている。(c) さらに、MP++ と比較して、WF が車両 C、D、E について安全な未来を予測していることにも気づく。</p>
+<p class="yakuchu">図中ラベル：図8 と同じ（t＝時間ホライズン、p＝確率、A〜E＝エージェント）</p>
+
+<a class="pg" data-page="16"></a>
+<figure><img src="figs/fig10.jpg" loading="lazy" alt="図10" /></figure>
+<p><strong>図10：</strong>このシナリオは、駐車施設に曲がって入る車両（エージェント A）を表している。MP++ の予測は他の駐車車両の存在を軽視しており、一部の予測は駐車中のエージェントを通り抜けている。WF はこれらの相互作用をよりよくモデル化し、他の駐車中の物体と衝突しない軌道のみを予測している。</p>
+<p class="yakuchu">図中ラベル：図8 と同じ（t＝時間ホライズン、p＝確率、A・B＝エージェント）</p>
+
+<figure><img src="figs/fig11.jpg" loading="lazy" alt="図11" /></figure>
+<p><strong>図11：</strong>このシナリオは、交通量の多い四差路交差点を表している。まず、歩行者の軌道予測における WF の改善について述べる。MP++ は歩行者（A）が対向車両に突っ込んでいくと予測しており、この空間的相互作用をモデル化できていないことを示している。WF は、同じ歩行者がこの停止車両の前を横切り、道路の反対側の横断歩道<span class="yakuchu">（訳注：原文は「corsswalk」と誤記）</span>を歩き続ける様子を示している。画像の左下隅の歩行者（エージェント B と C）も同様の振る舞いを示す。MP++ は、彼らがすぐ隣に駐車している車にぶつかり、対向車に向かって車道上に歩み出ると予測している。一方 WF は、これらの歩行者について、道路に沿った良好で一貫した軌道を予測している。次に、このシーンの車両（エージェント D）に対する予測を見る。MP++ は、この車両の軌道が前方の静止した車と、その車の前を通過する歩行者の両方に衝突すると予測している。WF はこれらすべての空間的相互作用をうまくモデル化し、この車が前方の車の後ろで待ち、前方を横断する歩行者に割り込まない軌道を予測している。</p>
+<p class="yakuchu">図中ラベル：図8 と同じ（t＝時間ホライズン、p＝確率、A〜D＝エージェント）</p>
+
+<a class="pg" data-page="17"></a>
+<figure><img src="figs/fig12.jpg" loading="lazy" alt="図12" /></figure>
+<p><strong>図12：</strong>このシナリオは、多くの車が通過する複雑な<span class="yakuchu">（訳注：原文は「comlpex」と誤記）</span>四差路交差点を表している。図11 と同様に、MP++ はシーン内の車両（エージェント A、B、C、D）の軌道が前方の車と衝突すると予測していることがわかる。WF は非常に洗練された振る舞いを示す。エージェント A については、A の前に駐車している車が二重駐車車両であり、その横の道路に空間があることを推定でき、その車をよけて回り込む軌道を予測している。B、C、D については、道路のルールを注意深くモデル化し、対向車（エージェント B の場合）または交差交通（エージェント C と D の場合）を優先させ、それらに道を譲る軌道を予測している。</p>
+<p class="yakuchu">図中ラベル：図8 と同じ（t＝時間ホライズン、p＝確率、A〜D＝エージェント）</p>
+
+<figure><img src="figs/fig13.jpg" loading="lazy" alt="図13" /></figure>
+<p><strong>図13：</strong>このシナリオでは、MP++ は駐車レーンに入る車両（エージェント A）の未来をモデル化できず、このエージェントについて等しく尤もらしいマルチモーダルな未来を出力していることがわかる。WF は道路グラフとの相互作用をはるかによく理解し、エージェント A が駐車レーンに入ることについて高い尤度を持つ軌道を出力している。</p>
+<p class="yakuchu">図中ラベル：図8 と同じ（t＝時間ホライズン、p＝確率、A＝エージェント）</p>
+<a class="pg" data-page="18"></a>
+<figure><img src="figs/fig14.jpg" loading="lazy" alt="図14" /></figure>
+<p><strong>図14：</strong>エージェント A、B、C が静止車両の後ろで待っている様子が見られる。WF は、エージェント A が前進するために静止車両をよけて回り込むと予測するのに対し、MP はエージェントが静止車両を通り抜けて進むと予測している。さらに、MP はエージェント D が道路外に進む可能性があると予測するのに対し、WF はエージェント C の後ろで道路に沿って進むと予測している。</p>
+<p class="yakuchu">図中ラベル：(a) MultiPath++ (MP++)、(b) Wayformer (WF)、t = +0s〜t = +8s＝時間ホライズン（色相）、p = 0.0〜p = 1.0＝確率（透明度）、A〜D＝エージェント</p>
+
+<figure><img src="figs/fig15.jpg" loading="lazy" alt="図15" /></figure>
+<p><strong>図15：</strong>エージェント B を含む複数の歩行者が道路を横断しており、MP++ と WF はいずれも、車 A がその横断歩道を通って左折しようとしていると予測している。WF は、車 A が曲がり始め、その後歩行者が横断する間は待つと予測するのに対し、MP++ は歩行者が横断している最中でも車 A が横断歩道を通過して進むと予測している。</p>
+<p class="yakuchu">図中ラベル：図14 と同じ（t＝時間ホライズン、p＝確率、A〜D＝エージェント）</p>
+
+<a class="pg" data-page="19"></a>
+<figure><img src="figs/fig16.jpg" loading="lazy" alt="図16" /></figure>
+<p><strong>図16：</strong>これは交通量の多い交差点を示しており、WF と MP++ はいずれも、左右方向の道路の車両（すなわちエージェント D）が直進または左折すると予測している。しかし、MP++ はエージェント A が、左折中の他の車を通り抜けることも含め、交通の流れに直接割り込んで左折しようとすると予測するのに対し、WF はエージェント A が待つと予測している。さらに、MP++ はエージェント B が前方で待っている車両を通り抜けて進もうとすると予測するのに対し、WF は代わりに、静止したままでいるか隣の車線へ寄せると予測している。さらに、WF はエージェント D が、エージェント C 付近の歩道の角を通り抜ける U ターンをする可能性も予測している（赤い矢印で強調）<span class="yakuchu">（訳注：赤い矢印は (a) MP++ 側の図に描かれている）</span>。</p>
+<p class="yakuchu">図中ラベル：図14 と同じ（t＝時間ホライズン、p＝確率、A〜F＝エージェント）</p>
+
+<figure><img src="figs/fig17.jpg" loading="lazy" alt="図17" /></figure>
+<p><strong>図17：</strong>このシナリオは四差路交差点を表している。(a) 交差点では、車両 A、B、C、D はすべて信号により交差点で停止している。WF はこれを考慮し、道を譲る振る舞いを予測している。車両 D は信号のために停止し、車両 C は B に、車両 B は A に、車両 A は前方の車両に道を譲る。しかし、同じエージェントに対する MP++ の予測は交差点を通過し（車両 D）、車両 A、B、C については前方の車両を通り抜けている。(b) 交差点の反対側でも同様の振る舞いが見られ、車両 E に対する WF の予測は道を譲るものであり、MP++ の予測は前方の車両を通り抜けている。</p>
+<p class="yakuchu">図中ラベル：図14 と同じ（t＝時間ホライズン、p＝確率、A〜F＝エージェント）</p>
+
+<a class="pg" data-page="20"></a>
+<figure><img src="figs/fig18.jpg" loading="lazy" alt="図18" /></figure>
+<p><strong>図18：</strong>このシナリオは、狭い道路と駐車車両のある T 字路を表している。この相互作用の多いシーンでは、(a) 駐車車両（車両 A）が交通の流れに合流しようとしていることが観察される。WF はすでに駐車している車をよけて回り込み、交通の流れに合流することを予測するのに対し、MP++ の予測は A の前方の駐車車両を通り抜けている。(b) さらに、車両 B について、WF は前方の車両をよけて回り込む予測をするのに対し、MP++ の予測は前方の車を通り抜けていることもわかる。(c) 車両 C、D、E について、WF は道を譲る振る舞い（C は B に、D は前方の車に、E は D に道を譲る）を予測するのに対し、MP++ の予測は前方の車両を通り抜けている。</p>
+<p class="yakuchu">図中ラベル：図14 と同じ（t＝時間ホライズン、p＝確率、A〜E＝エージェント）</p>
+
+<figure><img src="figs/fig19.jpg" loading="lazy" alt="図19" /></figure>
+<p><strong>図19：</strong>このシナリオは、歩行者の集団（A、B）がいる非常に交通量の多い四差路交差点を表している。これらの集団はいずれも、道路の両側から信号を渡っている歩行者である。MP++ の予測はより分散しており、その一部は交差点ですでに停止している車両（車両 C と D）を通り抜けていることが観察される。しかし WF は他の車両の存在を理解し、それらを横切らない予測を生成している。また、車両 C に対する WF の予測は歩行者に道を譲っているのに対し、MP++ の予測はそうなっていないこともわかる。</p>
+<p class="yakuchu">図中ラベル：図14 と同じ（t＝時間ホライズン、p＝確率、A〜D＝エージェント）</p>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>

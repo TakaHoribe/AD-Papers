@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>nuPlan 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="nuPlan: A closed-loop ML-based planning benchmark for autonomous vehicles" />
+  <meta name="short-name" content="nuPlan" />
+  <meta name="authors" content="Holger Caesar, Juraj Kabzan, Kok Seang Tan, Whye Kit Fong, Eric Wolff, Alex Lang, Luke Fletcher, Oscar Beijbom, Sammy Omari（Motional）" />
+  <meta name="source-pdf" content="20_nuPlan_2106.11810.pdf" />
+  <meta name="source-pages" content="5" />
+  <meta name="pdf-href" content="20_nuPlan_2106.11810.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="自動運転向けに世界初のクローズドループ型 ML ベース計画ベンチマーク nuPlan を提案する。4 都市・1500 時間の実走行データ、軽量なクローズドループシミュレータ、計画に特化した評価指標を提供する。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">nuPlan 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="20_nuPlan_2106.11810.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#nuplan-a-closed-loop-ml-based-planning-benchmark-for-autonomous-vehicles" id="toc-nuplan-a-closed-loop-ml-based-planning-benchmark-for-autonomous-vehicles">nuPlan: A closed-loop ML-based planning benchmark for autonomous vehicles</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a></li>
+<li><a href="#3-データセット" id="toc-3-データセット">3　データセット</a></li>
+<li><a href="#4-ベンチマーク" id="toc-4-ベンチマーク">4　ベンチマーク</a><ul>
+<li><a href="#4.1-概要" id="toc-4.1-概要">4.1　概要</a></li>
+<li><a href="#4.2-タスク" id="toc-4.2-タスク">4.2　タスク</a></li>
+<li><a href="#4.3-評価指標" id="toc-4.3-評価指標">4.3　評価指標</a></li>
+</ul></li>
+<li><a href="#5-結論" id="toc-5-結論">5　結論</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="nuplan-a-closed-loop-ml-based-planning-benchmark-for-autonomous-vehicles">nuPlan: A closed-loop ML-based planning benchmark for autonomous vehicles</h1>
+<p>Holger Caesar、Juraj Kabzan、Kok Seang Tan、Whye Kit Fong、Eric Wolff、Alex Lang、Luke Fletcher、Oscar Beijbom、Sammy Omari<br />
+Motional<br />
+arXiv:2106.11810v4 [cs.CV]、2022年2月4日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>20_nuPlan_2106.11810.pdf</code>（全 5 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p><em>本研究では、自動運転のための世界初のクローズドループ型 ML ベース計画ベンチマークを提案する。ML ベースのモーションプランナーに関する研究は増えつつあるが、確立されたデータセットと評価指標がないことがこの分野の進展を制限してきた。自動運転車の動き予測に関する既存のベンチマークは、長期的な計画ではなく短期的な動き予測に焦点を当ててきた。そのため先行研究では、L2 ベースの指標を用いたオープンループ評価が用いられてきたが、これは長期的な計画を公正に評価するには適していない。我々のベンチマークは、大規模な運転データセット、軽量なクローズドループシミュレータ、そしてモーションプランニングに特化した評価指標を導入することで、これらの制限を克服する。交通パターンが大きく異なる米国とアジアの 4 都市（Boston、Pittsburgh、Las Vegas、Singapore）で収集した、1500h の人間による運転データからなる高品質なデータセットを提供する。さらに、反応型エージェントを備えたクローズドループシミュレーションのフレームワークを提供し、汎用的な計画指標とシナリオ固有の計画指標の両方からなる大規模な指標群を提供する予定である。データセットは NeurIPS 2021 で公開し、2022 年初頭からベンチマークチャレンジを開催する計画である。</em></p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>大規模な人手ラベル付きデータセットと深層畳み込みニューラルネットワークの組み合わせにより、ここ数年で自動運転車（AV）の認識性能は目覚ましく向上した［9, 4］。これに対し、AV の計画に関する既存の手法は依然として主に入念に設計されたエキスパートシステムに基づいており、新しい地域に適応させるには多大なエンジニアリング作業を要し、学習データを増やしても性能がスケールしない。我々は、適切なデータと評価指標を提供することで ML ベースの計画が可能になり、完全な「Software 2.0」スタックへの道が開かれると考えている。</p>
+<p>既存の実世界ベンチマークは、計画ではなく、予測とも呼ばれる短期的な動き予測（motion forecasting）に焦点を当てている［6, 4, 11, 8］。このことは、高レベルの目標が存在しないこと、評価指標の選び方、そしてオープンループ評価であることに表れている。予測は他のエージェントの挙動に焦点を当てるのに対し、計画は自車（エゴ車両）の挙動に関わるものである。</p>
+
+<figure><img src="figs/fig1.png" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：</strong>既存のベンチマークの限界を強調するため、さまざまな運転シナリオを示す。自車の観測された走行経路を白で、仮想的なプランナーの経路を赤で示す。(a) 目標が存在しないため、交差点で曖昧さが生じる。(b) 変位ベースの指標は、運転のマルチモーダルな性質を考慮しない。(c) オープンループ評価は、エージェント間の相互作用を考慮しない。</p>
+
+<p>予測は一般にマルチモーダルであり、各エージェントについて最も可能性の高い \(N\) 本の軌跡を予測する。これに対し、計画は一般に（コンティンジェンシープランニングを除いて）ユニモーダルであり、1 本の軌跡を予測する。例として、図1a では、交差点で左折することも右折することも同程度にあり得る選択肢である。予測データセットには、エージェントの高レベルの目標を示す基準となるナビゲーション経路が存在しない。図1b では、すぐに合流する選択肢と後で合流する選択肢はどちらも同等に妥当であるが、一般に用いられる L2 距離ベースの指標（minADE、minFDE、ミス率）は、データ中で観測されなかった方の選択肢にペナルティを与えてしまう。直観的に言えば、マルチモーダルなシナリオにおいて、予測軌跡と観測軌跡の距離は適切な指標ではない。図1c では、追い越しを続けるか車線に戻るかの判断は、すべてのエージェント車両の後続の行動に基づいて行われるべきであるが、これはオープンループ評価では不可能である。クローズドループ評価がないと系統的なドリフトが生じ、短い時間範囲（3〜8s）を超えた評価が困難になる。</p>
+<p>そこで我々は、これらの欠点に対処する計画ベンチマークを提供する。主な貢献は以下のとおりである。</p>
+<ul>
+<li>4 都市から得られた高品質な自動ラベル付きトラックを含む、自動運転向けとして現存する最大の公開実世界データセット。</li>
+<li>交通規則違反、人間の運転との類似度、車両ダイナミクス、目標達成に関する計画指標、およびシナリオベースの計画指標。</li>
+<li>クローズドループのプランナー評価プロトコルを備えた、実世界データに対する初の公開ベンチマーク。</li>
+</ul>
+
+<a class="pg" data-page="2"></a>
+<table><thead><tr><th>データセット</th><th>データ量</th><th>都市数</th><th>センサデータ</th><th>種別</th><th>評価</th></tr></thead>
+<tbody>
+<tr><td>Argoverse</td><td style="text-align:right">320h</td><td style="text-align:right">2</td><td></td><td>Pred</td><td>OL</td></tr>
+<tr><td>nuPredict</td><td style="text-align:right">5h</td><td style="text-align:right">2</td><td>✓</td><td>Pred</td><td>OL</td></tr>
+<tr><td>Lyft</td><td style="text-align:right">1118h</td><td style="text-align:right">1</td><td></td><td>Pred</td><td>OL</td></tr>
+<tr><td>Waymo</td><td style="text-align:right">570h</td><td style="text-align:right">6</td><td></td><td>Pred</td><td>OL</td></tr>
+<tr><td>nuPlan</td><td style="text-align:right">1500h</td><td style="text-align:right">4</td><td>✓</td><td>Plan.</td><td>OL+CL</td></tr>
+</tbody></table>
+<p><strong>表1：</strong>動き予測（Pred）と計画（Plan）のための主要データセットの比較。データセットの規模、都市数、センサデータの有無、データセットの種別、およびオープンループ（OL）評価とクローズドループ（CL）評価のどちらを用いるかを示す。nuPredict は nuScenes［4］データセットの予測チャレンジを指す。</p>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<p>予測および計画のためのデータセット、シミュレーション、ML ベースの計画に関する文献を概観する。</p>
+<p><strong>予測データセット。</strong>表1に、我々のデータセットと関連する予測データセットの比較を示す。Argoverse Motion Forecasting［6］は最初の大規模な予測データセットである。320h の運転データを持ち、その規模は前例のないものであり、中心線と走行可能領域のアノテーションを含む簡素なセマンティックマップを提供している。しかし、当時の物体検出分野の水準と、人手ラベル付き学習データの量の不足（113 シーン）のために、データセット中の自動ラベル付き軌跡の品質は低めである。</p>
+<p>nuScenes 予測チャレンジ［4］は、nuScenes データセットの人手ラベル付き 850 シーンから構成される。アノテーションは高品質でセンサデータも提供されているが、規模が小さいため運転のバリエーションの数が限られる。Lyft Level 5 Prediction Dataset［11］は、6.8 マイルの単一ルートから得られた 1118h のデータを含む。詳細なセマンティックマップ、航空写真地図、動的な信号機の状態を備えている。規模は前例のないものであるが、自動ラベル付きトラックはノイズが多いことが多く、地理的な多様性も限られている。Waymo Open Motion Dataset［8］はエージェント間の相互作用に特に焦点を当てているが、評価はオープンループで行っている。データセットの規模は 570h と既存のデータセットより小さいが、自動ラベル付きトラックは高品質である［17］。セマンティックマップと動的な信号機の状態も提供している。</p>
+<p>これらのデータセットは計画ではなく予測に焦点を当てている。本研究では、計画指標とクローズドループ評価を用いることでこの制限を克服することを目指す。我々のデータセットは、センサデータを提供する初の大規模データセットである。</p>
+<p><strong>計画データセット。</strong>CommonRoad［1］は初めての種類の計画ベンチマークを提供しており、さまざまな車両モデル、コスト関数、シナリオ（目標と制約を含む）から構成される。事前記録されたシナリオとインタラクティブなシナリオの両方がある。シナリオは合計 5700 件であり、このデータセットの規模では現代的な深層学習ベースの手法の学習には対応できない。また、すべてのシナリオにセンサデータがない。</p>
+<p><strong>シミュレーション。</strong>シミュレータは、物理、エージェント、環境条件をクローズドループ環境でシミュレートできることにより、計画と強化学習におけるブレークスルーを可能にしてきた。</p>
+<p>AirSim［19］は、ドローンや自動車などの AV 向けの高忠実度シミュレータである。リアルタイムのハードウェアインザループシミュレーションのために高い周波数で動作できる物理エンジンを含む。CARLA［7］は、自律的な市街地運転システムの学習と検証をサポートする。センサ構成や環境条件を柔軟に指定できる。CARLA Autonomous Driving Challenge<sup>1</sup> の目標は、センサデータと HD マップのさまざまな組み合わせを用いて一連のウェイポイントをたどって走行することである。あるいは、ユーザはシーン抽象化を用いることで認識タスクを省き、計画と制御の側面に集中することもできる。このチャレンジは概念的には我々の提案と似ているが、実世界のデータを用いておらず、提供される計画指標もより粗いものである。</p>
+<blockquote><p>脚注1：<a href="https://carlachallenge.org">carlachallenge.org</a> を参照。</p></blockquote>
+<p>シミュレーションから実世界への転移（Sim-to-real transfer）は、自己位置推定、認識、予測、計画、制御といった多様なタスクにおいて活発な研究領域である。［21］は、合成データで学習した追跡モデルを KITTI［9］データセットに転移させることで、シミュレーションデータと実世界データの間のドメインギャップが依然として問題であることを示している。このドメインギャップを克服するため、彼らは可視物体には実世界データ、遮蔽物体にはシミュレーションデータを用いてモデルを同時に学習している。［3］は、視覚ベースの車線追従運転方策を、実世界のラベルを一切用いずにシミュレーションから実世界へ転移させることで運転を学習している。［14］は、シミュレーション内で強化学習を用いて、実寸の実世界車両を制御する運転システムを得ている。彼らは主に合成データを用いており、ラベル付きの実世界データはセグメンテーションネットワークの学習においてのみ用いられている。</p>
+<p>しかし、あらゆるシミュレーションは系統的なバイアスを持ち込むため、根本的な限界がある。実世界のセンサをもっともらしくエミュレートする、例えば写実的なカメラ画像を生成するには、さらなる研究が必要である。</p>
+<a class="pg" data-page="3"></a>
+<p><strong>ML ベースの計画。</strong>新たに台頭しつつある研究分野として、実世界データを用いた AV のための ML ベースの計画がある。しかし、この分野は共通の入出力空間、データセット、評価指標についてまだ合意に至っていない。［18］では、行動と軌跡を同時に学習可能なプランナーが提案されている。認識、予測、車両ダイナミクスのモデルの上に解釈可能なコスト関数を学習し、2 つの未公開データセット上でオープンループで評価している。エンドツーエンドの解釈可能なニューラルモーションプランナー［24］は、生の LiDAR 点群と動的な地図データを入力とし、計画のためのコストマップを予測する。彼らは未公開のデータセット上で、わずか 3s の計画ホライズンでオープンループ評価を行っている。ChauffeurNet［2］は、3000 万もの例を用いたとしても、標準的な行動クローニングでは複雑な運転シナリオに対処するには不十分であることを見いだした。彼らは、エキスパートの運転に摂動を加える形の合成データに学習器をさらし、模倣損失に、望ましくない事象にペナルティを与え進行を促す追加の損失を加えることを提案している。彼らの未公開データセットには 2600 万の例が含まれ、これは連続 60 日分の運転に相当する。この手法は、クローズドループとオープンループの設定、および実世界で評価されている。彼らはまた、オープンループ評価がクローズドループと比べて誤解を招く場合があることも示している。MP3［5］は地図を用いない運転のためのエンドツーエンドの手法を提案しており、入力は生の LiDAR データと高レベルのナビゲーション目標である。彼らは未公開のデータセット上でオープンループおよびクローズドループで評価している。近年の研究ではマルチモーダルな手法も検討されている［16, 20, 13］。これらの手法は、将来のウェイポイントや制御コマンドを予測するために、さまざまなモダリティの表現を融合する異なる戦略を探っている。また［15, 10］では、計画された軌跡と観測された経路の KL ダイバージェンスを用いて物体検出器を評価するためにニューラルプランナーが用いられた。</p>
+<p>既存の研究はさまざまな評価指標で評価を行っており、それらは文献間で一貫していない。TransFuser［16］は、違反（infraction）の回数、完了した経路距離の割合、および違反乗数で重み付けした経路完了度で手法を評価している。違反には、他のエージェントとの衝突や赤信号無視が含まれる。［20］は、路外走行時間、車線逸脱時間、衝突回数を用いてプランナーを評価しており、［13, 22］は、所定の時間枠内に指定された目的地へ到達した成功率を報告している。［13］はさらに、目標までに走行した距離の平均割合を測る別の指標も導入している。</p>
+<p>ML ベースの計画はこれまで詳細に研究されてきたが、公開されたデータセットと、クローズドループ評価のための共通の枠組みを与える標準的な評価指標群がないことが、この分野の進展を制限してきた。我々は、ML ベースの計画のためのデータセットと評価指標を提供することでこのギャップを埋めることを目指す。</p>
+
+<h2 id="3-データセット">3　データセット</h2>
+<p><strong>概要。</strong>我々は、Las Vegas、Boston、Pittsburgh、Singapore で収集した 1500 時間分のデータを公開する予定である。各都市にはそれぞれ固有の運転上の難しさがある。例えば Las Vegas には、複雑な相互作用を伴う混雑したカジノの乗降地点（PUDO）や、片側最大 8 車線の並行走行車線を持つ混雑した交差点がある。Boston のルートには二重駐車を好むドライバーがおり、Pittsburgh には交差点での左折に独自の優先順位のパターンがあり、Singapore は左側通行である。各都市について、セマンティックマップと効率的な地図クエリのための API を提供する。データセットには、LiDAR 点群、カメラ画像、自己位置情報、ステアリング入力が含まれる。自動ラベル付きのエージェント軌跡はデータセット全体について公開するが、データセットの規模が膨大（200+ TB）であるため、センサデータはその一部のみを公開する。</p>
+<p><strong>自動ラベリング。</strong>オンラインの認識システムに課される AV のリアルタイム制約を受けないオフライン認識システムを用いて、大規模データセットに高精度でラベルを付与する。人間に近いラベリング性能を達成するために、PointPillars［12］と CenterPoint［23］、改良版のマルチビュー融合（MVF++）［17］、および非因果的な追跡（non-causal tracking）を用いる。</p>
+<p><strong>シナリオ。</strong>シナリオベースの評価指標を可能にするため、複雑なシナリオについて区間にタグを自動で付与する。これらのシナリオには、合流、車線変更、保護された／保護されていない左折または右折、自転車との相互作用、横断歩道やその他の場所での歩行者との相互作用、近接または高加速度を伴う相互作用、二重駐車車両、一時停止制御の交差点、工事区間での走行が含まれる。</p>
+
+<h2 id="4-ベンチマーク">4　ベンチマーク</h2>
+<p>ML ベースの計画の最先端をさらに前進させるため、以下に述べるタスクと評価指標によるベンチマークチャレンジを開催する。</p>
+<h3 id="4.1-概要">4.1　概要</h3>
+<p>ベンチマークデータセットに対して提案手法を評価するため、ユーザは ML ベースの計画コードを我々の評価サーバに提出する。コードは提供されるテンプレートに従わなければならない。多くのベンチマークとは異なり、非公開のテストセット上でクローズドループ評価を行えるよう、コードは可搬性のためにコンテナ化される。プランナーは、自動ラベル付き軌跡に対して動作するか、エンドツーエンドのオープンループ手法の場合は生のセンサデータに対して直接動作する。特定のタイムステップについて問い合わせを受けると、プランナーは自車の<em>計画された</em>位置と方位を返す。その後、提供されるコントローラが、計画された軌跡に密に追従しながら車両を走行させる。実システムを近似するため、事前に定義した運動モデルを用いて自車の運動をシミュレートする。最終的に走行した軌跡は、4.2 節で定義する評価指標に基づいてスコア付けされる。</p>
+<h3 id="4.2-タスク">4.2　タスク</h3>
+<p>我々のデータセットに対して、難易度が順に高くなる 3 つの異なるタスクを提示する。</p>
+<p><strong>オープンループ。</strong>最初のチャレンジでは、計画システムに人間のドライバーを模倣するタスクを課す。各タイムステップについて、事前に定義された評価指標に基づいて軌跡がスコア付けされる。軌跡は車両の制御には用いられない。この場合、相互作用は一切考慮されない。</p>
+
+<a class="pg" data-page="4"></a>
+<p><strong>クローズドループ。</strong>クローズドループの設定では、前のケースと同様に、プランナーは各タイムステップで利用可能な情報を用いて<em>計画された</em>軌跡を出力する。しかし、提案された軌跡はコントローラの参照として用いられるため、計画システムは各タイムステップで車両の新しい状態によって徐々に補正される。車両の新しい状態は記録された状態と一致しない場合があり、その結果カメラの視野や LiDAR 点群が異なるものになるが、我々はセンサデータのワーピングや新規視点合成は一切行わない。この設定では、2 つのタスクを区別する。<em>非反応型クローズドループ</em>タスクでは、他のエージェントの挙動について何も仮定せず、観測されたエージェントの軌跡をそのまま用いる。［11］で示されているように、クローズドループシミュレーションにおける介入の大部分は、この非反応性、例えば車両が自車に単純に衝突してしまうことに起因する。<em>反応型クローズドループ</em>タスクでは、追跡されている他のすべてのエージェントに対して、自車と同様に計画モデルを提供する。</p>
+
+<h3 id="4.3-評価指標">4.3　評価指標</h3>
+<p>評価指標を 2 つのカテゴリに分ける。すべてのシナリオについて計算される共通指標と、事前に定義されたシナリオに合わせて設計されたシナリオベースの指標である。</p>
+<p><strong>共通指標。</strong></p>
+<ul>
+<li><em>交通規則違反</em>は、一般的な交通規則の遵守度を測るために用いる。他のエージェントとの衝突率、路外に出る軌跡の割合、先行エージェントとの車間時間（time gap）、衝突余裕時間（TTC）、およびエージェントを追い越す際の相対速度を追い越し距離の関数として計算する。</li>
+<li><em>人間の運転との類似度</em>は、人間と比較した運転操作の満足度を定量化するために用いる。例えば、縦方向の速度誤差、縦方向の停止位置誤差、横方向の位置誤差である。加えて、結果として得られるジャーク／加速度を人間レベルのジャーク／加速度と比較する。</li>
+<li><em>車両ダイナミクス</em>は、乗員の快適性と軌跡の実行可能性を定量化する。乗員の快適性は、ジャーク、加速度、操舵速度、車両の振動によって測る。実行可能性は、同じ基準について事前に定義された限界値への違反によって測る。</li>
+<li><em>目標達成</em>は、L2 距離を用いて、地図上の目標ウェイポイントに向けた経路の進捗を測る。</li>
+</ul>
+<p><strong>シナリオベースの指標。</strong>3 章のシナリオタグに基づき、難しい運転操作に対して追加の評価指標を用いる。<em>車線変更</em>については、目標車線上の先行／後続エージェントに対する衝突余裕時間と車間時間を測定してスコア付けする。<em>歩行者／自転車との相互作用</em>については、それらの位置を区別しつつ、追い越し時の相対速度を定量化する。さらに、横断歩道や保護されていない右左折（通行優先権）について、<em>プランナーと人間が下した判断の一致度</em>を比較する。</p>
+<p><strong>コミュニティからのフィードバック。</strong>ここで示した評価指標は初期の提案であり、網羅的なリストではないことに注意されたい。我々はコミュニティと緊密に協力して新しいシナリオや評価指標を追加し、コミュニティ全体での合意形成を目指す。同様に、チャレンジの主要指標についても、評価指標の重み付き和、事前定義した閾値を超えた指標違反の重み付き和、あるいは指標の階層構造といった複数の選択肢が考えられる。この分野を前進させる評価指標を定義するために、コミュニティの皆さんに我々との協力を呼びかけたい。</p>
+
+<h2 id="5-結論">5　結論</h2>
+<p>本研究では、AV のための初の ML ベースの計画ベンチマークを提案した。既存の動き予測ベンチマークとは異なり、我々は目標に基づく計画、計画のための評価指標、クローズドループ評価に焦点を当てる。共通のベンチマークを提供することで、自動運転における最後のフロンティアの一つである ML ベースの計画の進展への道を切り開けることを期待する。</p>
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した（各文献末尾の引用ページへの逆参照番号は省略した）。</p>
+<ol class="refs">
+<li>Matthias Althoff, Markus Koschi, and Stefanie Manzinger. CommonRoad: Composable benchmarks for motion planning on roads. In <em>Proc. of the IEEE Intelligent Vehicles Symposium</em>, 2017.</li>
+<li>Mayank Bansal, Alex Krizhevsky, and Abhijit Ogale. Chauffeurnet: Learning to drive by imitating the best and synthesizing the worst. In <em>RSS</em>, 2019.</li>
+<li>Alex Bewley, Jessica Rigley, Yuxuan Liu, Jeffrey Hawke, Richard Shen, Vinh-Dieu Lam, and Alex Kendall. Learning to drive from simulation without real world labels. In <em>ICRA</em>, 2019.</li>
+<li>Holger Caesar, Varun Bankiti, Alex H. Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>CVPR</em>, 2020.</li>
+<li>Sergio Casas, Abbas Sadat, and Raquel Urtasun. MP3: A unified model to map, perceive, predict and plan. In <em>CVPR</em>, 2021.</li>
+<li>Ming-Fang Chang, John W Lambert, Patsorn Sangkloy, Jagjeet Singh, Slawomir Bak, Andrew Hartnett, De Wang, Peter Carr, Simon Lucey, Deva Ramanan, and James Hays. Argoverse: 3d tracking and forecasting with rich maps. In <em>CVPR</em>, 2019.</li>
+<li>Alexey Dosovitskiy, German Ros, Felipe Codevilla, Antonio Lopez, and Vladlen Koltun. CARLA: An open urban driving simulator. <em>CoRR</em>, 2017.</li>
+<li>Scott Ettinger, Shuyang Cheng, and Benjamin Caine et al. Large scale interactive motion forecasting for autonomous driving: The Waymo Open Motion Dataset. <em>arXiv preprint arXiv:2104.10133</em>, 2021.</li>
+<li>Andreas Geiger, Philip Lenz, Christoph Stiller, and Raquel Urtasun. Vision meets robotics: The KITTI dataset. <em>IJRR</em>, 32(11):1231–1237, 2013.</li>
+</ol>
+<a class="pg" data-page="5"></a>
+<ol class="refs" start="10">
+<li>Yiluan Guo, Holger Caesar, Oscar Beijbom, Jonah Philion, and Sanja Fidler. The efficacy of neural planning metrics: A meta-analysis of PKL on nuscenes. In <em>IROS Workshop on Benchmarking Progress in Autonomous Driving</em>, 2020.</li>
+<li>John Houston, Guido Zuidhof, and Luca Bergamini et al. One thousand and one hours: Self-driving motion prediction dataset. <em>arXiv preprint arXiv:2006.14480</em>, 2020.</li>
+<li>Alex H. Lang, Sourabh Vora, Holger Caesar, Lubing Zhou, Jiong Yang, and Oscar Beijbom. Pointpillars: Fast encoders for object detection from point clouds. In <em>CVPR</em>, 2019.</li>
+<li>Eraqi Hesham M., Mohamed N. Moustafa, and Jens Honer. Conditional imitation learning driving considering camera and lidar fusion. In <em>NeurIPS</em>, 2020.</li>
+<li>Blazej Osinski, Adam Jakubowski, Pawel Ziecina, Piotr Milos, Christopher Galias, Silviu Homoceanu, and Henryk Michalewski. Simulation-based reinforcement learning for real-world autonomous driving. In <em>ICRA</em>, 2020.</li>
+<li>Jonah Philion, Amlan Kar, and Sanja Fidler. Learning to evaluate perception models using planner-centric metrics. In <em>CVPR</em>, 2020.</li>
+<li>Aditya Prakash, Kashyap Chitta, and Andreas Geiger. Multimodal fusion transformer for end-to-end autonomous driving. In <em>IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2021.</li>
+<li>Charles R. Qi, Yin Zhou, Mahyar Najibi, Pei Sun, Khoa Vo, Boyang Deng, and Dragomir Anguelov. Offboard 3d object detection from point cloud sequences. <em>arXiv preprint arXiv:2103.05073</em>, 2021.</li>
+<li>Abbas Sadat, Mengye Ren, Andrei Pokrovsky, Yen-Chen Lin, Ersin Yumer, and Raquel Urtasun. Jointly learnable behavior and trajectory planning for self-driving vehicles. In <em>IROS</em>, 2019.</li>
+<li>Shital Shah, Debadeepta Dey, Chris Lovett, and Ashish Kapoor. AirSim: High-fidelity visual and physical simulation for autonomous vehicles. In <em>Field and Service Robotics</em>, 2017.</li>
+<li>Ibrahim Sobh, Loay Amin, Sherif Abdelkarim, Khaled Elmadawy, Mahmoud Saeed, Omar Abdeltawab, Mostafa Gamal, and Ahmad El Sallab. End-to-end multi-modal sensors fusion system for urban automated driving. In <em>NeurIPS</em>, 2018.</li>
+<li>Pavel Tokmakov, Jie Li, Wolfram Burgard, and Adrien Gaidon. Learning to track with object permanence. <em>arXiv preprint arXiv:2103.14258</em>, 2021.</li>
+<li>Yi Xiao, Felipe Codevilla, Akhil Gurram, Onay Urfalioglu, and Antonio M. López. Multimodal end-to-end autonomous driving. <em>arXiv preprint arXiv:1906.03199</em>, 2019.</li>
+<li>Tianwei Yin, Xingyi Zhou, and Philipp Krähenbühl. Center-based 3d object detection and tracking. <em>arXiv preprint arXiv:2006.11275</em>, 2020.</li>
+<li>Wenyuan Zeng, Wenjie Luo, Simon Suo, Abbas Sadat, Bin Yang, Sergio Casas, and Raquel Urtasun. End-to-end interpretable neural motion planner. In <em>CVPR</em>, 2021.</li>
+</ol>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>

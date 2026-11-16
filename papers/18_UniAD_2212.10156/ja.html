@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill)" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>UniAD 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="Planning-oriented Autonomous Driving" />
+  <meta name="short-name" content="UniAD" />
+  <meta name="authors" content="Yihan Hu, Jiazhi Yang, Li Chen, Keyu Li, Chonghao Sima, Xizhou Zhu, Siqi Chai, Senyao Du, Tianwei Lin, Wenhai Wang, Lewei Lu, Xiaosong Jia, Qiang Liu, Jifeng Dai, Yu Qiao, Hongyang Li（Shanghai AI Laboratory, Wuhan University, SenseTime Research）" />
+  <meta name="source-pdf" content="18_UniAD_2212.10156.pdf" />
+  <meta name="source-pages" content="24" />
+  <meta name="pdf-href" content="18_UniAD_2212.10156.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="知覚・予測・計画の全タスク（追跡、地図、動き予測、占有予測、計画）をクエリで接続した単一ネットワーク UniAD を提案し、計画を最終目標とする設計により nuScenes の全タスクで従来手法を上回ることを示した。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; }
+body{font-family:'Noto Sans JP','Noto Sans CJK JP','Yu Gothic','Meiryo',sans-serif;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1;color:#182634;max-width:1020px;margin:0 auto;padding:48px 38px;background:#fff;font-size:16px}
+h1{font-size:30px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:18px}
+h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:24px}
+h3{margin-top:2em;font-size:20px;color:#244b64}
+h4{margin-top:1.6em;font-size:17px;color:#244b64}
+p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+figure{margin:20px 0}
+figcaption{display:none}
+table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0}
+th,td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+th{background:#eaf1f5}
+td:first-child{white-space:nowrap}
+blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+code{font-family:Consolas,'Courier New',monospace;white-space:pre-wrap}
+pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+a{color:#215c80;overflow-wrap:anywhere}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+.src-meta{color:#5b6b78;font-size:13px;margin-top:-10px}
+ol.refs li{margin-bottom:6px;font-size:14px}
+@media (max-width: 700px){
+ body{padding:20px 16px;font-size:15px}
+ h1{font-size:22px}h2{font-size:19px}h3{font-size:17px}
+ table{display:block;overflow-x:auto}
+ #TOC{padding:14px 16px}
+}
+@media print{
+ body{font-size:10pt;padding:0;max-width:none}
+ h1{font-size:23pt}h2{font-size:17pt;break-after:avoid}h3{font-size:13pt;break-after:avoid}
+ p{orphans:3;widows:3}table{font-size:7pt;break-inside:avoid}img{max-height:180mm;break-inside:avoid}
+ pre{font-size:7pt;white-space:pre-wrap}a{color:inherit}#TOC{break-after:page}
+ @page{size:A4;margin:18mm 15mm}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">UniAD 全文日本語訳</h1>
+<p class="src-meta">原文PDF: <a href="18_UniAD_2212.10156.pdf">18_UniAD_2212.10156.pdf</a>（24ページ）　／　<a href="index.html">原文と並べて読む</a>　／　翻訳生成日: 2026-11-16</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#planning-oriented-autonomous-driving" id="toc-planning-oriented-autonomous-driving">Planning-oriented Autonomous Driving</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-手法" id="toc-2-手法">2　手法</a><ul>
+<li><a href="#2.1-知覚追跡と地図作成" id="toc-2.1-知覚追跡と地図作成">2.1　知覚：追跡と地図作成</a></li>
+<li><a href="#2.2-予測動き予測" id="toc-2.2-予測動き予測">2.2　予測：動き予測</a></li>
+<li><a href="#2.3-予測占有予測" id="toc-2.3-予測占有予測">2.3　予測：占有予測</a></li>
+<li><a href="#2.4-計画" id="toc-2.4-計画">2.4　計画</a></li>
+<li><a href="#2.5-学習" id="toc-2.5-学習">2.5　学習</a></li>
+</ul></li>
+<li><a href="#3-実験" id="toc-3-実験">3　実験</a><ul>
+<li><a href="#3.1-統合的な結果" id="toc-3.1-統合的な結果">3.1　統合的な結果</a></li>
+<li><a href="#3.2-モジュールごとの結果" id="toc-3.2-モジュールごとの結果">3.2　モジュールごとの結果</a></li>
+<li><a href="#3.3-定性的な結果" id="toc-3.3-定性的な結果">3.3　定性的な結果</a></li>
+<li><a href="#3.4-アブレーション研究" id="toc-3.4-アブレーション研究">3.4　アブレーション研究</a></li>
+</ul></li>
+<li><a href="#4-結論と今後の課題" id="toc-4-結論と今後の課題">4　結論と今後の課題</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#付録" id="toc-付録">付録</a></li>
+<li><a href="#a-タスクの定義" id="toc-a-タスクの定義">A　タスクの定義</a></li>
+<li><a href="#b-各タスクの必要性" id="toc-b-各タスクの必要性">B　各タスクの必要性</a></li>
+<li><a href="#c-関連研究" id="toc-c-関連研究">C　関連研究</a><ul>
+<li><a href="#c.1-知覚と予測の統合" id="toc-c.1-知覚と予測の統合">C.1　知覚と予測の統合</a></li>
+<li><a href="#c.2-予測と計画の統合" id="toc-c.2-予測と計画の統合">C.2　予測と計画の統合</a></li>
+<li><a href="#c.3-エンドツーエンドの動作計画" id="toc-c.3-エンドツーエンドの動作計画">C.3　エンドツーエンドの動作計画</a></li>
+</ul></li>
+<li><a href="#d-記法" id="toc-d-記法">D　記法</a></li>
+<li><a href="#e-実装の詳細" id="toc-e-実装の詳細">E　実装の詳細</a><ul>
+<li><a href="#e.1-検出と追跡" id="toc-e.1-検出と追跡">E.1　検出と追跡</a></li>
+<li><a href="#e.2-オンライン地図作成" id="toc-e.2-オンライン地図作成">E.2　オンライン地図作成</a></li>
+<li><a href="#e.3-動き予測" id="toc-e.3-動き予測">E.3　動き予測</a></li>
+<li><a href="#e.4-占有予測" id="toc-e.4-占有予測">E.4　占有予測</a></li>
+<li><a href="#e.5-計画" id="toc-e.5-計画">E.5　計画</a></li>
+<li><a href="#e.6-学習の詳細" id="toc-e.6-学習の詳細">E.6　学習の詳細</a></li>
+</ul></li>
+<li><a href="#f-実験" id="toc-f-実験">F　実験</a><ul>
+<li><a href="#f.1-プロトコル" id="toc-f.1-プロトコル">F.1　プロトコル</a></li>
+<li><a href="#f.2-評価指標" id="toc-f.2-評価指標">F.2　評価指標</a></li>
+<li><a href="#f.3-モデルの複雑さと計算コスト" id="toc-f.3-モデルの複雑さと計算コスト">F.3　モデルの複雑さと計算コスト</a></li>
+<li><a href="#f.4-モデルの規模" id="toc-f.4-モデルの規模">F.4　モデルの規模</a></li>
+<li><a href="#f.5-定性的な結果" id="toc-f.5-定性的な結果">F.5　定性的な結果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<a class="pg" data-page="1"></a>
+<h1 id="planning-oriented-autonomous-driving">Planning-oriented Autonomous Driving</h1>
+<p>Yihan Hu<sup>1,2*</sup>、Jiazhi Yang<sup>1*</sup>、Li Chen<sup>1*†</sup>、Keyu Li<sup>1*</sup>、Chonghao Sima<sup>1</sup>、Xizhou Zhu<sup>3,1</sup>、Siqi Chai<sup>2</sup>、Senyao Du<sup>2</sup>、Tianwei Lin<sup>2</sup>、Wenhai Wang<sup>1</sup>、Lewei Lu<sup>3</sup>、Xiaosong Jia<sup>1</sup>、Qiang Liu<sup>2</sup>、Jifeng Dai<sup>1</sup>、Yu Qiao<sup>1</sup>、Hongyang Li<sup>1†</sup><br />
+<sup>1</sup> OpenDriveLab および OpenGVLab、Shanghai AI Laboratory　<sup>2</sup> Wuhan University　<sup>3</sup> SenseTime Research<br />
+<sup>*</sup>同等の貢献　<sup>†</sup>プロジェクトリーダー<br />
+<a href="https://github.com/OpenDriveLab/UniAD">https://github.com/OpenDriveLab/UniAD</a><br />
+arXiv:2212.10156v2 [cs.CV]、2023年3月23日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>18_UniAD_2212.10156.pdf</code>（全 24 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p><em>現代の自動運転システムは、知覚、予測、計画という逐次的な順序に並んだモジュール型のタスクとして特徴づけられる。多種多様なタスクを実行し高度な知能を実現するために、現在のアプローチは個々のタスクに対して独立したモデルを展開するか、別々のヘッドを持つマルチタスクのパラダイムを設計するかのいずれかである。しかしこれらは、誤差の蓄積やタスク間の協調の不足に悩まされうる。これに対し我々は、望ましいフレームワークは究極の目標、すなわち自動運転車の計画（planning）を追求する形で設計・最適化されるべきであると主張する。この方針のもと、我々は知覚と予測における主要な構成要素を見直し、これらすべてのタスクが計画に貢献するようにタスクに優先順位を付ける。我々は Unified Autonomous Driving（UniAD）を提案する。これは、フルスタックの運転タスクを 1 つのネットワークに統合した、現時点で最も包括的なフレームワークである。UniAD は各モジュールの利点を活用し、大域的な視点からエージェント間の相互作用のための相補的な特徴抽象を提供するよう精巧に設計されている。タスク同士は統一されたクエリインタフェースを介して情報をやり取りし、計画に向けて互いを促進する。我々は UniAD を難易度の高い nuScenes ベンチマーク上で実装する。広範なアブレーションにより、このような思想を用いることの有効性が、あらゆる側面で従来の最先端手法を大幅に上回ることによって実証される。コードとモデルは公開されている。</em></p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>深層学習の発展の成功に伴い、自動運転アルゴリズムは一連のタスク<sup>1</sup>によって組み立てられている。これには、知覚における検出・追跡・地図作成（mapping）、予測における動き予測と占有予測が含まれる。図1(a) に示すように、ほとんどの産業界のソリューションは、車載チップのリソース帯域が許す限り、各タスクに対して独立したモデルを個別に展開している［68,71］。このような設計はチーム間の研究開発の難しさを単純化するが、最適化目標が分離していることにより、モジュール間での情報損失、誤差の蓄積、特徴の不整合というリスクを伴う［57,66,82］。</p>
+<blockquote><p>脚注1：以下の文脈では、ある特定のタスク（<em>例えば</em>検出）を指すのに、タスク、モジュール、コンポーネント、ユニット、ノードを互換的に用いる。</p></blockquote>
+
+<figure><img src="figs/fig1.png" alt="図1" /></figure>
+<p><strong>図1：自動運転フレームワークの様々な設計の比較。</strong>(a) 産業界のほとんどのソリューションは、タスクごとに別々のモデルを展開する。(b) マルチタスク学習の方式は、タスクごとに分かれたヘッドでバックボーンを共有する。(c) エンドツーエンドのパラダイムは、知覚と予測のモジュールを統合する。従来の試みは、(c.1) のように計画を直接最適化するか、(c.2) のように一部の構成要素のみでシステムを設計するかのいずれかであった。これに対し我々は (c.3) において、望ましいシステムは計画指向であるべきであり、また計画を促進するよう先行タスクを適切に組織すべきであると主張する。</p>
+<p class="yakuchu">図中ラベル：Standalone Models＝独立モデル、Multi-task Framework＝マルチタスクフレームワーク、Head＝ヘッド、Task＝タスク、Module＝モジュール、Planner＝プランナ、Vanilla Solution＝素朴な解法、Explicit Design＝明示的な設計、Planning-oriented Design (Ours)＝計画指向の設計（提案手法）、Tracking＝追跡、Mapping＝地図作成、Motion＝動き予測、Occupancy＝占有予測、perception＝知覚、prediction＝予測、planning＝計画、End-to-end Autonomous Driving＝エンドツーエンド自動運転</p>
+
+<a class="pg" data-page="2"></a>
+<p>より洗練された設計は、図1(b) に示すように、共有された特徴抽出器に複数のタスク固有ヘッドを差し込むことによって、広範なタスクをマルチタスク学習（MTL）のパラダイムに組み込むことである。これは多くの領域で一般的な手法であり、一般的な視覚［79,92,108］や自動運転<sup>2</sup>［15,60,101,105］、例えば Transfuser［20］、BEVerse［105］、さらに産業化された製品、<em>例えば</em> Mobileye［68］、Tesla［87］、Nvidia［71］<em>など</em>で用いられている。MTL においては、タスク横断の共同学習戦略によって特徴抽象を活用でき、追加のタスクへ容易に拡張でき、車載チップの計算コストを節約できる。しかし、このような方式は望ましくない「負の転移（negative transfer）」を引き起こす可能性がある［23,64］。</p>
+<blockquote><p>脚注2：本論文では、自動運転における MTL を、知覚を<em>超えた</em>タスクを指すものとして扱う。知覚の<em>内部</em>での MTL、<em>例えば</em>検出、深度、オプティカルフロー<em>など</em>に関する研究は数多く存在するが、この種の文献は対象外とする。</p></blockquote>
+
+<table><thead><tr><th rowspan="2">設計</th><th rowspan="2">アプローチ</th><th colspan="3">知覚</th><th colspan="2">予測</th><th rowspan="2">計画</th></tr><tr><th>検出</th><th>追跡</th><th>地図</th><th>動き</th><th>占有</th></tr></thead><tbody>
+<tr><td rowspan="3">(b)</td><td>NMP［101］</td><td>✓</td><td></td><td></td><td>✓</td><td></td><td>✓</td></tr>
+<tr><td>NEAT［19］</td><td></td><td></td><td>✓</td><td></td><td></td><td>✓</td></tr>
+<tr><td>BEVerse［105］</td><td>✓</td><td></td><td>✓</td><td></td><td>✓</td><td></td></tr>
+<tr><td>(c.1)</td><td>［14,16,78,97］</td><td></td><td></td><td></td><td></td><td></td><td>✓</td></tr>
+<tr><td rowspan="6">(c.2)</td><td>PnPNet<sup>†</sup>［57］</td><td>✓</td><td>✓</td><td></td><td>✓</td><td></td><td></td></tr>
+<tr><td>ViP3D<sup>†</sup>［30］</td><td>✓</td><td>✓</td><td></td><td>✓</td><td></td><td></td></tr>
+<tr><td>P3［82］</td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td></tr>
+<tr><td>MP3［11］</td><td></td><td></td><td>✓</td><td></td><td>✓</td><td>✓</td></tr>
+<tr><td>ST-P3［38］</td><td></td><td></td><td>✓</td><td></td><td>✓</td><td>✓</td></tr>
+<tr><td>LAV［15］</td><td>✓</td><td></td><td>✓</td><td>✓</td><td></td><td>✓</td></tr>
+<tr><td>(c.3)</td><td><strong>UniAD</strong>（提案手法）</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+</tbody></table>
+<p><strong>表1：タスクの比較と分類。</strong>「設計」列は図1 と同様に分類している。「検出（Det.）」は 3D 物体検出、「地図（Map）」はオンライン地図作成、「占有（Occ.）」は占有マップ予測を表す。†：これらの研究は計画のために直接提案されたものではないが、知覚と予測を同時に行うという思想を共有している。UniAD は計画を促進するために 5 つの必須の運転タスクを実行する。</p>
+
+<p>これに対し、エンドツーエンド自動運転［11,15,19,38,97］の登場は、知覚、予測、計画のすべてのノードを<em>一体</em>として統合する。先行タスクの選択と優先順位は、計画にとって有利になるよう決定されるべきである。システムは計画指向であるべきで、特定の構成要素を含めて精巧に設計され、独立モデル方式のような誤差の蓄積や MTL 方式のような負の転移がほとんど生じないようにすべきである。表1 は、異なるフレームワーク設計のタスク分類を示している。</p>
+<p>エンドツーエンドのパラダイムに従った「白紙状態（tabula-rasa）」の手法の 1 つは、図1(c.1) に示すように、知覚と予測の明示的な教師信号を一切用いずに、計画された軌道を直接予測するものである。先駆的な研究［14,16,21,22,78,95,97,106］は、この素朴な設計を閉ループシミュレーション［26］で検証した。この方向性はさらなる探求に値するが、特に非常に動的な都市シナリオにおいては、安全性の保証と解釈可能性の点で不十分である。本論文では、別の観点に立ち、次の問いを立てる：<em>信頼性が高く計画指向の自動運転システムに向けて、計画に有利になるようパイプラインをどのように設計すべきか？どの先行タスクが必要か？</em></p>
+<p>直観的な解決策は、図1(c.2) に示すように、周囲の物体を知覚し、将来の挙動を予測し、安全な操縦を明示的に計画することであろう。現代のアプローチ［11,30,38,57,82］は良い洞察を与え、印象的な性能を達成している。しかし我々は、問題は細部に宿ると主張する。従来の研究は、計画指向の思想を想起させる特定の構成要素の考慮に多かれ少なかれ失敗している（表1 の (c.2) ブロックを参照）。これらのモジュールの詳細な定義と用語、およびその必要性については補足資料で詳しく述べる。</p>
+<p>この目的のため、我々は <strong>UniAD</strong> を提案する。これは、図1(c.3) および表1(c.3) に示すように、安全で頑健なシステムに向けて 5 つの必須タスクを活用する統合型自動運転（Unified Autonomous Driving）アルゴリズムフレームワークである。UniAD は計画指向の思想で設計されている。我々は、これが単なるエンジニアリング的努力によるタスクの単純な積み重ね<em>ではない</em>と主張する。鍵となる構成要素は、すべてのノードを接続するクエリベースの設計である。古典的なバウンディングボックス表現と比較して、クエリはより大きな受容野の恩恵を受け、上流の予測からの累積誤差を和らげる。さらにクエリは、多様な相互作用、<em>例えば</em>複数エージェント間の関係を柔軟にモデル化・符号化できる。我々の知る限り、UniAD は自動運転の分野において、知覚・予測・計画を含むこのような多様なタスクの共同協調を包括的に調査した最初の研究である。</p>
+<p>貢献は以下のようにまとめられる。<strong>(a)</strong> 我々は計画指向の思想に従った自動運転フレームワークの新たな展望を採り入れ、独立した設計や単純なマルチタスク学習ではなく、効果的なタスク協調の必要性を示す。<strong>(b)</strong> 我々は広範なタスクを活用する包括的なエンドツーエンドシステム UniAD を提示する。すぐに実用に移すための鍵となる構成要素は、すべてのノードを接続するインタフェースとしてのクエリ設計である。これにより UniAD は、柔軟な中間表現と、計画に向けたマルチタスクの知識交換を享受する。<strong>(c)</strong> 我々は UniAD を現実的なシナリオに対する難易度の高いベンチマーク上で実装する。広範なアブレーションを通じて、あらゆる側面で従来の最先端手法に対する本手法の優位性を検証する。</p>
+<p><em>本研究が自動運転システムの目標駆動型設計に光を当て、様々な運転タスクを協調させるための出発点を提供することを期待する。</em></p>
+
+<h2 id="2-手法">2　手法</h2>
+<a class="pg" data-page="3"></a>
+<p><strong>概要。</strong>図2 に示すように、UniAD は Transformer デコーダに基づく 4 つの知覚・予測モジュールと、最後に置かれた 1 つのプランナで構成される。クエリ \(Q\) は、パイプラインを接続して運転シーン内の実体間の様々な相互作用をモデル化する役割を担う。具体的には、マルチカメラ画像の系列が特徴抽出器に入力され、得られた透視ビュー特徴は BEVFormer［55］の既製の BEV エンコーダによって統一的な鳥瞰図（BEV）特徴 \(B\) に変換される。なお UniAD は特定の BEV エンコーダに限定されず、長期の時間的融合［31,74］やマルチモダリティ融合［58,64］によってより豊かな BEV 表現を抽出する他の手法を利用することもできる。<strong>TrackFormer</strong> では、トラッククエリと呼ぶ学習可能な埋め込みが \(B\) からエージェントの情報を問い合わせ、エージェントを検出・追跡する。<strong>MapFormer</strong> は、道路要素（<em>例えば</em>車線や区画線）の意味的抽象としてマップクエリを受け取り、地図のパノプティックセグメンテーションを行う。エージェントと地図を表現する上記のクエリを用いて、<strong>MotionFormer</strong> はエージェントと地図の間の相互作用を捉え、エージェントごとの将来軌道を予測する。各エージェントの行動はシーン内の他者に大きな影響を与えうるため、このモジュールは考慮対象のすべてのエージェントについて同時に予測を行う。同時に我々は、自車両（ego-vehicle）を明示的にモデル化し、このようなシーン中心のパラダイムにおいて自車両が他のエージェントと相互作用できるようにするための自車両クエリを考案する。<strong>OccFormer</strong> は BEV 特徴 \(B\) をクエリとして用い、エージェント単位の知識をキーおよびバリューとして備え、エージェントの同一性を保持したまま複数ステップ先の将来の占有を予測する。最後に <strong>Planner</strong> は、MotionFormer からの表現力豊かな自車両クエリを利用して計画結果を予測し、衝突を避けるために OccFormer が予測した占有領域から自らを遠ざける。</p>
+
+<figure><img src="figs/fig2.jpg" alt="図2" /></figure>
+<p><strong>図2：</strong>統合型自動運転（UniAD）の<strong>パイプライン</strong>。計画指向の思想に従って精巧に設計されている。タスクの単純な積み重ねではなく、知覚と予測における各モジュールの効果を調査し、運転シーンにおいて先行ノードから最終的な計画までの共同最適化の利点を活用する。すべての知覚・予測モジュールは Transformer デコーダ構造で設計されており、タスククエリが各ノードを接続するインタフェースとなる。最後に置かれた単純な注意機構ベースのプランナが、先行ノードから抽出された知識を考慮して自車両の将来のウェイポイントを予測する。占有の上に重ねた地図は可視化目的のみである。</p>
+<p class="yakuchu">図中ラベル：Ego-vehicle Query＝自車両クエリ、BEV Feature＝BEV 特徴、Multi-view Vision-only Input＝マルチビューの視覚のみの入力、Bird's eye view Feature＝鳥瞰図特徴、Track Q＝トラッククエリ、Map Q＝マップクエリ、Motion Q＝モーションクエリ、Occ Q＝占有クエリ、Agent-level Feature＝エージェントレベル特徴、Scene-level Feature＝シーンレベル特徴、Backbone＝バックボーン、Perception＝知覚、Prediction＝予測、Planning＝計画</p>
+
+<h3 id="2.1-知覚追跡と地図作成">2.1　知覚：追跡と地図作成</h3>
+<p><strong>TrackFormer。</strong>TrackFormer は、微分不可能な後処理なしに、検出と複数物体追跡（MOT）を同時に行う。［100,104］に着想を得て、我々は同様のクエリ設計を採用する。物体検出［8,109］で用いられる従来の検出クエリに加え、フレームをまたいでエージェントを追跡するための追加のトラッククエリを導入する。具体的には、各時間ステップにおいて、初期化された検出クエリは初めて知覚された新規エージェントの検出を担当し、トラッククエリは以前のフレームで検出されたエージェントのモデル化を続ける。検出クエリとトラッククエリはいずれも、BEV 特徴 \(B\) に注意を向けることでエージェントの抽象を捉える。シーンが連続的に変化するにつれて、現在フレームのトラッククエリは自己注意モジュールにおいて以前に記録されたクエリと相互作用して時間的情報を集約し、これは対応するエージェントが完全に消える（一定時間追跡されない）まで続く。［8］と同様に、TrackFormer は \(N\) 層を含み、最終出力状態 \(Q_A\) は下流の予測タスクのために \(N_a\) 個の有効なエージェントの知識を提供する。周囲の他のエージェントを符号化するクエリに加えて、我々はクエリ集合に特別な 1 つの<em>自車両クエリ</em>を導入し、自動運転車自身を明示的にモデル化する。これはさらに計画で用いられる。</p>
+<p><strong>MapFormer。</strong>我々はこれを 2D パノプティックセグメンテーション手法 Panoptic SegFormer［56］に基づいて設計する。下流の動き予測を助けるため、位置と構造の知識を符号化したマップクエリとして道路要素を疎に表現する。運転シナリオに対しては、車線、区画線、横断歩道を thing（物体）とし、走行可能領域を stuff（領域）とする［50］。MapFormer も \(N\) 層を積み重ねており、各層の出力結果はすべて教師付けされるが、エージェントと地図の相互作用のために MotionFormer へ渡されるのは最終層で更新されたクエリ \(Q_M\) のみである。</p>
+
+<h3 id="2.2-予測動き予測">2.2　予測：動き予測</h3>
+<p>近年の研究により、動き予測タスクにおける Transformer 構造の有効性が実証されている［43,44,63,69,70,84,99］。これに着想を得て、我々はエンドツーエンドの設定における MotionFormer を提案する。TrackFormer と MapFormer からそれぞれ得られる、動的エージェント \(Q_A\) と静的地図 \(Q_M\) の高度に抽象化されたクエリを用いて、MotionFormer はすべてのエージェントのマルチモーダルな将来の動き、<em>すなわち</em>上位 k 個の可能な軌道を、シーン中心の方式で予測する。このパラダイムは 1 回の順伝播でフレーム内の複数エージェントの軌道を生成するため、シーン全体を各エージェントの座標系に合わせる計算コストを大幅に節約する［49］。同時に、TrackFormer からの<em>自車両クエリ</em>を MotionFormer に通し、将来のダイナミクスを考慮して自車両を他のエージェントと相互作用させる。形式的には、出力される動きは \(\{\hat{\mathbf{x}}_{i,k} \in \mathbb{R}^{T\times 2} | i = 1,\ldots,N_a; k = 1,\ldots,\mathcal{K}\}\) と定式化される。ここで \(i\) はエージェントのインデックス、\(k\) は軌道のモダリティのインデックス、\(T\) は予測ホライズンの長さである。</p>
+
+<a class="pg" data-page="4"></a>
+<p><strong>MotionFormer。</strong>MotionFormer は \(N\) 層で構成され、各層は 3 種類の相互作用、すなわちエージェント–エージェント、エージェント–地図、エージェント–ゴール点の相互作用を捉える。各モーションクエリ \(Q_{i,k}\)（後で定義する。以下では簡単のため添え字 \(i, k\) を省略する）について、他のエージェント \(Q_A\) または地図要素 \(Q_M\) との相互作用は次のように定式化できる：</p>
+<p>\[ Q_{a/m} = \texttt{MHCA}(\texttt{MHSA}(Q), Q_A/Q_M), \tag{1} \]</p>
+<p>ここで \(\texttt{MHCA}\)、\(\texttt{MHSA}\) はそれぞれマルチヘッド交差注意とマルチヘッド自己注意［91］を表す。予測軌道を洗練するには意図された位置、<em>すなわち</em>ゴール点に注目することも重要であるため、変形可能注意（deformable attention）［109］を用いたエージェント–ゴール点注意を次のように考案する：</p>
+<p>\[ Q_g = \texttt{DeformAttn}(Q, \hat{\mathbf{x}}_T^{l-1}, B), \tag{2} \]</p>
+<p>ここで \(\hat{\mathbf{x}}_T^{l-1}\) は前の層の予測軌道の終点である。変形可能注意モジュール \(\texttt{DeformAttn}(q,r,x)\) は、クエリ \(q\)、参照点 \(r\)、空間特徴 \(x\) を入力として受け取る。これは参照点の周囲の空間特徴に対して疎な注意を行う。これにより、予測軌道は終点の周囲を考慮してさらに洗練される。3 つの相互作用はすべて並列にモデル化され、生成された \(Q_a\)、\(Q_m\)、\(Q_g\) は連結されて多層パーセプトロン（MLP）に渡され、クエリコンテキスト \(Q_{\text{ctx}}\) が得られる。その後、\(Q_{\text{ctx}}\) は洗練のために後続の層に送られるか、最終層で予測結果として復号される。</p>
+<p><strong>モーションクエリ。</strong>MotionFormer の各層への入力クエリはモーションクエリと呼ばれ、2 つの成分からなる。前述のとおり先行層で生成されたクエリコンテキスト \(Q_{\text{ctx}}\) と、クエリ位置 \(Q_{\text{pos}}\) である。具体的には、\(Q_{\text{pos}}\) は式 (3) のように 4 種類の位置的知識を統合する：(1) シーンレベルのアンカー \(I^s\) の位置、(2) エージェントレベルのアンカー \(I^a\) の位置、(3) エージェント \(i\) の現在位置、(4) 予測されたゴール点。</p>
+<p>\[ \begin{aligned} Q_{\text{pos}} &= \text{MLP}(\text{PE}(I^s)) + \text{MLP}(\text{PE}(I^a)) \\ &\quad + \text{MLP}(\text{PE}(\hat{\mathbf{x}}_0)) + \text{MLP}(\text{PE}(\hat{\mathbf{x}}_T^{l-1})). \end{aligned} \tag{3} \]</p>
+<p>ここでは位置点を符号化するために、正弦波位置符号化 \(\text{PE}(\cdot)\) とそれに続く MLP を用いる。また最初の層では \(\hat{\mathbf{x}}_T^0\) を \(I^s\) とする（添え字 \(i, k\) もここでは省略している）。シーンレベルのアンカーは大域的な視点での事前の移動統計を表し、エージェントレベルのアンカーは局所座標系における可能な意図を捉える。いずれも予測の不確実性を狭めるため、正解軌道の終点に対して k-means アルゴリズムでクラスタリングされる。事前知識とは対照的に、始点は各エージェントに合わせた位置埋め込みを提供し、予測された終点は粗から細へ（coarse-to-fine）の方式で層ごとに最適化される動的アンカーとして機能する。</p>
+<p><strong>非線形最適化。</strong>正解の知覚結果、<em>すなわち</em>エージェントの位置と対応する追跡に直接アクセスできる従来の動き予測研究とは異なり、我々のエンドツーエンドのパラダイムでは前段モジュールに由来する予測の不確実性を考慮する。不完全な検出位置や方位角から正解ウェイポイントを強引に回帰すると、大きな曲率や加速度を伴う非現実的な軌道予測につながりうる。これに対処するため、非線形スムーザ［7］を採用して目標軌道を調整し、上流モジュールによって予測された不正確な始点のもとでも物理的に実現可能なものにする。この処理は次のとおりである：</p>
+<p>\[ \tilde{\mathbf{x}}^* = \arg\min_{\mathbf{x}} c(\mathbf{x}, \tilde{\mathbf{x}}), \tag{4} \]</p>
+<p>ここで \(\tilde{\mathbf{x}}\) と \(\tilde{\mathbf{x}}^*\) は正解軌道と平滑化された軌道を表し、\(\mathbf{x}\) は多重シューティング法（multiple-shooting）［3］によって生成される。コスト関数は次のとおりである：</p>
+<p>\[ c(\mathbf{x}, \tilde{\mathbf{x}}) = \lambda_{\text{xy}} \|\mathbf{x}, \tilde{\mathbf{x}}\|_2 + \lambda_{\text{goal}} \|\mathbf{x}_T, \tilde{\mathbf{x}}_T\|_2 + \sum_{\phi\in\Phi} \phi(\mathbf{x}), \tag{5} \]</p>
+<p>ここで \(\lambda_{\text{xy}}\) と \(\lambda_{\text{goal}}\) はハイパーパラメータであり、運動学的関数の集合 \(\Phi\) は躍度（jerk）、曲率、曲率変化率、加速度、横加速度の 5 項からなる。このコスト関数は、目標軌道が運動学的制約に従うよう正則化する。この目標軌道の最適化は学習時にのみ行われ、推論には影響しない。</p>
+
+<h3 id="2.3-予測占有予測">2.3　予測：占有予測</h3>
+<p>占有グリッドマップは離散化された BEV 表現であり、各セルはそれが占有されているかどうかを示す信念を保持する。占有予測タスクは、グリッドマップが将来どのように変化するかを見出すことである。従来のアプローチは、観測された BEV 特徴から将来予測を時間方向に展開するために RNN 構造を利用している［35,38,105］。しかしそれらは、BEV 特徴全体を RNN の隠れ状態に圧縮するため大部分がエージェント非依存であり、エージェントごとの占有マップを生成するために高度に手作業で設計されたクラスタリング後処理に依存している。エージェント単位の知識の利用が不十分であるため、シーンがどのように変化するかを理解するのに不可欠な、すべてのエージェントの挙動を大域的に予測することが難しい。これに対処するため、我々は OccFormer を提示し、シーンレベルとエージェントレベルの意味情報を 2 つの側面で取り込む：(1) 将来のホライズンへ展開する際に、密なシーン特徴が精巧に設計された注意モジュールを介してエージェントレベルの特徴を獲得する。(2) 重い後処理なしに、エージェントレベル特徴と密なシーン特徴との行列積によってインスタンスごとの占有を容易に生成する。</p>
+<a class="pg" data-page="5"></a>
+<p>OccFormer は \(T_o\) 個の逐次的なブロックで構成され、\(T_o\) は予測ホライズンを示す。密に表現される占有の計算コストが高いため、\(T_o\) は通常、動き予測タスクにおける \(T\) よりも小さいことに注意されたい。各ブロックは、豊富なエージェント特徴 \(G^t\) と前の層からの状態（密な特徴）\(F^{t-1}\) を入力として受け取り、インスタンスレベルとシーンレベルの両方の情報を考慮して時間ステップ \(t\) の \(F^t\) を生成する。ダイナミクスと空間的事前情報を持つエージェント特徴 \(G^t\) を得るため、MotionFormer からのモーションクエリをモダリティ次元で max-pooling し、これを \(Q_X \in \mathbb{R}^{N_a\times D}\) と表す。ここで \(D\) は特徴次元である。次に、時刻固有の MLP を介して、これを上流のトラッククエリ \(Q_A\) および現在位置の埋め込み \(P_A\) と融合する：</p>
+<p>\[ G^t = \text{MLP}_t([Q_A, P_A, Q_X]),\ t = 1,\ldots,T_o, \tag{6} \]</p>
+<p>ここで \([\cdot]\) は連結を示す。シーンレベルの知識については、学習効率のために BEV 特徴 \(B\) を 1/4 の解像度に縮小し、最初のブロックの入力 \(F^0\) とする。さらに学習時のメモリを節約するため、各ブロックはダウンサンプル–アップサンプルの方式に従い、その間に注意モジュールを挟んで、1/8 に縮小された特徴（\(F_{\text{ds}}^t\) と表す）上でピクセル–エージェント相互作用を行う。</p>
+<p><strong>ピクセル–エージェント相互作用</strong>は、将来の占有を予測する際にシーンレベルとエージェントレベルの理解を統合するよう設計されている。密な特徴 \(F_{\text{ds}}^t\) をクエリとし、インスタンスレベルの特徴をキーおよびバリューとして、密な特徴を時間とともに更新する。詳しくは、\(F_{\text{ds}}^t\) は自己注意層を通過して離れたグリッド間の応答をモデル化し、その後、交差注意層がエージェント特徴 \(G^t\) とグリッドごとの特徴との相互作用をモデル化する。さらに、ピクセルとエージェントの対応を揃えるため、［17］に着想を得て、注意マスクによって交差注意を制約する。これにより、各ピクセルは時間ステップ \(t\) においてそのピクセルを占有しているエージェントのみを見るよう制限される。密な特徴の更新過程は次のように定式化される：</p>
+<p>\[ D_{\text{ds}}^t = \texttt{MHCA}(\texttt{MHSA}(F_{\text{ds}}^t), G^t, \text{attn\_mask} = O_m^t). \tag{7} \]</p>
+<p>注意マスク \(O_m^t\) は意味的に占有と類似しており、追加のエージェントレベル特徴と密な特徴 \(F_{\text{ds}}^t\) を乗算することで生成される。ここでこのエージェントレベル特徴をマスク特徴 \(M^t = \text{MLP}(G^t)\) と呼ぶ。式 (7) の相互作用過程の後、\(D_{\text{ds}}^t\) は \(B\) の 1/4 のサイズにアップサンプルされる。さらに残差接続として \(D_{\text{ds}}^t\) にブロック入力 \(F^{t-1}\) を加え、得られた特徴 \(F^t\) を次のブロックに渡す。</p>
+<p><strong>インスタンスレベルの占有。</strong>これは各エージェントの同一性を保持した占有を表す。最近のクエリベースのセグメンテーション研究［18,52］と同様に、行列積によって簡単に求めることができる。形式的には、BEV 特徴 \(B\) の元のサイズ \(H\times W\) の占有予測を得るために、シーンレベル特徴 \(F^t\) を畳み込みデコーダによって \(F_{\text{dec}}^t \in \mathbb{R}^{C\times H\times W}\) にアップサンプルする。ここで \(C\) はチャネル次元である。エージェントレベル特徴については、別の MLP によって粗いマスク特徴 \(M^t\) をさらに占有特徴 \(U^t \in \mathbb{R}^{N_a\times C}\) に更新する。元のエージェント特徴 \(G^t\) ではなくマスク特徴 \(M^t\) から \(U^t\) を生成するほうが優れた性能につながることを経験的に見出した。時間ステップ \(t\) の最終的なインスタンスレベル占有は次のとおりである：</p>
+<p>\[ \hat{O}_A^t = U^t \cdot F_{\text{dec}}^t. \tag{8} \]</p>
+
+<h3 id="2.4-計画">2.4　計画</h3>
+<p>高精度（HD）地図や事前に定義された経路を用いない計画では、通常、進む方向を示す高レベルのコマンドが必要となる［11,38］。これに従い、生のナビゲーション信号（<em>すなわち</em>左折、右折、直進）を、コマンド埋め込みと呼ぶ 3 つの学習可能な埋め込みに変換する。MotionFormer からの自車両クエリはすでにそのマルチモーダルな意図を表現しているため、これにコマンド埋め込みを付与して「計画クエリ（plan query）」を構成する。計画クエリを BEV 特徴 \(B\) に注意させて周囲を認識させ、その後、将来のウェイポイント \(\hat{\tau}\) に復号する。</p>
+<p>衝突をさらに回避するため、推論時にのみ、ニュートン法に基づいて次のように \(\hat{\tau}\) を最適化する：</p>
+<p>\[ \tau^* = \arg\min_{\tau} f(\tau, \hat{\tau}, \hat{O}), \tag{9} \]</p>
+<p>ここで \(\hat{\tau}\) は元の計画予測であり、\(\tau^*\) は最適化された計画を表す。これは多重シューティング法［3］による軌道 \(\tau\) の中から、コスト関数 \(f(\cdot)\) を最小化するよう選択される。\(\hat{O}\) は OccFormer によるインスタンスごとの占有予測を統合した古典的な二値占有マップである。コスト関数 \(f(\cdot)\) は次のように計算される：</p>
+<p>\[ f(\tau, \hat{\tau}, \hat{O}) = \lambda_{\text{coord}} \|\tau, \hat{\tau}\|_2 + \lambda_{\text{obs}} \sum_t \mathcal{D}(\tau_t, \hat{O}^t), \tag{10} \]</p>
+<p>\[ \mathcal{D}(\tau_t, \hat{O}^t) = \sum_{(x,y)\in\mathcal{S}} \frac{1}{\sigma\sqrt{2\pi}} \exp\left(-\frac{\|\tau_t - (x,y)\|_2^2}{2\sigma^2}\right). \tag{11} \]</p>
+<p>ここで \(\lambda_{\text{coord}}\)、\(\lambda_{\text{obs}}\)、\(\sigma\) はハイパーパラメータであり、\(t\) は将来のホライズンの時間ステップのインデックスである。\(l_2\) コストは軌道を元の予測軌道へ引き寄せ、衝突項 \(\mathcal{D}\) は、\(\mathcal{S} = \{(x,y) \,|\, \|(x,y) - \tau_t\|_2 \lt d, \hat{O}_{x,y}^t = 1\}\) に限定された周囲の位置を考慮して、軌道を占有されたグリッドから遠ざける。</p>
+
+<h3 id="2.5-学習">2.5　学習</h3>
+<p>UniAD は 2 段階で学習される。まず知覚部分、<em>すなわち</em>追跡モジュールと地図作成モジュールを数エポック（我々の実験では 6 エポック）共同で学習し、その後、知覚・予測・計画のすべてのモジュールを用いてモデルを 20 エポック、エンドツーエンドで学習する。2 段階学習のほうが経験的に安定であることがわかった。各損失の詳細については補足資料を参照されたい。</p>
+<p><strong>共有マッチング。</strong>UniAD はインスタンス単位のモデル化を含むため、知覚と予測のタスクでは予測を正解集合と対応付ける必要がある。DETR［8,56］と同様に、追跡とオンライン地図作成の段階では二部マッチングアルゴリズムを採用する。追跡に関しては、検出クエリからの候補は新たに出現した正解物体と対応付けられ、トラッククエリからの予測は以前のフレームからの割り当てを引き継ぐ。追跡モジュールにおけるマッチング結果は動き予測ノードと占有ノードで再利用され、エンドツーエンドのフレームワークにおいて、過去の追跡から将来の動きまでエージェントを一貫してモデル化する。</p>
+
+<a class="pg" data-page="6"></a>
+<table><thead><tr><th rowspan="2">ID</th><th colspan="5">モジュール</th><th colspan="3">追跡</th><th colspan="2">地図作成</th><th colspan="3">動き予測</th><th colspan="4">占有予測</th><th colspan="2">計画</th></tr>
+<tr><th>Track</th><th>Map</th><th>Motion</th><th>Occ.</th><th>Plan</th><th>AMOTA↑</th><th>AMOTP↓</th><th>IDS↓</th><th>IoU-lane↑</th><th>IoU-road↑</th><th>minADE↓</th><th>minFDE↓</th><th>MR↓</th><th>IoU-n.↑</th><th>IoU-f.↑</th><th>VPQ-n.↑</th><th>VPQ-f.↑</th><th>avg.L2↓</th><th>avg.Col.↓</th></tr></thead><tbody>
+<tr><td>0*</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">0.356</td><td style="text-align:right">1.328</td><td style="text-align:right">893</td><td style="text-align:right">0.302</td><td style="text-align:right">0.675</td><td style="text-align:right">0.858</td><td style="text-align:right">1.270</td><td style="text-align:right">0.186</td><td style="text-align:right">55.9</td><td style="text-align:right">34.6</td><td style="text-align:right">47.8</td><td style="text-align:right">26.4</td><td style="text-align:right">1.154</td><td style="text-align:right">0.941</td></tr>
+<tr><td>1</td><td>✓</td><td></td><td></td><td></td><td></td><td style="text-align:right">0.348</td><td style="text-align:right">1.333</td><td style="text-align:right">791</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>2</td><td></td><td>✓</td><td></td><td></td><td></td><td>-</td><td>-</td><td>-</td><td style="text-align:right"><strong>0.305</strong></td><td style="text-align:right"><u>0.674</u></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>3</td><td>✓</td><td>✓</td><td></td><td></td><td></td><td style="text-align:right">0.355</td><td style="text-align:right">1.336</td><td style="text-align:right"><u>785</u></td><td style="text-align:right">0.301</td><td style="text-align:right">0.671</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>4</td><td></td><td></td><td>✓</td><td></td><td></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="text-align:right">0.815</td><td style="text-align:right">1.224</td><td style="text-align:right">0.182</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>5</td><td>✓</td><td></td><td>✓</td><td></td><td></td><td style="text-align:right"><u>0.360</u></td><td style="text-align:right">1.350</td><td style="text-align:right">919</td><td>-</td><td>-</td><td style="text-align:right">0.751</td><td style="text-align:right">1.109</td><td style="text-align:right">0.162</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>6</td><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td style="text-align:right">0.354</td><td style="text-align:right">1.339</td><td style="text-align:right">820</td><td style="text-align:right">0.303</td><td style="text-align:right">0.672</td><td style="text-align:right">0.736(-9.7%)</td><td style="text-align:right">1.066(-12.9%)</td><td style="text-align:right">0.158</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>7</td><td></td><td></td><td></td><td>✓</td><td></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="text-align:right">60.5</td><td style="text-align:right">37.0</td><td style="text-align:right">52.4</td><td style="text-align:right">29.8</td><td>-</td><td>-</td></tr>
+<tr><td>8</td><td>✓</td><td></td><td></td><td>✓</td><td></td><td style="text-align:right"><u>0.360</u></td><td style="text-align:right"><strong>1.322</strong></td><td style="text-align:right">809</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="text-align:right"><u>62.1</u></td><td style="text-align:right">38.4</td><td style="text-align:right">52.2</td><td style="text-align:right">32.1</td><td>-</td><td>-</td></tr>
+<tr><td>9</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td></td><td style="text-align:right">0.359</td><td style="text-align:right">1.359</td><td style="text-align:right">1057</td><td style="text-align:right"><u>0.304</u></td><td style="text-align:right"><strong>0.675</strong></td><td style="text-align:right"><strong>0.710</strong>(-3.5%)</td><td style="text-align:right"><strong>1.005</strong>(-5.8%)</td><td style="text-align:right"><strong>0.146</strong></td><td style="text-align:right"><strong>62.3</strong></td><td style="text-align:right"><u>39.4</u></td><td style="text-align:right"><strong>53.1</strong></td><td style="text-align:right"><u>32.2</u></td><td>-</td><td>-</td></tr>
+<tr><td>10</td><td></td><td></td><td></td><td></td><td>✓</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="text-align:right">1.131</td><td style="text-align:right">0.773</td></tr>
+<tr><td>11</td><td>✓</td><td>✓</td><td>✓</td><td></td><td>✓</td><td style="text-align:right"><strong>0.366</strong></td><td style="text-align:right">1.337</td><td style="text-align:right">889</td><td style="text-align:right">0.303</td><td style="text-align:right">0.672</td><td style="text-align:right">0.741</td><td style="text-align:right">1.077</td><td style="text-align:right">0.157</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="text-align:right"><u>1.014</u></td><td style="text-align:right"><u>0.717</u></td></tr>
+<tr><td>12</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">0.358</td><td style="text-align:right"><u>1.334</u></td><td style="text-align:right"><strong>641</strong></td><td style="text-align:right">0.302</td><td style="text-align:right">0.672</td><td style="text-align:right"><u>0.728</u></td><td style="text-align:right"><u>1.054</u></td><td style="text-align:right"><u>0.154</u></td><td style="text-align:right"><strong>62.3</strong></td><td style="text-align:right"><strong>39.5</strong></td><td style="text-align:right"><u>52.8</u></td><td style="text-align:right"><strong>32.3</strong></td><td style="text-align:right"><strong>1.004</strong></td><td style="text-align:right"><strong>0.430</strong></td></tr>
+</tbody></table>
+<p><strong>表2：各タスクの有効性に関する詳細なアブレーション。</strong>2 つの知覚サブタスクが動き予測を大きく助けること、また 2 つの予測モジュールを統合することで予測性能も恩恵を受けることが結論づけられる。すべての事前表現を用いることで、我々の目標である計画は安全性を確保するよう大幅に向上する。UniAD は予測タスクと計画タスクにおいて素朴な MTL の解法を大差で上回り、さらに知覚性能の実質的な低下が<em>まったく</em>生じないという優位性も持つ。簡潔さのため主要な評価指標のみを示す。「avg.L2」と「avg.Col」は計画ホライズン全体での平均値である。∗：ID-0 は各タスクに別々のヘッドを持つ MTL 方式である。</p>
+<p class="yakuchu">（訳注：原表では各タスクの主評価指標の領域が灰色背景で示されている。最良値は太字、次点は下線。）</p>
+
+<h2 id="3-実験">3　実験</h2>
+<p>我々は難易度の高い nuScenes データセット［6］で実験を行う。本節では、設計の有効性を 3 つの側面から検証する：タスク協調の利点とその計画への効果を明らかにする統合的な結果、各タスクを従来手法と比較したモジュールごとの結果、そして特定のモジュールの設計空間に関するアブレーションである。紙面の制約により、評価プロトコルの全体、一部のアブレーションおよび可視化は補足資料で示す。</p>
+
+<h3 id="3.1-統合的な結果">3.1　統合的な結果</h3>
+<p>エンドツーエンドのパイプラインにおける先行タスクの有効性と必要性を証明するため、表2 に示すように広範なアブレーションを行う。この表の各行は、2 列目の<em>モジュール</em>列に列挙されたタスクモジュールを組み込んだ場合のモデル性能を示す。最初の行（ID-0）は、比較のための、タスクごとに別々のヘッドを持つ素朴なマルチタスクのベースラインである。各列において、各評価指標の最良の結果は太字で、次点の結果は下線で示している。</p>
+<p><strong>安全な計画へのロードマップ。</strong>予測は知覚に比べて計画により近いため、まず我々のフレームワークにおける 2 種類の予測タスク、<em>すなわち</em>動き予測と占有予測を調査する。実験 10〜12 では、2 つのタスクを同時に導入した場合（実験 12）にのみ、中間タスクを一切持たない素朴なエンドツーエンド計画（実験 10、図1(c.1)）と比較して、計画の L2 と衝突率の両指標が最良の結果を達成する。したがって、安全な計画という目的のためには、これら 2 つの予測タスクの両方が必要であると結論づける。一歩戻って、実験 7〜9 では 2 種類の予測の協調効果を示す。両タスクを緊密に統合すると両方の性能が向上する（実験 9、minADE -3.5%、minFDE -5.8%、MR(%) -1.3、IoU-f.(%) +2.4、VPQ-f.(%) +2.4）。これはエージェント表現とシーン表現の両方を含めることの必要性を示している。一方、優れた動き予測性能を実現するために、実験 4〜6 では知覚モジュールがどのように貢献しうるかを探る。特に、追跡ノードと地図作成ノードの両方を組み込むことで、予測結果に顕著な改善がもたらされる（minADE -9.7%、minFDE -12.9%、MR(%) -2.3）。また実験 1〜3 も示しており、知覚サブタスクを一緒に学習しても単一タスクと同等の結果が得られることを示している。さらに、素朴なマルチタスク学習（実験 0、図1(b)）と比較して、実験 12 はすべての必須指標で大差をつけてこれを上回っており（minADE -15.2%、minFDE -17.0%、MR(%) -3.2、IoU-f.(%) +4.9、VPQ-f.(%) +5.9、avg.L2 -0.15<em>m</em>、avg.Col.(%) -0.51）、我々の計画指向の設計の優位性を示している。</p>
+
+<h3 id="3.2-モジュールごとの結果">3.2　モジュールごとの結果</h3>
+<p>知覚–予測–計画という逐次的な順序に従い、nuScenes の検証セットにおける各タスクモジュールの性能を従来の最先端手法と比較して報告する。UniAD はこれらすべてのタスクを、学習済みの単一のネットワークで同時に実行していることに注意されたい。各タスクの主要な評価指標は、表中で灰色の背景で示している。</p>
+<p><strong>知覚の結果。</strong>表3 の複数物体追跡については、UniAD は MUTR3D［104］および ViP3D［30］と比較して、それぞれ AMOTA(%) で <strong>+6.5</strong> および <strong>+14.2</strong> の大幅な改善をもたらす。さらに UniAD は最も低い ID スイッチのスコアを達成しており、各トラックレットの時間的一貫性を示している。表4 のオンライン地図作成については、UniAD は車線のセグメンテーションで良好な性能を示す（BEVFormer と比較して IoU(%) で <strong>+7.4</strong>）。これは動き予測モジュールにおける下流のエージェント–道路相互作用にとって極めて重要である。我々の追跡モジュールはエンドツーエンドのパラダイムに従っているため、Immortal Tracker［93］のような複雑な関連付けを伴う検出ベース追跡（tracking-by-detection）手法には依然として劣り、また我々の地図作成結果は特定のクラスにおいて従来の知覚指向の手法に後れを取る。我々は、UniAD はモデルの全能力で知覚を最適化するのではなく、知覚した情報によって<em>最終的な</em>計画に役立つことを目的としていると主張する。</p>
+<a class="pg" data-page="7"></a>
+<table><thead><tr><th>手法</th><th>AMOTA↑</th><th>AMOTP↓</th><th>Recall↑</th><th>IDS↓</th></tr></thead><tbody>
+<tr><td>Immortal Tracker<sup>†</sup>［93］</td><td style="text-align:right">0.378</td><td style="text-align:right">1.119</td><td style="text-align:right">0.478</td><td style="text-align:right">936</td></tr>
+<tr><td>ViP3D［30］</td><td style="text-align:right">0.217</td><td style="text-align:right">1.625</td><td style="text-align:right">0.363</td><td style="text-align:right">-</td></tr>
+<tr><td>QD3DT［36］</td><td style="text-align:right">0.242</td><td style="text-align:right">1.518</td><td style="text-align:right">0.399</td><td style="text-align:right">-</td></tr>
+<tr><td>MUTR3D［104］</td><td style="text-align:right">0.294</td><td style="text-align:right">1.498</td><td style="text-align:right">0.427</td><td style="text-align:right">3822</td></tr>
+<tr><td><strong>UniAD</strong></td><td style="text-align:right"><strong>0.359</strong></td><td style="text-align:right"><strong>1.320</strong></td><td style="text-align:right"><strong>0.467</strong></td><td style="text-align:right"><strong>906</strong></td></tr>
+</tbody></table>
+<p><strong>表3：複数物体追跡。</strong>UniAD は、従来のエンドツーエンド MOT 手法（画像入力のみ）をすべての指標で上回る。†：事後の関連付けを伴う検出ベース追跡手法であり、公平な比較のため BEVFormer を用いて再実装した。</p>
+
+<table><thead><tr><th>手法</th><th>Lanes↑</th><th>Drivable↑</th><th>Divider↑</th><th>Crossing↑</th></tr></thead><tbody>
+<tr><td>VPN［72］</td><td style="text-align:right">18.0</td><td style="text-align:right">76.0</td><td style="text-align:right">-</td><td style="text-align:right">-</td></tr>
+<tr><td>LSS［76］</td><td style="text-align:right">18.3</td><td style="text-align:right">73.9</td><td style="text-align:right">-</td><td style="text-align:right">-</td></tr>
+<tr><td>BEVFormer［55］</td><td style="text-align:right">23.9</td><td style="text-align:right"><strong>77.5</strong></td><td style="text-align:right">-</td><td style="text-align:right">-</td></tr>
+<tr><td>BEVerse<sup>†</sup>［105］</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right"><strong>30.6</strong></td><td style="text-align:right"><strong>17.2</strong></td></tr>
+<tr><td><strong>UniAD</strong></td><td style="text-align:right"><strong>31.3</strong></td><td style="text-align:right">69.1</td><td style="text-align:right">25.7</td><td style="text-align:right">13.8</td></tr>
+</tbody></table>
+<p><strong>表4：オンライン地図作成。</strong>UniAD は、包括的な道路の意味情報を扱いつつ、最先端の知覚指向手法に対して競争力のある性能を達成する。セグメンテーションの IoU（%）を報告する。†：BEVFormer を用いて再実装。</p>
+<p class="yakuchu">列名：Lanes＝車線、Drivable＝走行可能領域、Divider＝区画線、Crossing＝横断歩道</p>
+
+<table><thead><tr><th>手法</th><th>minADE(<em>m</em>)↓</th><th>minFDE(<em>m</em>)↓</th><th>MR↓</th><th>EPA↑</th></tr></thead><tbody>
+<tr><td>PnPNet<sup>†</sup>［57］</td><td style="text-align:right">1.15</td><td style="text-align:right">1.95</td><td style="text-align:right">0.226</td><td style="text-align:right">0.222</td></tr>
+<tr><td>ViP3D［30］</td><td style="text-align:right">2.05</td><td style="text-align:right">2.84</td><td style="text-align:right">0.246</td><td style="text-align:right">0.226</td></tr>
+<tr><td>Constant Pos.</td><td style="text-align:right">5.80</td><td style="text-align:right">10.27</td><td style="text-align:right">0.347</td><td style="text-align:right">-</td></tr>
+<tr><td>Constant Vel.</td><td style="text-align:right">2.13</td><td style="text-align:right">4.01</td><td style="text-align:right">0.318</td><td style="text-align:right">-</td></tr>
+<tr><td><strong>UniAD</strong></td><td style="text-align:right"><strong>0.71</strong></td><td style="text-align:right"><strong>1.02</strong></td><td style="text-align:right"><strong>0.151</strong></td><td style="text-align:right"><strong>0.456</strong></td></tr>
+</tbody></table>
+<p><strong>表5：動き予測。</strong>UniAD は、従来の視覚ベースのエンドツーエンド手法を大きく上回る。比較として、車両を一定位置（Constant Pos.）または一定速度（Constant Vel.）でモデル化する 2 つの設定も報告する。†：BEVFormer を用いて再実装。</p>
+
+<table><thead><tr><th>手法</th><th>IoU-n.↑</th><th>IoU-f.↑</th><th>VPQ-n.↑</th><th>VPQ-f.↑</th></tr></thead><tbody>
+<tr><td>FIERY［35］</td><td style="text-align:right">59.4</td><td style="text-align:right">36.7</td><td style="text-align:right">50.2</td><td style="text-align:right">29.9</td></tr>
+<tr><td>StretchBEV［1］</td><td style="text-align:right">55.5</td><td style="text-align:right">37.1</td><td style="text-align:right">46.0</td><td style="text-align:right">29.0</td></tr>
+<tr><td>ST-P3［38］</td><td style="text-align:right">-</td><td style="text-align:right">38.9</td><td style="text-align:right">-</td><td style="text-align:right">32.1</td></tr>
+<tr><td>BEVerse<sup>†</sup>［105］</td><td style="text-align:right">61.4</td><td style="text-align:right"><strong>40.9</strong></td><td style="text-align:right">54.3</td><td style="text-align:right"><strong>36.1</strong></td></tr>
+<tr><td><strong>UniAD</strong></td><td style="text-align:right"><strong>63.4</strong></td><td style="text-align:right">40.2</td><td style="text-align:right"><strong>54.7</strong></td><td style="text-align:right">33.5</td></tr>
+</tbody></table>
+<p><strong>表6：占有予測。</strong>UniAD は、計画にとってより重要な近傍領域で大幅な改善を得る。「n.」と「f.」はそれぞれ近距離（\(30\times 30m\)）と遠距離（\(50\times 50m\)）の評価範囲を示す。†：強いデータ拡張を用いて学習。</p>
+
+<table><thead><tr><th rowspan="2">手法</th><th colspan="4">L2(<em>m</em>)↓</th><th colspan="4">衝突率（Col. Rate）(%)↓</th></tr><tr><th>1<em>s</em></th><th>2<em>s</em></th><th>3<em>s</em></th><th>平均</th><th>1<em>s</em></th><th>2<em>s</em></th><th>3<em>s</em></th><th>平均</th></tr></thead><tbody>
+<tr><td>NMP<sup>†</sup>［101］</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">2.31</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">1.92</td><td style="text-align:right">-</td></tr>
+<tr><td>SA-NMP<sup>†</sup>［101］</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">2.05</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">-</td><td style="text-align:right">1.59</td><td style="text-align:right">-</td></tr>
+<tr><td>FF<sup>†</sup>［37］</td><td style="text-align:right">0.55</td><td style="text-align:right">1.20</td><td style="text-align:right">2.54</td><td style="text-align:right">1.43</td><td style="text-align:right">0.06</td><td style="text-align:right">0.17</td><td style="text-align:right">1.07</td><td style="text-align:right">0.43</td></tr>
+<tr><td>EO<sup>†</sup>［47］</td><td style="text-align:right">0.67</td><td style="text-align:right">1.36</td><td style="text-align:right">2.78</td><td style="text-align:right">1.60</td><td style="text-align:right">0.04</td><td style="text-align:right">0.09</td><td style="text-align:right">0.88</td><td style="text-align:right">0.33</td></tr>
+<tr><td>ST-P3［38］</td><td style="text-align:right">1.33</td><td style="text-align:right">2.11</td><td style="text-align:right">2.90</td><td style="text-align:right">2.11</td><td style="text-align:right">0.23</td><td style="text-align:right">0.62</td><td style="text-align:right">1.27</td><td style="text-align:right">0.71</td></tr>
+<tr><td><strong>UniAD</strong></td><td style="text-align:right"><strong>0.48</strong></td><td style="text-align:right"><strong>0.96</strong></td><td style="text-align:right"><strong>1.65</strong></td><td style="text-align:right"><strong>1.03</strong></td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right"><strong>0.17</strong></td><td style="text-align:right"><strong>0.71</strong></td><td style="text-align:right"><strong>0.31</strong></td></tr>
+</tbody></table>
+<p><strong>表7：計画。</strong>UniAD はすべての時間区間で最も低い L2 誤差と衝突率を達成し、多くの場合で LiDAR ベースの手法（†）をも上回っており、我々のシステムの安全性を裏付けている。</p>
+<p class="yakuchu">（訳注：原表では UniAD が太字で示されているが、1<em>s</em>・2<em>s</em> の衝突率では EO の 0.04・0.09 のほうが UniAD の 0.05・0.17 より低く、FF の 2<em>s</em> 衝突率 0.17 とも同値である。本文の「すべての時間区間で最も低い衝突率」という記述はこの点で表と整合しない。）</p>
+
+<table><thead><tr><th>ID</th><th>Scene-l. Anch.</th><th>Goal Inter.</th><th>Ego \(Q\)</th><th>NLO.</th><th>minADE↓</th><th>minFDE↓</th><th>MR↓</th><th>minFDE-mAP*↑</th></tr></thead><tbody>
+<tr><td>1</td><td></td><td></td><td></td><td></td><td style="text-align:right">0.844</td><td style="text-align:right">1.336</td><td style="text-align:right">0.177</td><td style="text-align:right">0.246</td></tr>
+<tr><td>2</td><td>✓</td><td></td><td></td><td></td><td style="text-align:right">0.768</td><td style="text-align:right">1.159</td><td style="text-align:right">0.164</td><td style="text-align:right">0.267</td></tr>
+<tr><td>3</td><td>✓</td><td>✓</td><td></td><td></td><td style="text-align:right">0.755</td><td style="text-align:right">1.130</td><td style="text-align:right">0.168</td><td style="text-align:right">0.264</td></tr>
+<tr><td>4</td><td>✓</td><td>✓</td><td>✓</td><td></td><td style="text-align:right">0.747</td><td style="text-align:right">1.096</td><td style="text-align:right">0.156</td><td style="text-align:right">0.266</td></tr>
+<tr><td>5</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right"><strong>0.710</strong></td><td style="text-align:right"><strong>1.004</strong></td><td style="text-align:right"><strong>0.146</strong></td><td style="text-align:right"><strong>0.273</strong></td></tr>
+</tbody></table>
+<p><strong>表8：動き予測モジュールの設計に関するアブレーション。</strong>すべての構成要素が最終的な性能に貢献している。「Scene-l. Anch.」は回転させたシーンレベルのアンカーを表す。「Goal Inter.」はエージェント–ゴール点相互作用を意味する。「Ego \(Q\)」は自車両クエリを表し、「NLO.」は非線形最適化の戦略である。∗：検出と予測の精度を同時に考慮する評価指標であり、詳細は補足資料に記す。</p>
+
+<p><strong>予測の結果。</strong>動き予測の結果を表5 に示す。UniAD は従来の視覚ベースのエンドツーエンド手法を大きく上回る。PnPNet-vision［57］および ViP3D［30］と比較して、minADE の予測誤差をそれぞれ <strong>38.3%</strong> および <strong>65.4%</strong> 削減する。表6 に報告する占有予測については、UniAD は近傍領域で顕著な進歩を遂げ、強いデータ拡張を用いた FIERY［35］および BEVerse［105］と比較して、IoU-near(%) でそれぞれ <strong>+4.0</strong> および <strong>+2.0</strong> を達成する。</p>
+<p><strong>計画の結果。</strong>自車両クエリと占有の両方に含まれる豊富な時空間情報の恩恵により、UniAD は計画ホライズンの平均値で見て、ST-P3［38］と比較して計画の L2 誤差と衝突率をそれぞれ <strong>51.2%</strong> および <strong>56.3%</strong> 削減する。さらに、知覚タスクにおいてしばしば困難とみなされる、いくつかの LiDAR ベースの手法をも顕著に上回る。</p>
+
+<h3 id="3.3-定性的な結果">3.3　定性的な結果</h3>
+<p>図3 は、ある複雑なシーンにおけるすべてのタスクの結果を可視化したものである。自車両は、前方車両と車線の潜在的な動きに注意を払いながら走行している。補足資料では、困難なシナリオのさらなる可視化と、計画指向の設計にとって有望な事例を示す。それは、前段のモジュールで不正確な結果が生じても後段のタスクが依然として回復できる事例であり、<em>例えば</em>物体の方位角に大きなずれがあったり追跡結果で検出に失敗したりしても、計画軌道は妥当なままである。加えて、UniAD の失敗事例は主に大型トラックやトレーラーのようなロングテールのシナリオで生じることを分析しており、これも補足資料に示す。</p>
+
+<h3 id="3.4-アブレーション研究">3.4　アブレーション研究</h3>
+<a class="pg" data-page="8"></a>
+<p><strong>MotionFormer における設計の効果。</strong>表8 は、2.2 節で述べた提案構成要素のすべてが、minADE、minFDE、ミス率（Miss Rate）、minFDE-mAP の各指標に関して最終的な性能に貢献していることを示している。特に、回転させたシーンレベルのアンカーは大幅な性能向上（minADE -15.8%、minFDE -11.2%、minFDE-mAP(%) +1.9）を示しており、シーン中心の方式で動き予測を行うことが不可欠であることを示している。エージェント–ゴール点相互作用は計画指向の視覚特徴によってモーションクエリを強化し、周囲のエージェントは自車両の意図を考慮することでさらに恩恵を受けることができる。さらに、非線形最適化の戦略は、エンドツーエンドのシナリオにおける知覚の不確実性を考慮することで性能を向上させる（minADE -5.0%、minFDE -8.4%、MR(%) -1.0、minFDE-mAP(%) +0.7）。</p>
+
+<figure><img src="figs/fig3.jpg" alt="図3" /></figure>
+<p><strong>図3：可視化結果。</strong>サラウンドビュー画像と BEV において、すべてのタスクの結果を示す。動き予測モジュールと占有予測モジュールの予測は一貫しており、この事例では自車両は前方の黒い車に道を譲っている。各エージェントは固有の色で示されている。動き予測からは、画像ビューでは上位 1 本、BEV では上位 3 本の軌道のみを可視化のために選択している。</p>
+<p class="yakuchu">図中ラベル：CAM_FRONT_LEFT／CAM_FRONT／CAM_FRONT_RIGHT／CAM_BACK_LEFT／CAM_BACK／CAM_BACK_RIGHT＝前方左／前方／前方右／後方左／後方／後方右カメラ、BEV (TOP VIEW)＝BEV（上面図）、Plan＝計画、Track＝追跡、Motion Forecast＝動き予測、Map＝地図、Occupancy Prediction＝占有予測、KEEP FORWARD＝直進（コマンド）</p>
+
+<table><thead><tr><th>ID</th><th>Cross. Attn.</th><th>Attn. Mask</th><th>Mask Feat.</th><th>IoU-n.↑</th><th>IoU-f.↑</th><th>VPQ-n.↑</th><th>VPQ-f.↑</th></tr></thead><tbody>
+<tr><td>1</td><td></td><td></td><td></td><td style="text-align:right">61.2</td><td style="text-align:right"><strong>39.7</strong></td><td style="text-align:right">51.5</td><td style="text-align:right">31.8</td></tr>
+<tr><td>2</td><td>✓</td><td></td><td></td><td style="text-align:right">61.3</td><td style="text-align:right">39.4</td><td style="text-align:right">51.0</td><td style="text-align:right">31.8</td></tr>
+<tr><td>3</td><td>✓</td><td>✓</td><td></td><td style="text-align:right">62.3</td><td style="text-align:right"><strong>39.7</strong></td><td style="text-align:right">52.4</td><td style="text-align:right">32.5</td></tr>
+<tr><td>4</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right"><strong>62.6</strong></td><td style="text-align:right">39.5</td><td style="text-align:right"><strong>53.2</strong></td><td style="text-align:right"><strong>32.8</strong></td></tr>
+</tbody></table>
+<p><strong>表9：占有予測モジュールの設計に関するアブレーション。</strong>マスク付きの交差注意とマスク特徴の再利用は予測の改善に役立つ。「Cross. Attn.」と「Attn. Mask」は、それぞれピクセル–エージェント相互作用における交差注意と注意マスクを表す。「Mask Feat.」はインスタンスレベル占有のためのマスク特徴の再利用を示す。</p>
+
+<table><thead><tr><th rowspan="2">ID</th><th rowspan="2">BEV Att.</th><th rowspan="2">Col. Loss</th><th rowspan="2">Occ. Optim.</th><th colspan="3">L2↓</th><th colspan="3">衝突率（Col. Rate）↓</th></tr><tr><th>1<em>s</em></th><th>2<em>s</em></th><th>3<em>s</em></th><th>1<em>s</em></th><th>2<em>s</em></th><th>3<em>s</em></th></tr></thead><tbody>
+<tr><td>1</td><td></td><td></td><td></td><td style="text-align:right"><strong>0.44</strong></td><td style="text-align:right"><strong>0.99</strong></td><td style="text-align:right"><strong>1.71</strong></td><td style="text-align:right">0.56</td><td style="text-align:right">0.88</td><td style="text-align:right">1.64</td></tr>
+<tr><td>2</td><td>✓</td><td></td><td></td><td style="text-align:right"><strong>0.44</strong></td><td style="text-align:right">1.04</td><td style="text-align:right">1.81</td><td style="text-align:right">0.35</td><td style="text-align:right">0.71</td><td style="text-align:right">1.58</td></tr>
+<tr><td>3</td><td>✓</td><td>✓</td><td></td><td style="text-align:right"><strong>0.44</strong></td><td style="text-align:right">1.02</td><td style="text-align:right">1.76</td><td style="text-align:right">0.30</td><td style="text-align:right">0.51</td><td style="text-align:right">1.39</td></tr>
+<tr><td>4</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">0.54</td><td style="text-align:right">1.09</td><td style="text-align:right">1.81</td><td style="text-align:right"><strong>0.13</strong></td><td style="text-align:right"><strong>0.42</strong></td><td style="text-align:right"><strong>1.05</strong></td></tr>
+</tbody></table>
+<p><strong>表10：計画モジュールの設計に関するアブレーション。</strong>結果は各先行タスクの必要性を示している。「BEV Att.」は BEV 特徴への注意を示す。「Col. Loss」は衝突損失を表す。「Occ. Optim.」は占有を用いた最適化戦略である。</p>
+
+<p><strong>OccFormer における設計の効果。</strong>表9 に示すように、局所性の制約なしに各ピクセルをすべてのエージェントに注意させると（実験 2）、注意を用いないベースライン（実験 1）と比較して性能がわずかに悪化する。占有に導かれた注意マスクはこの問題を解決し、特に近傍領域で改善をもたらす（実験 3、IoU-n.(%) +1.0、VPQ-n.(%) +1.4）。さらに、占有特徴を得るためにエージェント特徴ではなくマスク特徴 \(M^t\) を再利用することで、性能はさらに向上する。</p>
+<p><strong>Planner における設計の効果。</strong>表10 では、プランナにおける提案設計、<em>すなわち</em> BEV 特徴への注意、衝突損失を用いた学習、占有を用いた最適化戦略についてのアブレーションを示す。先行研究［37,38］と同様に、安全性のためには素朴な軌道模倣（L2 指標）よりも低い衝突率が望ましく、UniAD ではすべての構成要素を適用することで衝突率が低減される。</p>
+
+<h2 id="4-結論と今後の課題">4　結論と今後の課題</h2>
+<p>我々は自動運転アルゴリズムフレームワークのシステムレベルの設計について議論した。計画という究極の目標に向けた計画指向のパイプライン、すなわち UniAD を提案した。知覚と予測における各モジュールの必要性について詳細な分析を示した。タスクを統合するため、UniAD のすべてのノードを接続するクエリベースの設計を提案し、環境内のエージェント相互作用のためのより豊かな表現の恩恵を得た。広範な実験により、提案手法をあらゆる側面で検証した。</p>
+<p><strong>限界と今後の課題。</strong>複数のタスクを持つこのような包括的なシステムを協調させることは自明ではなく、特に時間的な履歴を用いて学習する場合には膨大な計算能力を必要とする。軽量な展開に向けてシステムをいかに設計・整理するかは、今後探求する価値がある。さらに、深度推定や行動予測といったより多くのタスクを組み込むべきか否か、そしてそれらをどのようにシステムに埋め込むかも、価値ある今後の方向性である。</p>
+<p><strong>謝辞。</strong>本研究は、中国国家重点研究開発計画（National Key R&amp;D Program of China, 2022ZD0160100）、ならびに一部は上海市科学技術委員会（Shanghai Committee of Science and Technology, 21DZ1100100）および NSFC（62206172）の支援を受けた。</p>
+<a class="pg" data-page="9"></a>
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した（各項目末尾の被引用ページへの逆参照番号は省略した）。</p>
+<ol class="refs">
+<li>Adil Kaan Akan and Fatma Güney. StretchBEV: Stretching future instance prediction spatially and temporally. In <em>ECCV</em>, 2022.</li>
+<li>Mayank Bansal, Alex Krizhevsky, and Abhijit Ogale. Chauffeurnet: Learning to drive by imitating the best and synthesizing the worst. <em>arXiv preprint arXiv:1812.03079</em>, 2018.</li>
+<li>Hans Georg Bock and Karl-Josef Plitt. A multiple shooting algorithm for direct solution of optimal control problems. <em>IFAC Proceedings Volumes</em>, 1984.</li>
+<li>Mariusz Bojarski, Davide Del Testa, Daniel Dworakowski, Bernhard Firner, Beat Flepp, Prasoon Goyal, Lawrence D Jackel, Mathew Monfort, Urs Muller, Jiakai Zhang, Xin Zhang, Jake Zhao, and Zieba Karol. End to end learning for self-driving cars. <em>arXiv preprint arXiv:1604.07316</em>, 2016.</li>
+<li>Thibault Buhet, Émilie Wirbel, and Xavier Perrotton. PLOP: Probabilistic polynomial objects trajectory planning for autonomous driving. In <em>CoRL</em>, 2020.</li>
+<li>Holger Caesar, Varun Bankiti, Alex H Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>CVPR</em>, 2020.</li>
+<li>Holger Caesar, Juraj Kabzan, Kok Seang Tan, Whye Kit Fong, Eric Wolff, Alex Lang, Luke Fletcher, Oscar Beijbom, and Sammy Omari. nuplan: A closed-loop ml-based planning benchmark for autonomous vehicles. <em>arXiv preprint arXiv:2106.11810</em>, 2021.</li>
+<li>Nicolas Carion, Francisco Massa, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, and Sergey Zagoruyko. End-to-end object detection with transformers. In <em>ECCV</em>, 2020.</li>
+<li>Sergio Casas, Cole Gulino, Renjie Liao, and Raquel Urtasun. Spagnn: Spatially-aware graph neural networks for relational behavior forecasting from sensor data. In <em>ICRA</em>, 2020.</li>
+<li>Sergio Casas, Wenjie Luo, and Raquel Urtasun. Intentnet: Learning to predict intention from raw sensor data. In <em>CoRL</em>, 2018.</li>
+<li>Sergio Casas, Abbas Sadat, and Raquel Urtasun. Mp3: A unified model to map, perceive, predict and plan. In <em>CVPR</em>, 2021.</li>
+<li>Yuning Chai, Benjamin Sapp, Mayank Bansal, and Dragomir Anguelov. Multipath: Multiple probabilistic anchor trajectory hypotheses for behavior prediction. In <em>CoRL</em>, 2020.</li>
+<li>Raphael Chekroun, Marin Toromanoff, Sascha Hornauer, and Fabien Moutarde. GRI: General reinforced imitation and its application to vision-based autonomous driving. <em>arXiv preprint 2111.08575</em>, 2021.</li>
+<li>Dian Chen, Vladlen Koltun, and Philipp Krähenbühl. Learning to drive from a world on rails. In <em>ICCV</em>, 2021.</li>
+<li>Dian Chen and Philipp Krähenbühl. Learning from all vehicles. In <em>CVPR</em>, 2022.</li>
+<li>Dian Chen, Brady Zhou, Vladlen Koltun, and Philipp Krähenbühl. Learning by cheating. In <em>CoRL</em>, 2020.</li>
+<li>Bowen Cheng, Ishan Misra, Alexander G. Schwing, Alexander Kirillov, and Rohit Girdhar. Masked-attention mask transformer for universal image segmentation. In <em>CVPR</em>, 2022.</li>
+<li>Bowen Cheng, Alex Schwing, and Alexander Kirillov. Per-pixel classification is not all you need for semantic segmentation. In <em>NeurIPS</em>, 2021.</li>
+<li>Kashyap Chitta, Aditya Prakash, and Andreas Geiger. NEAT: Neural attention fields for end-to-end autonomous driving. In <em>ICCV</em>, 2021.</li>
+<li>Kashyap Chitta, Aditya Prakash, Bernhard Jaeger, Zehao Yu, Katrin Renz, and Andreas Geiger. Transfuser: Imitation with transformer-based sensor fusion for autonomous driving. <em>IEEE TPAMI</em>, 2022.</li>
+<li>Felipe Codevilla, Matthias Müller, Antonio López, Vladlen Koltun, and Alexey Dosovitskiy. End-to-end driving via conditional imitation learning. In <em>ICRA</em>, 2018.</li>
+<li>Felipe Codevilla, Eder Santana, Antonio M López, and Adrien Gaidon. Exploring the limitations of behavior cloning for autonomous driving. In <em>ICCV</em>, 2019.</li>
+<li>Michael Crawshaw. Multi-task learning with deep neural networks: A survey. <em>arXiv preprint arXiv:2009.09796</em>, 2020.</li>
+<li>Alexander Cui, Sergio Casas, Abbas Sadat, Renjie Liao, and Raquel Urtasun. Lookout: Diverse multi-future prediction and planning for self-driving. In <em>ICCV</em>, 2021.</li>
+<li>Nemanja Djuric, Henggang Cui, Zhaoen Su, Shangxuan Wu, Huahua Wang, Fang-Chieh Chou, Luisa San Martin, Song Feng, Rui Hu, Yang Xu, Alyssa Dayan, Sidney Zhang, Brian C. Becker, Gregory P. Meyer, Carlos Vallespi-Gonzalez, and Carl K. Wellington. Multixnet: Multiclass multistage multimodal motion prediction. In <em>IV</em>, 2021.</li>
+<li>Alexey Dosovitskiy, German Ros, Felipe Codevilla, Antonio Lopez, and Vladlen Koltun. CARLA: An open urban driving simulator. In <em>CoRL</em>, 2017.</li>
+<li>Scott Ettinger, Shuyang Cheng, Benjamin Caine, Chenxi Liu, Hang Zhao, Sabeek Pradhan, Yuning Chai, Ben Sapp, Charles R Qi, Yin Zhou, Zoey Yang, Aurélien Chouard, Pei Sun, Jiquan Ngiam, Vijay Vasudevan, Alexander McCauley, Jonathon Shlens, and Dragomir Anguelov. Large scale interactive motion forecasting for autonomous driving: The waymo open motion dataset. In <em>ICCV</em>, 2021.</li>
+<li>Sudeep Fadadu, Shreyash Pandey, Darshan Hegde, Yi Shi, Fang-Chieh Chou, Nemanja Djuric, and Carlos Vallespi-Gonzalez. Multi-view fusion of sensor data for improved perception and prediction in autonomous driving. In <em>WACV</em>, 2022.</li>
+<li>Jiyang Gao, Chen Sun, Hang Zhao, Yi Shen, Dragomir Anguelov, Congcong Li, and Cordelia Schmid. Vectornet: Encoding hd maps and agent dynamics from vectorized representation. In <em>CVPR</em>, 2020.</li>
+<li>Junru Gu, Chenxu Hu, Tianyuan Zhang, Xuanyao Chen, Yilun Wang, Yue Wang, and Hang Zhao. ViP3D: End-to-end visual trajectory prediction via 3d agent queries. In <em>CVPR</em>, 2023.</li>
+</ol>
+<a class="pg" data-page="10"></a>
+<ol class="refs" start="31">
+<li>Chunrui Han, Jianjian Sun, Zheng Ge, Jinrong Yang, Runpei Dong, Hongyu Zhou, Weixin Mao, Yuang Peng, and Xiangyu Zhang. Exploring recurrent long-term temporal fusion for multi-view 3d perception. <em>arXiv preprint arXiv:2303.05970</em>, 2023.</li>
+<li>Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In <em>CVPR</em>, 2016.</li>
+<li>Noureldin Hendy, Cooper Sloan, Feng Tian, Pengfei Duan, Nick Charchut, Yuesong Xie, Chuang Wang, and James Philbin. Fishing net: Future inference of semantic heatmaps in grids. <em>arXiv preprint arXiv:2006.09917</em>, 2020.</li>
+<li>Anthony Hu, Gianluca Corrado, Nicolas Griffiths, Zak Murez, Corina Gurau, Hudson Yeo, Alex Kendall, Roberto Cipolla, and Jamie Shotton. Model-based imitation learning for urban driving. In <em>NeurIPS</em>, 2022.</li>
+<li>Anthony Hu, Zak Murez, Nikhil Mohan, Sofía Dudas, Jeffrey Hawke, Vijay Badrinarayanan, Roberto Cipolla, and Alex Kendall. FIERY: Future instance prediction in bird's-eye view from surround monocular cameras. In <em>ICCV</em>, 2021.</li>
+<li>Hou-Ning Hu, Yung-Hsu Yang, Tobias Fischer, Trevor Darrell, Fisher Yu, and Min Sun. Monocular quasi-dense 3d object tracking. <em>IEEE TPAMI</em>, 2022.</li>
+<li>Peiyun Hu, Aaron Huang, John Dolan, David Held, and Deva Ramanan. Safe local motion planning with self-supervised freespace forecasting. In <em>CVPR</em>, 2021.</li>
+<li>Shengchao Hu, Li Chen, Penghao Wu, Hongyang Li, Junchi Yan, and Dacheng Tao. ST-P3: End-to-end vision-based autonomous driving via spatial-temporal feature learning. In <em>ECCV</em>, 2022.</li>
+<li>Zhiyu Huang, Haochen Liu, Jingda Wu, and Chen Lv. Differentiable integrated motion prediction and planning with learnable cost function for autonomous driving. <em>arXiv preprint arXiv:2207.10422</em>, 2022.</li>
+<li>Boris Ivanovic, Amine Elhafsi, Guy Rosman, Adrien Gaidon, and Marco Pavone. MATS: An interpretable trajectory forecasting representation for planning and control. In <em>CoRL</em>, 2021.</li>
+<li>Xiaosong Jia, Li Chen, Penghao Wu, Jia Zeng, Junchi Yan, Hongyang Li, and Yu Qiao. Towards capturing the temporal dynamics for trajectory prediction: a coarse-to-fine approach. In <em>CoRL</em>, 2022.</li>
+<li>Xiaosong Jia, Liting Sun, Masayoshi Tomizuka, and Wei Zhan. Ide-net: Interactive driving event and pattern extraction from human data. <em>IEEE RA-L</em>, 2021.</li>
+<li>Xiaosong Jia, Liting Sun, Hang Zhao, Masayoshi Tomizuka, and Wei Zhan. Multi-agent trajectory prediction by combining egocentric and allocentric views. In <em>CoRL</em>, 2021.</li>
+<li>Xiaosong Jia, Penghao Wu, Li Chen, Hongyang Li, Yu Liu, and Junchi Yan. HDGT: Heterogeneous driving graph transformer for multi-agent trajectory prediction via scene encoding. <em>arXiv preprint arXiv:2205.09753</em>, 2022.</li>
+<li>Alexey Kamenev, Lirui Wang, Ollin Boer Bohan, Ishwar Kulkarni, Bilal Kartal, Artem Molchanov, Stan Birchfield, David Nistér, and Nikolai Smolyanskiy. Predictionnet: Real-time joint probabilistic traffic prediction for planning, control, and simulation. In <em>ICRA</em>, 2022.</li>
+<li>Alex Kendall, Jeffrey Hawke, David Janz, Przemyslaw Mazur, Daniele Reda, John-Mark Allen, Vinh-Dieu Lam, Alex Bewley, and Amar Shah. Learning to drive in a day. In <em>ICRA</em>, 2019.</li>
+<li>Tarasha Khurana, Peiyun Hu, Achal Dave, Jason Ziglar, David Held, and Deva Ramanan. Differentiable raycasting for self-supervised occupancy forecasting. In <em>ECCV</em>, 2022.</li>
+<li>Dahun Kim, Sanghyun Woo, Joon-Young Lee, and In So Kweon. Video panoptic segmentation. In <em>CVPR</em>, 2020.</li>
+<li>Jinkyu Kim, Reza Mahjourian, Scott Ettinger, Mayank Bansal, Brandyn White, Ben Sapp, and Dragomir Anguelov. Stopnet: Scalable trajectory and occupancy prediction for urban autonomous driving. <em>arXiv preprint arXiv:2206.00991</em>, 2022.</li>
+<li>Alexander Kirillov, Kaiming He, Ross Girshick, Carsten Rother, and Piotr Dollár. Panoptic segmentation. In <em>CVPR</em>, 2019.</li>
+<li>Youngwan Lee, Joong-won Hwang, Sangrok Lee, Yuseok Bae, and Jongyoul Park. An energy and gpu-computation efficient backbone network for real-time object detection. In <em>CVPR Workshop</em>, 2019.</li>
+<li>Feng Li, Hao Zhang, Shilong Liu, Lei Zhang, Lionel M Ni, and Heung-Yeung Shum. Mask dino: Towards a unified transformer-based framework for object detection and segmentation. In <em>CVPR</em>, 2023.</li>
+<li>Lingyun Luke Li, Bin Yang, Ming Liang, Wenyuan Zeng, Mengye Ren, Sean Segal, and Raquel Urtasun. End-to-end contextual perception and prediction with interaction transformer. In <em>IROS</em>, 2020.</li>
+<li>Yanwei Li, Yilun Chen, Xiaojuan Qi, Zeming Li, Jian Sun, and Jiaya Jia. Unifying voxel-based representation with transformer for 3d object detection. In <em>NeurIPS</em>, 2022.</li>
+<li>Zhiqi Li, Wenhai Wang, Hongyang Li, Enze Xie, Chonghao Sima, Tong Lu, Qiao Yu, and Jifeng Dai. BEVFormer: Learning bird's-eye-view representation from multi-camera images via spatiotemporal transformers. In <em>ECCV</em>, 2022.</li>
+<li>Zhiqi Li, Wenhai Wang, Enze Xie, Zhiding Yu, Anima Anandkumar, Jose M Alvarez, Ping Luo, and Tong Lu. Panoptic segformer: Delving deeper into panoptic segmentation with transformers. In <em>CVPR</em>, 2022.</li>
+<li>Ming Liang, Bin Yang, Wenyuan Zeng, Yun Chen, Rui Hu, Sergio Casas, and Raquel Urtasun. Pnpnet: End-to-end perception and prediction with tracking in the loop. In <em>CVPR</em>, 2020.</li>
+<li>Tingting Liang, Hongwei Xie, Kaicheng Yu, Zhongyu Xia, Zhiwei Lin, Yongtao Wang, Tao Tang, Bing Wang, and Zhi Tang. BEVFusion: A simple and robust lidar-camera fusion framework. In <em>NeurIPS</em>, 2022.</li>
+<li>Xiaodan Liang, Tairui Wang, Luona Yang, and Eric Xing. Cirl: Controllable imitative reinforcement learning for vision-based self-driving. In <em>ECCV</em>, 2018.</li>
+</ol>
+<a class="pg" data-page="11"></a>
+<ol class="refs" start="60">
+<li>Xiwen Liang, Yangxin Wu, Jianhua Han, Hang Xu, Chunjing Xu, and Xiaodan Liang. Effective adaptation in multi-task co-training for unified autonomous driving. In <em>NeurIPS</em>, 2022.</li>
+<li>Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, and Piotr Dollár. Focal loss for dense object detection. In <em>ICCV</em>, 2017.</li>
+<li>Jerry Liu, Wenyuan Zeng, Raquel Urtasun, and Ersin Yumer. Deep structured reactive planning. In <em>ICRA</em>, 2021.</li>
+<li>Yicheng Liu, Jinghuai Zhang, Liangji Fang, Qinhong Jiang, and Bolei Zhou. Multimodal motion prediction with stacked transformers. In <em>CVPR</em>, 2021.</li>
+<li>Zhijian Liu, Haotian Tang, Alexander Amini, Xingyu Yang, Huizi Mao, Daniela Rus, and Song Han. BEVFusion: Multi-task multi-sensor fusion with unified bird's-eye view representation. In <em>ICRA</em>, 2023.</li>
+<li>Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. In <em>ICLR</em>, 2018.</li>
+<li>Wenjie Luo, Bin Yang, and Raquel Urtasun. Fast and furious: Real time end-to-end 3d detection, tracking and motion forecasting with a single convolutional net. In <em>CVPR</em>, 2018.</li>
+<li>Fausto Milletari, Nassir Navab, and Seyed-Ahmad Ahmadi. V-net: Fully convolutional neural networks for volumetric medical image segmentation. In <em>3DV</em>, 2016.</li>
+<li>Mobileye. Mobileye under the hood. <a href="https://www.mobileye.com/ces-2022/">https://www.mobileye.com/ces-2022/</a>, 2022.</li>
+<li>Nigamaa Nayakanti, Rami Al-Rfou, Aurick Zhou, Kratarth Goel, Khaled S Refaat, and Benjamin Sapp. Wayformer: Motion forecasting via simple &amp; efficient attention networks. <em>arXiv preprint arXiv:2207.05844</em>, 2022.</li>
+<li>Jiquan Ngiam, Benjamin Caine, Vijay Vasudevan, Zhengdong Zhang, Hao-Tien Lewis Chiang, Jeffrey Ling, Rebecca Roelofs, Alex Bewley, Chenxi Liu, Ashish Venugopal, David Weiss, Ben Sapp, Zhifeng Chen, and Jonathon Shlens. Scene transformer: A unified multi-task model for behavior prediction and planning. In <em>ICLR</em>, 2022.</li>
+<li>Nvidia. NVIDIA DRIVE End-to-End Solutions for Autonomous Vehicles. <a href="https://developer.nvidia.com/drive">https://developer.nvidia.com/drive</a>, 2022.</li>
+<li>Bowen Pan, Jiankai Sun, Ho Yin Tiga Leung, Alex Andonian, and Bolei Zhou. Cross-view semantic segmentation for sensing surroundings. <em>IEEE RA-L</em>, 2020.</li>
+<li>Dennis Park, Rares Ambrus, Vitor Guizilini, Jie Li, and Adrien Gaidon. Is pseudo-lidar needed for monocular 3d object detection? In <em>ICCV</em>, 2021.</li>
+<li>Jinhyung Park, Chenfeng Xu, Shijia Yang, Kurt Keutzer, Kris Kitani, Masayoshi Tomizuka, and Wei Zhan. Time will tell: New outlooks and a baseline for temporal multi-view 3d object detection. <em>arXiv preprint arXiv:2210.02443</em>, 2022.</li>
+<li>Neehar Peri, Jonathon Luiten, Mengtian Li, Aljoša Ošep, Laura Leal-Taixé, and Deva Ramanan. Forecasting from lidar via future object detection. In <em>CVPR</em>, 2022.</li>
+<li>Jonah Philion and Sanja Fidler. Lift, splat, shoot: Encoding images from arbitrary camera rigs by implicitly unprojecting to 3d. In <em>ECCV</em>, 2020.</li>
+<li>Dean A Pomerleau. Alvinn: An autonomous land vehicle in a neural network. In <em>NeurIPS</em>, 1988.</li>
+<li>Aditya Prakash, Kashyap Chitta, and Andreas Geiger. Multi-modal fusion transformer for end-to-end autonomous driving. In <em>CVPR</em>, 2021.</li>
+<li>Scott Reed, Konrad Zolna, Emilio Parisotto, Sergio Gomez Colmenarejo, Alexander Novikov, Gabriel Barth-Maron, Mai Gimenez, Yury Sulsky, Jackie Kay, Jost Tobias Springenberg, Tom Eccles, Jake Bruce, Ali Razavi, Ashley Edwards, Nicolas Heess, Yutian Chen, Raia Hadsell, Oriol Vinyals, Mahyar Bordbar, and Nando de Freitas. A generalist agent. <em>arXiv preprint arXiv:2205.06175</em>, 2022.</li>
+<li>Hamid Rezatofighi, Nathan Tsoi, JunYoung Gwak, Amir Sadeghian, Ian Reid, and Silvio Savarese. Generalized intersection over union: A metric and a loss for bounding box regression. In <em>CVPR</em>, 2019.</li>
+<li>Nicholas Rhinehart, Rowan McAllister, Kris Kitani, and Sergey Levine. PRECOG: Prediction conditioned on goals in visual multi-agent settings. In <em>ICCV</em>, 2019.</li>
+<li>Abbas Sadat, Sergio Casas, Mengye Ren, Xinyu Wu, Pranaab Dhawan, and Raquel Urtasun. Perceive, predict, and plan: Safe motion planning through interpretable semantic representations. In <em>ECCV</em>, 2020.</li>
+<li>Hao Shao, Letian Wang, Ruobing Chen, Hongsheng Li, and Yu Liu. Safety-enhanced autonomous driving using interpretable sensor fusion transformer. In <em>CoRL</em>, 2022.</li>
+<li>Shaoshuai Shi, Li Jiang, Dengxin Dai, and Bernt Schiele. Motion transformer with global intention localization and local movement refinement. In <em>NeurIPS</em>, 2022.</li>
+<li>Yining Shi, Jingyan Shen, Yifan Sun, Yunlong Wang, Jiaxin Li, Shiqi Sun, Kun Jiang, and Diange Yang. Srcn3d: Sparse r-cnn 3d surround-view camera object detection and tracking for autonomous driving. <em>arXiv preprint arXiv:2206.14451</em>, 2022.</li>
+<li>Haoran Song, Wenchao Ding, Yuxuan Chen, Shaojie Shen, Michael Yu Wang, and Qifeng Chen. Pip: Planning-informed trajectory prediction for autonomous driving. In <em>ECCV</em>, 2020.</li>
+<li>Tesla. Tesla AI Day. <a href="https://www.youtube.com/watch?v=ODSJsviD_SU">https://www.youtube.com/watch?v=ODSJsviD_SU</a>, 2022.</li>
+<li>Sebastian Thrun and Arno Bücken. Integrating grid-based and topological maps for mobile robot navigation. In <em>AAAI</em>, 1996.</li>
+<li>Marin Toromanoff, Emilie Wirbel, and Fabien Moutarde. End-to-end model-free reinforcement learning for urban driving using implicit affordances. In <em>CVPR</em>, 2020.</li>
+<li>Balakrishnan Varadarajan, Ahmed Hefny, Avikalp Srivastava, Khaled S Refaat, Nigamaa Nayakanti, Andre Cornman, Kan Chen, Bertrand Douillard, Chi Pang Lam, Dragomir Anguelov, and Benjamin Sapp. Multipath++: Efficient information fusion and trajectory aggregation for behavior prediction. <em>arXiv preprint arXiv:2111.14973</em>, 2021.</li>
+<li>Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. In <em>NeurIPS</em>, 2017.</li>
+</ol>
+<a class="pg" data-page="12"></a>
+<ol class="refs" start="92">
+<li>Peng Wang, An Yang, Rui Men, Junyang Lin, Shuai Bai, Zhikang Li, Jianxin Ma, Chang Zhou, Jingren Zhou, and Hongxia Yang. Ofa: Unifying architectures, tasks, and modalities through a simple sequence-to-sequence learning framework. In <em>ICML</em>, 2022.</li>
+<li>Qitai Wang, Yuntao Chen, Ziqi Pang, Naiyan Wang, and Zhaoxiang Zhang. Immortal tracker: Tracklet never dies. <em>arXiv preprint arXiv:2111.13672</em>, 2021.</li>
+<li>Bob Wei, Mengye Ren, Wenyuan Zeng, Ming Liang, Bin Yang, and Raquel Urtasun. Perceive, attend, and drive: Learning spatial attention for safe self-driving. In <em>ICRA</em>, 2021.</li>
+<li>Penghao Wu, Li Chen, Hongyang Li, Xiaosong Jia, Junchi Yan, and Yu Qiao. Policy pre-training for autonomous driving via self-supervised geometric modeling. In <em>ICLR</em>, 2023.</li>
+<li>Pengxiang Wu, Siheng Chen, and Dimitris N Metaxas. Motionnet: Joint perception and motion prediction for autonomous driving based on bird's eye view maps. In <em>CVPR</em>, 2020.</li>
+<li>Penghao Wu, Xiaosong Jia, Li Chen, Junchi Yan, Hongyang Li, and Yu Qiao. Trajectory-guided control prediction for end-to-end autonomous driving: A simple yet strong baseline. In <em>NeurIPS</em>, 2022.</li>
+<li>Jinrong Yang, En Yu, Zeming Li, Xiaoping Li, and Wenbing Tao. Quality matters: Embracing quality clues for robust 3d multi-object tracking. <em>arXiv preprint arXiv:2208.10976</em>, 2022.</li>
+<li>Ye Yuan, Xinshuo Weng, Yanglan Ou, and Kris M Kitani. Agentformer: Agent-aware transformers for socio-temporal multi-agent forecasting. In <em>ICCV</em>, 2021.</li>
+<li>Fangao Zeng, Bin Dong, Tiancai Wang, Xiangyu Zhang, and Yichen Wei. Motr: End-to-end multiple-object tracking with transformer. In <em>ECCV</em>, 2021.</li>
+<li>Wenyuan Zeng, Wenjie Luo, Simon Suo, Abbas Sadat, Bin Yang, Sergio Casas, and Raquel Urtasun. End-to-end interpretable neural motion planner. In <em>CVPR</em>, 2019.</li>
+<li>Wenyuan Zeng, Shenlong Wang, Renjie Liao, Yun Chen, Bin Yang, and Raquel Urtasun. Dsdnet: Deep structured self-driving network. In <em>ECCV</em>, 2020.</li>
+<li>Jimuyang Zhang and Eshed Ohn-Bar. Learning by watching. In <em>CVPR</em>, 2021.</li>
+<li>Tianyuan Zhang, Xuanyao Chen, Yue Wang, Yilun Wang, and Hang Zhao. MUTR3D: A Multi-camera Tracking Framework via 3D-to-2D Queries. In <em>CVPR Workshop</em>, 2022.</li>
+<li>Yunpeng Zhang, Zheng Zhu, Wenzhao Zheng, Junjie Huang, Guan Huang, Jie Zhou, and Jiwen Lu. BEVerse: Unified perception and prediction in birds-eye-view for vision-centric autonomous driving. <em>arXiv preprint arXiv:2205.09743</em>, 2022.</li>
+<li>Zhejun Zhang, Alexander Liniger, Dengxin Dai, Fisher Yu, and Luc Van Gool. End-to-end urban driving by imitating a reinforcement learning coach. In <em>ICCV</em>, 2021.</li>
+<li>Hang Zhao, Jiyang Gao, Tian Lan, Chen Sun, Benjamin Sapp, Balakrishnan Varadarajan, Yue Shen, Yi Shen, Yuning Chai, Cordelia Schmid, Congcong Li, and Dragomir Anguelov. TNT: Target-driven trajectory prediction. In <em>CoRL</em>, 2020.</li>
+<li>Jinguo Zhu, Xizhou Zhu, Wenhai Wang, Xiaohua Wang, Hongsheng Li, Xiaogang Wang, and Jifeng Dai. Uni-perceiver-moe: Learning sparse generalist models with conditional moes. In <em>NeurIPS</em>, 2022.</li>
+<li>Xizhou Zhu, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang, and Jifeng Dai. Deformable detr: Deformable transformers for end-to-end object detection. In <em>ICLR</em>, 2020.</li>
+</ol>
+<a class="pg" data-page="13"></a>
+<h2 id="付録">付録</h2>
+<ul>
+<li><strong>A　タスクの定義</strong>（13）</li>
+<li><strong>B　各タスクの必要性</strong>（14）</li>
+<li><strong>C　関連研究</strong>（14）
+<ul>
+<li>C.1　知覚と予測の統合（14）</li>
+<li>C.2　予測と計画の統合（15）</li>
+<li>C.3　エンドツーエンドの動作計画（15）</li>
+</ul></li>
+<li><strong>D　記法</strong>（15）</li>
+<li><strong>E　実装の詳細</strong>（15）
+<ul>
+<li>E.1　検出と追跡（15）</li>
+<li>E.2　オンライン地図作成（15）</li>
+<li>E.3　動き予測（17）</li>
+<li>E.4　占有予測（17）</li>
+<li>E.5　計画（18）</li>
+<li>E.6　学習の詳細（18）</li>
+</ul></li>
+<li><strong>F　実験</strong>（19）
+<ul>
+<li>F.1　プロトコル（19）</li>
+<li>F.2　評価指標（20）</li>
+<li>F.3　モデルの複雑さと計算コスト（20）</li>
+<li>F.4　モデルの規模（20）</li>
+<li>F.5　定性的な結果（21）</li>
+</ul></li>
+</ul>
+<p class="yakuchu">（訳注：括弧内は原文 PDF のページ番号。）</p>
+
+<h2 id="a-タスクの定義">A　タスクの定義</h2>
+<p><strong>検出と追跡。</strong>検出と追跡は自動運転にとって極めて重要な 2 つの知覚タスクであり、我々は下流での利用を容易にするため、これらを 3D 空間で表現することに注力する。3D 検出は、各タイムスタンプにおいて周囲の物体の位置を特定すること（座標、長さ、幅、高さ<em>など</em>）を担う。追跡は、タイムスタンプをまたいで異なる物体間の対応を見つけ、それらを時間的に関連付けること（<em>すなわち</em>各エージェントに一貫したトラック ID を割り当てること）を目的とする。本論文では、場合によっては検出と追跡の過程を表すのに複数物体追跡という語を用いる。最終出力は各フレームにおける関連付けられた 3D ボックスの系列であり、それらに対応する特徴 \(Q_A\) が動き予測モジュールに渡される。加えて、下流タスクのために<em>自車両クエリ</em>と呼ぶ特別なクエリが 1 つあることに注意されたい。これは予測と正解とのマッチング過程には含まれず、それに応じて自車両の位置を回帰する。</p>
+<p><strong>オンライン地図作成。</strong>地図は直観的に環境の幾何学的・意味的情報を具現化したものであり、オンライン地図作成とは、オフラインで注釈付けされた高精度（HD）地図の代替として、車載センサデータ（我々の場合はマルチビュー画像）を用いて意味のある道路要素をセグメンテーションすることである。UniAD では、オンライン地図を 4 つのカテゴリ、すなわち車線、走行可能領域、区画線、横断歩道としてモデル化し、それらを鳥瞰図（BEV）上でセグメンテーションする。\(Q_A\) と同様に、マップクエリ \(Q_M\) は動き予測モジュールでさらに利用され、エージェントと地図の相互作用をモデル化する。</p>
+<p><strong>動き予測。</strong>知覚と計画の橋渡しをする予測は、最終的な安全性を確保するために自動運転システム全体で重要な役割を果たす。一般に、動き予測は独立に開発されるモジュールであり、検出されたバウンディングボックスと HD 地図を用いてエージェントの将来軌道を予測する。そして現在のほとんどの動き予測データセット［27］ではバウンディングボックスは正解の注釈であり、これは車載のシナリオでは現実的ではない。一方、本論文では、動き予測モジュールは事前に符号化された疎なクエリ（<em>すなわち</em> \(Q_A\) と \(Q_M\)）と密な BEV 特徴 \(B\) を入力として受け取り、各エージェントについて将来 \(T\) タイムステップの \(\mathcal{K}\) 本のもっともらしい軌道を予測する。さらに、我々のエンドツーエンドかつシーン中心のシナリオに適合させるため、軌道は各エージェントの現在位置に対するオフセットとして予測する。最後の復号 MLP の前のエージェント特徴は、過去と将来の両方の情報を符号化しており、シーンレベルの将来理解のために占有予測モジュールへ送られる。<em>自車両クエリ</em>については、将来の自車両の動きも予測し（実質的に粗い計画の推定を提供する）、その特徴はプランナが最終目標を生成するために用いられる。</p>
+
+<a class="pg" data-page="14"></a>
+<p><strong>占有予測。</strong>占有グリッドマップは離散化された BEV 表現であり、各セルはそれが占有されているかどうかを示す信念を保持する。占有予測タスクは、複数のエージェントのダイナミクスのもとで、グリッドマップが将来の \(T_o\) タイムステップにわたってどのように変化するかを見出すよう設計されている。疎なエージェントに条件付けられた動き予測と相補的に、占有予測はシーン全体のレベルで密に表現される。疎なエージェントの知識を用いてシーンがどのように変化するかを調べるため、我々の提案する占有予測モジュールは、観測された BEV 特徴 \(B\) とエージェント特徴 \(G^t\) の両方を入力として受け取る。複数ステップのエージェント–シーン相互作用（付録 E で詳しく述べる）の後、占有特徴と密なシーン特徴との行列積によってインスタンスレベルの確率マップ \(\hat{O}_A^t \in \mathbb{R}^{N_a\times H\times W}\) が生成される。占有の評価と下流の計画に用いる、エージェントの同一性を保持したシーン全体の占有 \(\hat{O}^t \in \mathbb{R}^{H\times W}\) を構成するため、［8］と同様にピクセルごとの argmax を用いて各タイムステップのインスタンスレベルの確率を単純に統合する。</p>
+<p><strong>計画。</strong>究極の目標として、計画モジュールは上流のすべての結果を考慮に入れる。産業界における従来の計画手法はしばしばルールベースであり、事前の検出・予測結果によって記述される様々なシナリオに条件付けられた「if-else」の状態機械として定式化される。我々の学習ベースのモデルでは、上流の<em>自車両クエリ</em>と密な BEV 特徴 \(B\) を入力とし、合計 \(T_p\) タイムステップの 1 本の軌道 \(\hat{\tau}\) を予測する。その後、衝突を回避して最終的な安全性を確保するため、上流で予測された将来の占有 \(\hat{O}\) を用いて軌道 \(\hat{\tau}\) を最適化する。</p>
+
+<h2 id="b-各タスクの必要性">B　各タスクの必要性</h2>
+<p>知覚に関しては、PnPNet［57］や ViP3D［30］が行っているようにループ内で<em>追跡</em>を行うことが、時空間特徴を補完し、遮蔽されたエージェントについて過去のトラックを提供して、下流の計画における致命的な判断を防ぐことが実証されている。HD 地図［30,57,82,101］と動き予測の助けにより、計画はより高いレベルの知能に向けてより正確になる。しかし、このような情報は構築に費用がかかり、古くなりやすいため、HD 地図を用いないオンライン<em>地図作成</em>の需要が高まっている。予測に関しては、<em>動き</em>予測［10,29,41,42,107］は長期の将来挙動を生成し、疎なウェイポイント出力の形でエージェントの同一性を保持する。それにもかかわらず、微分不可能なボックス表現を後続の計画モジュールに統合するという課題が存在する［30,57］。最近の一部の文献は、コストマップの形でエンドツーエンドの計画を支援するために、<em>占有</em>［88］予測と呼ばれる別の種類の予測タスクを調査している。しかし、占有にはエージェントの同一性とダイナミクスが欠けているため、安全な計画のための社会的相互作用のモデル化には実用的でない。また、複数ステップの密な特徴をモデル化するための大きな計算消費により、<em>動き</em>予測に比べて時間ホライズンがはるかに短くなる。したがって、安全な<em>計画</em>のために 2 つの相補的な予測タスクの恩恵を受けるため、我々は UniAD にエージェント中心の動き予測とシーン全体の占有予測の両方を組み込む。</p>
+
+<h2 id="c-関連研究">C　関連研究</h2>
+<h3 id="c.1-知覚と予測の統合">C.1　知覚と予測の統合</h3>
+<p>知覚と予測の共同学習は、従来のモジュール独立型パイプラインにおける連鎖的な誤差を回避するために提案されている。動き予測タスク単独の場合と同様に、通常 2 種類の出力表現を持つ：エージェントレベルのバウンディングボックスと、シーンレベルの占有グリッドマップである。先駆的な研究 FaF［66］は将来のボックスを予測し、過去の情報を集約してトラックレットを生成する。IntentNet［10］はこれを拡張して意図を推論し、［25,28］はさらに洗練の方式で将来の状態を予測する。一部の研究は、まず検出を行い、第 2 段階の予測でエージェント特徴を利用する［9,53,75］。過去の情報が無視されていることに着目し、PnPNet［57］は、検出ベース追跡のパラダイム［54,64,85,98］で採用されている微分不可能な最適化過程を回避するため、追跡の関連付けスコアを推定することでこれを充実させている。しかし、これらの手法はいずれも検出において非最大値抑制（NMS）に依存しており、依然として情報損失につながる。我々の研究と密接に関連する ViP3D［30］は、［104］のエージェントクエリを用いて予測を行い、HD 地図を別の入力として受け取る。我々はエージェントのトラッククエリについては［30,104］の思想に従うが、潜在的な知覚の不正確さの問題を緩和するために目標軌道に対する非線形最適化も開発している。さらに、動的な環境における自車両の挙動をよりよく捉えるために自車両クエリを導入し、HD 地図による位置推定のリスクや高い構築コストを防ぐためにオンライン地図作成を組み込んでいる。</p>
+<p>もう 1 つの表現である占有グリッドマップは、BEV マップをグリッドセルに離散化し、各セルはそれが占有されているかどうかを示す信念を保持する。Wu <em>ら</em>［96］は密な動きの場を推定するが、マルチモーダルな挙動は捉えられない。Fishing Net［33］も、複数のセンサを用いて決定論的な将来の BEV セマンティックセグメンテーションを予測する。これに対処するため、P3［82］は将来の意味的占有のノンパラメトリックな分布を提案し、FIERY［35］はマルチビューカメラのための最初のパラダイムを考案した。いくつかの手法は、より洗練された不確実性のモデル化によって FIERY の性能を改善している［1,38,105］。特筆すべきことに、この表現は衝突回避のための動作計画へ容易に拡張できる［11,38,82］が、エージェントの同一性という特性を失い、計算に重い負担がかかるため予測ホライズンが制約される可能性がある。これに対し我々は、占有予測にエージェントレベルの情報を活用し、これら 2 つの様式を統合することで正確かつ安全な計画を保証する。</p>
+<a class="pg" data-page="15"></a>
+<h3 id="c.2-予測と計画の統合">C.2　予測と計画の統合</h3>
+<p>PRECOG［81］は自車両のゴール位置に予測を条件付ける再帰型モデルを提案し、PiP［86］は推定された完全な計画軌道を考慮してエージェントの動きを生成する。しかし、大まかな将来軌道を生成することでさえ現実世界では依然として困難であり、これに向けて［62］は、同一の学習可能なコストの集合から予測と計画の両方を導出する深層構造化モデルを提示している。［39,40］は予測モデルを古典的な最適化手法と結合している。一方、一部の動き予測手法は、自らの将来軌道を同時に生成することで計画タスクを暗黙的に含んでいる［12,45,70］。同様に、我々はシーン中心の動き予測モジュールにおいて自車両の可能な挙動を符号化するが、さらに解釈可能な占有マップを利用して、安全を保つよう計画を最適化する。</p>
+
+<h3 id="c.3-エンドツーエンドの動作計画">C.3　エンドツーエンドの動作計画</h3>
+<p>エンドツーエンドの動作計画は、Pomerleau［77］が制御信号を直接予測する単一のニューラルネットワークを用いて以来、活発な研究領域となっている。後続の研究は、より深いネットワーク［4］、マルチモーダル入力［2,21,78］、マルチタスク学習［20,97］、強化学習［13,14,46,59,89］、特定の特権知識からの蒸留［16,103,106］によって、特に閉ループシミュレーションにおいて大きな進歩を遂げている。しかし、センサデータから制御出力を直接生成するこのような手法では、その頑健性と安全性の保証を考慮すると、合成環境から現実の応用への転移が依然として問題である［22,38］。そこで研究者たちは、安全性を促進するためにネットワークの中間表現を明示的に設計することを目指しており、シーンがどのように変化するかを予測することが広く関心を集めている。いくつかの研究［19,34,83］は解釈可能性を高めるために計画と BEV セマンティック予測を同時に復号し、PLOP［5］は自車両と周囲の車両の両方について滑らかな計画結果を提供するために多項式による定式化を採用している。Cui <em>ら</em>［24］は多様な将来予測の集合を用いる緊急時対応（contingency）プランナを導入し、LAV［15］はより豊富な学習データを提供するためにすべての車両の軌道を用いてプランナを学習する。NMP［101］とその派生［94］は、決定論的な将来知覚に加えて、コストボリュームを推定して最小コストの計画を選択する。2 つのモジュール間で一貫しない結果を生むリスクはあるものの、コストマップの設計は複雑なシナリオにおいて最終的な計画を復元するうえで直観的である。［101］に着想を得て、最近の研究の多く［11,37,38,82,102］は、学習された占有予測と手作業で設計されたペナルティの両方でコストを構築するモデルを提案している。しかし、それらの性能は人間の経験に基づいて調整されたコストと、軌道をサンプリングする分布に大きく依存する［47］。これらのアプローチとは対照的に、我々は洗練されたコスト設計なしに自車両の動きの情報を活用し、追跡モジュールを 2 種類の予測表現とともにエンドツーエンドのモデルに同時に組み込む初めての試みを提示する。</p>
+
+<h2 id="d-記法">D　記法</h2>
+<p>参照のため、本論文で言及される記法とその形状の一覧表を表11 に示す。</p>
+
+<h2 id="e-実装の詳細">E　実装の詳細</h2>
+<h3 id="e.1-検出と追跡">E.1　検出と追跡</h3>
+<p>我々は検出の設計の大部分を BEVFormer［55］から継承する。BEVFormer は BEV エンコーダを用いて画像特徴を BEV 特徴 \(B\) に変換し、Deformable DETR のヘッド［109］を採用して \(B\) 上で検出を行う。重い事後の関連付けなしにエンドツーエンドの追跡をさらに行うため、MOTR［100］と同様に、トラッククエリと呼ぶ別のクエリ群を導入する。これは、割り当てられたトラック ID に従って、以前に観測されたインスタンスを継続的に追跡する。以下で追跡過程を詳しく説明する。</p>
+<p><strong>学習段階：</strong>各学習系列の開始時（<em>すなわち</em>最初のフレーム）には、すべてのクエリが検出クエリとみなされ、新たに出現したすべての物体を予測する。これは実際には BEVFormer と同じである。検出クエリはハンガリアンアルゴリズム［8］によって正解とマッチングされる。それらは MOTR［100］に従い、クエリ相互作用モジュール（QIM）を介して保存・更新され、次のタイムスタンプでトラッククエリとして機能する。次のタイムスタンプでは、トラッククエリは対応するトラック ID に従って正解物体の一部と直接マッチングされ、検出クエリは残りの正解物体（新たに出現した物体）とマッチングされる。学習を安定させるため、3D IoU 指標を用いてマッチングされたクエリをフィルタリングする。正解ボックスとの 3D IoU が一定の閾値（実際には 0.5）より大きい予測のみが保存・更新される。</p>
+<p><strong>推論段階：</strong>学習段階とは異なり、系列の各フレームは逐次的にネットワークへ送られる。つまり、トラッククエリは学習時よりも長いホライズンにわたって存在しうる。推論段階で生じるもう 1 つの違いはクエリの更新に関するもので、正解が利用できないため、3D IoU 指標の代わりに分類スコアを用いてクエリをフィルタリングする（実際には検出クエリに 0.4、トラッククエリに 0.35）。さらに、短時間の遮蔽によるトラックレットの途切れを避けるため、推論段階ではトラックレットにライフサイクル機構を用いる。具体的には、各トラッククエリは、対応する分類スコアが一定期間（実際には 2<em>s</em>）連続して 0.35 より小さい場合にのみ、完全に消えたとみなされて削除される。</p>
+
+<a class="pg" data-page="16"></a>
+<table><thead><tr><th>記法</th><th>形状とパラメータ</th><th>説明</th></tr></thead><tbody>
+<tr><td>\(Q_o\)</td><td>900</td><td>初期物体クエリの数</td></tr>
+<tr><td>\(D\)</td><td>256</td><td>埋め込み次元</td></tr>
+<tr><td>\(B\)</td><td>\(200\times 200\times 256\)</td><td>マルチビューのフレームワークで符号化された BEV 特徴</td></tr>
+<tr><td>\(N\)</td><td>6</td><td>TrackFormer の Transformer デコーダ層の数</td></tr>
+<tr><td>\(N\)</td><td>6</td><td>MapFormer の Transformer デコーダ層の数</td></tr>
+<tr><td>\(N\)</td><td>4</td><td>MapFormer のマスクデコーダ層の数</td></tr>
+<tr><td>\(N\)</td><td>3</td><td>MotionFormer の Transformer デコーダ層の数</td></tr>
+<tr><td>\(N\)</td><td>5</td><td>OccFormer の Transformer デコーダ層の数</td></tr>
+<tr><td>\(N\)</td><td>3</td><td>Planner の Transformer デコーダ層の数</td></tr>
+<tr><td>\(N_a\)</td><td><em>dynamic</em>（動的）</td><td>TrackFormer からのエージェント数</td></tr>
+<tr><td>\(N_m\)</td><td>300</td><td>MapFormer からのマップクエリ数</td></tr>
+<tr><td>\(Q_A\)</td><td>\(N_a\times 256\)</td><td>TrackFormer からのエージェント特徴</td></tr>
+<tr><td>\(P_A\)</td><td>\(N_a\times 256\)</td><td>TrackFormer からのエージェント位置</td></tr>
+<tr><td>\(Q_M\)</td><td>\(N_m\times 256\)</td><td>MapFormer からの地図特徴</td></tr>
+<tr><td>\(\mathcal{K}\)</td><td>6</td><td>MotionFormer における予測モダリティの数</td></tr>
+<tr><td>\(\tilde{\mathbf{x}}\)</td><td>\(T\times 2\)</td><td>1 エージェントの動き予測の正解</td></tr>
+<tr><td>\(\hat{\mathbf{x}}\)</td><td>\(N_a\times T\times 2\)</td><td>動き予測の予測値</td></tr>
+<tr><td>\(T\)</td><td>12</td><td>MotionFormer における予測タイムスタンプの長さ</td></tr>
+<tr><td>\(Q_{\text{pos}}\)</td><td>\(N_a\times \mathcal{K}\times 256\)</td><td>MotionFormer におけるクエリ位置</td></tr>
+<tr><td>\(Q_{\text{ctx}}\)</td><td>\(N_a\times \mathcal{K}\times 256\)</td><td>MotionFormer におけるクエリコンテキスト</td></tr>
+<tr><td>\(Q_a\)</td><td>\(N_a\times \mathcal{K}\times 256\)</td><td>MotionFormer におけるエージェント–エージェント相互作用後のモーションクエリ</td></tr>
+<tr><td>\(Q_m\)</td><td>\(N_a\times \mathcal{K}\times 256\)</td><td>MotionFormer におけるエージェント–地図相互作用後のモーションクエリ</td></tr>
+<tr><td>\(Q_g\)</td><td>\(N_a\times \mathcal{K}\times 256\)</td><td>MotionFormer におけるエージェント–ゴール点相互作用後のモーションクエリ</td></tr>
+<tr><td>\(l\)</td><td>-</td><td>デコーダ層のインデックス</td></tr>
+<tr><td>\(PE\)</td><td>-</td><td>正弦波位置符号化関数</td></tr>
+<tr><td>\(I^s\)</td><td>\(\mathcal{K}\times T\times 2\)</td><td>MotionFormer におけるシーンレベルのアンカー位置</td></tr>
+<tr><td>\(I^a\)</td><td>\(\mathcal{K}\times T\times 2\)</td><td>MotionFormer におけるエージェントレベルのアンカー位置</td></tr>
+<tr><td>\(\Phi\)</td><td>-</td><td>運動学的コスト関数の集合</td></tr>
+<tr><td>\(T_o\)</td><td>5</td><td>OccFormer における予測タイムスタンプの長さ</td></tr>
+<tr><td>\(G^t\)</td><td>\(N_a\times 256\)</td><td>エージェント特徴の入力</td></tr>
+<tr><td>\(F^t\)</td><td>\(200\times 200\times 256\)</td><td>将来状態の出力</td></tr>
+<tr><td>\(Q_X\)</td><td>\(N_a\times 256\)</td><td>MotionFormer の最終層からのモーションクエリ（モダリティ方向に max-pooling したもの）</td></tr>
+<tr><td>\(F_{\text{ds}}^t\)</td><td>\(25\times 25\times 256\)</td><td>縮小された密な特徴</td></tr>
+<tr><td>\(F_{\text{dec}}^t\)</td><td>\(200\times 200\times 256\)</td><td>畳み込みデコーダ後の復号された密な特徴</td></tr>
+<tr><td>\(D_{\text{ds}}^t\)</td><td>\(25\times 25\times 256\)</td><td>ピクセル–エージェント相互作用後のエージェントを考慮した密な特徴</td></tr>
+<tr><td>\(\hat{O}_A^t\)</td><td>\(N_a\times 200\times 200\)</td><td>インスタンスレベルの確率マップ</td></tr>
+<tr><td>\(\hat{O}^t\)</td><td>\(200\times 200\)</td><td>計画のために \(\hat{O}_A^t\) から統合された、古典的なインスタンス非依存の占有マップ</td></tr>
+<tr><td>\(O_m^t\)</td><td>\(200\times 200\)</td><td>ピクセル–エージェント相互作用のための注意マスク</td></tr>
+<tr><td>\(M^t\)</td><td>\(N_a\times 256\)</td><td>マスク特徴</td></tr>
+<tr><td>\(U^t\)</td><td>\(N_a\times 256\)</td><td>占有特徴</td></tr>
+<tr><td>\(T_p\)</td><td>6</td><td>Planner における計画タイムスタンプの長さ</td></tr>
+<tr><td>\(\hat{\tau}\)</td><td>\(T_p\times 2\)</td><td>占有予測を用いた最適化前の計画軌道</td></tr>
+<tr><td>\(\tau^*\)</td><td>\(T_p\times 2\)</td><td>最終的な計画出力</td></tr>
+<tr><td>\(\lambda\)</td><td>-</td><td>コスト関数、目的関数<em>など</em>におけるハイパーパラメータ</td></tr>
+</tbody></table>
+<p><strong>表11：本論文における記法とハイパーパラメータの一覧表。</strong>一部の記法における上付き添え字 \(t\) は OccFormer の \(t\) 番目のブロックを示し、簡単のため説明では省略している。</p>
+
+<h3 id="e.2-オンライン地図作成">E.2　オンライン地図作成</h3>
+<a class="pg" data-page="17"></a>
+<p>［56］に従い、マップクエリの集合を thing クエリと stuff クエリに分解する。thing クエリはインスタンス単位の地図要素（<em>すなわち</em>車線、境界、横断歩道）をモデル化し、二部マッチングによって正解とマッチングされる。一方、stuff クエリは意味的要素（<em>すなわち</em>走行可能領域）のみを担当し、クラス固定の割り当てで処理される。thing クエリの総数は 300 とし、走行可能領域には stuff クエリを 1 つだけ用いる。また、6 層の位置デコーダ層と 4 層のマスクデコーダ層を積み重ねる（これらの層の構造は［56］に従う）。下流タスクのためのマップクエリ \(Q_M\) としては、経験的に位置デコーダの後の thing クエリを選択する。</p>
+
+<figure><img src="figs/fig4.png" alt="図4" /></figure>
+<p><strong>図4：MotionFormer。</strong>\(N\) 個積み重ねたエージェント–エージェント、エージェント–地図、エージェント–ゴール相互作用の Transformer で構成される。エージェント–エージェントおよびエージェント–地図の相互作用モジュールは標準的な Transformer デコーダ層で構築される。エージェント–ゴール相互作用モジュールは変形可能交差注意モジュール［109］の上に構築される。\(I_T^s\)：シーンレベルのアンカーの終点、\(I_T^a\)：クラスタリングされたエージェントレベルのアンカーの終点、\(\hat{x}_0\)：エージェントの現在位置、\(\hat{x}_T^{l-1}\)：前の層から予測されたゴール点、\(Q_{\text{ctx}}^{l-1}\)：前の層からのクエリコンテキスト。</p>
+<p class="yakuchu">図中ラベル：Agent-Agent Interaction＝エージェント–エージェント相互作用、Agent-Map Interaction＝エージェント–地図相互作用、Agent-Goal Interaction＝エージェント–ゴール相互作用、Agent query＝エージェントクエリ、Map query＝マップクエリ、BEV feature＝BEV 特徴、PE + MLP＝位置符号化＋MLP、K &amp; V＝キーとバリュー</p>
+
+<figure><img src="figs/fig5.png" alt="図5" /></figure>
+<p><strong>図5：エージェント–ゴール相互作用モジュールの説明図。</strong>BEV の視覚特徴は、変形可能交差注意によって各エージェントのゴール点の近傍でサンプリングされる。</p>
+<p class="yakuchu">図中ラベル：Attention Point＝注意点、Goal Point＝ゴール点</p>
+
+<h3 id="e.3-動き予測">E.3　動き予測</h3>
+<p>詳細をよりよく説明するため、図4 に示す図を提供する。我々の MotionFormer は、クエリ位置を埋め込むために \(I_T^a\)、\(I_T^s\)、\(\hat{x}_0\)、\(\hat{x}_T^{l-1} \in \mathbb{R}^{\mathcal{K}\times 2}\) を受け取り、クエリコンテキストとして \(Q_{ctx}^{l-1}\) を受け取る。具体的には、アンカーはすべてのエージェントの学習データに対して k-means アルゴリズムでクラスタリングされ、出力モダリティと整合するよう \(\mathcal{K} = 6\) とする。シーンレベルの事前情報を埋め込むため、アンカー \(I_T^a\) は各エージェントの現在位置と方位角に従ってグローバル座標系へ回転・並進され、これを式 (12) に示すように \(I_T^s\) と表す。</p>
+<p>\[ I_{i,T}^s = R_i I_T^a + T_i, \tag{12} \]</p>
+<p>ここで \(i\) はエージェントのインデックスであり、以後は簡潔さのため省略する。粗から細へのパラダイムを促進するため、前の層から予測されたゴール点 \(\hat{x}_T^{l-1}\) も採用する。同時に、エージェントの現在位置をモダリティ方向にブロードキャストし、これを \(\hat{x}_0\) と表す。次に、各事前位置知識に MLP と正弦波位置埋め込みを適用し、それらをクエリ位置 \(Q_{\text{pos}} \in \mathbb{R}^{\mathcal{K}\times\mathcal{D}}\) としてまとめる。これはクエリコンテキスト \(Q_{ctx}\) と同じ形状である。\(Q_{\text{pos}}\) と \(Q_{\text{ctx}}\) がともにモーションクエリを構成する。MotionFormer 全体を通じて \(\mathcal{D}\) を 256 とする。</p>
+<p>図4 に示すように、MotionFormer は 3 つの主要な Transformer ブロック、<em>すなわち</em>エージェント–エージェント、エージェント–地図、エージェント–ゴール相互作用モジュールで構成される。エージェント–エージェントおよびエージェント–地図相互作用モジュールは標準的な Transformer デコーダ層で構築され、これはマルチヘッド自己注意（MHSA）層、マルチヘッド交差注意（MHCA）層、フィードフォワードネットワーク（FFN）、およびその間のいくつかの残差・正規化層で構成される［8］。エージェントクエリ \(Q_A\) とマップクエリ \(Q_M\) に加えて、正弦波位置埋め込みとそれに続く MLP 層による位置埋め込みもそれらのクエリに加える。エージェント–ゴール相互作用モジュールは変形可能交差注意モジュール［109］の上に構築されており、図5 に示すように、前に予測された軌道のゴール点（\(R_i\hat{x}_{i,T}^{l-1} + T_i\)）が参照点として採用される。具体的には、サンプリング点の数を軌道あたり 4 とし、前述のとおりエージェントあたり 6 本の軌道とする。各相互作用モジュールの出力特徴は連結され、MLP 層によって次元 \(\mathcal{D} = 256\) に射影される。その後、ガウス混合モデルを用いて各エージェントの軌道を構築する。ここで \(\hat{x}_l \in \mathcal{R}^{\mathcal{K}\times T\times 5}\) である。UniAD では予測時間ホライズン \(T\) を 12（6 秒）とする。最終的な出力軌道としては、最後の次元のうち最初の 2 つ（<em>すなわち</em> \(x\) と \(y\)）のみを用いることに注意されたい。さらに、各モダリティのスコアも予測する（\(score(\hat{x}_l) \in \mathcal{R}^{\mathcal{K}}\)）。モジュール全体を \(N\) 回積み重ね、実際には \(N\) を 3 とする。</p>
+
+<h3 id="e.4-占有予測">E.4　占有予測</h3>
+<p>上流モジュールからの BEV 特徴が与えられると、効率的な複数ステップ予測のために、まず畳み込み層によってそれを 1/4 にダウンサンプルし、その後、提案する OccFormer に渡す。OccFormer は図6 に示す \(T_o\) 個の逐次的なブロックで構成され、\(T_o = 5\) は時間ホライズン（現在および将来のフレームを含む）であり、各ブロックは特定の 1 フレームの占有の生成を担う。</p>
+<a class="pg" data-page="18"></a>
+<p>エージェントレベルの知識が不足している従来の研究とは異なり、我々の提案手法は、将来の表現を展開する際に密なシーン特徴と疎なエージェント特徴の両方を組み込む。密なシーン特徴は直前のブロックの出力（現在フレームの場合は観測特徴）であり、ピクセル–エージェント相互作用の計算量を削減するために、畳み込み層によってさらに縮小（1/8）される。疎なエージェント特徴は、トラッククエリ \(Q_A\)、エージェント位置 \(P_A\)、モーションクエリ \(Q_X\) の連結から導出され、その後、時間的な感度のために時刻固有の MLP に渡される。急速に変化する一部のシーンで必要となる長期的な依存関係をモデル化するためにピクセルレベルの自己注意を行い、その後、シーンの各ピクセルを対応するエージェントに注意させることでシーン–エージェントの統合を行う。エージェントとピクセルの位置の整合を強化するため、マスク特徴と縮小されたシーン特徴との行列積によって生成される注意マスクで交差注意を制限する。ここでマスク特徴は、エージェント特徴を MLP で符号化することで生成される。次に、注意を経た密な特徴を入力 \(F^{t-1}\) と同じ解像度（1/4）にアップサンプルし、安定性のための残差接続として \(F^{t-1}\) と加算する。得られた特徴 \(F^t\) は、次のブロックと、元の BEV 解像度（1/1）で占有を予測するための畳み込みデコーダの両方に送られる。マスク特徴を再利用して別の MLP に渡して占有特徴を形成し、インスタンスレベルの占有は、占有特徴と復号された密な特徴 \(F_{\text{dec}}^t\)（1/1）との行列積によって生成される。マスク特徴のための MLP 層、占有特徴のための MLP 層、および畳み込みデコーダはすべての \(T_o\) 個のブロックで共有され、その他の構成要素は各ブロックで独立していることに注意されたい。OccFormer におけるすべての密な特徴とエージェント特徴の次元は 256 である。</p>
+
+<figure><img src="figs/fig6.png" alt="図6" /></figure>
+<p><strong>図6：OccFormer。</strong>\(T_o\) 個の逐次的なブロックで構成され、\(T_o\) は時間ホライズン（現在および将来のフレームを含む）であり、各ブロックは特定の 1 フレームの占有の生成を担う。上流のトラッククエリ \(Q_A\)、エージェント位置 \(P_A\)、モーションクエリ \(Q_X\) から符号化された密なシーン特徴と疎なエージェント特徴の両方を組み込み、エージェントレベルの知識を将来のシーン表現に注入する。各ブロックの最後で、エージェントレベル特徴と復号された密な特徴との行列積によってインスタンスレベルの占有 \(\hat{O}_A^t\) を形成する。</p>
+<p class="yakuchu">図中ラベル：Block t＝ブロック t、Downscale＝縮小、Flatten＝平坦化、Self-attn＝自己注意、Cross-attn＝交差注意、Mask＝マスク、K &amp; V＝キーとバリュー、Unflatten＝平坦化の解除、Upscale＝拡大、Dec＝デコーダ</p>
+
+<h3 id="e.5-計画">E.5　計画</h3>
+<p>図7 に示すように、我々のプランナは、追跡モジュールと動き予測モジュールから生成された自車両クエリを受け取る。これらはそれぞれ青い三角形と黄色い長方形で表されている。これら 2 つのクエリはコマンド埋め込みとともに MLP 層で符号化され、その後モダリティ次元にわたる max-pooling 層によって、最も顕著なモーダル特徴が選択・集約される。BEV 特徴相互作用モジュールは標準的な Transformer デコーダ層で構築され、\(N\) 層積み重ねられる。ここでは \(N = 3\) とする。具体的には、集約された計画クエリで密な BEV 特徴に交差注意を行う。このモジュールの有効性を示すさらなる定性的結果は付録 F.5 にある。位置情報を埋め込むため、計画クエリを学習された位置埋め込みと融合し、BEV 特徴を正弦波位置埋め込みと融合する。その後、MLP 層で計画軌道を回帰し、これを \(\hat{\tau} \in \mathcal{R}^{T_p\times 2}\) と表す。ここでは \(T_p = 6\)（3 秒）とする。最後に、障害物回避のための衝突オプティマイザを考案する。これは本論文の式 (10) のように、予測された占有 \(\hat{O}\) と軌道 \(\hat{\tau}\) を入力として受け取る。\(d = 5\)、\(\sigma = 1.0\)、\(\lambda_{\text{coord}} = 1.0\)、\(\lambda_{\text{obs}} = 5.0\) とする。</p>
+
+<h3 id="e.6-学習の詳細">E.6　学習の詳細</h3>
+<p><strong>共同学習。</strong>UniAD は、より安定であることがわかった 2 段階で学習される。<strong>第 1 段階</strong>では、知覚予測を安定させるため、追跡とオンライン地図作成を含む知覚タスクを事前学習する。具体的には、高速な収束のために、対応する事前学習済みの BEVFormer［55］の重みを UniAD に読み込む。これには画像バックボーン、FPN、BEV エンコーダ、検出デコーダが含まれるが、物体クエリの埋め込みは除く（追加の<em>自車両クエリ</em>があるため）。メモリコストを削減するために画像バックボーンでの勾配の逆伝播を止め、追跡とオンライン地図作成の損失を用いて UniAD を次のように 6 エポック学習する：</p>
+<p>\[ L_1 = L_{\text{track}} + L_{\text{map}}. \tag{13} \]</p>
+
+<a class="pg" data-page="19"></a>
+<figure><img src="figs/fig7.png" alt="図7" /></figure>
+<p><strong>図7：Planner。</strong>\(Q_A^{\text{ego}}\) と \(Q_{\text{ctx}}^{\text{ego}}\) は、それぞれ追跡モジュールと動き予測モジュールからの<em>自車両クエリ</em>である。高レベルのコマンドとともに、これらは MLP 層とそれに続くモダリティ次元にわたる max-pooling 層で符号化され、最も顕著なモーダル特徴が選択・集約される。BEV 特徴相互作用モジュールは標準的な Transformer デコーダ層で構築され、\(N\) 層積み重ねられる。</p>
+<p class="yakuchu">図中ラベル：Collision optimizer＝衝突オプティマイザ、BEV feature Interaction＝BEV 特徴相互作用、BEV feature＝BEV 特徴、Sin PE＝正弦波位置符号化、Learned PE＝学習された位置符号化、MLP + maxpool＝MLP＋max-pooling、Command "turn left"＝コマンド「左折」、embedding＝埋め込み、K &amp; V＝キーとバリュー</p>
+
+<p><strong>第 2 段階</strong>では、画像バックボーンを同様に凍結したまま、さらに画像ビューから BEV へのビュー変換に用いる BEV エンコーダも凍結し、より多くの下流モジュールによるメモリ消費をさらに削減する。ここで UniAD は、追跡、地図作成、動き予測、占有予測、計画を含むすべてのタスクの損失を用いて 20 エポック学習される（本論文の様々なアブレーション研究では、効率のため 8 エポック学習している）：</p>
+<p>\[ L_2 = L_{\text{track}} + L_{\text{map}} + L_{\text{motion}} + L_{\text{occ}} + L_{\text{plan}}. \tag{14} \]</p>
+<p>\(L_1\) と \(L_2\) の各項における詳細な損失とハイパーパラメータについては、以下で個別に説明する。両段階において、追跡と BEV 特徴の集約［55］のための各学習系列（各ステップ）の長さは 5（アブレーション研究では効率のため 3）である。</p>
+<p><strong>検出と追跡の損失。</strong>BEVFormer［55］に従い、対応付けられた各結果に<em>ハンガリアン損失</em>を採用する。これはクラスラベルのための Focal 損失［61］と 3D ボックスの位置推定のための \(l_1\) 損失の線形結合である。マッチング戦略に関しては、新規クエリからの候補は二部マッチングによって正解物体と対応付けられ、トラッククエリからの予測は以前のフレームで割り当てられた正解のインデックスを引き継ぐ。具体的には、\(L_{\text{track}} = \lambda_{\text{focal}} L_{\text{focal}} + \lambda_{l_1} L_{l_1}\) であり、\(\lambda_{\text{focal}} = 2\)、\(\lambda_{l_1} = 0.25\) である。</p>
+<p><strong>オンライン地図作成の損失。</strong>［56］と同様に、これは車線、区画線、輪郭に対する thing 損失と、走行可能領域に対する stuff 損失を含む。ここで Focal 損失は分類を、L1 損失は thing のバウンディングボックスを、Dice 損失と GIoU 損失［80］はセグメンテーションを担当する。詳しくは、\(L_{\text{map}} = \lambda_{\text{focal}} L_{\text{focal}} + \lambda_{l_1} L_{l_1} + \lambda_{\text{giou}} L_{\text{giou}} + \lambda_{\text{dice}} L_{\text{dice}}\) であり、\(\lambda_{\text{focal}} = \lambda_{\text{giou}} = \lambda_{\text{dice}} = 2\)、\(\lambda_{l_1} = 0.25\) である。</p>
+<p><strong>動き予測の損失。</strong>従来の手法の多くと同様に、マルチモーダルな軌道をガウス混合としてモデル化し、マルチパス損失［12,90］を用いる。これは分類スコア損失 \(L_{\text{cls}}\) と負の対数尤度損失項 \(L_{\text{nll}}\) を含み、\(\lambda\) は対応する重みを表す：\(L_{\text{motion}} = \lambda_{\text{cls}} L_{\text{cls}} + \lambda_{\text{reg}} L_{\text{nll}}\)、ここで \(\lambda_{\text{cls}} = \lambda_{\text{reg}} = 0.5\) である。軌道の時間的な滑らかさを確保するため、まず各タイムステップにおけるエージェントの速度を予測し、それを時間方向に累積して最終的な軌道を得る［41］。</p>
+<p><strong>占有予測の損失。</strong>インスタンスレベルの占有予測の出力は各エージェントの二値セグメンテーションであるため、占有損失として二値交差エントロピーと Dice 損失［67］を採用する。形式的には \(L_{\text{occ}} = \lambda_{\text{bce}} L_{\text{bce}} + \lambda_{\text{dice}} L_{\text{dice}}\) であり、ここでは \(\lambda_{\text{bce}} = 5\)、\(\lambda_{\text{dice}} = 1\) とする。さらに、ピクセル–エージェント相互作用モジュールにおける注意マスクは粗い予測とみなせるため、同じ形式の補助的な占有損失を用いてこれを教師付けする。</p>
+<p><strong>計画の損失。</strong>安全性は計画において最も重要な要素である。したがって、素朴な模倣の \(l_2\) 損失に加えて、計画軌道を障害物から遠ざける別の衝突損失を次のように用いる：</p>
+<p>\[ L_{\text{col}}(\hat{\tau}, \delta) = \sum_{i,t} \texttt{IoU}(box(\hat{\tau}_t, w + \delta, l + \delta), b_{i,t}), \tag{15} \]</p>
+<p>\[ L_{\text{plan}} = \lambda_{\text{imi}} |\hat{\tau}, \tilde{\tau}|_2 + \lambda_{\text{col}} \sum_{(\omega,\delta)} \omega L_{\text{col}}(\hat{\tau}, \delta), \tag{16} \]</p>
+<p>ここで \(\lambda_{\text{imi}} = 1\)、\(\lambda_{\text{col}} = 2.5\) であり、\((\omega, \delta)\) は追加の安全距離を考慮した重みと値の組である。\(box(\hat{\tau}_t, w + \delta, l + \delta)\) は、より大きな安全距離を保つためにタイムスタンプ \(t\) においてサイズを拡大した自車両のバウンディングボックスを表し、\(b_{i,t}\) はシーン内で予測された各エージェントを示す。実際には、\((\omega, \delta)\) を \((1.0, 0.0), (0.4, 0.5), (0.1, 1.0)\) とする。</p>
+
+<h2 id="f-実験">F　実験</h2>
+<h3 id="f.1-プロトコル">F.1　プロトコル</h3>
+<a class="pg" data-page="20"></a>
+<p>両段階とも基本的な学習設定の大部分は BEVFormer［55］に従い、バッチサイズ 1、学習率 \(2\times 10^{-4}\)、バックボーンの学習率乗数 0.1、重み減衰 \(1\times 10^{-2}\) の AdamW オプティマイザ［65］を用いる。BEV のデフォルトのサイズは \(200\times 200\) であり、X 軸と Y 軸の両方で [-51.2<em>m</em>, 51.2<em>m</em>] の BEV 範囲を 0.512<em>m</em> 間隔で覆う。特徴次元に関するその他のハイパーパラメータは表11 に示す。実験は 16 基の NVIDIA Tesla A100 GPU で行う。</p>
+
+<h3 id="f.2-評価指標">F.2　評価指標</h3>
+<p><strong>複数物体追跡。</strong>標準的な評価プロトコルに従い、nuScenes データセットにおける UniAD の 3D 追跡性能の評価に、<strong>AMOTA</strong>（Average Multi-object Tracking Accuracy、平均複数物体追跡正確度）、<strong>AMOTP</strong>（Average Multi-object Tracking Precision、平均複数物体追跡精度）、<strong>Recall</strong>（再現率）、<strong>IDS</strong>（Identity Switches、ID スイッチ）を用いる。AMOTA と AMOTP は、MOTA（Multi-object Tracking Accuracy）と MOTP（Multi-object Tracking Precision）の値をすべての再現率にわたって積分することで計算される：</p>
+<p>\[ \text{AMOTA} = \frac{1}{n-1} \sum_{r\in\{\frac{1}{n-1}, \frac{2}{n-1}, \ldots, 1\}} \text{MOTA}_r, \tag{17} \]</p>
+<p>\[ \text{MOTA}_r = \max\left(0, 1 - \frac{\text{FP}_r + \text{FN}_r + \text{IDS}_r - (1-r)\text{GT}}{r\text{GT}}\right), \tag{18} \]</p>
+<p>ここで \(\text{FP}_r\)、\(\text{FN}_r\)、\(\text{IDS}_r\) は、それぞれ対応する再現率 \(r\) において計算された偽陽性、偽陰性、ID スイッチの数を表す。GT はこのフレームにおける正解物体の数を表す。AMOTP は次のように定義できる：</p>
+<p>\[ \text{AMOTP} = \frac{1}{n-1} \sum_{r\in\{\frac{1}{n-1}, \frac{2}{n-1}, \ldots, 1\}} \frac{\sum_{i,t} d_{i,t}}{\text{TP}_r}, \tag{19} \]</p>
+<p>ここで \(d_{i,t}\) はタイムスタンプ \(t\) におけるマッチングされたトラック \(i\) の位置誤差（\(x\) 軸と \(y\) 軸）を表し、\(\text{TP}_r\) は対応する再現率 \(r\) における真陽性の数である。</p>
+<p><strong>オンライン地図作成。</strong>オンライン地図作成タスクには 4 つのカテゴリ、<em>すなわち</em>車線、境界、横断歩道、走行可能領域がある。ネットワーク出力と正解地図との間で、各クラスについて IoU（intersection-over-union）指標を計算する。</p>
+<p><strong>動き予測。</strong>一方では、標準的な動き予測のプロトコルに従い、<strong>minADE</strong>（minimum Average Displacement Error、最小平均変位誤差）、<strong>minFDE</strong>（minimum Final Displacement Error、最小最終変位誤差）、<strong>MR</strong>（Miss Rate、ミス率）を含む従来の評価指標を採用する。先行研究［57,66,75］と同様に、これらの指標はマッチングされた TP の中でのみ計算され、すべての実験でマッチングの閾値を 1.0<em>m</em> とする。MR については、ミスとみなす FDE の閾値を 2.0<em>m</em> とする。他方では、最近提案されたエンドツーエンドの評価指標、<em>すなわち</em> <strong>EPA</strong>（End-to-end Prediction Accuracy、エンドツーエンド予測精度）［30］と <strong>minFDE-AP</strong>［75］も用いる。EPA については、公平な比較のため ViP3D［30］と同じ設定を用いる。minFDE-AP については、簡単のため正解を複数のビン（静止、直線移動、非直線移動のサブカテゴリ）に分けない。具体的には、物体の知覚位置とその min-FDE が距離の閾値（それぞれ 1.0<em>m</em> と 2.0<em>m</em>）以内にある場合にのみ、AP（平均適合率）の計算において TP として数える。先行研究と同様に、乗用車、トラック、建設車両、バス、トレーラー、オートバイ、自転車を車両カテゴリとして統合し、実験で示すすべての動き予測指標は車両カテゴリで評価する。</p>
+<p class="yakuchu">（訳注：本文の表8 では「minFDE-mAP」という名称が用いられているが、ここでは「minFDE-AP」と表記されている。同一の指標を指すと考えられる。）</p>
+<p><strong>占有予測。</strong>［35,105］に従い、シーン全体のレベルとインスタンスレベルの両方で予測された占有の品質を評価する。具体的には、<strong>IoU</strong> はインスタンス非依存なシーン全体のカテゴリ別セグメンテーションを測定し、Video Panoptic Quality（<strong>VPQ</strong>）［48］は各インスタンスの存在と時間的な一貫性を考慮する。VPQ 指標は次のように計算される：</p>
+<p>\[ \text{VPQ} = \sum_{t=0}^{H} \frac{\sum_{(p_t,q_t)\in\text{TP}_t} \texttt{IoU}(p_t, q_t)}{|\text{TP}_t| + \frac{1}{2}|\text{FP}_t| + \frac{1}{2}|\text{FN}_t|}, \tag{20} \]</p>
+<p>ここで \(H\) は将来のホライズンであり、［35,105］と同様に \(H = 4\)（現在のタイムスタンプを含めて \(T_o = 5\) となる）とし、2Hz で 2.0<em>s</em> の連続データをカバーする。\(\text{TP}_t\)、\(\text{FP}_t\)、\(\text{FN}_t\) は、それぞれタイムスタンプ \(t\) における真陽性、偽陽性、偽陰性の集合である。両指標とも 2 つの異なる BEV 範囲、すなわち自車両周辺の \(30m\times 30m\) の<strong>近距離</strong>（「-n.」）と \(100m\times 100m\) の<strong>遠距離</strong>（「-f.」）で評価する。両指標とも、現在のステップ（\(t = 0\)）と将来の 4 ステップの結果をまとめて評価する。</p>
+<p class="yakuchu">（訳注：本文の表6 のキャプションでは遠距離の評価範囲を \(50\times 50m\) としているが、ここでは \(100m\times 100m\) となっており、両者は一致しない。FIERY［35］の評価設定に従うなら \(100m\times 100m\) が正しいと考えられる。）</p>
+<p><strong>計画。</strong>ST-P3［38］と同じ評価指標、<em>すなわち</em>様々なタイムスタンプにおける <strong>L2 誤差</strong>と<strong>衝突率</strong>を採用する。</p>
+
+<h3 id="f.3-モデルの複雑さと計算コスト">F.3　モデルの複雑さと計算コスト</h3>
+<p>表13 に示すように、Nvidia Tesla A100 GPU 1 基で UniAD の複雑さと実行時間を測定する。タスクのデコーダ部分は一定量のパラメータをもたらすが、元の BEVFormer 検出器（ID 1）と比較すると、計算量は主にエンコーダ部分に由来する。また最近の BEVerse［105］との比較も示す。UniAD はより多くのタスクを持ち、優れた性能を達成し、かつ FLOPs が<em>より少ない</em>。これは追加の計算コストが許容できる範囲であることを示している。</p>
+
+<h3 id="f.4-モデルの規模">F.4　モデルの規模</h3>
+<a class="pg" data-page="21"></a>
+<p>表12 に示すように、異なるモデル規模のもとで UniAD の 3 つのバリエーションを示す。画像ビュー特徴抽出のために選択した画像バックボーンは、UniAD-S、UniAD-B、UniAD-L についてそれぞれ ResNet-50［32］、ResNet-101、VoVNet 2-99［51］である。モデル規模（画像エンコーダ）は主に BEV 特徴の品質に影響するため、より大きなバックボーンを用いると知覚のスコアが向上し、それがさらに予測と計画の性能の向上につながりうることが観察できる。</p>
+
+<table><thead><tr><th rowspan="2">手法</th><th rowspan="2">エンコーダ</th><th colspan="3">追跡</th><th colspan="2">地図作成</th><th colspan="4">動き予測</th><th colspan="4">占有予測</th><th colspan="2">計画</th></tr>
+<tr><th>AMOTA↑</th><th>AMOTP↓</th><th>IDS↓</th><th>IoU-lane↑</th><th>IoU-road↑</th><th>minADE↓</th><th>minFDE↓</th><th>MR↓</th><th>EPA↑</th><th>IoU-n.↑</th><th>IoU-f.↑</th><th>VPQ-n.↑</th><th>VPQ-f.↑</th><th>avg.L2↓</th><th>avg.Col.↓</th></tr></thead><tbody>
+<tr><td><strong>UniAD</strong>-S</td><td>R50</td><td style="text-align:right">0.241</td><td style="text-align:right">1.488</td><td style="text-align:right">958</td><td style="text-align:right">0.315</td><td style="text-align:right">0.689</td><td style="text-align:right">0.788</td><td style="text-align:right">1.126</td><td style="text-align:right">0.156</td><td style="text-align:right">0.381</td><td style="text-align:right">59.4</td><td style="text-align:right">35.6</td><td style="text-align:right">49.2</td><td style="text-align:right">28.9</td><td style="text-align:right">1.04</td><td style="text-align:right">0.32</td></tr>
+<tr><td><strong>UniAD</strong>-B</td><td>R101</td><td style="text-align:right">0.359</td><td style="text-align:right">1.320</td><td style="text-align:right"><strong>906</strong></td><td style="text-align:right">0.313</td><td style="text-align:right">0.691</td><td style="text-align:right"><strong>0.708</strong></td><td style="text-align:right"><strong>1.025</strong></td><td style="text-align:right"><strong>0.151</strong></td><td style="text-align:right">0.456</td><td style="text-align:right">63.4</td><td style="text-align:right">40.2</td><td style="text-align:right">54.7</td><td style="text-align:right">33.5</td><td style="text-align:right">1.03</td><td style="text-align:right">0.31</td></tr>
+<tr><td><strong>UniAD</strong>-L</td><td>V2-99*</td><td style="text-align:right"><strong>0.409</strong></td><td style="text-align:right"><strong>1.259</strong></td><td style="text-align:right">1583</td><td style="text-align:right"><strong>0.323</strong></td><td style="text-align:right"><strong>0.709</strong></td><td style="text-align:right">0.723</td><td style="text-align:right">1.067</td><td style="text-align:right">0.158</td><td style="text-align:right"><strong>0.508</strong></td><td style="text-align:right"><strong>64.1</strong></td><td style="text-align:right"><strong>42.6</strong></td><td style="text-align:right"><strong>55.8</strong></td><td style="text-align:right"><strong>36.9</strong></td><td style="text-align:right"><strong>1.03</strong></td><td style="text-align:right"><strong>0.29</strong></td></tr>
+</tbody></table>
+<p><strong>表12：UniAD の 3 つのバリエーションの比較。</strong>∗：追加の深度データ［73］で事前学習。</p>
+
+<table><thead><tr><th>ID</th><th>Det.</th><th>Track</th><th>Map</th><th>Motion</th><th>Occ.</th><th>Plan</th><th>#Params</th><th>FLOPs</th><th>FPS</th></tr></thead><tbody>
+<tr><td>0［105］</td><td>✓</td><td></td><td>✓</td><td></td><td>✓</td><td></td><td style="text-align:right">102.5M</td><td style="text-align:right">1921G</td><td style="text-align:right">-</td></tr>
+<tr><td>1</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td style="text-align:right">65.9M</td><td style="text-align:right">1324G</td><td style="text-align:right">4.2</td></tr>
+<tr><td>2</td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td style="text-align:right">68.2M</td><td style="text-align:right">1326G</td><td style="text-align:right">2.7</td></tr>
+<tr><td>3</td><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td></td><td style="text-align:right">95.8M</td><td style="text-align:right">1520G</td><td style="text-align:right">2.2</td></tr>
+<tr><td>4</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td style="text-align:right">108.6M</td><td style="text-align:right">1535G</td><td style="text-align:right">2.1</td></tr>
+<tr><td>5</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td></td><td style="text-align:right">122.5M</td><td style="text-align:right">1701G</td><td style="text-align:right">2.0</td></tr>
+<tr><td>6</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td style="text-align:right">125.0M</td><td style="text-align:right">1709G</td><td style="text-align:right">1.8</td></tr>
+</tbody></table>
+<p><strong>表13：異なるモジュールを組み込んだ場合の計算量と実行時間。</strong>ID.1 は元の BEVFormer［55］に類似しており、ID.0（BEVerse-Tiny）［105］は MTL フレームワークである。</p>
+<p class="yakuchu">列名：Det.＝検出、Track＝追跡、Map＝地図作成、Motion＝動き予測、Occ.＝占有予測、Plan＝計画、#Params＝パラメータ数</p>
+
+<h3 id="f.5-定性的な結果">F.5　定性的な結果</h3>
+<p><strong>注意マスクの可視化。</strong>内部メカニズムを調べてその説明可能性を示すため、プランナにおける交差注意モジュールの注意マスクを可視化する。図8 に示すように、予測された追跡のバウンディングボックス、計画軌道、正解の HD 地図を参考のために描画し、その上に注意マスクを重ねている。左から右へ、時系列上で連続しているがナビゲーションコマンドが異なる 2 つのフレームを示す。計画軌道がコマンドに応じて大きく変化することが観察できる。また、目標とする車線や、自車両に道を譲っている重要なエージェントに多くの注意が払われている。</p>
+<p><strong>様々なシナリオの可視化。</strong>都市部の巡航（図9）、危険な事例（図10）、障害物回避のシナリオ（図11）を含む、より多くのシナリオの可視化を示す。我々の計画指向の設計を支持する有望な証拠の 1 つを図12 に示す。ここでは前段のモジュールで不正確な結果が生じているが、後段のタスクは依然として回復できている。同様に、サラウンドビュー画像、BEV、およびプランナからの注意マスクにおいて、すべてのタスクの結果を示す。参考としてデモ動画<sup>3</sup>も提供している。</p>
+<blockquote><p>脚注3：<a href="https://opendrivelab.github.io/UniAD/">https://opendrivelab.github.io/UniAD/</a></p></blockquote>
+<p><strong>失敗事例</strong>は、自動運転アルゴリズムがその弱点を理解し、今後の研究を導くうえで不可欠であり、ここでは UniAD のいくつかの失敗事例を示す。UniAD の失敗事例は、図13 と図14 に示すように、主にすべてのモジュールが影響を受けるロングテールのシナリオで生じる。</p>
+
+<a class="pg" data-page="22"></a>
+<figure><img src="figs/fig8.jpg" alt="図8" /></figure>
+<p><strong>図8：ナビゲーションコマンドの有効性と注意マスクの可視化。</strong>ここでは、ナビゲーションコマンドに応じてどのように注意が払われるかを示す。計画モジュール内の BEV 相互作用モジュールからの注意マスク、予測された追跡のバウンディングボックス、および計画軌道を描画している。ナビゲーションコマンドは左下に表示されており、HD 地図は参考のためにのみ描画している。左から右へ、時系列上で連続しているがナビゲーションコマンドが異なる 2 つのフレームを示す。計画軌道がコマンドに応じて大きく変化することが観察できる。また、目標とする車線や、自車両に道を譲っている重要なエージェントに多くの注意が払われている。</p>
+<p class="yakuchu">図中ラベル：KEEP FORWARD＝直進、TURN LEFT＝左折</p>
+
+<figure><img src="figs/fig9.jpg" alt="図9" /></figure>
+<p><strong>図9：都市部の巡航の可視化。</strong>UniAD は高品質で解釈可能な知覚・予測結果を生成し、安全な操縦を行うことができる。最初の 3 列は 6 つのカメラビューを示し、最後の 2 列はそれぞれ予測結果と計画モジュールからの注意マスクである。各エージェントは固有の色で示されている。動き予測からは、画像ビューでは上位 1 本、BEV では上位 3 本の軌道のみを可視化のために選択している。</p>
+<p class="yakuchu">図中ラベル：CAM_FRONT_LEFT／CAM_FRONT／CAM_FRONT_RIGHT／CAM_BACK_RIGHT／CAM_BACK／CAM_BACK_LEFT＝各カメラ（前方左／前方／前方右／後方右／後方／後方左）、KEEP FORWARD＝直進</p>
+<a class="pg" data-page="23"></a>
+<figure><img src="figs/fig10.jpg" alt="図10" /></figure>
+<p><strong>図10：危険な事例の可視化。</strong>ここでは 2 つの危険な事例を示す。1 つ目のシナリオ（上）は自車両が道路を横断する 2 人の歩行者に道を譲っている様子を示し、2 つ目のシナリオ（下）は自車両が高速で移動する車に道を譲り、交差点付近で保護（信号による優先）なしに直進するのを待っている様子を示している。最も重要なエージェント、<em>すなわち</em>歩行者と高速で移動する車両、および意図されたゴール位置に多くの注意が払われていることが観察できる。</p>
+<p class="yakuchu">図中ラベル：CAM_*＝各カメラ画像、KEEP FORWARD＝直進</p>
+
+<figure><img src="figs/fig11.jpg" alt="図11" /></figure>
+<p><strong>図11：障害物回避の可視化。</strong>これら 2 つのシナリオでは、自車両は障害物となる車両を避けるために注意深く車線変更を行っている。注意マスクから、我々の手法が障害物と前後の道路に注目していることが観察できる。</p>
+<p class="yakuchu">図中ラベル：CAM_*＝各カメラ画像、KEEP FORWARD＝直進</p>
+
+<a class="pg" data-page="24"></a>
+<figure><img src="figs/fig12.jpg" alt="図12" /></figure>
+<p><strong>図12：知覚の失敗から回復する計画の可視化。</strong>前段のモジュールで不正確な結果が生じても、後段のタスクが依然として回復できる興味深い事例を示す。上段と下段は同じシナリオの連続する 2 フレームを表す。赤い円内の車両は、遠方から交差点に向かって高速で移動している。追跡モジュールは最初はこれを見逃し、後のフレームでこれを捉えていることが観察される。青い円は交通に道を譲っている停止車両を示しており、これは両方のフレームで見逃されている。興味深いことに、両方の車両は前段のモジュールで見逃されているにもかかわらず、プランナの注意マスクに強い反応を示している。これは、我々のプランナが見逃された重要なエージェントにも依然として注意を払っていることを意味し、これは従来の断片化された統合されていない運転システムでは扱いが困難なことであり、UniAD の頑健性を示している。</p>
+<p class="yakuchu">図中ラベル：CAM_*＝各カメラ画像、KEEP FORWARD＝直進</p>
+
+<figure><img src="figs/fig13.jpg" alt="図13" /></figure>
+<p><strong>図13：失敗事例 1。</strong>ここでは、白いコンテナを載せた大型トレーラーが道路全体を占有しているロングテールのシナリオを示す。我々の追跡モジュールが、前方のトレーラーの正確なサイズと、道路脇の車両の方位角を検出できていないことが観察できる。</p>
+<p class="yakuchu">図中ラベル：CAM_*＝各カメラ画像、KEEP FORWARD＝直進</p>
+
+<figure><img src="figs/fig14.jpg" alt="図14" /></figure>
+<p><strong>図14：失敗事例 2。</strong>この事例では、プランナは狭い道路で対向してくる車両に対して過度に慎重になっている。暗い環境は自動運転におけるロングテールのシナリオの重要な類型の 1 つである。衝突損失の重みを小さくし、境界に関する制約を増やすことで、この問題を緩和できる可能性がある。</p>
+<p class="yakuchu">図中ラベル：KEEP FORWARD＝直進</p>
+</body>
+</html>

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Scene Transformer 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="Scene Transformer: A unified architecture for predicting multiple agent trajectories" />
+  <meta name="short-name" content="Scene Transformer" />
+  <meta name="authors" content="Jiquan Ngiam, Benjamin Caine, Vijay Vasudevan, Zhengdong Zhang, Hao-Tien Lewis Chiang, Jeffrey Ling, Rebecca Roelofs, Alex Bewley, Chenxi Liu, Ashish Venugopal, David Weiss, Ben Sapp, Zhifeng Chen, Jonathon Shlens（Google Research, Brain Team / Waymo）" />
+  <meta name="source-pdf" content="13_Scene_Transformer_2106.08417.pdf" />
+  <meta name="source-pages" content="25" />
+  <meta name="pdf-href" content="13_Scene_Transformer_2106.08417.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="エージェント・時間・道路グラフ要素の軸に分解した注意機構を持つシーン中心の Transformer で、全エージェントの軌道を同時に予測する。マスク付き系列モデリングにより、周辺予測・同時予測・自車の目標や軌道で条件付けた予測を単一モデルで扱い、Argoverse と Waymo Open Motion Dataset で最高性能を達成した（ICLR 2022）。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">Scene Transformer 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="13_Scene_Transformer_2106.08417.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+    <div class="page" data-page="13" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">13</div></div>
+    <div class="page" data-page="14" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">14</div></div>
+    <div class="page" data-page="15" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">15</div></div>
+    <div class="page" data-page="16" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">16</div></div>
+    <div class="page" data-page="17" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">17</div></div>
+    <div class="page" data-page="18" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">18</div></div>
+    <div class="page" data-page="19" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">19</div></div>
+    <div class="page" data-page="20" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">20</div></div>
+    <div class="page" data-page="21" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">21</div></div>
+    <div class="page" data-page="22" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">22</div></div>
+    <div class="page" data-page="23" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">23</div></div>
+    <div class="page" data-page="24" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">24</div></div>
+    <div class="page" data-page="25" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">25</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#scene-transformer-a-unified-architecture-for-predicting-multiple-agent-trajectories" id="toc-scene-transformer-a-unified-architecture-for-predicting-multiple-agent-trajectories">Scene Transformer: A unified architecture for predicting multiple agent trajectories</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a></li>
+<li><a href="#3-手法" id="toc-3-手法">3　手法</a><ul>
+<li><a href="#3.1-エージェントと道路グラフのシーン中心表現" id="toc-3.1-エージェントと道路グラフのシーン中心表現">3.1　エージェントと道路グラフのシーン中心表現</a></li>
+<li><a href="#3.2-符号化-transformer" id="toc-3.2-符号化-transformer">3.2　符号化 Transformer</a></li>
+<li><a href="#3.3-各未来の確率の予測" id="toc-3.3-各未来の確率の予測">3.3　各未来の確率の予測</a></li>
+<li><a href="#3.4-同時損失と周辺損失の定式化" id="toc-3.4-同時損失と周辺損失の定式化">3.4　同時損失と周辺損失の定式化</a></li>
+</ul></li>
+<li><a href="#4-結果" id="toc-4-結果">4　結果</a><ul>
+<li><a href="#4.1-周辺動作予測" id="toc-4.1-周辺動作予測">4.1　周辺動作予測</a></li>
+<li><a href="#4.2-同時動作予測" id="toc-4.2-同時動作予測">4.2　同時動作予測</a></li>
+<li><a href="#4.3-エージェントの分解自己注意" id="toc-4.3-エージェントの分解自己注意">4.3　エージェントの分解自己注意</a></li>
+<li><a href="#4.4-マスク付き系列モデリング戦略の利点" id="toc-4.4-マスク付き系列モデリング戦略の利点">4.4　マスク付き系列モデリング戦略の利点</a></li>
+</ul></li>
+<li><a href="#5-考察" id="toc-5-考察">5　考察</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#付録" id="toc-付録">付録</a></li>
+<li><a href="#a-アーキテクチャと学習の詳細" id="toc-a-アーキテクチャと学習の詳細">A　アーキテクチャと学習の詳細</a></li>
+<li><a href="#b-動作予測の追加結果" id="toc-b-動作予測の追加結果">B　動作予測の追加結果</a><ul>
+<li><a href="#b.1-同時モデルと周辺モデルのトレードオフの理解" id="toc-b.1-同時モデルと周辺モデルのトレードオフの理解">B.1　同時モデルと周辺モデルのトレードオフの理解</a></li>
+</ul></li>
+<li><a href="#c-スライス別の結果" id="toc-c-スライス別の結果">C　スライス別の結果</a></li>
+<li><a href="#d-損失の実装" id="toc-d-損失の実装">D　損失の実装</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="scene-transformer-a-unified-architecture-for-predicting-multiple-agent-trajectories">Scene Transformer: A unified architecture for predicting multiple agent trajectories</h1>
+<p>Jiquan Ngiam<sup>*,1</sup>、Benjamin Caine<sup>*,1</sup>、Vijay Vasudevan<sup>*,1</sup>、Zhengdong Zhang<sup>1</sup>、Hao-Tien Lewis Chiang<sup>2</sup>、Jeffrey Ling<sup>2</sup>、Rebecca Roelofs<sup>1</sup>、Alex Bewley<sup>1</sup>、Chenxi Liu<sup>2</sup>、Ashish Venugopal<sup>2</sup>、David Weiss<sup>2</sup>、Ben Sapp<sup>2</sup>、Zhifeng Chen<sup>1</sup>、Jonathon Shlens<sup>1</sup><br />
+<sup>1</sup>Google Research, Brain Team、<sup>2</sup>Waymo<br />
+{jngiam,bencaine,vrv}@google.com<br />
+ICLR 2022 会議論文、arXiv:2106.08417v3 [cs.CV]、2022年3月4日</p>
+<blockquote><p>翻訳について：原文 PDF は <code>13_Scene_Transformer_2106.08417.pdf</code>（全 25 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p>複数エージェントの動きを予測することは、動的な環境における計画に不可欠である。自動運転においてこのタスクが難しいのは、エージェント（例えば車両や歩行者）とそれらに付随する振る舞いが多様であり、互いに影響を及ぼし合うためである。先行研究の多くは、過去のすべての動きに基づいて各エージェントの独立な未来を予測し、それら独立な予測に対して計画を立てることに注力してきた。しかし、独立な予測に対して計画を立てると、異なるエージェント間の将来の相互作用の可能性を表現することが難しくなり、最適でない計画につながりうる。本研究では、すべてのエージェントの振る舞いを同時（joint）に予測し、エージェント間の相互作用を考慮した整合的な未来を生成するモデルを定式化する。近年の言語モデリングの手法に着想を得て、マスキング戦略をモデルへのクエリとして用いる。これにより単一のモデルを呼び出すだけで、自動運転車の目標や将来軌道全体、あるいは環境中の他のエージェントの振る舞いに条件付けるなど、多様なやり方でエージェントの振る舞いを予測できる。本モデルのアーキテクチャは注意機構を用いて、道路要素、エージェント間の相互作用、時間ステップにまたがる特徴を統合する。周辺（marginal）動作予測と同時（joint）動作予測の両方について自動運転データセットで本手法を評価し、広く使われている 2 つのデータセットで最高性能を達成した。シーン中心のアプローチ、エージェントの置換に対して同変なモデル、そして系列マスキング戦略を組み合わせることで、本モデルが同時動作予測から条件付き予測に至るさまざまな動作予測タスクを統一できることを示す。</p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>密集した実世界の都市環境における動作計画は、自動運転技術を実用化するうえで極めて重要な問題である。自動運転は従来、単一のエンドツーエンド学習システムで扱うには難しすぎると考えられてきた（Thrun et al., 2006）。そのため研究者は、このタスクを逐次的なサブタスク、すなわち (i) 認識、(ii) 動作予測、(iii) 計画に分割する方法を選んできた（Zeng et al., 2019）。認識とは、LiDAR やカメラなどのセンサからシーン中の物体を検出・追跡するタスクである。動作予測は、シーン中の他のエージェントの将来の行動を予測することである。最後に計画は、動的な環境の中を進む動作計画を作成することである。</p>
+<p>大きな問題をサブタスクに分割する方法は、各サブタスクが真に独立であるときに最適な性能を達成する。しかし、独立性の仮定が成り立たないとき、この戦略は破綻する。例えば、動作予測と計画というサブタスクは真に独立ではない。自動運転車の行動は他のエージェントの振る舞いに大きな影響を与えうる。同様に、他のエージェントの振る舞いによって何が良い計画かが劇的に変わりうる。本研究の目標は、自動運転車（AV）の目標のようなさまざまな形の条件付け情報を活用でき、すべてのエージェントについて未来に関する同時かつ整合的な予測を一度に生成するモデルを開発することで、動作予測と計画の統一に向けて一歩を踏み出すことである。</p>
+<a class="pg" data-page="2"></a>
+<p>動作予測タスクは従来、エージェントごとの独立な予測を中心に定式化されてきたが、近年のデータセット（Ettinger et al., 2021; Zhan et al., 2019）は相互作用予測タスクを導入しており、同時未来予測の研究を可能にしている（図 1）。これらの相互作用予測タスクでは、モデルは複数エージェントの同時の未来を予測する必要がある。すなわち、エージェントの未来が互いに整合する<sup>1</sup>ように、すべてのエージェントについて将来の予測を生成することが求められる。</p>
+<blockquote><p>脚注1：周辺的なエージェント予測は互いに衝突する（重なりを持つ）ことがありうるが、整合的な同時予測では、同一の未来の中で各エージェントが互いの振る舞いを尊重する（重なりを避ける）予測になっているべきである。</p></blockquote>
+<figure><img src="figs/fig1.png" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：同時予測は整合的な動作予測を与える。</strong>周辺動作予測と同時動作予測の違いの説明図。各色は個別の予測を表す。左：下中央の車両に対する周辺予測。スコアは軌道の尤度を示す。この予測は他の車両の軌道とは独立であることに注意されたい。右：注目する 3 台の車両に対する同時予測。スコアは、3 台すべての車両の軌道からなるシーン全体の尤度を示す。</p>
+<p class="yakuchu">図中ラベル：marginal prediction＝周辺予測、joint prediction＝同時予測、blue trajectory = 0.3＝青の軌道 = 0.3、orange trajectory = 0.7＝橙の軌道 = 0.7、blue scene = 0.3＝青のシーン = 0.3、orange scene = 0.7＝橙のシーン = 0.7</p>
+<p>同時の未来を生成する素朴なアプローチは、<em>周辺的な</em>エージェント予測の、指数的な数の組み合わせを考えることである。とりわけエージェントの軌道が重なり合う場合、組み合わせの多くは整合的でない。本論文では、エージェント間の相互作用を自然に捉え、全エージェントにわたってシーンレベルで整合的な予測を生成する同時モデルとして学習できる統一モデルを提示する（図 1 右）。本モデルは、密集した環境で多数のエージェントにスケールできるよう、全エージェントに対してシーン中心の表現を用いる（Lee et al., 2017; Hong et al., 2019; Casas et al., 2020a; Salzmann et al., 2020）。また、注意機構をエージェント軸と時間軸に効率よく分解した、自己注意（Vaswani et al., 2017）の単純な変種を採用する。得られるアーキテクチャは、時間を表す次元とシーン全体のエージェントを表す次元とで交互に注意を適用するだけであり、計算効率が高く、一様で、スケーラブルなアーキテクチャとなる。</p>
+<p>このようにして得られた <em>Scene Transformer</em> と呼ぶモデルが、独立（周辺）予測と相互作用（同時）予測の両方のベンチマークで優れた性能を達成することを確認した。</p>
+<p>さらに、近年の言語モデリングの進展（Brown et al., 2020; Devlin et al., 2019）に着想を得て、マスク付き系列モデルを用いたタスクの新しい定式化を示し、自動運転車（AV）の目標状態や軌道全体にモデルを条件付けられるようにする。この再定式化により、推論時にどのデータを可視にするかを変えるだけで、単一のモデルが動作予測、条件付き動作予測、目標条件付き予測といったタスクを自然にこなせる。</p>
+<p>我々の統一アーキテクチャと柔軟な問題定式化が、動作予測と計画をさらに融合するための新たな研究方向を切り開くことを期待する。まとめると、本研究の主な貢献は次のとおりである。</p>
+<ul>
+<li>単一の順伝播で周辺（独立）予測と同時予測のどちらを生成するようにも、モデルの学習を円滑に切り替えられる、新しいシーン中心のアプローチ。本モデルは Argoverse と Waymo Open Motion Dataset の両方において、周辺予測と同時予測の両タスクで最高性能を達成する。</li>
+<li>問題に内在する対称性を活用する、エージェント・時間・道路グラフ要素にわたって分解された、置換同変な Transformer ベースのアーキテクチャ。得られるアーキテクチャは効率的であり、世界の状態を統一的に統合する。</li>
+<li>推論時に仮定上のエージェントの未来に条件付けることを可能にし、条件付き動作予測や目標条件付き予測を実現するマスク付き系列モデリングのアプローチ。</li>
+</ul>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<a class="pg" data-page="3"></a>
+<p><strong>動作予測のアーキテクチャ。</strong>自動運転応用への関心の高まりと、関連するデータセットやベンチマークの公開（Kesten et al., 2019; Chang et al., 2019; Caesar et al., 2020; Ettinger et al., 2021）により、近年、動作予測モデルは隆盛を見せている。成功するモデルは、エージェントの動きの履歴と、道路グラフの要素（例えば車線、停止線、信号機の動的な状態）を考慮しなければならない。さらに、そうしたモデルは道路グラフ環境の文脈の中でこれらのエージェント間の関係を学習しなければならない。</p>
+<p>あるクラスのモデルはコンピュータビジョンの文献に大きく依拠しており、入力をマルチチャネルのラスタ化された俯瞰画像として描画する（Cui et al., 2019; Chai et al., 2019; Lee et al., 2017; Hong et al., 2019; Casas et al., 2020a; Salzmann et al., 2020; Zhao et al., 2019）。このアプローチでは、シーン要素間の関係は畳み込みの深層アーキテクチャによって捉えられる。しかし、受容野が局所的な構造であるため、空間的に離れた相互作用を捉えることは難しい。よく用いられる代替手段は、エンティティ中心のアプローチを使うことである。このアプローチでは、エージェントの状態履歴は通常、RNN（Mercat et al., 2020; Khandelwal et al., 2020; Lee et al., 2017; Alahi et al., 2016; Rhinehart et al., 2019）や時間方向の畳み込み（Liang et al., 2020）といった系列モデリング技法で符号化される。道路要素は、姿勢情報と意味的な種別を符号化する基本的なプリミティブ（例えば区分線形のセグメント）で近似される。エンティティ間の関係のモデリングはしばしば情報集約の過程として扱われ、モデルはプーリング（Zhao et al., 2020; Gao et al., 2020; Lee et al., 2017; Alahi et al., 2016; Gupta et al., 2018）、ソフト注意（Mercat et al., 2020; Zhao et al., 2020; Salzmann et al., 2020）、さらにはグラフニューラルネットワーク（Casas et al., 2020a; Liang et al., 2020; Khandelwal et al., 2020）を用いる。</p>
+<p>提案手法と同様に、近年のいくつかのモデルは、マルチヘッド注意層から構成される Transformer（Vaswani et al., 2017）を用いている。Transformer は自然言語処理における系列モデリングで広く使われる最先端の選択肢であり（Brown et al., 2020; Devlin et al., 2019）、最近では検出（Bello et al., 2019; Carion et al., 2020; Srinivas et al., 2021）、追跡（Hung et al., 2020）、分類（Ramachandran et al., 2019; Vaswani et al., 2021; Dosovitskiy et al., 2021; Bello, 2013; Bello et al., 2019）といったコンピュータビジョンの中核的なタスクでも有望な結果を示している。動作のモデリングについては、近年の研究は自己注意や Transformer の変種を用いて、さまざまな軸をモデル化している。すなわち、時間方向の軌道の符号化と復号（Yu et al., 2020; Giuliari et al., 2020; Yuan et al., 2021）、エージェント間の関係の符号化（Li et al., 2020; Park et al., 2020; Yuan et al., 2021; Yu et al., 2020; Mercat et al., 2020; Bhat et al., 2020）、そして道路要素との関係の符号化である。複数の軸にわたって自己注意を適用する際、過去の研究は軸ごとに独立した自己注意を用いるか（Yu et al., 2020）、2 つの軸を平坦化して 1 つの同時自己注意層にまとめていた（Yuan et al., 2021）。これに対し本手法は、時間ステップ、エージェント、道路グラフ要素の間の関係を統一的にモデル化するために、軸ごとに分解された注意（axis-factored attention）を提案する。</p>
+<p><strong>シーン中心表現とエージェント中心表現。</strong>もう一つの重要な設計上の選択は、表現を符号化する座標系（参照フレーム）である。ラスタ化された俯瞰画像を用いる研究（Cui et al., 2019; Chai et al., 2019; Lee et al., 2017; Hong et al., 2019; Casas et al., 2020a; Salzmann et al., 2020）のように、モデリングの大部分をグローバルなシーンレベルの座標系で行うモデルもある。これは共通の座標系における世界状態の単一の共有表現を用いるため、より効率的なモデルにつながりうるが、姿勢不変性を犠牲にする可能性を伴う。一方、エージェント座標系で推論するモデル（Mercat et al., 2020; Zhao et al., 2020; Khandelwal et al., 2020）は本質的に姿勢不変であるが、エージェント数に対して線形に、あるいはエージェント間のペアごとの相互作用数に対して二次的にスケールする。多くの研究は、道路表現のための俯瞰ラスタ表現とエージェントごとの表現を融合した混合方式を採用している（Rhinehart et al., 2019; Tang &amp; Salakhutdinov, 2019; Lee et al., 2017）。我々の研究と同様に、LaneGCN（Liang et al., 2020）はエージェント中心でありながら表現がグローバル座標系にある。我々の知る限り、そのようにしている研究は他にこれだけである。これにより、ラスタ化を行わずに、任意に離れた相互作用と高忠実度な状態表現を捉えつつ効率的な推論が可能になる。</p>
+<a class="pg" data-page="4"></a>
+<p><strong>複数エージェントの未来の表現。</strong>エージェントの未来を表現する一般的な方法は、エージェントごとの重み付き軌道集合によるものである（Alahi et al., 2016; Biktairov et al., 2020; Buhet et al., 2020; Casas et al., 2020a;a; Chai et al., 2019; Cui et al., 2019; Gao et al., 2020; Hong et al., 2019; Lee et al., 2017; Marchetti et al., 2020; Mercat et al., 2020; Salzmann et al., 2020; Zhao et al., 2020; Chandra et al., 2018）<span class="yakuchu">（訳注：「Casas et al., 2020a;a」は原文のまま。同一文献の重複と思われる）</span>。この表現は、主にエージェントごとの距離誤差指標に焦点を当てたベンチマーク（Caesar et al., 2020; Chang et al., 2019; Zhan et al., 2019）によって後押しされている。本研究では、マルチエージェント環境で<em>同時の</em>未来をモデル化すること（図 1 右）が、先行研究ではほとんど探究されてこなかった重要な概念であると主張する。一部の先行研究は、エージェントの未来の一部を他のエージェントに条件付ける、分解されたペアごとの同時分布を考えている。非形式的に言えば、エージェント \(X\) と \(Y\) について \(P(X)\) と \(P(Y|X)\) をモデル化するものである（Khandelwal et al., 2020; Tolstaya et al., 2021; Salzmann et al., 2020）。同時予測を任意のマルチエージェント設定に一般化するために、他の研究（Tang &amp; Salakhutdinov, 2019; Rhinehart et al., 2019; Casas et al., 2020b; Suo et al., 2021; Yeh et al., 2019）はエージェントごとにサンプルを反復的にロールアウトし、各エージェントを以前にサンプリングされた軌道ステップに条件付ける。これに対して本モデルは、対応する尤度を伴う \(k\) 個の異なる同時未来の集合を直接復号する。</p>
+<figure><img src="figs/fig2.png" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：複数の動作予測タスクのための単一モデルアーキテクチャ。</strong>左：異なるマスキング戦略が異なるタスクを定義する。左の列は現在時刻を表し、最上行は自動運転車（AV）を表すエージェントを示す。マスキング戦略を各予測タスクに合わせることで、単一のモデルを動作予測、条件付き動作予測、目標指向予測に関連するデータで学習できる。右：同時シーンモデリングのための注意ベースのエンコーダ・デコーダアーキテクチャ。このアーキテクチャは、データ中の依存関係を活用するために時間軸とエージェント軸に沿った分解注意を用い、補助情報を注入するためにクロス注意を用いる。</p>
+<p class="yakuchu">図中ラベル：Time＝時間、Agents＝エージェント、AV＝自動運転車、Motion prediction (MP)＝動作予測（MP）、Conditional motion prediction (CMP)＝条件付き動作予測（CMP）、Goal-conditioned motion prediction (GCP)＝目標条件付き動作予測（GCP）、= Visible to model＝モデルから可視、= Hidden and to be predicted by model＝隠され、モデルが予測する対象、Attention-based Encoder＝注意ベースのエンコーダ、Attention-based Decoder＝注意ベースのデコーダ、Agent Features＝エージェント特徴、Self-attention (across time)＝自己注意（時間方向）、Self-attention (across agents)＝自己注意（エージェント方向）、Add extra agent/time dimension＝エージェント／時間の追加次元を付加、Cross-attention (agents to roadgraph)＝クロス注意（エージェントから道路グラフへ）、Road graph＝道路グラフ、Tile and MLP＝タイル複製と MLP、Slice out extra agent/time dimension＝追加したエージェント／時間次元を切り出して除去</p>
+
+<h2 id="3-手法">3　手法</h2>
+<p>Scene Transformer モデルは 3 つの段階からなる。(i) エージェントと道路グラフを高次元空間に埋め込む。(ii) 注意ベースのネットワークを用いて、エージェント間およびエージェントと道路グラフの間の相互作用を符号化する。(iii) 注意ベースのネットワークを用いて複数の未来を復号する。モデルはすべての時間ステップのすべてのエージェントについての特徴を入力として受け取り、またすべての時間ステップのすべてのエージェントについて出力を予測する。対応するマスクを用い、各エージェント・時間ステップには、入力特徴がモデルから隠される（すなわち取り除かれる）かどうかを示す 1（隠す）または 0（可視）の指示子が付随する。このアプローチは BERT（Devlin et al., 2019）のようなマスク付き言語モデルのアプローチを反映したものである。この手法は柔軟であり、モデルに見せるデータを変えるだけで（図 2 左）、<em>動作予測（MP）</em>（Cui et al., 2019; Chai et al., 2019; Lee et al., 2017; Hong et al., 2019; Casas et al., 2020a; Salzmann et al., 2020; Casas et al., 2020a; Liang et al., 2020; Khandelwal et al., 2020）、<em>条件付き動作予測（CMP）</em>（Khandelwal et al., 2020; Tolstaya et al., 2021; Salzmann et al., 2020）、<em>目標条件付き予測（GCP）</em>（Deo &amp; Trivedi, 2020）のために単一のモデルを同時に学習することを可能にする。以下では主要な貢献をまとめ、詳細は付録に譲る。</p>
+<p><strong>マルチタスク表現。</strong>モデルにおける主要な表現は、\(T\) 個の時間ステップにわたる、\(D\) 次元の特徴を持つ \(A\) 個のエージェントの 3 次元テンソルである。アーキテクチャ内のすべての層で、形状 \([A, T, D]\) の表現、あるいは復号時には \(F\) 個の潜在的な未来にわたる \([F, A, T, D]\) の表現を維持することを目指す。各タスク（MP、CMP、GCP）は、指示マスクを 0 に設定してそのデータをモデルに与えることで、特定のマスキング戦略を持つクエリとして定式化できる（図 2 左）。モデルの目標は、シナリオ中でマスクされた時間とエージェントの部分集合に対応する、網掛けされた各領域の特徴を補完することである。</p>
+
+<h3 id="3.1-エージェントと道路グラフのシーン中心表現">3.1　エージェントと道路グラフのシーン中心表現</h3>
+<p>注目するエージェントの位置を原点とし<sup>2</sup>、<em>すべての</em>道路グラフとエージェントをそれに対して符号化するシーン中心の埋め込みを用いる。これは、各エージェントを順に原点として扱い、エージェントごとに別々に表現を計算するエージェント中心表現を用いるアプローチとは対照的である。</p>
+<blockquote><p>脚注2：WOMD では、自動運転車（AV）を基準にシーンを中心化する。Argoverse では、予測が必要なエージェントを基準にシーンを中心化する。いずれも、すべてのタスクについて、動作予測の設定で最後の可視時間ステップとなる時刻を中心に据える。</p></blockquote>
+<a class="pg" data-page="5"></a>
+<p>詳しく述べると、まず、各エージェント・時間ステップについて、その時間ステップが可視であれば特徴を生成する。次に、静的な道路グラフ、すなわち空間的にも時間的にも静的な道路要素について特徴の集合を生成する。ここでは PointNet（Qi et al., 2017）を用いて、<em>ポリラインごとに</em> 1 つの特徴ベクトルを学習する（標識は長さ 1 のポリラインとして扱う）。最後に、動的な道路グラフ、すなわち空間的には静的だが時間的には動的な道路要素（例えば信号機）について、やはり物体ごとに 1 つの特徴ベクトルからなる特徴の集合を生成する。3 つのカテゴリはいずれも \(xyz\) の位置情報を持ち、注目エージェントを中心として平行移動・回転する前処理を施したうえで、正弦波位置埋め込み（Vaswani et al., 2017）で符号化する。</p>
+
+<h3 id="3.2-符号化-transformer">3.2　符号化 Transformer</h3>
+<p>全体を通して \([A, T, D]\) の表現を維持する、単純な注意ベースのエンコーダ・デコーダアーキテクチャに焦点を当てる（図 2 右）。ここではアーキテクチャを簡潔にまとめ、詳細は付録と表 5 に譲る。層の大部分は Transformer 層（Vaswani et al., 2017）の一形態である（表 6）。注意層は、クエリ \(Q\)、キー \(K\)、バリュー \(V\) を表す行列によってパラメータ化され、その出力は \(y = \mathsf{softmax}\frac{(Q\,K^T)V}{\sqrt{dim_k}}\) である。各行列は、基礎となる表現 \(x\) の学習された線形変換として計算される（例えば \(Q = W_q\,x\)）。各注意層の後には同じ隠れ次元のフィードフォワード層が続き、その結果を Transformer 層全体への入力とスキップ接続で加算する。エンコーダとデコーダのすべての層は \(D\) 次元の特徴を用いる。デコーダ後の最終層は、7 つの出力を予測する 2 層の MLP である。最初の 6 つの出力は、ある時間ステップにおけるエージェントの、注目エージェントを基準とした<em>絶対座標</em>（例えばメートル）での 3 次元位置と、ラプラス分布でパラメータ化された対応する不確かさに相当する（Meyer &amp; Thakurdesai, 2020）。残りの次元は方位（heading）を予測する。</p>
+<p><span class="yakuchu">（訳注：原文の式は \(\mathsf{softmax}\) の引数と \(V\) の位置が通常の表記 \(\mathsf{softmax}(QK^T/\sqrt{dim_k})V\) と異なるが、原文の記法のまま記載した。）</span></p>
+<p><strong>効率的な分解自己注意。</strong>計算の大部分は Transformer（Vaswani et al., 2017）で行われる（表 6）。Transformer を使う素朴なアプローチの一つは、エージェントと時間ステップの特徴の集合全体に対して直接注意を適用する（すなわち \(AT\) 次元にわたる注意）ことであろう。しかし、このアプローチは計算コストが高いうえ、同一性の対称性という課題も抱える。すなわち、特定のエージェント識別子を付加していないため、同じ種類で同じ未来時間ステップがマスクされた 2 つのエージェントは Transformer への入力表現が同じになり、結果として同じ出力になってしまう。そこで、時間軸とエージェント軸に基づく<em>分解された</em>注意を設計する（関連するアイデアについては Wang et al. (2020); Szegedy et al. (2016); Ho et al. (2019) を参照）。</p>
+<p>時間方向にのみ注意を適用することで、モデルはエージェントの同一性に依存しない滑らかな軌道を学習できる。同様に、エージェント方向にのみ注意を適用することで、モデルは特定の時間ステップに依存しないマルチエージェント相互作用を学習できる。最後に、時間とエージェントの両方の依存関係を捉えるため、モデルは後続の層でエージェント方向と時間方向の注意を単純に交互に適用する（図 2 右パネル）。注意演算は置換同変であるため、モデルは入力におけるエージェントの順序に対しても置換同変である。</p>
+<p><strong>クロス注意。</strong>補助情報（我々の場合は道路グラフ）を活用するため、クロス注意を用いて、エージェント特徴が道路グラフに注意を向けることで更新されるようにする。具体的には、クエリはエージェントから計算するが、キーとバリューは道路グラフの埋め込みから得る。道路グラフの埋め込みはポリラインごとの PointNet の後で確定しており、したがってこれらの注意層の間には更新<em>されない</em>。このため、モデルは特定の時間ステップやエージェントに依存しない、道路構造とエージェントの間の相互作用を学習する必要がある。強調しておくと、道路グラフ表現も置換同変であり、シーン中の全エージェントで共有される。これに対し、従来のアプローチはしばしばエージェントごとの道路グラフ表現を用いていた。</p>
+
+<h3 id="3.3-各未来の確率の予測">3.3　各未来の確率の予測</h3>
+<a class="pg" data-page="6"></a>
+<p>本モデルは、各未来（同時モデルの場合）または各軌道（周辺モデルの場合）の確率スコアも予測する必要がある。そのためには、シーンと各エージェントを要約する特徴表現が必要である。最初の分解自己注意層の組の後、エージェント特徴テンソルのエージェント次元方向と時間次元方向の平均をそれぞれ別々に計算し、これらを追加の人工的なエージェントと時間として付け加えることで、内部表現を \([A+1, T+1, D]\) とする（図 2 左パネル）<span class="yakuchu">（訳注：該当する図は図 2 の右パネルと思われる）</span>。この人工的なエージェントと時間ステップはネットワーク中を伝播し、どの時間ステップにも結び付かない、各エージェントを表現するための追加の容量をモデルに与える。最終層で人工的なエージェントと時間ステップを切り出し、各エージェントの要約特徴（エージェントごとの追加の時間）とシーンの要約特徴（追加の時間かつ追加のエージェントである「角」の特徴）を得る。この特徴は次に 2 層の MLP で処理されて単一のロジット値を生成し、これをソフトマックス分類器とともに用いて、各未来の確率を置換同変に推定する。</p>
+
+<h3 id="3.4-同時損失と周辺損失の定式化">3.4　同時損失と周辺損失の定式化</h3>
+<p>本モデルの出力は、与えられた時間ステップにおける各エージェントの位置と方位を表す形状 \([F, A, T, 7]\) のテンソルである。モデルは位置埋め込みを通じて位置にシーン中心表現を用いているため、単一の順伝播ですべてのエージェントを同時に予測できる。この設計により、同時未来予測と周辺未来予測を簡単に切り替えることも可能になる。</p>
+<p>同時未来予測を行うには、各未来（第 1 次元）を全エージェントにわたって一貫した未来として扱う。したがって、すべてのエージェント<sup>3</sup>と時間ステップにわたって変位損失を集約し、形状 \([F]\) の損失テンソルを構成する。変位損失の観点で正解に最もよく一致する個々の未来を通してのみ、損失を逆伝播する（Gupta et al., 2018; Yeh et al., 2019）。周辺未来予測では、各エージェントを独立に扱う。形状 \([F, A]\) の変位損失を計算した後、エージェントにわたる集約は<em>行わない</em>。代わりに、各エージェントについて別々に損失最小の未来を選び、それに応じて誤差を逆伝播する（付録、図 8）。</p>
+<blockquote><p>脚注3：各データセットは予測対象となるエージェントの部分集合を指定している。損失計算にはこの部分集合のみを含める。Argoverse では 1 エージェント、WOMD では 2〜8 エージェントである。</p></blockquote>
+<p><strong>動作予測の評価指標。</strong>\(k\) 個の重み付き軌道仮説の品質を、標準的な評価指標である minADE、minFDE、ミス率、mAP を用いて評価する。各評価指標は、上位 \(k\) 個の軌道が正解の観測にどれだけ近いかを測ろうとするものである。単純で一般的な距離ベースの指標は、与えられた軌道と正解との間の \(L_2\) ノルムを測るものである（Alahi et al., 2016; Pellegrini et al., 2009）。minADE は、距離が最小の軌道の \(L_2\) ノルムを報告する。minFDE も同様に、軌道の最終位置のみで評価した距離が最小の軌道の \(L_2\) ノルムを報告する。さらに、モデルがエージェントの将来軌道のすべてをどれだけ確率的にうまく予測するかを捉えるため、ミス率（MR）と平均適合率の平均（mAP）も報告する（Yeh et al., 2019; Chang et al., 2019; Ettinger et al., 2021）。同時未来の評価設定では、最良の単一の整合的な未来の予測を評価する、シーンレベルの対応指標（minSADE、minSFDE、SMR）を測定する（Casas et al., 2020b）。</p>
+
+<h2 id="4-結果">4　結果</h2>
+<p>Argoverse データセット（Chang et al., 2019）と Waymo Open Motion Dataset（WOMD）（Ettinger et al., 2021）の動作予測タスクで Scene Transformer を評価する。Argoverse データセットは、290 km の道路から得られた 324,000 個の走行セグメント（各 5 秒）からなり、合計 1,170 万のエージェント軌跡を含み、単一エージェント（周辺）動作予測に焦点を当てている。WOMD データセットは、1,750 km の道路から得られた 104,000 個の走行セグメント（各 20 秒）からなり、764 万の固有のエージェント軌跡を含む。重要な点として、WOMD にはそれぞれ独自の評価指標を持つ 2 つのタスクがある。一つは各エージェント（シーンあたり最大 8）について独立に動作予測の品質を評価する<em>周辺動作予測チャレンジ</em>であり、もう一つはシーンあたりちょうど 2 エージェントについてモデルの同時予測の品質を評価する<em>同時動作予測チャレンジ</em>である。各モデルは Cloud TPU（Jouppi et al., 2017）で学習する。学習の詳細はすべて付録を参照されたい。</p>
+<p>まず 4.1 節では周辺予測タスクに焦点を当て、Scene Transformer が Argoverse（Chang et al., 2019）と WOMD（Ettinger et al., 2021）の両方で競争力のある結果を達成することを示す。4.2 節では同時予測タスクに焦点を当て、我々の同時損失の定式化（3.4 節参照）で Scene Transformer を学習する。損失の式を 1 か所切り替えるだけで、優れた<em>同時動作予測</em>性能を達成できることを示す。4.3 節では分解注意と非分解注意について議論する。最後に 4.4 節で、マスク付き系列モデルの定式化によって、動作予測、条件付き動作予測、目標条件付き予測が可能なマルチタスクモデルを学習できることを示す。付録 B.1 では周辺モデルと同時モデルのトレードオフについて議論する。</p>
+<a class="pg" data-page="7"></a>
+<table><thead><tr><th>手法</th><th>minADE↓</th><th>minFDE↓</th><th>MR↓</th></tr></thead>
+<tbody>
+<tr><td>Jean (Mercat et al., 2020)</td><td style="text-align:right">0.97</td><td style="text-align:right">1.42</td><td style="text-align:right">0.13</td></tr>
+<tr><td>WIMP (Khandelwal et al., 2020)</td><td style="text-align:right">0.90</td><td style="text-align:right">1.42</td><td style="text-align:right">0.17</td></tr>
+<tr><td>TNT (Zhao et al., 2020)</td><td style="text-align:right">0.94</td><td style="text-align:right">1.54</td><td style="text-align:right">0.13</td></tr>
+<tr><td>LaneGCN (Liang et al., 2020)</td><td style="text-align:right">0.87</td><td style="text-align:right">1.36</td><td style="text-align:right">0.16</td></tr>
+<tr><td>TPCN (Ye et al., 2021)</td><td style="text-align:right">0.85</td><td style="text-align:right">1.35</td><td style="text-align:right">0.16</td></tr>
+<tr><td>mmTransformer (Liu et al., 2021b)</td><td style="text-align:right">0.84</td><td style="text-align:right">1.34</td><td style="text-align:right">0.15</td></tr>
+<tr><td>HOME (Gilles et al., 2021)</td><td style="text-align:right">0.94</td><td style="text-align:right">1.45</td><td style="text-align:right"><strong>0.10</strong></td></tr>
+<tr><td>Ours (marginal)</td><td style="text-align:right"><strong>0.80</strong></td><td style="text-align:right"><strong>1.23</strong></td><td style="text-align:right">0.13</td></tr>
+</tbody></table>
+<p><strong>表1：Argoverse 動作予測における周辺予測性能。</strong>車両に対する <em>test</em> 分割での結果（Chang et al., 2019）。minADE、minFDE は \(k=6\) 個の予測について報告（Alahi et al., 2016; Pellegrini et al., 2009）。ミス率（MR）（Chang et al., 2019）は目標から 2 メートル以内を基準とする。すべての結果は \(t=3\) 秒について報告している。</p>
+
+<table><thead>
+<tr><th rowspan="2">Motion Prediction（動作予測）</th><th colspan="3">minADE↓</th><th colspan="3">minFDE↓</th><th colspan="3">MR↓</th><th colspan="3">mAP↑</th></tr>
+<tr><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th></tr>
+</thead><tbody>
+<tr><td colspan="13"><em>valid</em></td></tr>
+<tr><td>LSTM baseline (Ettinger et al., 2021)</td><td style="text-align:right">1.34</td><td style="text-align:right">0.63</td><td style="text-align:right">1.26</td><td style="text-align:right">2.85</td><td style="text-align:right">1.35</td><td style="text-align:right">2.68</td><td style="text-align:right">0.25</td><td style="text-align:right">0.13</td><td style="text-align:right">0.29</td><td style="text-align:right">0.23</td><td style="text-align:right">0.23</td><td style="text-align:right">0.20</td></tr>
+<tr><td>Ours (marginal)</td><td style="text-align:right"><strong>1.17</strong></td><td style="text-align:right"><strong>0.59</strong></td><td style="text-align:right"><strong>1.15</strong></td><td style="text-align:right"><strong>2.51</strong></td><td style="text-align:right"><strong>1.26</strong></td><td style="text-align:right"><strong>2.44</strong></td><td style="text-align:right"><strong>0.20</strong></td><td style="text-align:right"><strong>0.12</strong></td><td style="text-align:right"><strong>0.24</strong></td><td style="text-align:right"><strong>0.26</strong></td><td style="text-align:right"><strong>0.27</strong></td><td style="text-align:right"><strong>0.20</strong></td></tr>
+<tr><td colspan="13"><em>test</em></td></tr>
+<tr><td>LSTM baseline (Ettinger et al., 2021)</td><td style="text-align:right">1.34</td><td style="text-align:right">0.64</td><td style="text-align:right">1.29</td><td style="text-align:right">2.83</td><td style="text-align:right">1.35</td><td style="text-align:right">2.68</td><td style="text-align:right">0.24</td><td style="text-align:right">0.13</td><td style="text-align:right">0.29</td><td style="text-align:right">0.24</td><td style="text-align:right">0.22</td><td style="text-align:right">0.19</td></tr>
+<tr><td>ReCoAt (Huang et al., 2021)</td><td style="text-align:right">1.69</td><td style="text-align:right">0.69</td><td style="text-align:right">1.47</td><td style="text-align:right">3.96</td><td style="text-align:right">1.51</td><td style="text-align:right">3.30</td><td style="text-align:right">0.40</td><td style="text-align:right">0.20</td><td style="text-align:right">0.37</td><td style="text-align:right">0.18</td><td style="text-align:right">0.25</td><td style="text-align:right">0.17</td></tr>
+<tr><td>SimpleCNNOnRaster (Konev et al., 2021)</td><td style="text-align:right">1.47</td><td style="text-align:right">0.71</td><td style="text-align:right">1.39</td><td style="text-align:right">3.18</td><td style="text-align:right">1.52</td><td style="text-align:right">2.89</td><td style="text-align:right">0.27</td><td style="text-align:right">0.16</td><td style="text-align:right">0.31</td><td style="text-align:right">0.19</td><td style="text-align:right">0.18</td><td style="text-align:right">0.14</td></tr>
+<tr><td>DenseTNT (Gu et al., 2021)</td><td style="text-align:right">1.35</td><td style="text-align:right">0.85</td><td style="text-align:right">2.17</td><td style="text-align:right">3.35</td><td style="text-align:right">1.40</td><td style="text-align:right">2.94</td><td style="text-align:right">0.20</td><td style="text-align:right">0.13</td><td style="text-align:right">0.23</td><td style="text-align:right"><strong>0.28</strong></td><td style="text-align:right"><strong>0.28</strong></td><td style="text-align:right"><strong>0.21</strong></td></tr>
+<tr><td>Ours (marginal)</td><td style="text-align:right"><strong>1.17</strong></td><td style="text-align:right"><strong>0.60</strong></td><td style="text-align:right"><strong>1.17</strong></td><td style="text-align:right"><strong>2.48</strong></td><td style="text-align:right"><strong>1.25</strong></td><td style="text-align:right"><strong>2.43</strong></td><td style="text-align:right"><strong>0.19</strong></td><td style="text-align:right"><strong>0.12</strong></td><td style="text-align:right"><strong>0.22</strong></td><td style="text-align:right">0.27</td><td style="text-align:right">0.23</td><td style="text-align:right">0.20</td></tr>
+</tbody></table>
+<p><strong>表2：Waymo Open Motion Dataset 動作予測における周辺予測性能。</strong>検証データセットとテストデータセットの <em>standard</em> 分割において、従来の<em>周辺指標</em>で \(t=8\) 秒について評価した結果（Ettinger et al., 2021）。minADE、minFDE は \(k=6\) 個の予測について報告（Alahi et al., 2016; Pellegrini et al., 2009）。ミス率（MR）（Chang et al., 2019）は目標から 2 メートル以内を基準とする。\(t=3\) 秒または 5 秒の結果は付録を参照。この表にはチャレンジ優勝者の結果も含めている（Waymo, 2021）。veh＝車両、ped＝歩行者、cyc＝自転車。</p>
+
+<h3 id="4.1-周辺動作予測">4.1　周辺動作予測</h3>
+<p>まず、従来どおりのエージェントごとの周辺動作予測モデルとして学習・評価した Scene Transformer の性能を評価する。これは図 1（左）に示した問題に相当する。4.4 節までのすべての結果では、すべてのエージェントを入力としてモデルに与えるが、その未来は隠すマスキング戦略を用いる。将来の信号機情報もマスクする。</p>
+<p><strong>Argoverse。</strong>本アーキテクチャの有効性を示すため、広く使われている Argoverse（Chang et al., 2019）ベンチマークで評価する。学習時と評価時には、モデルは注目する単一エージェントの未来のみを予測すればよい。我々の最良の Argoverse モデルは、\(D=512\) 次元の特徴と、軌道分類に対するラベル平滑化を用いる。本モデルは minADE と minFDE の点で、公開済みの先行研究<sup>4</sup>と比べて最高性能を達成する（表 1）。</p>
+<blockquote><p>脚注4：詳細が入手できないため、論文として公開されていない公開リーダーボードのエントリとの比較は除外したが、我々の結果は投稿日時点でリーダーボード上でも競争力があることを付記しておく。</p></blockquote>
+<p><strong>Waymo Open Motion Dataset（WOMD）。</strong>次に、最近公開された WOMD（Ettinger et al., 2021）において、周辺動作予測タスクで \(D=256\) の本モデルの性能を評価する。このタスクは、シーンあたり最大 8 エージェントが選ばれ、それぞれの上位 6 個の動作予測が独立に評価される標準的な動作予測タスクである。周辺損失で学習した本モデルは、minADE、minFDE、ミス率の各指標で最高性能を達成する（表 2）。</p>
+
+<h3 id="4.2-同時動作予測">4.2　同時動作予測</h3>
+<a class="pg" data-page="8"></a>
+<p>同時損失の定式化（3.4 節）で学習した Scene Transformer の有効性を評価するため、WOMD（Ettinger et al., 2021）の <em>Interaction Prediction</em>（相互作用予測）チャレンジで本モデルを評価する。このタスクは、相互作用する 2 つのエージェントの<em>同時の</em>将来軌道を予測するモデルの性能を測るものであり（図 1 右）、一般的な minADE、minFDE、ミス率（MR）指標の<em>同時版</em>である minSADE、minSFDE、SMR を用いる。「<strong>S</strong>」は「シーンレベル」の指標であることを示す。これらの指標は 2 エージェントの同時予測の品質と整合性を測ることを目的としている。例えば、ミス率の同時版（SMR）は、相互作用する両エージェントの予測軌道がそれぞれの正解から閾値以内にある場合にのみ「ヒット」として記録する。</p>
+<table><thead>
+<tr><th rowspan="2">Interaction Prediction（相互作用予測）</th><th colspan="3">minSADE↓</th><th colspan="3">minSFDE↓</th><th colspan="3">SMR↓</th><th colspan="3">mAP↑</th></tr>
+<tr><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th></tr>
+</thead><tbody>
+<tr><td colspan="13"><em>valid</em></td></tr>
+<tr><td>LSTM baseline (Ettinger et al., 2021)</td><td style="text-align:right">2.42</td><td style="text-align:right">2.73</td><td style="text-align:right">3.16</td><td style="text-align:right">6.07</td><td style="text-align:right">4.20</td><td style="text-align:right">6.46</td><td style="text-align:right">0.66</td><td style="text-align:right">1.00</td><td style="text-align:right">0.83</td><td style="text-align:right">0.07</td><td style="text-align:right"><strong>0.06</strong></td><td style="text-align:right">0.02</td></tr>
+<tr><td>Ours (marginal-as-joint)</td><td style="text-align:right">2.04</td><td style="text-align:right">1.62</td><td style="text-align:right">2.28</td><td style="text-align:right">4.94</td><td style="text-align:right">3.81</td><td style="text-align:right">5.67</td><td style="text-align:right">0.54</td><td style="text-align:right">0.63</td><td style="text-align:right">0.72</td><td style="text-align:right"><strong>0.11</strong></td><td style="text-align:right">0.05</td><td style="text-align:right">0.03</td></tr>
+<tr><td>Ours (joint, MP-only)</td><td style="text-align:right"><strong>1.72</strong></td><td style="text-align:right"><strong>1.38</strong></td><td style="text-align:right">1.96</td><td style="text-align:right"><strong>3.98</strong></td><td style="text-align:right"><strong>3.11</strong></td><td style="text-align:right">4.75</td><td style="text-align:right"><strong>0.49</strong></td><td style="text-align:right"><strong>0.60</strong></td><td style="text-align:right">0.73</td><td style="text-align:right"><strong>0.11</strong></td><td style="text-align:right">0.05</td><td style="text-align:right">0.03</td></tr>
+<tr><td>Ours (joint, multi-task)</td><td style="text-align:right"><strong>1.72</strong></td><td style="text-align:right">1.39</td><td style="text-align:right"><strong>1.94</strong></td><td style="text-align:right">3.99</td><td style="text-align:right">3.15</td><td style="text-align:right"><strong>4.69</strong></td><td style="text-align:right"><strong>0.49</strong></td><td style="text-align:right">0.62</td><td style="text-align:right"><strong>0.71</strong></td><td style="text-align:right"><strong>0.11</strong></td><td style="text-align:right"><strong>0.06</strong></td><td style="text-align:right"><strong>0.04</strong></td></tr>
+<tr><td colspan="13"><em>test</em></td></tr>
+<tr><td>LSTM baseline (Ettinger et al., 2021)</td><td style="text-align:right">2.46</td><td style="text-align:right">2.47</td><td style="text-align:right">2.96</td><td style="text-align:right">6.22</td><td style="text-align:right">4.30</td><td style="text-align:right">6.26</td><td style="text-align:right">0.67</td><td style="text-align:right">0.89</td><td style="text-align:right">0.89</td><td style="text-align:right">0.06</td><td style="text-align:right">0.03</td><td style="text-align:right">0.03</td></tr>
+<tr><td>HeatIRm4 (Mo et al., 2021)</td><td style="text-align:right">2.93</td><td style="text-align:right">1.77</td><td style="text-align:right">2.74</td><td style="text-align:right">7.20</td><td style="text-align:right">4.06</td><td style="text-align:right">6.69</td><td style="text-align:right">0.80</td><td style="text-align:right">0.80</td><td style="text-align:right">0.91</td><td style="text-align:right">0.07</td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right">0.00</td></tr>
+<tr><td>Ours (marginal-as-joint)</td><td style="text-align:right">2.08</td><td style="text-align:right">1.62</td><td style="text-align:right">2.24</td><td style="text-align:right">5.04</td><td style="text-align:right">3.87</td><td style="text-align:right">5.41</td><td style="text-align:right">0.55</td><td style="text-align:right">0.64</td><td style="text-align:right">0.73</td><td style="text-align:right">0.08</td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right">0.03</td></tr>
+<tr><td>Ours (joint, MP-only)</td><td style="text-align:right">1.76</td><td style="text-align:right"><strong>1.38</strong></td><td style="text-align:right"><strong>1.95</strong></td><td style="text-align:right">4.08</td><td style="text-align:right"><strong>3.19</strong></td><td style="text-align:right"><strong>4.65</strong></td><td style="text-align:right"><strong>0.50</strong></td><td style="text-align:right"><strong>0.62</strong></td><td style="text-align:right"><strong>0.70</strong></td><td style="text-align:right">0.10</td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right"><strong>0.04</strong></td></tr>
+<tr><td>Ours (joint, multi-task)</td><td style="text-align:right"><strong>1.74</strong></td><td style="text-align:right">1.41</td><td style="text-align:right"><strong>1.95</strong></td><td style="text-align:right"><strong>4.06</strong></td><td style="text-align:right">3.26</td><td style="text-align:right">4.68</td><td style="text-align:right"><strong>0.50</strong></td><td style="text-align:right">0.64</td><td style="text-align:right">0.71</td><td style="text-align:right"><strong>0.13</strong></td><td style="text-align:right">0.04</td><td style="text-align:right">0.03</td></tr>
+</tbody></table>
+<p><strong>表3：Waymo Open Motion Dataset 動作予測における同時予測性能。</strong>検証データセットとテストデータセットの <em>interactive</em> 分割において、シーンレベルの<em>同時指標</em>で \(t=8\) 秒について評価した結果（Ettinger et al., 2021）。minSADE、minSFDE は \(k=6\) 個の予測について（Alahi et al., 2016; Pellegrini et al., 2009）。ミス率（MR）（Chang et al., 2019）は目標から 2 メートル以内を基準とする。「<strong>S</strong>」はシーンレベルの同時指標を示す。\(t=3\) 秒または 5 秒の結果は付録を参照。この表にはチャレンジ優勝者の結果も含めている（Waymo, 2021）。</p>
+<p><em>Interaction Prediction</em> チャレンジにおいて、本同時モデルの同時予測は、WOMD が提供するベースラインに加え、周辺版のモデルの出力を同時予測へ変換したもの<sup>5</sup>をも容易に上回ることがわかった（表 3）。これは、全体的なアーキテクチャと手法の強さに加えて、モデルを同時モデルとして明示的に学習することが同時指標における同時性能を大きく改善することを示している。注目すべき点として、<em>Interaction Prediction</em> タスクは 2 エージェントの同時軌道の予測しか要求しないが、本手法は完全に汎用であり、すべてのエージェントの同時に整合的な未来を予測する。</p>
+<blockquote><p>脚注5：同時モデルの出力は周辺評価にそのまま用いることができる点に注意されたい。しかし、周辺モデルの出力を同時評価に変換することは、エージェント間で未来の対応付けが欠けているため微妙な問題をはらむ（図 1）。周辺モデルの出力を同時評価用に変換するため、単純なヒューリスティクスを用いる。すなわち、両エージェントの上位 6 個の軌道を組み合わせた合計 36 組の軌道ペアから、確率の積が最も高い上位 6 組を残す。</p></blockquote>
+
+<h3 id="4.3-エージェントの分解自己注意">4.3　エージェントの分解自己注意</h3>
+<p>分解自己注意は本モデルに 2 つの利点をもたらす。(a) より小さな集合に対して注意を取るため効率的であること、(b) 時間方向の注意の間、各エージェントに暗黙の同一性を与えることである。軸ごとに分解した各注意層（時間とエージェントの分解層の各ペア）を、軸で分解しない注意層に置き換える実験を行った。その結果、モデルの計算コストが増加し、Argoverse の検証データセットでの性能も悪化した。分解版は minADE 0.609 を達成したのに対し、非分解版は 0.639 であった。</p>
+
+<h3 id="4.4-マスク付き系列モデリング戦略の利点">4.4　マスク付き系列モデリング戦略の利点</h3>
+<p>本モデルはマスク付き系列モデル（Devlin et al., 2019）として定式化されており、学習時と推論時に、どのエージェント・時間ステップをモデルからマスクするかを指定する。この定式化により、任意の時間ステップにおける任意のエージェントについてどの情報をモデルに与えるかを選択し、モデルがこの追加情報をどのように活用し、あるいはどう反応するかを測定できる。推論時に複数の動作予測タスクをマスク空間で表現でき（図 2）、事実上マルチタスクモデルを提供する。この独自の能力を用いて、モデルに反実仮想を問い合わせることができる。エージェントの部分集合の完全な軌道が与えられたとき（条件付き動作予測）、あるいはエージェントの部分集合の最終目標が与えられたとき（目標条件付き動作予測）、モデルは何を予測するだろうか。この機能は、自動運転車の望ましい目標が与えられたときにシーンのさまざまな将来のロールアウトがどのようになるかを予測するうえで、自動運転車の計画に特に有用でありうる（図 3）。</p>
+<a class="pg" data-page="9"></a>
+<figure><img src="figs/fig3.jpg" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：目標条件付き予測は AV を選択した目標位置へ導く。</strong>矩形は道路上の車両を示す。線は道路グラフ（RG）を示し、車線標示の種類によって色分けされている。円は各エージェントの予測軌道を示す。星印は AV に対して選択された目標を示す。各列は、AV が他のエージェントの動態を考慮しつつ 2 つの行動のうち一方を行うよう指示されるシナリオを表す。(A) AV は車線変更するか同じ車線にとどまるかを指示される。(B) AV は、対向車が左折できるよう停止するか、狭い通路で対向車が通過するのに十分な空間を確保できるよう脇に寄るよう指示される。(C) AV は交差点で直進するか右折するかを指示される。</p>
+<p class="yakuchu">図中ラベル：Scenario A／B／C＝シナリオ A／B／C</p>
+<p>これまでの結果では、学習と推論の際にプレフィックスマスク、すなわち全エージェントについて最初の数ステップを見せ、残りの時間ステップを予測するマスクを用いていた。本実験では、WOMD の interactive 分割でテストするために 2 つのマスキング戦略を用いる。すなわち、相互作用する 2 エージェントのうち一方の完全な軌道を見せる「条件付き動作予測」（CMP）と、自動運転車の望ましい目標状態を見せる「目標条件付き動作予測」（GCP）である（図 2）。各戦略（MP マスキングを含む）をそれぞれ 1/3 の頻度で用いてモデルを学習し、すべてのタスクでモデルを評価する。44k の評価セグメント全体にわたって、マルチタスクモデルは同時指標（表 3）と周辺指標（付録の表 11 も参照）の両方で、MP のみで学習した同時モデルの性能に匹敵することがわかった。つまり、マルチタスク学習は標準的な動作予測性能を大きく劣化させない。GCP 設定でマルチタスクモデルの性能を定性的に調べたところ、AV および AV 以外のエージェントの同時動作予測が、AV に対して選択された目標点に柔軟に適応することが観察された（図 3）。</p>
+<p>min(S)ADE のようなデータセット平均の指標は、この分野の進歩を測るうえで決定的に重要な予測の微妙な差異（Ivanovic &amp; Pavone, 2021）を捉えないことに留意する。残念ながら、Waymo Motion Open Dataset の Interactive Prediction セットには、異なるモデルを用いて特定の興味深いスライスを評価するのに必要な事前定義のメタデータが含まれていない。付録 C では、このデータセット上で計算できたスライスについての初期的な分析を示す。そこでは、シーンが a) 複雑なシーンでエージェント数が増えるにつれて、b) エージェントの平均速度が異なるにつれて、同時モデルと周辺モデルの予測がどのように異なる振る舞いをするかを示す。また、同時予測モデルは周辺モデルと比べて予測間の重なりが小さく、<em>同時に整合的な未来</em>を示すことも示す。</p>
+
+<h2 id="5-考察">5　考察</h2>
+<p>環境中のエージェントの複雑な相互作用をモデル化できる、自動運転のための統一アーキテクチャを提案した。本アプローチにより、単一のモデルで動作予測、条件付き動作予測、目標条件付き予測を行える。自動運転の分野では、この問題定式化を発展させることで、既存のシステムを定量的に改善する計画システム向けのモデルの学習につながる可能性がある（Buehler et al., 2009; Montemerlo et al., 2008; Ziegler et al., 2014; Zeng et al., 2019; Liu et al., 2021a）。同様に、こうしたモデリングの取り組みは、環境中で相互作用しているエージェントを特定する問題に直接取り組むために使える可能性があり、因果関係を特定するための重要なタスクを提供しうる（Arjovsky et al., 2019; Schölkopf et al., 2021）。</p>
+
+<a class="pg" data-page="10"></a>
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ul class="refs">
+<li>Martín Abadi, Ashish Agarwal, Paul Barham, Eugene Brevdo, Zhifeng Chen, Craig Citro, Greg S. Corrado, Andy Davis, Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Ian Goodfellow, Andrew Harp, Geoffrey Irving, Michael Isard, Yangqing Jia, Rafal Jozefowicz, Lukasz Kaiser, Manjunath Kudlur, Josh Levenberg, Dan Mané, Rajat Monga, Sherry Moore, Derek Murray, Chris Olah, Mike Schuster, Jonathon Shlens, Benoit Steiner, Ilya Sutskever, Kunal Talwar, Paul Tucker, Vincent Vanhoucke, Vijay Vasudevan, Fernanda Viégas, Oriol Vinyals, Pete Warden, Martin Wattenberg, Martin Wicke, Yuan Yu, and Xiaoqiang Zheng. TensorFlow: Large-scale machine learning on heterogeneous systems, 2015. URL <a href="http://tensorflow.org/">http://tensorflow.org/</a>. Software available from tensorflow.org.</li>
+<li>Alexandre Alahi, Kratarth Goel, Vignesh Ramanathan, Alexandre Robicquet, Li Fei-Fei, and Silvio Savarese. Social LSTM: Human trajectory prediction in crowded spaces. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pp. 961–971, 2016.</li>
+<li>Martin Arjovsky, Léon Bottou, Ishaan Gulrajani, and David Lopez-Paz. Invariant risk minimization. <em>arXiv preprint arXiv:1907.02893</em>, 2019.</li>
+<li>Irwan Bello. LambdaNetworks: Modeling long-range interactions without attention. In <em>International Conference on Learning Representations (ICLR)</em>, 2013.</li>
+<li>Irwan Bello, Barret Zoph, Ashish Vaswani, Jonathon Shlens, and Quoc V Le. Attention augmented convolutional networks. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pp. 3286–3295, 2019.</li>
+<li>Manoj Bhat, Jonathan Francis, and Jean Oh. Trajformer: Trajectory prediction with local self-attentive contexts for autonomous driving. <em>arXiv preprint arXiv:2011.14910</em>, 2020.</li>
+<li>Yuriy Biktairov, Maxim Stebelev, Irina Rudenko, Oleh Shliazhko, and Boris Yangel. Prank: motion prediction based on ranking. In <em>Advances in neural information processing systems</em>, 2020.</li>
+<li>Tom B Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Language models are few-shot learners. In <em>Advances in Neural Information Processing Systems</em>, 2020.</li>
+<li>Martin Buehler, Karl Iagnemma, and Sanjiv Singh. <em>The DARPA urban challenge: autonomous vehicles in city traffic</em>, volume 56. springer, 2009.</li>
+<li>Thibault Buhet, Emilie Wirbel, and Xavier Perrotton. Plop: Probabilistic polynomial objects trajectory planning for autonomous driving. In <em>Conference on Robot Learning</em>, 2020.</li>
+<li>Holger Caesar, Varun Bankiti, Alex H Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pp. 11621–11631, 2020.</li>
+<li>Nicolas Carion, Francisco Massa, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, and Sergey Zagoruyko. End-to-end object detection with transformers. In <em>European Conference on Computer Vision</em>, pp. 213–229. Springer, 2020.</li>
+<li>Sergio Casas, Cole Gulino, Renjie Liao, and Raquel Urtasun. Spagnn: Spatially-aware graph neural networks for relational behavior forecasting from sensor data. In <em>2020 IEEE International Conference on Robotics and Automation, ICRA 2020, Paris, France, May 31 - August 31, 2020</em>, pp. 9491–9497. IEEE, 2020a.</li>
+<li>Sergio Casas, Cole Gulino, Simon Suo, Katie Luo, Renjie Liao, and Raquel Urtasun. Implicit latent variable model for scene-consistent motion forecasting. In <em>Proceedings of the European Conference on Computer Vision (ECCV)</em>. Springer, 2020b.</li>
+<li>Yuning Chai, Benjamin Sapp, Mayank Bansal, and Dragomir Anguelov. Multipath: Multiple probabilistic anchor trajectory hypotheses for behavior prediction. In <em>Conference on Robot Learning</em>, 2019.</li>
+</ul>
+<a class="pg" data-page="11"></a>
+<ul class="refs">
+<li>Rohan Chandra, Uttaran Bhattacharya, Aniket Bera, and Dinesh Manocha. Traphic: Trajectory prediction in dense and heterogeneous traffic using weighted interactions. <em>CoRR</em>, abs/1812.04767, 2018. URL <a href="http://arxiv.org/abs/1812.04767">http://arxiv.org/abs/1812.04767</a>.</li>
+<li>Ming-Fang Chang, John Lambert, Patsorn Sangkloy, Jagjeet Singh, Slawomir Bak, Andrew Hartnett, De Wang, Peter Carr, Simon Lucey, Deva Ramanan, et al. Argoverse: 3d tracking and forecasting with rich maps. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pp. 8748–8757, 2019.</li>
+<li>Henggang Cui, Vladan Radosavljevic, Fang-Chieh Chou, Tsung-Han Lin, Thi Nguyen, Tzu-Kuo Huang, Jeff Schneider, and Nemanja Djuric. Multimodal trajectory predictions for autonomous driving using deep convolutional networks. In <em>2019 International Conference on Robotics and Automation (ICRA)</em>, pp. 2090–2096. IEEE, 2019.</li>
+<li>Nachiket Deo and Mohan M. Trivedi. Trajectory forecasts in unknown environments conditioned on grid-based plans. <em>CoRR</em>, abs/2001.00735, 2020. URL <a href="http://arxiv.org/abs/2001.00735">http://arxiv.org/abs/2001.00735</a>.</li>
+<li>Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. Bert: Pre-training of deep bidirectional transformers for language understanding. In <em>Conference of the North American Chapter of the Association for Computational Linguistics</em>, 2019.</li>
+<li>Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, et al. An image is worth 16x16 words: Transformers for image recognition at scale. In <em>International Conference on Learning Representations (ICLR)</em>, 2021.</li>
+<li>Scott Ettinger, Shuyang Cheng, Benjamin Caine, Chenxi Liu, Hang Zhao, Sabeek Pradhan, Yuning Chai, Ben Sapp, Charles Qi, Yin Zhou, et al. Large scale interactive motion forecasting for autonomous driving: The waymo open motion dataset. <em>arXiv preprint arXiv:2104.10133</em>, 2021.</li>
+<li>Jiyang Gao, Chen Sun, Hang Zhao, Yi Shen, Dragomir Anguelov, Congcong Li, and Cordelia Schmid. VectorNet: Encoding hd maps and agent dynamics from vectorized representation. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, 2020.</li>
+<li>Thomas Gilles, Stefano Sabatini, Dzmitry Tsishkou, Bogdan Stanciulescu, and Fabien Moutarde. HOME: heatmap output for future motion estimation. <em>CoRR</em>, abs/2105.10968, 2021. URL <a href="https://arxiv.org/abs/2105.10968">https://arxiv.org/abs/2105.10968</a>.</li>
+<li>Francesco Giuliari, Irtiza Hasan, Marco Cristani, and Fabio Galasso. Transformer networks for trajectory forecasting. In <em>International Conference on Pattern Recognition</em>, 2020.</li>
+<li>Xavier Glorot and Yoshua Bengio. Understanding the difficulty of training deep feedforward neural networks. In <em>Proceedings of the thirteenth international conference on artificial intelligence and statistics</em>, pp. 249–256. JMLR Workshop and Conference Proceedings, 2010.</li>
+<li>Junru Gu, Chen Sun, and Hang Zhao. Densetnt: End-to-end trajectory prediction from dense goal sets. <em>2021 IEEE/CVF International Conference on Computer Vision (ICCV)</em>, 2021.</li>
+<li>Agrim Gupta, Justin Johnson, Li Fei-Fei, Silvio Savarese, and Alexandre Alahi. Social GAN: Socially acceptable trajectories with generative adversarial networks. In <em>CVPR</em>, 2018.</li>
+<li>Jonathan Ho, Nal Kalchbrenner, Dirk Weissenborn, and Tim Salimans. Axial attention in multidimensional transformers. <em>arXiv preprint arXiv:1912.12180</em>, 2019.</li>
+<li>Joey Hong, Benjamin Sapp, and James Philbin. Rules of the road: Predicting driving behavior with a convolutional model of semantic interactions. In <em>CVPR</em>, 2019.</li>
+<li>Zhiyu Huang, Xiaoyu Mo, and Chen Lv. Recoat: A deep learning framework with attention mechanism for multi-modal motion prediction. In <em>Workshop on Autonomous Driving, CVPR</em>, 2021.</li>
+<li>Wei-Chih Hung, Henrik Kretzschmar, Tsung-Yi Lin, Yuning Chai, Ruichi Yu, Ming-Hsuan Yang, and Drago Anguelov. Soda: Multi-object tracking with soft data association. <em>arXiv preprint arXiv:2008.07725</em>, 2020.</li>
+</ul>
+<a class="pg" data-page="12"></a>
+<ul class="refs">
+<li>Sergey Ioffe and Christian Szegedy. Batch normalization: Accelerating deep network training by reducing internal covariate shift. In <em>International conference on machine learning</em>, pp. 448–456. PMLR, 2015.</li>
+<li>Boris Ivanovic and Marco Pavone. Rethinking trajectory forecasting evaluation. <em>arXiv preprint arXiv:2107.10297</em>, 2021.</li>
+<li>Norman P Jouppi, Cliff Young, Nishant Patil, David Patterson, Gaurav Agrawal, Raminder Bajwa, Sarah Bates, Suresh Bhatia, Nan Boden, Al Borchers, et al. In-datacenter performance analysis of a tensor processing unit. In <em>Proceedings of the 44th annual international symposium on computer architecture</em>, pp. 1–12, 2017.</li>
+<li>R. Kesten, M. Usman, J. Houston, T. Pandya, K. Nadhamuni, A. Ferreira, M. Yuan, B. Low, A. Jain, P. Ondruska, S. Omari, S. Shah, A. Kulkarni, A. Kazakova, C. Tao, L. Platinsky, W. Jiang, and V. Shet. Lyft level 5 perception dataset 2020. <a href="https://level5.lyft.com/dataset/">https://level5.lyft.com/dataset/</a>, 2019.</li>
+<li>Siddhesh Khandelwal, William Qi, Jagjeet Singh, Andrew Hartnett, and Deva Ramanan. What-if motion prediction for autonomous driving. <em>arXiv preprint arXiv:2008.10587</em>, 2020.</li>
+<li>Stepan Konev, Kirill Brodt, and Artsiom Sanakoyeu. Motioncnn: A strong baseline for motion prediction in autonomous driving. In <em>Workshop on Autonomous Driving, CVPR</em>, 2021.</li>
+<li>Namhoon Lee, Wongun Choi, Paul Vernaza, Christopher B Choy, Philip HS Torr, and Manmohan Chandraker. Desire: Distant future prediction in dynamic scenes with interacting agents. In <em>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition</em>, pp. 336–345, 2017.</li>
+<li>Lingyun Luke Li, Bin Yang, Ming Liang, Wenyuan Zeng, Mengye Ren, Sean Segal, and Raquel Urtasun. End-to-end contextual perception and prediction with interaction transformer. In <em>IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em>, 2020.</li>
+<li>Ming Liang, Bin Yang, Rui Hu, Yun Chen, Renjie Liao, Song Feng, and Raquel Urtasun. Learning lane graph representations for motion forecasting. In <em>European Conference on Computer Vision (ECCV)</em>, 2020.</li>
+<li>Jerry Liu, Wenyuan Zeng, Raquel Urtasun, and Ersin Yumer. Deep structured reactive planning. <em>arXiv preprint arXiv:2101.06832</em>, 2021a.</li>
+<li>Yicheng Liu, Jinghuai Zhang, Liangji Fang, Qinhong Jiang, and Bolei Zhou. Multimodal motion prediction with stacked transformers, 2021b.</li>
+<li>Francesco Marchetti, Federico Becattini, Lorenzo Seidenari, and Alberto Del Bimbo. Mantra: Memory augmented networks for multiple trajectory prediction. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pp. 7143–7152, 2020.</li>
+<li>Jean Mercat, Thomas Gilles, Nicole Zoghby, Guillaume Sandou, Dominique Beauvois, and Guillermo Gil. Multi-head attention for joint multi-modal vehicle motion forecasting. In <em>IEEE International Conference on Robotics and Automation</em>, 2020.</li>
+<li>Gregory P. Meyer and Niranjan Thakurdesai. Learning an uncertainty-aware object detector for autonomous driving. In <em>IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em>, pp. 10521–10527, 2020.</li>
+<li>Xiaoyu Mo, Zhiyu Huang, and Chen Lv. Multi-modal interactive agent trajectory prediction using heterogeneous edge-enhanced graph attention network. In <em>Workshop on Autonomous Driving, CVPR</em>, 2021.</li>
+<li>Michael Montemerlo, Jan Becker, Suhrid Bhat, Hendrik Dahlkamp, Dmitri Dolgov, Scott Ettinger, Dirk Haehnel, Tim Hilden, Gabe Hoffmann, Burkhard Huhnke, et al. Junior: The stanford entry in the urban challenge. <em>Journal of field Robotics</em>, 25(9):569–597, 2008.</li>
+</ul>
+<a class="pg" data-page="13"></a>
+<ul class="refs">
+<li>Seong Hyeon Park, Gyubok Lee, Jimin Seo, Manoj Bhat, Minseok Kang, Jonathan Francis, Ashwin Jadhav, Paul Pu Liang, and Louis-Philippe Morency. Diverse and admissible trajectory forecasting through multimodal context understanding. In <em>European Conference on Computer Vision</em>, pp. 282–298. Springer, 2020.</li>
+<li>Stefano Pellegrini, Andreas Ess, Konrad Schindler, and Luc Van Gool. You'll never walk alone: Modeling social behavior for multi-target tracking. In <em>2009 IEEE 12th International Conference on Computer Vision</em>, pp. 261–268. IEEE, 2009.</li>
+<li>Charles R Qi, Hao Su, Kaichun Mo, and Leonidas J Guibas. Pointnet: Deep learning on point sets for 3d classification and segmentation. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pp. 652–660, 2017.</li>
+<li>Prajit Ramachandran, Niki Parmar, Ashish Vaswani, Irwan Bello, Anselm Levskaya, and Jon Shlens. Stand-alone self-attention in vision models. In <em>Advances in Neural Information Processing Systems</em>, volume 32, 2019.</li>
+<li>Nicholas Rhinehart, Rowan McAllister, Kris Kitani, and Sergey Levine. Precog: Prediction conditioned on goals in visual multi-agent settings. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pp. 2821–2830, 2019.</li>
+<li>Tim Salzmann, Boris Ivanovic, Punarjay Chakravarty, and Marco Pavone. Trajectron++: Dynamically-feasible trajectory forecasting with heterogeneous data. <em>arXiv preprint arXiv:2001.03093</em>, 2020.</li>
+<li>Bernhard Schölkopf, Francesco Locatello, Stefan Bauer, Nan Rosemary Ke, Nal Kalchbrenner, Anirudh Goyal, and Yoshua Bengio. Toward causal representation learning. <em>Proceedings of the IEEE</em>, 2021.</li>
+<li>Aravind Srinivas, Tsung-Yi Lin, Niki Parmar, Jonathon Shlens, Pieter Abbeel, and Ashish Vaswani. Bottleneck transformers for visual recognition. In <em>CVPR</em>, 2021.</li>
+<li>Simon Suo, Sebastian Regalado, Sergio Casas, and Raquel Urtasun. Trafficsim: Learning to simulate realistic multi-agent behaviors. In <em>Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2021.</li>
+<li>Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jon Shlens, and Zbigniew Wojna. Rethinking the inception architecture for computer vision. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pp. 2818–2826, 2016.</li>
+<li>Charlie Tang and Russ R Salakhutdinov. Multiple futures prediction. In <em>NeurIPS</em>, 2019.</li>
+<li>Sebastian Thrun, Mike Montemerlo, Hendrik Dahlkamp, David Stavens, Andrei Aron, James Diebel, Philip Fong, John Gale, Morgan Halpenny, Gabriel Hoffmann, et al. Stanley: The robot that won the darpa grand challenge. <em>Journal of field Robotics</em>, 23(9):661–692, 2006.</li>
+<li>Ekaterina Tolstaya, Reza Mahjourian, Carlton Downey, Balakrishnan Vadarajan, Benjamin Sapp, and Dragomir Anguelov. Identifying driver interactions via conditional behavior prediction. <em>2021 IEEE International Conference on Robotics and Automation (ICRA)</em>, 2021.</li>
+<li>Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. <em>arXiv preprint arXiv:1706.03762</em>, 2017.</li>
+<li>Ashish Vaswani, Prajit Ramachandran, Aravind Srinivas, Niki Parmar, Blake Hechtman, and Jonathon Shlens. Scaling local self-attention for parameter efficient visual backbones. In <em>CVPR</em>, 2021.</li>
+<li>Huiyu Wang, Yukun Zhu, Bradley Green, Hartwig Adam, Alan Yuille, and Liang-Chieh Chen. Axial-deeplab: Stand-alone axial-attention for panoptic segmentation. In <em>European Conference on Computer Vision</em>, pp. 108–126. Springer, 2020.</li>
+<li>Waymo. Waymo open dataset challenge 2021 winners. <a href="https://waymo.com/open/challenges#winners">https://waymo.com/open/challenges#winners</a>, 2021. Accessed: 2021-10-01.</li>
+<li>Maosheng Ye, Tongyi Cao, and Qifeng Chen. Tpcn: Temporal point cloud networks for motion forecasting. <em>arXiv preprint arXiv:2103.03067</em>, 2021.</li>
+</ul>
+<a class="pg" data-page="14"></a>
+<ul class="refs">
+<li>Raymond A Yeh, Alexander G Schwing, Jonathan Huang, and Kevin Murphy. Diverse generation for multi-agent sports games. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pp. 4610–4619, 2019.</li>
+<li>Cunjun Yu, Xiao Ma, Jiawei Ren, Haiyu Zhao, and Shuai Yi. Spatio-temporal graph transformer networks for pedestrian trajectory prediction. In <em>European Conference on Computer Vision</em>, pp. 507–523. Springer, 2020.</li>
+<li>Ye Yuan, Xinshuo Weng, Yanglan Ou, and Kris Kitani. Agentformer: Agent-aware transformers for socio-temporal multi-agent forecasting. <em>arXiv preprint arXiv:2103.14023</em>, 2021.</li>
+<li>Wenyuan Zeng, Wenjie Luo, Simon Suo, Abbas Sadat, Bin Yang, Sergio Casas, and Raquel Urtasun. End-to-end interpretable neural motion planner. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, pp. 8660–8669, 2019.</li>
+<li>Wei Zhan, Liting Sun, Di Wang, Haojie Shi, Aubrey Clausse, Maximilian Naumann, Julius Kümmerle, Hendrik Königshof, Christoph Stiller, Arnaud de La Fortelle, and Masayoshi Tomizuka. INTERACTION Dataset: An INTERnational, Adversarial and Cooperative moTION Dataset in Interactive Driving Scenarios with Semantic Maps. <em>arXiv:1910.03088 [cs, eess]</em>, 2019.</li>
+<li>Hang Zhao, Jiyang Gao, Tian Lan, Chen Sun, Benjamin Sapp, Balakrishnan Varadarajan, Yue Shen, Yi Shen, Yuning Chai, Cordelia Schmid, et al. Tnt: Target-driven trajectory prediction. <em>arXiv preprint arXiv:2008.08294</em>, 2020.</li>
+<li>Tianyang Zhao, Yifei Xu, Mathew Monfort, Wongun Choi, Chris Baker, Yibiao Zhao, Yizhou Wang, and Ying Nian Wu. Multi-agent tensor fusion for contextual trajectory prediction. In <em>CVPR</em>, pp. 12126–12134, 2019.</li>
+<li>Julius Ziegler, Philipp Bender, Thao Dang, and Christoph Stiller. Trajectory planning for bertha—a local, continuous method. In <em>2014 IEEE intelligent vehicles symposium proceedings</em>, pp. 450–457. IEEE, 2014.</li>
+</ul>
+<a class="pg" data-page="15"></a>
+<h2 id="付録">付録</h2>
+
+<h2 id="a-アーキテクチャと学習の詳細">A　アーキテクチャと学習の詳細</h2>
+<p><strong>概要。</strong>表 5 は Scene Transformer のアーキテクチャと学習についての追加の詳細を示す。計算とパラメータの大部分は Transformer 層にある。表 6 は、我々の Transformer 実装におけるすべての演算と学習パラメータを列挙したものである。MLP は、元のデータの埋め込み（例えば層 \(A\)、\(B\)、\(C\)）、符号化からの \(F\) 個の未来の構築（層 \(T\)）、そして全エージェントの最終位置・方位・不確かさの予測（層 \(Z_1\) と \(Z_2\)）に用いられる。\(D=256\) 次元の特徴を用いた結果の注意ベースのアーキテクチャは 15,296,136 個のパラメータを含む。WOMD と Argoverse で用いる設定はほぼすべて同一であるが、Argoverse では最良の周辺予測結果を得るために \(D=512\) とラベル平滑化を用いる。得られたモデルは TPU カスタムハードウェアアクセラレータ（Jouppi et al., 2017）上で学習され、約 3 日の学習で収束する。</p>
+<p><strong>複数の未来の復号。</strong>デコーダが \(F\) 個の異なる未来を出力できるようにするため、次の演算を行う。デコーダは、\(T\) 個の時間ステップと \(D\) 次元の特徴にわたる \(A\) 個のエージェントに対応する形状 \([A, T, D]\) のテンソルを入力として受け取る。以下の一連の単純な演算により、\(F\) 個の未来を予測するように表現を再構成する。まず、表現を \(F\) 回タイル複製して \([F, A, T, D]\) を生成する。最後の次元に、各未来の識別番号を 1 で示すワンホット符号化を付加し、形状 \([F, A, T, D+F]\) のテンソルを得る。ワンホット符号化により、ネットワークは \(F\) 個の未来それぞれについて埋め込みを学習できる。計算を単純にするため、得られた表現を小さな MLP に通し、形状 \([F, A, T, D]\) のテンソルを返す。</p>
+<p><strong>パディングと隠しマスク。</strong>このようなモデルの実装では、パディングと隠しマスクを正しく扱うことが重要である。特に、マスクがモデルに追加の未来情報を伝えないようにする必要がある（例えば、データ中のパディングに基づいて、エージェントがどの時間ステップで可視か遮蔽されているかをモデルが知ってしまうと、モデルはそれを利用してしまい、汎化できなくなる可能性がある）。我々はパディングという概念を、<em>入力</em>が存在しない位置と与えられている位置を示すために用いる。これは、<em>タスク指定</em>に用いる形状 \([A, T]\) の隠しマスクとは別のものである。隠しマスクはどの位置を予測すべきかをモデルに伝えるためのクエリとして用いられ、一方パディングは、どの位置に損失を計算するための入力と正解があるかを示す。パディングされた位置は、マスキング方式にかかわらず前処理ですべて隠すよう設定され、モデルはその値を予測しようとする。我々の実装のすべての層は、正規化層（符号化 MLP で用いるバッチ正規化など）や注意演算も含めてパディングを考慮する。我々の注意演算は、パディングされた要素に対する注意の重みを 0 に設定する。タスク固有の隠しマスクを与えた後に、あるエージェントについてパディングされていない（有効な）時間ステップが一つも存在しない場合、そのエージェント全体をパディング扱いにする。これにより、有効なデータを持たないエージェントのスロットがモデルで使われることを防ぐ。</p>
+<p><strong>不確かさの予測。</strong>位置や方位などの予測される各変量について、対応する不確かさも予測する。初期の実験で、対となる不確かさを予測することが元の変量の予測性能を改善し、予測値の忠実度を解釈するための有用なシグナルとなることがわかった。ラプラス分布に対応する不確かさのパラメータ化を予測する損失関数を用いる（Meyer &amp; Thakurdesai, 2020）。</p>
+<p><strong>横方向・縦方向座標での損失。</strong>損失にはラプラス分布のパラメータ化を用い、各軸が独立となるよう対角共分散とする。モデルが意味のある不確かさを学習できるよう、各予測に対応する正解が軸に揃うように、ボックス予測ごとにシーンを回転させる。この定式化により、エージェントの横方向（lateral）・縦方向（longitudinal）座標に対応する不確かさ推定が得られる。</p>
+<p><strong>方位の表現：</strong>出力形式は 7 次元であり、そのうちの 1 次元である方位はラジアンで表現される。方位次元の損失を教師付けるため、各エージェントについて予測方位と正解方位の角度差を「ラップ」する、現在では標準的な方法を用いる。図 4 を参照されたい。</p>
+<a class="pg" data-page="16"></a>
+<pre><code>def WrapAngleRadians(angles_rad, min_val=-np.pi, max_val=np.pi):
+  max_min_diff = max_val - min_val
+  return min_val + tf.math.floormod(angles_rad + max_val, max_min_diff)
+
+heading_diff = pred_heading - gt_heading
+heading_error = WrapAngleRadians(heading_diff, min_val=-PI, max_val=PI)
+heading_loss = HuberLoss(heading_error)</code></pre>
+<p><strong>図4：</strong>方位損失成分の擬似コード。</p>
+<p><strong>結合モデルからの周辺予測。</strong>本モデルには、各エージェントについての周辺予測を行うよう容易に適応できるという追加の特長がある。各エージェントの予測について軌道ごとのスコアを生成するため、\([A, T, D]\) のエージェント特徴行列の末尾に人工的な追加の時間ステップを付け、形状 \([A, T+1, D]\) の行列を得る。この追加の特徴は、どの時間ステップにも結び付かない、各エージェントを表現するための追加の容量をモデルに与える。この追加の特徴を用いて、\(k\) 個の軌道のうちどれがそのエージェントの正解に最もよく一致するかを予測できる。</p>
+<table><thead><tr><th>データ拡張あり？</th><th>Vehicle minADE @8s</th><th>Ped minADE @8s</th><th>Cyclist minADE @ 8s</th></tr></thead>
+<tbody>
+<tr><td>No（なし）</td><td style="text-align:right">1.30</td><td style="text-align:right">0.69</td><td style="text-align:right">1.29</td></tr>
+<tr><td>Yes（あり）</td><td style="text-align:right">1.18</td><td style="text-align:right">0.59</td><td style="text-align:right">1.15</td></tr>
+</tbody></table>
+<p><strong>表4：</strong>学習時のデータ拡張の有無による WOMD 検証セットでの性能。Vehicle＝車両、Ped＝歩行者、Cyclist＝自転車。</p>
+<p><strong>データ拡張。</strong>両データセットで汎化を助け過学習を抑えるため、2 つのデータ拡張手法を用いる。第一に、予測対象でないエージェントをある確率で人為的に取り除くエージェントドロップアウトを用いる。確率 0.1 が両データセットでうまく機能することがわかった。また、注目エージェントを中心に据えた後、シーン全体を \([-\frac{\pi}{2}, \frac{\pi}{2}]\) の範囲でランダムに回転させることも有益であることがわかった。Argoverse では、この注目エージェントはタスクが予測対象として指定するエージェントであり、一方 WOMD では、タスクによっては予測対象のエージェントに含まれない場合でも、常に自動運転車（AV）を中心とする。最後に、Argoverse の各シーンにはモデルが予測する必要のない多数のエージェントが含まれる。これらの文脈エージェントが少なくとも 6m 移動した場合には、追加の学習ターゲットデータとして用いる。WOMD において、表 4 は標準検証セットでデータ拡張が minADE をわずかに改善することを示しているが、モデルの利点の大部分を説明するものではない。</p>
+<p><strong>Argoverse の分類ラベル平滑化：</strong>Argoverse での我々の最良モデルは \(D=512\) 次元の特徴を用いるが、素朴にこのようにモデルを拡大すると、分類サブタスクで深刻な過学習が生じる。最良モデルの学習時には、ラベル平滑化（負例に 0.1 + 1/6、正例のターゲットに 0.9 + 1/6）を用いる。</p>
+<p><strong>WOMD における冗長な軌道の結合：</strong>WOMD の AP 評価指標は、軌道のうちちょうど 1 本に高い確率が与えられ、その他の軌道には低い確率が与えられることを想定している。例えば、静止しているエージェントの未来予測は、たとえ軌道がすべて同じ（この場合は静止）であっても、高い確率スコアを持つ未来が 1 つだけで、残りは低いスコアであることが期待される。我々の最良モデルは、最終時間ステップで空間的な位置が近い（3.2m 未満）冗長な軌道を結合する。</p>
+<p><strong>エージェントと道路グラフの埋め込み。</strong>入力特徴を生成するため、正弦波位置埋め込み（Vaswani et al., 2017）を用いて、時間（エージェントと動的道路グラフについて）と \(xyz\) 座標を、次元ごとに別々に \(D\) 次元の特徴へと埋め込む。各物体の種別はワンホット符号化で符号化し（例えば物体の種別、車線の種別など）、ヨー角、幅、長さ、高さ、速度などデータセットで提供されるその他の特徴を連結する。動的道路グラフは、信号機の状態のような状態を示す 2 つ目のワンホット符号化を持つ。最後に、エージェントと動的道路グラフについて、その時間ステップでエージェントが隠されているかどうかを示す二値の指示子を付加する。エージェントまたは動的道路グラフの要素が隠されている場合、時間埋め込み（0 から始まりデータセットの更新レートで線形に間隔を空けた値）と隠し指示子を除くすべての入力特徴（例えば位置、種別、速度、状態など）を、符号化の前に 0 に設定する。</p>
+<a class="pg" data-page="17"></a>
+<p>エージェントと動的道路グラフについては、隠れ次元と出力次元が \(D\) の 2 層 MLP を用いて、エージェントまたは物体ごと、時間ステップごとの最終的な特徴を生成する。静的道路グラフについては、最大 20,000 個の道路グラフ点からなる点群（各点はより少数のポリラインの集合のいずれかに属する）を、ポリラインごとに 1 つのベクトルへ縮約しなければならない。車線の中には極めて長いものがあるため、20 点を超えるポリラインはより小さなポリラインの新たな集合に分割する。次に、各点に対して隠れ次元と出力次元が \(D\) の 2 層 MLP を持つ小さな PointNet（Qi et al., 2017）アーキテクチャを適用し、ポリラインごとに最大値プーリングを用いて要素ごとの最終的な特徴を得る。</p>
+<p><strong>推論レイテンシ。</strong>Scene Transformer は、1 回のパスでシーン中のすべてのエージェントについて予測を生成する。その推論速度はシーン中のエージェント数に依存する。予備的なプロファイリングでは、Waymo Open Motion Dataset（128 エージェント、各エージェント 91 時間ステップ、最大 1400 個の道路グラフ要素）において、推論速度は 52 ms（32 エージェント）から 175 ms（128 エージェント）の範囲であった。これは Nvidia V100 上で、最適化の工夫や最適化のためのチューニングなどを施さずに、float32 の標準的な TensorFlow 推論グラフを用いて測定したものである。これは、分解注意モジュールに期待される線形のスケーリングと一致している。</p>
+
+<a class="pg" data-page="18"></a>
+<table><thead><tr><th>Meta-Arch（メタ構造）</th><th>Name（名前）</th><th>Input（入力）</th><th>Operation（演算）</th><th>Queries（クエリ）</th><th>Keys/Values（キー／バリュー）</th><th>Across（注意の方向）</th><th>Atten Matrix（注意行列）</th><th>Output Size（出力サイズ）</th><th># Param（パラメータ数）</th></tr></thead>
+<tbody>
+<tr><td colspan="10"><strong>Encoder（エンコーダ）</strong></td></tr>
+<tr><td></td><td>\(\mathcal{A}\)</td><td>Agents</td><td>MLP + BN</td><td>–</td><td>–</td><td>–</td><td>–</td><td>\([A, T, D]\)</td><td style="text-align:right">334080</td></tr>
+<tr><td></td><td>\(\mathcal{B}\)</td><td>Dyna RG</td><td>MLP + BN</td><td>–</td><td>–</td><td>–</td><td>–</td><td>\([G_D, T, D]\)</td><td style="text-align:right">337408</td></tr>
+<tr><td></td><td>\(\mathcal{C}\)</td><td>Static RG</td><td>MLP + BN</td><td>–</td><td>–</td><td>–</td><td>–</td><td>\([G_S, T, D]\)</td><td style="text-align:right">270592</td></tr>
+<tr><td></td><td>\(\mathcal{D}\)</td><td>\(\mathcal{A}\), \(\mathcal{B}\), \(\mathcal{C}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Time</td><td>\([A, T, T]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{E}\)</td><td>\(\mathcal{D}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Agents</td><td>\([T, A, A]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{F}\)</td><td>\(\mathcal{E}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Time</td><td>\([A, T, T]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{G}\)</td><td>\(\mathcal{F}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Agents</td><td>\([T, A, A]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{H}\)</td><td>\(\mathcal{G}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Time</td><td>\([A, T, T]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{I}\)</td><td>\(\mathcal{H}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Agents</td><td>\([T, A, A]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{J}\)</td><td>\(\mathcal{I}\)</td><td>Transformer</td><td>Agents</td><td>Static RG</td><td>Time</td><td>\([T, A, G_S]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{K}\)</td><td>\(\mathcal{J}\)</td><td>Transformer</td><td>Agents</td><td>Dyna RG</td><td>Time</td><td>\([T, A, G_D]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{L}\)</td><td>\(\mathcal{K}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Time</td><td>\([A, T, T]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{M}\)</td><td>\(\mathcal{L}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Agents</td><td>\([T, A, A]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{N}\)</td><td>\(\mathcal{M}\)</td><td>Transformer</td><td>Agents</td><td>Static RG</td><td>Time</td><td>\([T, A, G_S]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{O}\)</td><td>\(\mathcal{N}\)</td><td>Transformer</td><td>Agents</td><td>Dyna RG</td><td>Time</td><td>\([T, A, G_D]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{P}\)</td><td>\(\mathcal{O}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Time</td><td>\([A, T, T]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{Q}\)</td><td>\(\mathcal{P}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Agents</td><td>\([T, A, A]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td colspan="10"><strong>Decoder（デコーダ）</strong></td></tr>
+<tr><td></td><td>\(\mathcal{R}\)</td><td>\(\mathcal{Q}\)</td><td>Tile</td><td>–</td><td>–</td><td>–</td><td>–</td><td>\([F, A, T, D]\)</td><td style="text-align:right">0</td></tr>
+<tr><td></td><td>\(\mathcal{S}\)</td><td>\(\mathcal{R}\)</td><td>Concat</td><td>–</td><td>–</td><td>–</td><td>–</td><td>\([F, A, T, D+F]\)</td><td style="text-align:right">0</td></tr>
+<tr><td></td><td>\(\mathcal{T}\)</td><td>\(\mathcal{S}\)</td><td>MLP</td><td>–</td><td>–</td><td>–</td><td>–</td><td>\([F, A, T, D]\)</td><td style="text-align:right">68096</td></tr>
+<tr><td></td><td>\(\mathcal{U}\)</td><td>\(\mathcal{T}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Time</td><td>\([A, T, T]\)</td><td>\([F, A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{V}\)</td><td>\(\mathcal{U}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Agents</td><td>\([T, A, A]\)</td><td>\([F, A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{W}\)</td><td>\(\mathcal{V}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Time</td><td>\([A, T, T]\)</td><td>\([F, A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{X}\)</td><td>\(\mathcal{W}\)</td><td>Transformer</td><td>Agents</td><td>Agents</td><td>Agents</td><td>\([T, A, A]\)</td><td>\([F, A, T, D]\)</td><td style="text-align:right">789824</td></tr>
+<tr><td></td><td>\(\mathcal{Y}\)</td><td>\(\mathcal{X}\)</td><td>Layer Norm</td><td>–</td><td>–</td><td>–</td><td>–</td><td>\([F, A, T, D]\)</td><td style="text-align:right">512</td></tr>
+<tr><td></td><td>\(\mathcal{Z}_1\)</td><td>\(\mathcal{Y}\)</td><td>MLP + BN</td><td>–</td><td>–</td><td>–</td><td>–</td><td>\([F, A, T, 6]\)</td><td style="text-align:right">66817</td></tr>
+<tr><td></td><td>\(\mathcal{Z}_2\)</td><td>\(\mathcal{Y}\)</td><td>MLP</td><td>–</td><td>–</td><td>–</td><td>–</td><td>\([F, A, T, 7]\)</td><td style="text-align:right">1799</td></tr>
+</tbody></table>
+<table><thead><tr><th>学習設定</th><th>値</th></tr></thead>
+<tbody>
+<tr><td>Optimizer（最適化手法）</td><td>Adam (\(\alpha = 1\mathrm{e}{-4}, \beta_1 = 0.9, \beta_2 = 0.999\))</td></tr>
+<tr><td>Learning Rate Schedule（学習率スケジュール）</td><td>Total epochs: 150; Linear ramp-up: 0.1 epochs（総エポック数：150、線形ウォームアップ：0.1 エポック）</td></tr>
+<tr><td>Batch size（バッチサイズ）</td><td>64</td></tr>
+<tr><td>Gradient Clipping (norm)（勾配クリッピング（ノルム））</td><td>5.0</td></tr>
+<tr><td>Weight initialization（重みの初期化）</td><td>Glorot &amp; Bengio (2010)</td></tr>
+<tr><td>Weight decay（重み減衰）</td><td>None（なし）</td></tr>
+<tr><td>Position Embeddings（位置埋め込み）</td><td>Min Timescale: 4; Max Timescale: 256</td></tr>
+<tr><td>Temporal Embeddings（時間埋め込み）</td><td>Min Timescale: 6; Max Timescale: 80</td></tr>
+<tr><td>Future classification weight（未来分類の重み）</td><td>0.1</td></tr>
+<tr><td>Position classification weight（位置分類の重み）</td><td>1.0</td></tr>
+<tr><td>Laplace Target Scale（ラプラス目標スケール）</td><td>1.0</td></tr>
+</tbody></table>
+<p><strong>表5：Scene Transformer のアーキテクチャと学習の詳細。</strong>ネットワークは、\(T\) 個の時間ステップと \(K\) 個の特徴にわたる \(A\) 個のエージェントを入力として受け取る。\(K\) は入力特徴の総数である（例えば 3 次元位置、速度、物体種別、バウンディングボックスのサイズ）。これらの入力の一部はマスクされる。\(G_S\) と \(G_D\) は道路グラフ（RG）要素の最大数であり、\(D\) は特徴の総数である。MLP と BN はそれぞれ多層パーセプトロンとバッチ正規化（Ioffe &amp; Szegedy, 2015）を表す<span class="yakuchu">（訳注：原文は「multilayer perception」と誤記）</span>。ネットワークの出力は \(\mathcal{Z}_1\) と \(\mathcal{Z}_2\) である。\(\mathcal{Z}_1\) は、\(F\) 個の未来のうちどれが最も尤もらしいかを分類するためのロジットの予測に対応する。\(\mathcal{Z}_2\) は、予測された \(xyz\) 座標とそれに対応する不確かさ、および方位の単一の値に対応する。本モデルでは \(D=256\)、\(K=7\)、\(F=6\) であり、両データセットについてパラメータ総数は 15,296,136 である。Waymo Open Motion Dataset では \(G_s=1400\)、\(G_d=16\)、\(T=91\)、\(A=128\)、Argoverse では \(G_s=256\)、\(G_d=0\)、\(T=50\)、\(A=64\) である。すべての層は ReLU 非線形性を用いる。Dyna RG＝動的道路グラフ、Static RG＝静的道路グラフ、Tile＝タイル複製、Concat＝連結、Layer Norm＝層正規化、Agents＝エージェント、Time＝時間。</p>
+<a class="pg" data-page="19"></a>
+<table><thead><tr><th>Name（名前）</th><th>Input（入力）</th><th>Operation（演算）</th><th>Parameter Sizes（パラメータのサイズ）</th><th>Output Size（出力サイズ）</th><th># Param（パラメータ数）</th></tr></thead>
+<tbody>
+<tr><td>\(X\)</td><td>\(X_o\)</td><td>Layer Norm</td><td>\([D]\), \([D]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">512</td></tr>
+<tr><td>\(K\)</td><td>\(X\)</td><td>Affine Projection</td><td>\([D, H, \frac{D}{H}]\), \([H, \frac{D}{H}]\)</td><td>\([A, T, H, \frac{D}{H}]\)</td><td style="text-align:right">65792</td></tr>
+<tr><td>\(V\)</td><td>\(X\)</td><td>Affine Projection</td><td>\([D, H, \frac{D}{H}]\), \([H, \frac{D}{H}]\)</td><td>\([A, T, H, \frac{D}{H}]\)</td><td style="text-align:right">65792</td></tr>
+<tr><td>\(Q_o\)</td><td>\(X\)</td><td>Affine Projection</td><td>\([D, H, \frac{D}{H}]\), \([H, \frac{D}{H}]\)</td><td>\([A, T, H, \frac{D}{H}]\)</td><td style="text-align:right">65792</td></tr>
+<tr><td>\(Q\)</td><td>\(Q_o\)</td><td>Rescale</td><td>\([\frac{D}{H}]\)</td><td>\([A, T, H, \frac{D}{H}]\)</td><td style="text-align:right">64</td></tr>
+<tr><td>\(Y_1\)</td><td>\(Q, K, V\)</td><td>\(\mathsf{softmax}(Q\,K^T)V\)</td><td>–</td><td>\([A, T, H, \frac{D}{H}]\)</td><td style="text-align:right">0</td></tr>
+<tr><td>\(Y_2\)</td><td>\(Y_1\)</td><td>Affine Projection</td><td>\([H, \frac{D}{H}, D]\), \([D]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">65792</td></tr>
+<tr><td>\(S\)</td><td>\(F_1, X_o\)</td><td>Sum</td><td>–</td><td>\([A, T, D]\)</td><td style="text-align:right">0</td></tr>
+<tr><td>\(F_1\)</td><td>\(Y_2\)</td><td>MLP</td><td>\([D, kD]\), \([kD]\)</td><td>\([A, T, kD]\)</td><td style="text-align:right">263168</td></tr>
+<tr><td>\(F_2\)</td><td>\(S\)</td><td>MLP</td><td>\([kD, D]\), \([D]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">262400</td></tr>
+<tr><td>\(Z\)</td><td>\(F_2\)</td><td>Layer Norm</td><td>\([D]\), \([D]\)</td><td>\([A, T, D]\)</td><td style="text-align:right">512</td></tr>
+<tr><td><strong>Total（合計）</strong></td><td></td><td></td><td></td><td></td><td style="text-align:right">789824</td></tr>
+</tbody></table>
+<p><strong>表6：Transformer のアーキテクチャ。</strong>ネットワークは \(X_o\) を入力として受け取り、\(Z\) を出力する。すべての MLP は ReLU 非線形性を用いる。\(D\) は特徴の次元数、\(H\) は注意ヘッドの数である。本モデルでは \(D\)=256、\(H\)=4、\(k\)=4 である。Layer Norm＝層正規化、Affine Projection＝アフィン射影、Rescale＝再スケーリング、Sum＝和。<span class="yakuchu">（訳注：表中で \(S\) の入力は \(F_1, X_o\)、\(F_1\) の入力は \(Y_2\) と記載されており、通常の Transformer 層の構成（\(Y_2\) と \(X_o\) の残差和の後に MLP）とは順序が異なるように見えるが、原文のまま記載した。）</span></p>
+
+<a class="pg" data-page="20"></a>
+<h2 id="b-動作予測の追加結果">B　動作予測の追加結果</h2>
+<table><thead>
+<tr><th rowspan="2">Motion Prediction（動作予測）</th><th colspan="3">minADE↓</th><th colspan="3">minFDE↓</th><th colspan="3">MR↓</th><th colspan="3">mAP↑</th></tr>
+<tr><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th></tr>
+</thead><tbody>
+<tr><td colspan="13"><em>valid</em></td></tr>
+<tr><td>baseline (Ettinger et al., 2021)</td><td style="text-align:right">0.39</td><td style="text-align:right">0.19</td><td style="text-align:right">0.41</td><td style="text-align:right">0.65</td><td style="text-align:right">0.36</td><td style="text-align:right">0.73</td><td style="text-align:right">0.14</td><td style="text-align:right">0.07</td><td style="text-align:right">0.25</td><td style="text-align:right">0.33</td><td style="text-align:right"><strong>0.33</strong></td><td style="text-align:right">0.27</td></tr>
+<tr><td>ours (marginal)</td><td style="text-align:right"><strong>0.33</strong></td><td style="text-align:right"><strong>0.20</strong></td><td style="text-align:right"><strong>0.39</strong></td><td style="text-align:right"><strong>0.57</strong></td><td style="text-align:right"><strong>0.33</strong></td><td style="text-align:right"><strong>0.67</strong></td><td style="text-align:right"><strong>0.11</strong></td><td style="text-align:right"><strong>0.07</strong></td><td style="text-align:right"><strong>0.21</strong></td><td style="text-align:right"><strong>0.38</strong></td><td style="text-align:right"><strong>0.33</strong></td><td style="text-align:right"><strong>0.28</strong></td></tr>
+<tr><td>ours (joint-as-marginal)</td><td style="text-align:right">0.42</td><td style="text-align:right">0.28</td><td style="text-align:right">0.50</td><td style="text-align:right">0.78</td><td style="text-align:right">0.51</td><td style="text-align:right">0.94</td><td style="text-align:right">0.19</td><td style="text-align:right">0.21</td><td style="text-align:right">0.32</td><td style="text-align:right">0.34</td><td style="text-align:right">0.25</td><td style="text-align:right">0.23</td></tr>
+<tr><td>ours (multi-task joint-as-marginal)</td><td style="text-align:right">0.43</td><td style="text-align:right">0.51</td><td style="text-align:right">0.51</td><td style="text-align:right">0.80</td><td style="text-align:right">0.52</td><td style="text-align:right">0.93</td><td style="text-align:right">0.20</td><td style="text-align:right">0.21</td><td style="text-align:right">0.32</td><td style="text-align:right">0.33</td><td style="text-align:right">0.24</td><td style="text-align:right">0.23</td></tr>
+<tr><td colspan="13"><em>test</em></td></tr>
+<tr><td>baseline (Ettinger et al., 2021)</td><td style="text-align:right">0.39</td><td style="text-align:right">0.20</td><td style="text-align:right">0.41</td><td style="text-align:right">0.65</td><td style="text-align:right">0.36</td><td style="text-align:right">0.74</td><td style="text-align:right">0.14</td><td style="text-align:right">0.07</td><td style="text-align:right">0.25</td><td style="text-align:right">0.34</td><td style="text-align:right"><strong>0.32</strong></td><td style="text-align:right">0.24</td></tr>
+<tr><td>ours (marginal)</td><td style="text-align:right"><strong>0.32</strong></td><td style="text-align:right"><strong>0.20</strong></td><td style="text-align:right"><strong>0.38</strong></td><td style="text-align:right"><strong>0.56</strong></td><td style="text-align:right"><strong>0.33</strong></td><td style="text-align:right"><strong>0.67</strong></td><td style="text-align:right"><strong>0.11</strong></td><td style="text-align:right"><strong>0.07</strong></td><td style="text-align:right"><strong>0.21</strong></td><td style="text-align:right"><strong>0.38</strong></td><td style="text-align:right"><strong>0.32</strong></td><td style="text-align:right"><strong>0.28</strong></td></tr>
+<tr><td>ours (joint-as-marginal)</td><td style="text-align:right">0.42</td><td style="text-align:right">0.28</td><td style="text-align:right">0.49</td><td style="text-align:right">0.78</td><td style="text-align:right">0.53</td><td style="text-align:right">0.92</td><td style="text-align:right">0.19</td><td style="text-align:right">0.21</td><td style="text-align:right">0.32</td><td style="text-align:right">0.33</td><td style="text-align:right">0.26</td><td style="text-align:right">0.24</td></tr>
+<tr><td>ours (multi-task joint-as-marginal)</td><td style="text-align:right">0.44</td><td style="text-align:right">0.29</td><td style="text-align:right">0.50</td><td style="text-align:right">0.80</td><td style="text-align:right">0.53</td><td style="text-align:right">0.93</td><td style="text-align:right">0.20</td><td style="text-align:right">0.22</td><td style="text-align:right">0.32</td><td style="text-align:right">0.32</td><td style="text-align:right">0.24</td><td style="text-align:right">0.24</td></tr>
+</tbody></table>
+<p><strong>表7：\(t=3\) 秒における Waymo Open Motion Dataset 動作予測での周辺予測性能。</strong>詳細は表 2 を参照されたい。</p>
+<table><thead>
+<tr><th rowspan="2">Interaction Prediction（相互作用予測）</th><th colspan="3">minSADE↓</th><th colspan="3">minSFDE↓</th><th colspan="3">SMR↓</th><th colspan="3">mAP↑</th></tr>
+<tr><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th></tr>
+</thead><tbody>
+<tr><td colspan="13"><em>valid</em></td></tr>
+<tr><td>baseline (Ettinger et al., 2021)</td><td style="text-align:right">0.58</td><td style="text-align:right">0.43</td><td style="text-align:right">0.60</td><td style="text-align:right">1.13</td><td style="text-align:right">0.86</td><td style="text-align:right">1.20</td><td style="text-align:right">0.45</td><td style="text-align:right">0.47</td><td style="text-align:right">0.61</td><td style="text-align:right">0.15</td><td style="text-align:right">0.13</td><td style="text-align:right">0.06</td></tr>
+<tr><td>ours (marginal-as-joint)</td><td style="text-align:right">0.45</td><td style="text-align:right">0.37</td><td style="text-align:right">0.52</td><td style="text-align:right">0.91</td><td style="text-align:right">0.75</td><td style="text-align:right">1.04</td><td style="text-align:right">0.35</td><td style="text-align:right">0.42</td><td style="text-align:right">0.52</td><td style="text-align:right">0.20</td><td style="text-align:right">0.12</td><td style="text-align:right">0.09</td></tr>
+<tr><td>ours (joint)</td><td style="text-align:right">0.41</td><td style="text-align:right"><strong>0.34</strong></td><td style="text-align:right"><strong>0.47</strong></td><td style="text-align:right">0.81</td><td style="text-align:right"><strong>0.65</strong></td><td style="text-align:right">0.92</td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right"><strong>0.38</strong></td><td style="text-align:right"><strong>0.49</strong></td><td style="text-align:right">0.26</td><td style="text-align:right">0.14</td><td style="text-align:right">0.11</td></tr>
+<tr><td>ours (multi-task joint)</td><td style="text-align:right"><strong>0.40</strong></td><td style="text-align:right"><strong>0.34</strong></td><td style="text-align:right"><strong>0.47</strong></td><td style="text-align:right"><strong>0.80</strong></td><td style="text-align:right"><strong>0.65</strong></td><td style="text-align:right"><strong>0.91</strong></td><td style="text-align:right"><strong>0.28</strong></td><td style="text-align:right"><strong>0.38</strong></td><td style="text-align:right"><strong>0.49</strong></td><td style="text-align:right"><strong>0.27</strong></td><td style="text-align:right"><strong>0.17</strong></td><td style="text-align:right"><strong>0.13</strong></td></tr>
+<tr><td colspan="13"><em>test</em></td></tr>
+<tr><td>baseline (Ettinger et al., 2021)</td><td style="text-align:right">0.58</td><td style="text-align:right">0.42</td><td style="text-align:right">0.61</td><td style="text-align:right">1.14</td><td style="text-align:right">0.85</td><td style="text-align:right">1.21</td><td style="text-align:right">0.45</td><td style="text-align:right">0.47</td><td style="text-align:right">0.61</td><td style="text-align:right">0.16</td><td style="text-align:right">0.11</td><td style="text-align:right">0.05</td></tr>
+<tr><td>ours (marginal-as-joint)</td><td style="text-align:right">0.45</td><td style="text-align:right">0.36</td><td style="text-align:right">0.53</td><td style="text-align:right">0.93</td><td style="text-align:right">0.74</td><td style="text-align:right">1.06</td><td style="text-align:right">0.36</td><td style="text-align:right">0.40</td><td style="text-align:right">0.55</td><td style="text-align:right">0.18</td><td style="text-align:right">0.11</td><td style="text-align:right">0.07</td></tr>
+<tr><td>ours (joint)</td><td style="text-align:right"><strong>0.41</strong></td><td style="text-align:right"><strong>0.33</strong></td><td style="text-align:right"><strong>0.48</strong></td><td style="text-align:right">0.82</td><td style="text-align:right"><strong>0.64</strong></td><td style="text-align:right"><strong>0.94</strong></td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right"><strong>0.36</strong></td><td style="text-align:right"><strong>0.50</strong></td><td style="text-align:right">0.18</td><td style="text-align:right">0.12</td><td style="text-align:right">0.07</td></tr>
+<tr><td>ours (multi-task joint)</td><td style="text-align:right"><strong>0.41</strong></td><td style="text-align:right">0.34</td><td style="text-align:right"><strong>0.48</strong></td><td style="text-align:right"><strong>0.81</strong></td><td style="text-align:right">0.65</td><td style="text-align:right"><strong>0.94</strong></td><td style="text-align:right"><strong>0.29</strong></td><td style="text-align:right">0.37</td><td style="text-align:right">0.51</td><td style="text-align:right"><strong>0.26</strong></td><td style="text-align:right"><strong>0.15</strong></td><td style="text-align:right"><strong>0.10</strong></td></tr>
+</tbody></table>
+<p><strong>表8：\(t=3\) 秒における Waymo Open Motion Dataset 動作予測での同時予測性能。</strong>詳細は表 3 を参照されたい。</p>
+<table><thead>
+<tr><th rowspan="2">Motion Prediction（動作予測）</th><th colspan="3">minADE↓</th><th colspan="3">minFDE↓</th><th colspan="3">MR↓</th><th colspan="3">mAP↑</th></tr>
+<tr><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th></tr>
+</thead><tbody>
+<tr><td colspan="13"><em>valid</em></td></tr>
+<tr><td>baseline (Ettinger et al., 2021)</td><td style="text-align:right">0.74</td><td style="text-align:right">0.37</td><td style="text-align:right">0.75</td><td style="text-align:right">1.36</td><td style="text-align:right">0.73</td><td style="text-align:right">1.43</td><td style="text-align:right">0.17</td><td style="text-align:right">0.10</td><td style="text-align:right">0.25</td><td style="text-align:right">0.29</td><td style="text-align:right"><strong>0.27</strong></td><td style="text-align:right"><strong>0.26</strong></td></tr>
+<tr><td>ours (marginal)</td><td style="text-align:right"><strong>0.65</strong></td><td style="text-align:right"><strong>0.35</strong></td><td style="text-align:right"><strong>0.69</strong></td><td style="text-align:right"><strong>1.23</strong></td><td style="text-align:right"><strong>0.67</strong></td><td style="text-align:right"><strong>1.30</strong></td><td style="text-align:right"><strong>0.15</strong></td><td style="text-align:right"><strong>0.10</strong></td><td style="text-align:right"><strong>0.22</strong></td><td style="text-align:right"><strong>0.33</strong></td><td style="text-align:right">0.26</td><td style="text-align:right">0.25</td></tr>
+<tr><td>ours (joint-as-marginal)</td><td style="text-align:right">0.83</td><td style="text-align:right">0.51</td><td style="text-align:right">0.93</td><td style="text-align:right">1.68</td><td style="text-align:right">1.08</td><td style="text-align:right">1.91</td><td style="text-align:right">0.23</td><td style="text-align:right">0.26</td><td style="text-align:right">0.33</td><td style="text-align:right">0.26</td><td style="text-align:right">0.19</td><td style="text-align:right">0.18</td></tr>
+<tr><td>ours (multi-task joint-as-marginal)</td><td style="text-align:right">0.84</td><td style="text-align:right">0.52</td><td style="text-align:right">0.92</td><td style="text-align:right">1.72</td><td style="text-align:right">1.08</td><td style="text-align:right">1.87</td><td style="text-align:right">0.24</td><td style="text-align:right">0.26</td><td style="text-align:right">0.33</td><td style="text-align:right">0.26</td><td style="text-align:right">0.18</td><td style="text-align:right">0.18</td></tr>
+<tr><td colspan="13"><em>test</em></td></tr>
+<tr><td>baseline (Ettinger et al., 2021)</td><td style="text-align:right">0.74</td><td style="text-align:right">0.37</td><td style="text-align:right">0.76</td><td style="text-align:right">1.35</td><td style="text-align:right">0.73</td><td style="text-align:right">1.43</td><td style="text-align:right">0.17</td><td style="text-align:right">0.10</td><td style="text-align:right">0.25</td><td style="text-align:right">0.29</td><td style="text-align:right"><strong>0.26</strong></td><td style="text-align:right"><strong>0.23</strong></td></tr>
+<tr><td>ours (marginal)</td><td style="text-align:right"><strong>0.63</strong></td><td style="text-align:right"><strong>0.35</strong></td><td style="text-align:right"><strong>0.68</strong></td><td style="text-align:right"><strong>1.20</strong></td><td style="text-align:right"><strong>0.67</strong></td><td style="text-align:right"><strong>1.31</strong></td><td style="text-align:right"><strong>0.11</strong></td><td style="text-align:right"><strong>0.10</strong></td><td style="text-align:right"><strong>0.22</strong></td><td style="text-align:right"><strong>0.33</strong></td><td style="text-align:right"><strong>0.26</strong></td><td style="text-align:right"><strong>0.23</strong></td></tr>
+<tr><td>ours (joint-as-marginal)</td><td style="text-align:right">0.83</td><td style="text-align:right">0.52</td><td style="text-align:right">0.91</td><td style="text-align:right">1.68</td><td style="text-align:right">1.10</td><td style="text-align:right">1.88</td><td style="text-align:right">0.23</td><td style="text-align:right">0.26</td><td style="text-align:right">0.33</td><td style="text-align:right">0.26</td><td style="text-align:right">0.19</td><td style="text-align:right">0.22</td></tr>
+<tr><td>ours (multi-task joint-as-marginal)</td><td style="text-align:right">0.85</td><td style="text-align:right">0.53</td><td style="text-align:right">0.93</td><td style="text-align:right">1.72</td><td style="text-align:right">1.10</td><td style="text-align:right">1.91</td><td style="text-align:right">0.24</td><td style="text-align:right">0.27</td><td style="text-align:right">0.34</td><td style="text-align:right">0.26</td><td style="text-align:right">0.19</td><td style="text-align:right">0.21</td></tr>
+</tbody></table>
+<p><strong>表9：\(t=5\) 秒における Waymo Open Motion Dataset 動作予測での周辺予測性能。</strong>詳細は表 2 を参照されたい。</p>
+<a class="pg" data-page="21"></a>
+<table><thead>
+<tr><th rowspan="2">Interaction Prediction（相互作用予測）</th><th colspan="3">minSADE↓</th><th colspan="3">minSFDE↓</th><th colspan="3">SMR↓</th><th colspan="3">mAP↑</th></tr>
+<tr><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th></tr>
+</thead><tbody>
+<tr><td colspan="13"><em>valid</em></td></tr>
+<tr><td>baseline (Ettinger et al., 2021)</td><td style="text-align:right">1.19</td><td style="text-align:right">0.90</td><td style="text-align:right">1.25</td><td style="text-align:right">2.64</td><td style="text-align:right">1.98</td><td style="text-align:right">2.82</td><td style="text-align:right">0.55</td><td style="text-align:right">0.57</td><td style="text-align:right">0.70</td><td style="text-align:right">0.13</td><td style="text-align:right">0.09</td><td style="text-align:right">0.04</td></tr>
+<tr><td>ours (marginal-as-joint)</td><td style="text-align:right">0.96</td><td style="text-align:right">0.78</td><td style="text-align:right">1.08</td><td style="text-align:right">2.15</td><td style="text-align:right">1.75</td><td style="text-align:right">2.46</td><td style="text-align:right">0.44</td><td style="text-align:right">0.51</td><td style="text-align:right">0.60</td><td style="text-align:right">0.13</td><td style="text-align:right">0.09</td><td style="text-align:right">0.06</td></tr>
+<tr><td>ours (joint)</td><td style="text-align:right">0.84</td><td style="text-align:right">0.68</td><td style="text-align:right">0.95</td><td style="text-align:right">1.81</td><td style="text-align:right">1.45</td><td style="text-align:right">2.09</td><td style="text-align:right"><strong>0.38</strong></td><td style="text-align:right"><strong>0.48</strong></td><td style="text-align:right"><strong>0.59</strong></td><td style="text-align:right">0.18</td><td style="text-align:right">0.08</td><td style="text-align:right"><strong>0.07</strong></td></tr>
+<tr><td>ours (multi-task joint)</td><td style="text-align:right"><strong>0.83</strong></td><td style="text-align:right"><strong>0.68</strong></td><td style="text-align:right"><strong>0.95</strong></td><td style="text-align:right">1.79</td><td style="text-align:right">1.45</td><td style="text-align:right"><strong>2.08</strong></td><td style="text-align:right"><strong>0.38</strong></td><td style="text-align:right">0.48</td><td style="text-align:right"><strong>0.59</strong></td><td style="text-align:right"><strong>0.19</strong></td><td style="text-align:right"><strong>0.10</strong></td><td style="text-align:right">0.06</td></tr>
+<tr><td colspan="13"><em>test</em></td></tr>
+<tr><td>baseline (Ettinger et al., 2021)</td><td style="text-align:right">1.21</td><td style="text-align:right">0.89</td><td style="text-align:right">1.26</td><td style="text-align:right">2.70</td><td style="text-align:right">1.96</td><td style="text-align:right">2.80</td><td style="text-align:right">0.56</td><td style="text-align:right">0.59</td><td style="text-align:right">0.69</td><td style="text-align:right">0.13</td><td style="text-align:right">0.07</td><td style="text-align:right">0.03</td></tr>
+<tr><td>ours (marginal-as-joint)</td><td style="text-align:right">0.96</td><td style="text-align:right">0.77</td><td style="text-align:right">1.07</td><td style="text-align:right">2.19</td><td style="text-align:right">1.74</td><td style="text-align:right">2.45</td><td style="text-align:right">0.46</td><td style="text-align:right">0.51</td><td style="text-align:right">0.62</td><td style="text-align:right">0.13</td><td style="text-align:right">0.09</td><td style="text-align:right">0.06</td></tr>
+<tr><td>ours (joint)</td><td style="text-align:right">0.85</td><td style="text-align:right"><strong>0.67</strong></td><td style="text-align:right"><strong>0.96</strong></td><td style="text-align:right">1.85</td><td style="text-align:right"><strong>1.44</strong></td><td style="text-align:right">2.10</td><td style="text-align:right"><strong>0.39</strong></td><td style="text-align:right">0.50</td><td style="text-align:right"><strong>0.58</strong></td><td style="text-align:right">0.17</td><td style="text-align:right"><strong>0.10</strong></td><td style="text-align:right">0.07</td></tr>
+<tr><td>ours (multi-task joint)</td><td style="text-align:right"><strong>0.84</strong></td><td style="text-align:right">0.68</td><td style="text-align:right">0.97</td><td style="text-align:right"><strong>1.82</strong></td><td style="text-align:right">1.46</td><td style="text-align:right"><strong>2.09</strong></td><td style="text-align:right"><strong>0.39</strong></td><td style="text-align:right"><strong>0.49</strong></td><td style="text-align:right">0.59</td><td style="text-align:right"><strong>0.20</strong></td><td style="text-align:right">0.09</td><td style="text-align:right"><strong>0.08</strong></td></tr>
+</tbody></table>
+<p><strong>表10：\(t=5\) 秒における Waymo Open Motion Dataset 動作予測での同時予測性能。</strong>詳細は表 3 を参照されたい。</p>
+<table><thead>
+<tr><th rowspan="2">Motion Prediction（動作予測）</th><th colspan="3">minADE↓</th><th colspan="3">minFDE↓</th><th colspan="3">MR↓</th><th colspan="3">mAP↑</th></tr>
+<tr><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th></tr>
+</thead><tbody>
+<tr><td colspan="13"><em>valid</em></td></tr>
+<tr><td>LSTM baseline (Ettinger et al., 2021)</td><td style="text-align:right">1.34</td><td style="text-align:right">0.63</td><td style="text-align:right">1.26</td><td style="text-align:right">2.85</td><td style="text-align:right">1.35</td><td style="text-align:right">2.68</td><td style="text-align:right">0.25</td><td style="text-align:right">0.13</td><td style="text-align:right">0.29</td><td style="text-align:right">0.23</td><td style="text-align:right">0.23</td><td style="text-align:right">0.20</td></tr>
+<tr><td>ours (marginal)</td><td style="text-align:right"><strong>1.17</strong></td><td style="text-align:right"><strong>0.59</strong></td><td style="text-align:right"><strong>1.15</strong></td><td style="text-align:right"><strong>2.51</strong></td><td style="text-align:right"><strong>1.26</strong></td><td style="text-align:right"><strong>2.44</strong></td><td style="text-align:right"><strong>0.20</strong></td><td style="text-align:right"><strong>0.12</strong></td><td style="text-align:right"><strong>0.24</strong></td><td style="text-align:right">0.26</td><td style="text-align:right">0.27</td><td style="text-align:right">0.20</td></tr>
+<tr><td>ours (joint-as-marginal)</td><td style="text-align:right">1.53</td><td style="text-align:right">0.90</td><td style="text-align:right">1.63</td><td style="text-align:right">3.48</td><td style="text-align:right">2.09</td><td style="text-align:right">3.77</td><td style="text-align:right">0.28</td><td style="text-align:right">0.30</td><td style="text-align:right">0.37</td><td style="text-align:right">0.20</td><td style="text-align:right">0.16</td><td style="text-align:right">0.13</td></tr>
+<tr><td>ours (multi-task joint-as-marginal)</td><td style="text-align:right">1.56</td><td style="text-align:right">0.89</td><td style="text-align:right">1.60</td><td style="text-align:right">3.56</td><td style="text-align:right">2.06</td><td style="text-align:right">3.68</td><td style="text-align:right">0.29</td><td style="text-align:right">0.29</td><td style="text-align:right">0.37</td><td style="text-align:right">0.19</td><td style="text-align:right">0.15</td><td style="text-align:right">0.15</td></tr>
+<tr><td colspan="13"><em>test</em></td></tr>
+<tr><td>LSTM baseline (Ettinger et al., 2021)</td><td style="text-align:right">1.34</td><td style="text-align:right">0.64</td><td style="text-align:right">1.29</td><td style="text-align:right">2.83</td><td style="text-align:right">1.35</td><td style="text-align:right">2.68</td><td style="text-align:right">0.24</td><td style="text-align:right">0.13</td><td style="text-align:right">0.29</td><td style="text-align:right">0.24</td><td style="text-align:right">0.22</td><td style="text-align:right">0.19</td></tr>
+<tr><td>ours (marginal)</td><td style="text-align:right"><strong>1.17</strong></td><td style="text-align:right"><strong>0.60</strong></td><td style="text-align:right"><strong>1.17</strong></td><td style="text-align:right"><strong>2.48</strong></td><td style="text-align:right"><strong>1.25</strong></td><td style="text-align:right"><strong>2.43</strong></td><td style="text-align:right"><strong>0.19</strong></td><td style="text-align:right"><strong>0.12</strong></td><td style="text-align:right"><strong>0.22</strong></td><td style="text-align:right">0.27</td><td style="text-align:right">0.23</td><td style="text-align:right">0.20</td></tr>
+<tr><td>ours (joint-as-marginal)</td><td style="text-align:right">1.52</td><td style="text-align:right">0.91</td><td style="text-align:right">1.61</td><td style="text-align:right">3.43</td><td style="text-align:right">2.09</td><td style="text-align:right">3.68</td><td style="text-align:right">0.28</td><td style="text-align:right">0.30</td><td style="text-align:right">0.37</td><td style="text-align:right">0.19</td><td style="text-align:right">0.16</td><td style="text-align:right">0.19</td></tr>
+<tr><td>ours (multi-task joint-as-marginal)</td><td style="text-align:right">1.55</td><td style="text-align:right">0.91</td><td style="text-align:right">1.64</td><td style="text-align:right">3.50</td><td style="text-align:right">2.08</td><td style="text-align:right">3.75</td><td style="text-align:right">0.28</td><td style="text-align:right">0.29</td><td style="text-align:right">0.38</td><td style="text-align:right">0.19</td><td style="text-align:right">0.16</td><td style="text-align:right">0.19</td></tr>
+</tbody></table>
+<p><strong>表11：\(t=8\) 秒における Waymo Open Motion Dataset 動作予測での周辺予測性能。</strong>詳細は表 2 を参照されたい。標準的な MP マスクを用いた同時モデルと、マルチタスク同時モデルについて、「joint-as-marginal」（同時モデルを周辺モデルとして評価）の結果も追加で含めている。これらは、出力に一切の変更を加えずに、周辺モデルであるかのように評価した同時モデルである。</p>
+<table><thead>
+<tr><th rowspan="2">Interaction Prediction（相互作用予測）</th><th colspan="3">minSADE↓</th><th colspan="3">minSFDE↓</th><th colspan="3">SMR↓</th><th colspan="3">mAP↑</th></tr>
+<tr><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th><th>veh</th><th>ped</th><th>cyc</th></tr>
+</thead><tbody>
+<tr><td colspan="13"><em>valid</em></td></tr>
+<tr><td>LSTM baseline (Ettinger et al., 2021)</td><td style="text-align:right">2.42</td><td style="text-align:right">2.73</td><td style="text-align:right">3.16</td><td style="text-align:right">6.07</td><td style="text-align:right">4.20</td><td style="text-align:right">6.46</td><td style="text-align:right">0.66</td><td style="text-align:right">1.00</td><td style="text-align:right">0.83</td><td style="text-align:right">0.07</td><td style="text-align:right"><strong>0.06</strong></td><td style="text-align:right">0.02</td></tr>
+<tr><td>ours (marginal-as-joint)</td><td style="text-align:right">2.04</td><td style="text-align:right">1.62</td><td style="text-align:right">2.28</td><td style="text-align:right">4.94</td><td style="text-align:right">3.81</td><td style="text-align:right">5.67</td><td style="text-align:right">0.54</td><td style="text-align:right">0.63</td><td style="text-align:right">0.72</td><td style="text-align:right"><strong>0.11</strong></td><td style="text-align:right">0.05</td><td style="text-align:right">0.03</td></tr>
+<tr><td>ours (joint, mp-only)</td><td style="text-align:right"><strong>1.72</strong></td><td style="text-align:right"><strong>1.38</strong></td><td style="text-align:right">1.96</td><td style="text-align:right"><strong>3.98</strong></td><td style="text-align:right"><strong>3.11</strong></td><td style="text-align:right">4.75</td><td style="text-align:right"><strong>0.49</strong></td><td style="text-align:right"><strong>0.60</strong></td><td style="text-align:right">0.73</td><td style="text-align:right"><strong>0.11</strong></td><td style="text-align:right">0.05</td><td style="text-align:right">0.03</td></tr>
+<tr><td>ours (joint, multi-task)</td><td style="text-align:right"><strong>1.72</strong></td><td style="text-align:right">1.39</td><td style="text-align:right"><strong>1.94</strong></td><td style="text-align:right">3.99</td><td style="text-align:right">3.15</td><td style="text-align:right"><strong>4.69</strong></td><td style="text-align:right"><strong>0.49</strong></td><td style="text-align:right">0.62</td><td style="text-align:right"><strong>0.71</strong></td><td style="text-align:right"><strong>0.11</strong></td><td style="text-align:right"><strong>0.06</strong></td><td style="text-align:right"><strong>0.04</strong></td></tr>
+<tr><td colspan="13"><em>test</em></td></tr>
+<tr><td>LSTM baseline (Ettinger et al., 2021)</td><td style="text-align:right">2.46</td><td style="text-align:right">2.47</td><td style="text-align:right">2.96</td><td style="text-align:right">6.22</td><td style="text-align:right">4.30</td><td style="text-align:right">6.26</td><td style="text-align:right">0.67</td><td style="text-align:right">0.89</td><td style="text-align:right">0.89</td><td style="text-align:right">0.06</td><td style="text-align:right">0.03</td><td style="text-align:right">0.03</td></tr>
+<tr><td>ours (marginal-as-joint)</td><td style="text-align:right">2.08</td><td style="text-align:right">1.62</td><td style="text-align:right">2.24</td><td style="text-align:right">5.04</td><td style="text-align:right">3.87</td><td style="text-align:right">5.41</td><td style="text-align:right">0.55</td><td style="text-align:right">0.64</td><td style="text-align:right">0.73</td><td style="text-align:right">0.08</td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right">0.03</td></tr>
+<tr><td>ours (joint, mp-only)</td><td style="text-align:right">1.76</td><td style="text-align:right"><strong>1.38</strong></td><td style="text-align:right"><strong>1.95</strong></td><td style="text-align:right">4.08</td><td style="text-align:right"><strong>3.19</strong></td><td style="text-align:right"><strong>4.65</strong></td><td style="text-align:right"><strong>0.50</strong></td><td style="text-align:right"><strong>0.62</strong></td><td style="text-align:right"><strong>0.70</strong></td><td style="text-align:right">0.10</td><td style="text-align:right"><strong>0.05</strong></td><td style="text-align:right"><strong>0.04</strong></td></tr>
+<tr><td>ours (joint, multi-task)</td><td style="text-align:right"><strong>1.74</strong></td><td style="text-align:right">1.41</td><td style="text-align:right"><strong>1.95</strong></td><td style="text-align:right"><strong>4.06</strong></td><td style="text-align:right">3.26</td><td style="text-align:right">4.68</td><td style="text-align:right"><strong>0.50</strong></td><td style="text-align:right">0.64</td><td style="text-align:right">0.71</td><td style="text-align:right"><strong>0.13</strong></td><td style="text-align:right">0.04</td><td style="text-align:right">0.03</td></tr>
+</tbody></table>
+<p><strong>表12：\(t=8\) 秒における Waymo Open Motion Dataset 動作予測での同時予測性能。</strong>これらの結果は表 3 と同じであるが、付録の他の表との網羅性のためにここにも含めている。</p>
+
+<a class="pg" data-page="22"></a>
+<h3 id="b.1-同時モデルと周辺モデルのトレードオフの理解">B.1　同時モデルと周辺モデルのトレードオフの理解</h3>
+<figure><img src="figs/fig5.png" loading="lazy" alt="図5" /></figure>
+<p><strong>図5：周辺予測モデルと同時予測モデルの定量的比較。</strong>左：予測対象エージェント数の関数として分解した<em>周辺</em> minADE。エージェントが多いほど内部的に整合した予測を生成することが難しくなるため、同時モデルの性能はわずかに劣る。右：エージェント予測のペア間の重なり率。同時モデルは予測間の重なり率が低い、内部的に整合した予測を生成する。</p>
+<p class="yakuchu">図中ラベル：# of Predicted Agents＝予測対象エージェント数、Inter-prediction Overlap (%)＝予測間の重なり（%）、joint＝同時、marginal＝周辺</p>
+<p>MP のみで学習した同時モデルは、<em>同時指標で評価した場合</em>には相互作用予測タスクで周辺モデルより良い性能を示すが、<em>周辺指標で評価した場合</em>には動作予測タスクで性能が劣る（表 11 の「ours (joint)」を参照）<span class="yakuchu">（訳注：表 11 の該当行の表記は「ours (joint-as-marginal)」である）</span>。これは、同時モデルがエージェント間で内部的に整合した予測を生成するよう学習されるのに対し、周辺モデルはそうではないためであり、前者は厳密により難しいタスクである。本節では、この品質の差と、両モデルの予測の内部整合性を調べる。</p>
+<p>WOMD データセットでは、各事例ごとに予測対象のエージェント数が異なる。予測対象のエージェント数に基づいて<em>周辺</em> minADE の結果をスライスすると（図 5 左）、予測対象エージェントが増えるほど同時モデルの性能は悪化する一方、周辺モデルの性能は変わらないことがわかる。これは予想どおりである。エージェントが多いと、同時モデルは内部的に整合した予測を生成する必要があるため、より難しいタスクになる。同時モデルが周辺モデルと競える性能を発揮するには指数的な数の軌道の組み合わせが必要になると予想されるかもしれないが、実際にはそうではないことがわかり心強い。これは、多数のエージェントが相互作用しているとき、現実的なシナリオの数は相互作用によって実際には強く制約されているためだと考えられる。周辺予測の組み合わせのほとんどは、実際には同時に成り立たない。</p>
+<p>しかし、予測対象のエージェントが多いほど相互作用の可能性は高くなり、同時モデルは内部的に整合した予測を通じてこれらの相互作用を捉えられると期待される。最良の軌道を選び、<em>予測間の重なり率</em>（詳細は後述）を測ることで、モデルの内部整合性を測定する。同時モデルは一貫して予測間の重なり率が低く、エージェント間の相互作用を捉えられていることがわかった。相互作用をモデル化できる能力により、このモデルは 4.4 節で議論した条件付き動作予測や目標条件付き予測のタスクに適したものとなる。</p>
+<p><strong>エージェントの予測間の重なりの測定。</strong>モデルが生成した最良の軌道の組について、<em>予測された</em>エージェントの重なりを測定する。同時モデルでは、これは確率スコアがより高い同時予測に相当する。周辺モデルでは、各エージェントについて最もスコアの高い軌道を取って最良の組を得る。軌道中の予測された各エージェントについて、予測した xyz と方位を用いて回転させた直立 3D バウンディングボックスを比較し、<em>他の予測された</em>エージェントのいずれかと重なりがあるかどうかを判定する。予測間の重なり率は、何らかの重なりに関与している予測エージェントの数を、予測エージェントの総数で割ったものである。2 つのエージェントは、IoU（intersection over union）が 0.01 を超える場合に重なっているとみなす。</p>
+<a class="pg" data-page="23"></a>
+<h2 id="c-スライス別の結果">C　スライス別の結果</h2>
+<figure><img src="figs/fig6.png" loading="lazy" alt="図6" /></figure>
+<p><strong>図6：</strong>シーンごとの周辺 minADE を、さまざまなシーンレベルの統計量で分解して示す。興味深いことに、学習データがごくわずかしかない 20 m/s を超える領域では、周辺モデルと同時モデルの両方が分布外になることがわかる。</p>
+<p class="yakuchu">図中ラベル：Count＝件数、Mean AV Speed (m/s)＝AV の平均速度（m/s）、# of Predicted Agents＝予測対象エージェント数、# of Dynamic Agents＝動的エージェント数、joint＝同時、marginal＝周辺</p>
+
+<a class="pg" data-page="24"></a>
+<figure><img src="figs/fig7.png" loading="lazy" alt="図7" /></figure>
+<p><strong>図7：目標条件付き動作予測に対するマルチタスクモデルの分析。</strong>左：目標条件付き予測（青）と動作予測（黒）のマスキング戦略における AV の minADE の累積確率。右：AV の速度（正解軌道にわたって平均したもの）の関数としての、目標条件付き予測（青）と動作予測（黒）における AV の minADE。<span class="yakuchu">（訳注：図中では目標条件付き予測の曲線はマゼンタ色で描かれている）</span></p>
+<p class="yakuchu">図中ラベル：Cumulative Probability＝累積確率、Mean AV Speed (m/s)＝AV の平均速度（m/s）</p>
+
+<a class="pg" data-page="25"></a>
+<h2 id="d-損失の実装">D　損失の実装</h2>
+<p>Scene Transformer モデルは、エージェントの置換に対して同変であり、かつシーン中心である。これらの性質により、周辺損失と同時損失の定式化を容易に切り替えられる（図 8）。周辺定式化では、各エージェントについて別々に最良の未来の損失を減らす。一方、同時定式化では、<em>すべての</em>エージェントについて同時に最良の未来の損失を減らす。実際には、これは reduce_min 演算をどの時点で行うかを決めることに相当する。</p>
+<p>最終的な損失は、軌道に対する回帰損失と最良の軌道の分類損失から構成される。これら 2 つの損失を組み合わせるために、損失項の重み付き線形結合を用いる。分類損失の重みは 0.1 に設定し、回帰損失の重みは 1.0 とした。重みはホールドアウト検証セットを用いて決定した。</p>
+<pre><code># agent_predictions と agent_gt は、
+# [x, y, z]、不確かさの項、ヨー角を持つ [F, A, T, 7] のテンソルである。
+
+# 予測と正解の間の KL ダイバージェンスを求める。
+# (Meyer &amp; Thakurdesai, 2020) の LaplaceKL 手法を用いる
+loss = LaplaceKL(agent_predictions, agent_gt)
+
+# 次に、すべての時間ステップと値にわたって縮約し、
+# 形状 [F, A] のテンソルを得る
+loss = tf.reduce_sum(loss, axis=[2, 3])
+
+# 周辺損失では、エージェントごとに最良の軌道にのみ損失を適用する
+# （したがって未来の次元にわたって min を取る）。
+marginal_loss = tf.reduce_min(loss, axis=0)
+
+# 次にエージェントの次元にわたって和を取る
+marginal_loss = tf.reduce_sum(marginal_loss)
+
+# 同時損失では、すべてのエージェントにわたって和を取り、
+# 未来ごとの損失値を得る。
+joint_loss = tf.reduce_sum(loss, axis=1)
+
+# 次に、最良の未来予測にのみ損失を適用する
+joint_loss = tf.reduce_min(joint_loss)</code></pre>
+<p><strong>図8：</strong>同時損失と周辺損失の定式化を示す TensorFlow（Abadi et al., 2015）の擬似コード。</p>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>

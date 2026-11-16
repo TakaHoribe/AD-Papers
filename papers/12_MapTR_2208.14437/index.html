@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pdf-ja-html (Claude Code skill) web viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>MapTR 全文日本語訳</title>
+  <meta name="ja-title" content="" />
+  <meta name="en-title" content="MapTR: Structured Modeling and Learning for Online Vectorized HD Map Construction" />
+  <meta name="short-name" content="MapTR" />
+  <meta name="authors" content="Bencheng Liao, Shaoyu Chen, Xinggang Wang, Tianheng Cheng, Qian Zhang, Wenyu Liu, Chang Huang（Huazhong University of Science &amp; Technology, Horizon Robotics）" />
+  <meta name="source-pdf" content="12_MapTR_2208.14437.pdf" />
+  <meta name="source-pages" content="18" />
+  <meta name="pdf-href" content="12_MapTR_2208.14437.pdf" />
+  <meta name="viewer" content="index.html" />
+  <meta name="summary" content="地図要素を等価な置換群を持つ点集合としてモデル化し、階層的クエリ埋め込みと階層的二部マッチングで学習する DETR 型の構造化 Transformer により、カメラ入力のみでリアルタイムにベクトル化 HD マップをオンライン構築する手法。" />
+  <meta name="generated" content="2026-11-16" />
+  <style>
+:root { color-scheme: light; --bar: 46px; }
+html,body{height:100%;margin:0}
+body{height:100vh;height:100dvh;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;color:#182634;background:#e9eef2;font-size:16px;overflow:hidden;-webkit-text-size-adjust:100%}
+header.bar{height:var(--bar);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 14px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));background:#285d78;color:#fff;font-size:14px}
+header.bar a{color:#fff;text-decoration:none;white-space:nowrap}
+header.bar a:hover{text-decoration:underline}
+header.bar .t{flex:1;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+header.bar label{white-space:nowrap;cursor:pointer}
+header.bar .pos{opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.split{display:flex;height:calc(100% - var(--bar))}
+.pane{position:relative;overflow-y:auto;overflow-x:hidden;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#left{flex:0 0 50%;background:#6b7a86;padding:14px}
+#pages{padding-bottom:60vh}
+#left .page{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.35);width:100%}
+#left .page canvas{display:block;width:100%;height:100%}
+#left .page .pn{position:absolute;right:8px;top:6px;background:rgba(40,93,120,.85);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+#left .msg{color:#fff;font-size:14px;padding:8px 4px}
+#left .msg a{color:#fff}
+.divider{flex:0 0 8px;background:#c3ced6;cursor:col-resize;touch-action:none}
+.divider:hover{background:#285d78}
+#right{flex:1;background:#fff}
+article{max-width:980px;margin:0 auto;padding:28px 36px 60vh;line-height:1.75;letter-spacing:0.01em;font-feature-settings:"palt" 1}
+article h1{font-size:28px;line-height:1.5;border-bottom:3px solid #285d78;padding-bottom:16px}
+article h2{margin-top:3em;border-bottom:1px solid #ccd6df;padding-bottom:10px;font-size:23px}
+article h3{margin-top:2em;font-size:19px;color:#244b64}
+article h4{margin-top:1.6em;font-size:17px;color:#244b64}
+article p{text-align:left;margin:0.8em 0;line-break:strict;overflow-wrap:anywhere}
+article img{display:block;max-width:100%;max-height:690px;width:auto;height:auto;margin:24px auto}
+article figure{margin:20px 0}
+article figcaption{display:none}
+article table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.6;margin:24px 0;display:block;overflow-x:auto}
+article th,article td{padding:8px 5px;border-bottom:1px solid #d9e1e7}
+article th{background:#eaf1f5}
+article td:first-child{white-space:nowrap}
+article blockquote{margin:24px 0;padding:10px 20px;background:#f1f5f8;border-left:3px solid #64879a;font-size:14px}
+article pre{background:#f4f6f8;padding:18px;overflow:auto;font-size:12px;line-height:1.65}
+article code{font-family:Consolas,Menlo,'Courier New',monospace;white-space:pre-wrap}
+article pre code{white-space:pre}
+mjx-container[display="true"]{display:block;overflow-x:auto;overflow-y:hidden;padding:12px 0;font-size:108%}
+article a{color:#215c80;overflow-wrap:anywhere}
+details.tocbox{margin:0 0 10px}
+details.tocbox summary{cursor:pointer;color:#215c80;font-size:14px}
+details.tocbox #TOC{margin:10px 0 20px}
+#TOC{background:#f3f7fa;padding:20px 28px;margin:30px 0}
+#TOC a{text-decoration:none}
+#TOC ul{list-style:none;padding-left:20px}
+.yakuchu{color:#7a4b00;font-size:0.92em}
+a.pg{display:block;height:0;margin:0;padding:0}
+ol.refs li,ul.refs li{margin-bottom:6px;font-size:14px}
+/* タブレット縦・スマホ: 上下分割（上=原文、下=訳文） */
+@media (max-width: 820px){
+  header.bar{gap:10px;font-size:13px}
+  header.bar .t{display:none}
+  header.bar .pos{flex:1}
+  .split{flex-direction:column}
+  #left{flex:0 0 42%;padding:8px}
+  #left .page{margin-bottom:8px}
+  .divider{flex:0 0 12px;cursor:row-resize}
+  article{padding:16px 16px 60vh;font-size:15px}
+  article h1{font-size:22px} article h2{font-size:19px} article h3{font-size:17px}
+}
+  </style>
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'none', processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a href="../../index.html">&#8592; 一覧</a>
+  <span class="t">MapTR 全文日本語訳</span>
+  <span class="pos" id="pos"></span>
+  <label><input type="checkbox" id="sync" checked /> 同期</label>
+  <a href="ja.html" title="訳文だけを1ページで開く">訳文のみ</a>
+  <a href="12_MapTR_2208.14437.pdf" title="原文PDFを開く">PDF</a>
+</header>
+<div class="split">
+  <div class="pane" id="left"><div id="pages">
+    <div class="page" data-page="1" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">1</div></div>
+    <div class="page" data-page="2" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">2</div></div>
+    <div class="page" data-page="3" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">3</div></div>
+    <div class="page" data-page="4" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">4</div></div>
+    <div class="page" data-page="5" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">5</div></div>
+    <div class="page" data-page="6" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">6</div></div>
+    <div class="page" data-page="7" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">7</div></div>
+    <div class="page" data-page="8" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">8</div></div>
+    <div class="page" data-page="9" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">9</div></div>
+    <div class="page" data-page="10" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">10</div></div>
+    <div class="page" data-page="11" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">11</div></div>
+    <div class="page" data-page="12" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">12</div></div>
+    <div class="page" data-page="13" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">13</div></div>
+    <div class="page" data-page="14" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">14</div></div>
+    <div class="page" data-page="15" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">15</div></div>
+    <div class="page" data-page="16" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">16</div></div>
+    <div class="page" data-page="17" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">17</div></div>
+    <div class="page" data-page="18" style="aspect-ratio:1632 / 2112"><canvas width="0" height="0"></canvas><div class="pn">18</div></div>
+
+  </div></div>
+  <div class="divider" id="divider"></div>
+  <div class="pane" id="right">
+    <article>
+<details class="tocbox"><summary>目次</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#maptr-structured-modeling-and-learning-for-online-vectorized-hd-map-construction" id="toc-maptr-structured-modeling-and-learning-for-online-vectorized-hd-map-construction">MapTR: Structured Modeling and Learning for Online Vectorized HD Map Construction</a><ul>
+<li><a href="#要旨" id="toc-要旨">要旨</a></li>
+<li><a href="#1-はじめに" id="toc-1-はじめに">1　はじめに</a></li>
+<li><a href="#2-関連研究" id="toc-2-関連研究">2　関連研究</a></li>
+<li><a href="#3-maptr" id="toc-3-maptr">3　MapTR</a><ul>
+<li><a href="#3.1-置換等価モデリング" id="toc-3.1-置換等価モデリング">3.1　置換等価モデリング</a></li>
+<li><a href="#3.2-階層的マッチング" id="toc-3.2-階層的マッチング">3.2　階層的マッチング</a></li>
+<li><a href="#3.3-学習損失" id="toc-3.3-学習損失">3.3　学習損失</a></li>
+<li><a href="#3.4-アーキテクチャ" id="toc-3.4-アーキテクチャ">3.4　アーキテクチャ</a></li>
+</ul></li>
+<li><a href="#4-実験" id="toc-4-実験">4　実験</a><ul>
+<li><a href="#4.1-最先端手法との比較" id="toc-4.1-最先端手法との比較">4.1　最先端手法との比較</a></li>
+<li><a href="#4.2-アブレーション研究" id="toc-4.2-アブレーション研究">4.2　アブレーション研究</a></li>
+<li><a href="#4.3-定性的な可視化" id="toc-4.3-定性的な可視化">4.3　定性的な可視化</a></li>
+</ul></li>
+<li><a href="#5-結論" id="toc-5-結論">5　結論</a></li>
+<li><a href="#謝辞" id="toc-謝辞">謝辞</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+<li><a href="#付録" id="toc-付録">付録</a></li>
+<li><a href="#a-実装の詳細" id="toc-a-実装の詳細">A　実装の詳細</a></li>
+<li><a href="#b-アブレーション研究" id="toc-b-アブレーション研究">B　アブレーション研究</a></li>
+<li><a href="#c-定性的な可視化" id="toc-c-定性的な可視化">C　定性的な可視化</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</details>
+<a class="pg" data-page="1"></a>
+<h1 id="maptr-structured-modeling-and-learning-for-online-vectorized-hd-map-construction">MapTR: Structured Modeling and Learning for Online Vectorized HD Map Construction</h1>
+<p>Bencheng Liao<sup>1,2,3*</sup>、Shaoyu Chen<sup>2,3*</sup>、Xinggang Wang<sup>2†</sup>、Tianheng Cheng<sup>2,3</sup>、Qian Zhang<sup>3</sup>、Wenyu Liu<sup>2</sup>、Chang Huang<sup>3</sup><br />
+<sup>1</sup> Institute of Artificial Intelligence, Huazhong University of Science &amp; Technology<br />
+<sup>2</sup> School of EIC, Huazhong University of Science &amp; Technology<br />
+<sup>3</sup> Horizon Robotics<br />
+{bcliao,shaoyuchen,xgwang,thch,liuwy}@hust.edu.cn　{qian01.zhang, chang.huang}@horizon.ai<br />
+arXiv:2208.14437v2 [cs.CV]、2023年1月30日（ICLR 2023 会議論文）</p>
+<blockquote><p>翻訳について：原文 PDF は <code>12_MapTR_2208.14437.pdf</code>（全 18 ページ）。本文、図の説明、図中ラベル、表、脚注、付録を訳出し、論文タイトルと参考文献は原文のまま掲載。図は原図を掲載し、英語ラベルの日本語訳を併記した。数式・数値・引用番号・コードの識別子は原文を維持。原文の記述に関する補足は「訳注」と明示し、本文と区別している。</p></blockquote>
+
+<h2 id="要旨">要旨</h2>
+<p>高精細（HD）地図は、走行シーンに関する豊富かつ精密な環境情報を提供し、自動運転システムにおける計画（プランニング）のための基礎的で不可欠な構成要素である。本論文では、効率的なオンラインのベクトル化 HD マップ構築のための構造化されたエンドツーエンド Transformer である MapTR を提案する。我々は統一的な置換等価（permutation-equivalent）モデリング手法、<em>すなわち</em>地図要素を等価な置換の群を伴う点集合としてモデル化する手法を提案する。これは地図要素の形状を正確に記述し、学習過程を安定化させる。さらに、構造化された地図情報を柔軟に符号化する階層的クエリ埋め込み方式を設計し、地図要素の学習のために階層的二部マッチングを行う。MapTR は、nuScenes データセットにおいて、既存のベクトル化地図構築手法の中でカメラ入力のみで最良の性能と効率を達成する。特に MapTR-nano は RTX 3090 上でリアルタイムの推論速度（25.1 FPS）で動作し、既存の最先端カメラベース手法より 8 倍高速でありながら mAP が 5.0 高い。既存の最先端マルチモダリティ手法と比べても、MapTR-nano は mAP が 0.7 高く、MapTR-tiny は mAP が 13.5 高いうえ推論速度が 3 倍速い。豊富な定性的結果は、MapTR が複雑で多様な走行シーンにおいて安定かつ頑健な地図構築品質を維持することを示している。MapTR は自動運転において大きな応用価値を持つ。コードと追加のデモは <a href="https://github.com/hustvl/MapTR">https://github.com/hustvl/MapTR</a> で公開している。</p>
+<p><span class="yakuchu">（訳注：原文の著者名には記号 * と † が付されているが、その説明の脚注は原文 PDF 上に見当たらない。）</span></p>
+
+<h2 id="1-はじめに">1　はじめに</h2>
+<p>高精細（HD）地図は、自動運転のために特別に設計された高精度の地図であり、地図要素（横断歩道、車線区分線、道路境界<em>など</em>）のインスタンスレベルのベクトル化表現から構成される。HD 地図は道路トポロジーや交通規則に関する豊富な意味情報を含み、これは自動運転車のナビゲーションにとって極めて重要である。</p>
+<p>従来、HD 地図は SLAM ベースの手法（Zhang &amp; Singh, 2014; Shan &amp; Englot, 2018; Shan et al., 2020）によってオフラインで構築されており、複雑なパイプラインと高い維持コストを伴っていた。近年、オンライン HD マップ構築がますます関心を集めている。これは車載センサーを用いて実行時に自車両の周囲の地図を構築するものであり、オフラインでの人手作業を不要にする。</p>
+<a class="pg" data-page="2"></a>
+<p>初期の研究（Chen et al., 2022a; Liu et al., 2021a; Can et al., 2021）は、前方視画像に基づいて開いた形状の車線を知覚するために線形状の事前知識を利用する。これらは単一視点の知覚に限定されており、任意の形状を持つ他の地図要素には対応できない。鳥瞰図（BEV）表現学習の発展に伴い、最近の研究（Chen et al., 2022b; Zhou &amp; Krähenbühl, 2022; Hu et al., 2021; Li et al., 2022c）は BEV セマンティックセグメンテーションを行うことでラスタ化された地図を予測する。しかし、ラスタ化された地図には、車線構造のようなベクトル化されたインスタンスレベルの情報が欠けており、これは下流タスク（<em>例えば</em>動き予測や計画）にとって重要である。ベクトル化 HD 地図を構築するために、HDMapNet（Li et al., 2022a）はピクセル単位のセグメンテーション結果をグループ化するが、これには複雑で時間のかかる後処理が必要となる。VectorMapNet（Liu et al., 2022a）は各地図要素を点列として表現する。これはカスケード型の粗から密への（coarse-to-fine）フレームワークを採用し、自己回帰デコーダを用いて点を逐次的に予測するため、推論時間が長くなる。</p>
+<figure><img src="figs/fig1.jpg" loading="lazy" alt="図1" /></figure>
+<p><strong>図1：</strong>MapTR は、複雑で多様な走行シーンにおいて、安定かつ頑健なベクトル化 HD マップ構築品質を維持する。</p>
+<p class="yakuchu">図中ラベル：Surrounding Views＝周囲視点画像、Prediction＝予測、GT＝正解（グラウンドトゥルース）、Cloudy＝曇り、Sunny＝晴れ、Rainy＝雨、Night＝夜間、FRONT_LEFT／FRONT／FRONT_RIGHT＝左前方／前方／右前方カメラ、BACK_LEFT／BACK／BACK_RIGHT＝左後方／後方／右後方カメラ、ped. crossing＝横断歩道、divider＝車線区分線、boundary＝道路境界</p>
+<p>現在のオンラインのベクトル化 HD マップ構築手法は効率によって制約されており、リアルタイムのシナリオには適用できない。近年、DETR（Carion et al., 2020）は単純かつ効率的なエンコーダ・デコーダ型 Transformer アーキテクチャを採用し、エンドツーエンドの物体検出を実現した。</p>
+<p>そこで自然に次の問いが生じる。<em>効率的なエンドツーエンドのベクトル化 HD マップ構築のために、DETR のようなパラダイムを設計できるだろうか？</em> 我々は、提案する <strong>Map TR</strong>ansformer（MapTR）によって、その答えが肯定的であることを示す。</p>
+<p>物体をバウンディングボックスとして容易に幾何学的に抽象化できる物体検出とは異なり、ベクトル化された地図要素はより動的な形状を持つ。地図要素を正確に記述するために、我々は新しい統一的モデリング手法を提案する。各地図要素を、等価な置換の群を伴う点集合としてモデル化する。点集合は地図要素の位置を決定する。そして置換群は、同一の幾何形状に対応する点集合のあらゆる可能な並び順を含んでおり、形状の曖昧さを回避する。</p>
+<a class="pg" data-page="3"></a>
+<p>この置換等価なモデリングに基づき、我々は車載カメラの画像を入力としてベクトル化 HD 地図を出力する構造化フレームワークを設計する。我々はオンラインのベクトル化 HD マップ構築を並列回帰問題として簡潔に定式化する。インスタンスレベルと点レベルの情報を柔軟に符号化するために、階層的クエリ埋め込みを提案する。すべてのインスタンスと、各インスタンスのすべての点が、統一的な Transformer 構造によって同時に予測される。さらに学習パイプラインは階層的な集合予測タスクとして定式化され、インスタンスと点を順に割り当てるために階層的二部マッチングを行う。そして、提案する point2point 損失とエッジ方向損失により、点とエッジの両レベルで幾何形状を教師付けする。</p>
+<p>これらすべての提案設計により、統一的なモデリングとアーキテクチャを備えた、効率的なエンドツーエンドのオンラインベクトル化 HD マップ構築手法 MapTR を提示する。MapTR は nuScenes（Caesar et al., 2020）データセットにおいて、既存のベクトル化地図構築手法の中で最良の性能と効率を達成する。特に MapTR-nano は RTX 3090 上でリアルタイムの推論速度（25.1 FPS）で動作し、既存の最先端カメラベース手法より 8 倍高速でありながら mAP が 5.0 高い。既存の最先端マルチモダリティ手法と比べても、MapTR-nano は mAP が 0.7 高く推論速度が 8 倍速く、MapTR-tiny は mAP が 13.5 高く推論速度が 3 倍速い。可視化（図1）が示すように、MapTR は複雑で多様な走行シーンにおいて安定かつ頑健な地図構築品質を維持する。</p>
+<p>我々の貢献は以下のようにまとめられる。</p>
+<ul>
+<li>地図要素のための統一的な置換等価モデリング手法、<em>すなわち</em>地図要素を等価な置換の群を伴う点集合としてモデル化する手法を提案する。これは地図要素の形状を正確に記述し、学習過程を安定化させる。</li>
+<li>この新しいモデリングに基づき、効率的なオンラインベクトル化 HD マップ構築のための構造化されたエンドツーエンドフレームワーク MapTR を提示する。インスタンスレベルと点レベルの情報を柔軟に符号化する階層的クエリ埋め込み方式を設計し、地図要素の学習のために階層的二部マッチングを行い、提案する point2point 損失とエッジ方向損失によって点とエッジの両レベルで幾何形状を教師付けする。</li>
+<li>MapTR は、複雑で多様な走行シーンにおいて安定かつ頑健な性能を持つ、初のリアルタイムかつ SOTA のベクトル化 HD マップ構築手法である。</li>
+</ul>
+
+<h2 id="2-関連研究">2　関連研究</h2>
+<p><strong>HD マップ構築。</strong>近年、2D から BEV への変換手法（Ma et al., 2022）の発展に伴い、HD マップ構築は車載カメラで撮影された周囲視点画像データに基づくセグメンテーション問題として定式化されている。Chen et al.（2022b）; Zhou &amp; Krähenbühl（2022）; Hu et al.（2021）; Li et al.（2022c）; Philion &amp; Fidler（2020）; Liu et al.（2022b）は、BEV セマンティックセグメンテーションを行うことでラスタ化された地図を生成する。ベクトル化 HD 地図を構築するために、HDMapNet（Li et al., 2022a）はピクセル単位のセマンティックセグメンテーション結果を、ヒューリスティックで時間のかかる後処理によってグループ化し、インスタンスを生成する。VectorMapNet（Liu et al., 2022a）は最初のエンドツーエンドフレームワークであり、2 段階の粗から密へのフレームワークを採用し、自己回帰デコーダを用いて点を逐次的に予測するため、推論時間が長くなり、また置換に関する曖昧さが生じる。VectorMapNet とは異なり、MapTR は地図要素のための新しく統一的なモデリングを導入し、曖昧さを解消して学習過程を安定化させる。さらに MapTR は、はるかに効率の高い構造化された並列の 1 段階フレームワークを構築する。</p>
+<a class="pg" data-page="4"></a>
+<p><strong>車線検出。</strong>車線検出は HD マップ構築のサブタスクとみなすことができ、道路シーンにおける車線要素の検出に焦点を当てる。車線検出のデータセットの大半は単一視点のアノテーションのみを提供し、開いた形状の要素に焦点を当てているため、関連手法は単一視点に限定されている。LaneATT（Tabelini et al., 2021）はアンカーベースの深層車線検出モデルを用いて、精度と効率の良好なトレードオフを達成する。LSTR（Liu et al., 2021a）は Transformer アーキテクチャを採用して、車線形状モデルのパラメータを直接出力する。GANet（Wang et al., 2022）は車線検出をキーポイント推定と対応付けの問題として定式化し、ボトムアップの設計をとる。Feng et al.（2022）は車線検出のためのパラメトリックなベジェ曲線ベースの手法を提案する。2D 画像座標で車線を検出する代わりに、Garnett et al.（2019）は BEV で 3D 車線検出を行う 3D-LaneNet を提案する。STSU（Can et al., 2021）は車線を BEV 座標における有向グラフとして表現し、曲線ベースのベジェ手法を採用して単眼カメラ画像から車線を予測する。Persformer（Chen et al., 2022a）はより良い BEV 特徴表現を提供し、アンカー設計を最適化して 2D と 3D の車線検出を同時に統一する。限られた単一視点で車線のみを検出するのではなく、MapTR は統一的なモデリングと学習のフレームワークにより、水平 360° の視野（FOV）にわたるさまざまな種類の地図要素を知覚できる。</p>
+<figure><img src="figs/fig2.jpg" loading="lazy" alt="図2" /></figure>
+<p><strong>図2：</strong>地図要素の始点と方向に関する曖昧さを示す典型的な事例。(a) ポリライン：対向する 2 車線の間の車線区分線については、その方向を定義することが難しい。車線区分線の両端点のどちらも始点とみなすことができ、点集合は 2 方向に並べることができる。(b) ポリゴン：横断歩道については、ポリゴンの各点のどれもが始点とみなせ、ポリゴンは互いに逆の 2 方向（反時計回りと時計回り）に接続できる。</p>
+<p class="yakuchu">図中ラベル：ped. crossing＝横断歩道、divider＝車線区分線、boundary＝道路境界、Polyline＝ポリライン（折れ線）、Polygon＝ポリゴン（多角形）</p>
+<p><strong>輪郭ベースのインスタンスセグメンテーション。</strong>MapTR に関連するもう一つの研究の系統は、輪郭ベースの 2D インスタンスセグメンテーション（Zhu et al., 2022; Xie et al., 2020; Xu et al., 2019; Liu et al., 2021c）である。これらの手法は 2D インスタンスセグメンテーションを物体輪郭の予測タスクとして再定式化し、輪郭頂点の画像座標を推定する。CurveGCN（Ling et al., 2019）はグラフ畳み込みネットワーク（Graph Convolution Networks）を用いて多角形の境界を予測する。Lazarow et al.（2022）; Liang et al.（2020）; Li et al.（2021）; Peng et al.（2020）は中間表現に依存し、2 段階のパラダイム、<em>すなわち</em>第 1 段階でセグメンテーション／検出を行って頂点を生成し、第 2 段階で頂点をポリゴンに変換する方式を採用する。これらの研究は 2D インスタンスマスクの輪郭をポリゴンとしてモデル化する。それらのモデリング手法は線形状の地図要素に対応できず、地図構築には適用できない。これに対し、MapTR は HD マップ構築に特化して設計されており、さまざまな種類の地図要素を統一的な方法でモデル化する。加えて、MapTR は中間表現に依存せず、効率的でコンパクトなパイプラインを持つ。</p>
+
+<h2 id="3-maptr">3　MapTR</h2>
+<h3 id="3.1-置換等価モデリング">3.1　置換等価モデリング</h3>
+<p>MapTR は、HD 地図を統一的な方法でモデル化し学習することを目指す。HD 地図は、横断歩道、車線区分線、道路境界<em>など</em>を含む、ベクトル化された静的地図要素の集まりである。構造化されたモデリングのために、MapTR は地図要素を閉じた形状（横断歩道のようなもの）と開いた形状（車線区分線のようなもの）として幾何学的に抽象化する。形状の境界に沿って点を逐次的にサンプリングすることで、閉じた形状の要素はポリゴンに、開いた形状の要素はポリラインに離散化される。</p>
+<p>まず、ポリゴンとポリラインはどちらも順序付き点集合 \( V^F = [v_0, v_1, \ldots, v_{N_v-1}] \) として表すことができる（図3（Vanilla）を参照）。\( N_v \) は点の数を表す。しかし、点集合の置換（並び順）は明示的に定義されておらず、一意でもない。ポリゴンとポリラインには多くの等価な置換が存在する。例えば図2 (a) に示すように、対向する 2 車線の間の車線区分線（ポリライン）については、その方向を定義することが難しい。車線区分線の両端点のどちらも始点とみなすことができ、点集合は 2 方向に並べることができる。図2 (b) では、横断歩道（ポリゴン）について、点集合を互いに逆の 2 方向（反時計回りと時計回り）に並べることができる。また、点集合の置換を巡回的に変更しても、ポリゴンの幾何形状には何の影響もない。点集合に固定の置換を教師として課すことは合理的ではない。課された固定の置換は他の等価な置換と矛盾し、学習過程を妨げる。</p>
+<p>このギャップを埋めるために、MapTR は各地図要素を \( \mathcal{V} = (V, \Gamma) \) でモデル化する。\( V = \{v_j\}_{j=0}^{N_v-1} \) は地図要素の点集合を表す（\( N_v \) は点の数）。\( \Gamma = \{\gamma^k\} \) は点集合 \( V \) の等価な置換の群を表し、あらゆる可能な並び順を網羅する。</p>
+<a class="pg" data-page="5"></a>
+<figure><img src="figs/fig3.png" loading="lazy" alt="図3" /></figure>
+<p><strong>図3：</strong>MapTR の置換等価モデリングの説明図。地図要素は幾何学的に抽象化され、ポリラインとポリゴンに離散化される。MapTR は各地図要素を \( (V, \Gamma) \)（点集合 \( V \) と等価な置換の群 \( \Gamma \)）でモデル化することにより、曖昧さを回避し、学習過程を安定化させる。</p>
+<p class="yakuchu">図中ラベル：point＝点、start point＝始点、connection＝接続、direction＝方向、Polyline＝ポリライン、Polygon＝ポリゴン、Fixed_order＝固定順序、Vanilla＝素朴な手法（固定順序によるモデリング）</p>
+<p>具体的には、ポリライン要素（図3（左）を参照）について、\( \Gamma \) は 2 種類の等価な置換を含む。</p>
+<p>\[ \Gamma_{\text{polyline}} = \{\gamma^0, \gamma^1\} \begin{cases} \gamma^0(j) = j \mod N_v, \\ \gamma^1(j) = (N_v - 1) - j \mod N_v. \end{cases} \tag{1} \]</p>
+<p>ポリゴン要素（図3（右）を参照）について、\( \Gamma \) は \( 2 \times N_v \) 種類の等価な置換を含む。</p>
+<p>\[ \Gamma_{\text{polygon}} = \{\gamma^0, \ldots, \gamma^{2\times N_v - 1}\} \begin{cases} \gamma^0(j) = j \mod N_v, \\ \gamma^1(j) = (N_v - 1) - j \mod N_v, \\ \gamma^2(j) = (j+1) \mod N_v, \\ \gamma^3(j) = (N_v - 1) - (j+1) \mod N_v, \\ \ldots \\ \gamma^{2\times N_v - 2}(j) = (j + N_v - 1) \mod N_v, \\ \gamma^{2\times N_v - 1}(j) = (N_v - 1) - (j + N_v - 1) \mod N_v. \end{cases} \tag{2} \]</p>
+<p>等価な置換という概念を導入することで、MapTR は地図要素を統一的な方法でモデル化し、曖昧さの問題に対処する。MapTR はさらに、地図要素の学習のために階層的二部マッチング（3.2 節と 3.3 節を参照）を導入し、地図要素を効率的に予測するための構造化されたエンコーダ・デコーダ型 Transformer アーキテクチャを設計する（3.4 節を参照）。</p>
+
+<h3 id="3.2-階層的マッチング">3.2　階層的マッチング</h3>
+<p>MapTR は、DETR のエンドツーエンドのパラダイム（Carion et al., 2020; Fang et al., 2021）に従い、固定サイズ \( N \) 個の地図要素の集合を 1 回のパスで並列に推論する。\( N \) はシーン中の典型的な地図要素の数より大きく設定される。予測された \( N \) 個の地図要素の集合を \( \hat{Y} = \{\hat{y}_i\}_{i=0}^{N-1} \) と表す。正解（GT）地図要素の集合は \( \varnothing \)（物体なし）でパディングされ、サイズ \( N \) の集合 \( Y = \{y_i\}_{i=0}^{N-1} \) となる。\( y_i = (c_i, V_i, \Gamma_i) \) であり、\( c_i \)、\( V_i \)、\( \Gamma_i \) はそれぞれ GT 地図要素 \( y_i \) の目標クラスラベル、点集合、置換群である。\( \hat{y}_i = (\hat{p}_i, \hat{V}_i) \) であり、\( \hat{p}_i \) と \( \hat{V}_i \) はそれぞれ予測された分類スコアと予測された点集合である。構造化された地図要素のモデリングと学習を実現するために、MapTR は階層的二部マッチング、<em>すなわち</em>インスタンスレベルのマッチングと点レベルのマッチングを順に行う方式を導入する。</p>
+<p><strong>インスタンスレベルのマッチング。</strong>まず、予測された地図要素 \( \{\hat{y}_i\} \) と GT 地図要素 \( \{y_i\} \) の間で、最適なインスタンスレベルのラベル割り当て \( \hat{\pi} \) を求める必要がある。\( \hat{\pi} \) は \( N \) 個の要素の置換（\( \hat{\pi} \in \Pi_N \)）であり、インスタンスレベルのマッチングコストが最小となるものである。</p>
+<p>\[ \hat{\pi} = \mathop{\arg\min}_{\pi \in \Pi_N} \sum_{i=0}^{N-1} \mathcal{L}_{\text{ins\_match}}(\hat{y}_{\pi(i)}, y_i). \tag{3} \]</p>
+<a class="pg" data-page="6"></a>
+<p>\( \mathcal{L}_{\text{ins\_match}}(\hat{y}_{\pi(i)}, y_i) \) は予測 \( \hat{y}_{\pi(i)} \) と GT \( y_i \) の間のペアごとのマッチングコストであり、地図要素のクラスラベルと点集合の位置の両方を考慮する。</p>
+<p>\[ \mathcal{L}_{\text{ins\_match}}(\hat{y}_{\pi(i)}, y_i) = \mathcal{L}_{\text{Focal}}(\hat{p}_{\pi(i)}, c_i) + \mathcal{L}_{\text{position}}(\hat{V}_{\pi(i)}, V_i). \tag{4} \]</p>
+<p>\( \mathcal{L}_{\text{Focal}}(\hat{p}_{\pi(i)}, c_i) \) はクラスのマッチングコスト項であり、予測分類スコア \( \hat{p}_{\pi(i)} \) と目標クラスラベル \( c_i \) の間の Focal Loss（Lin et al., 2017）として定義される。\( \mathcal{L}_{\text{position}}(\hat{V}_{\pi(i)}, V_i) \) は位置のマッチングコスト項であり、予測点集合 \( \hat{V}_{\pi(i)} \) と GT 点集合 \( V_i \) の間の位置の相関を反映する（詳細は付録 B 節を参照）。DETR に従い、最適なインスタンスレベルの割り当て \( \hat{\pi} \) を求めるためにハンガリアン法を用いる。</p>
+<p><strong>点レベルのマッチング。</strong>インスタンスレベルのマッチングの後、各予測地図要素 \( \hat{y}_{\hat{\pi}(i)} \) には GT 地図要素 \( y_i \) が割り当てられる。次に、正のラベル（\( c_i \neq \varnothing \)）が割り当てられた各予測インスタンスについて、予測点集合 \( \hat{V}_{\hat{\pi}(i)} \) と GT 点集合 \( V_i \) の間の最適な point2point 割り当て \( \hat{\gamma} \in \Gamma \) を求めるために点レベルのマッチングを行う。\( \hat{\gamma} \) はあらかじめ定義された置換群 \( \Gamma \) の中から、点レベルのマッチングコストが最小となるものとして選ばれる。</p>
+<p>\[ \hat{\gamma} = \mathop{\arg\min}_{\gamma \in \Gamma} \sum_{j=0}^{N_v-1} D_{\text{Manhattan}}(\hat{v}_j, v_{\gamma(j)}). \tag{5} \]</p>
+<p>\( D_{\text{Manhattan}}(\hat{v}_j, v_{\gamma(j)}) \) は、予測点集合 \( \hat{V} \) の \( j \) 番目の点と GT 点集合 \( V \) の \( \gamma(j) \) 番目の点の間のマンハッタン距離である。</p>
+
+<h3 id="3.3-学習損失">3.3　学習損失</h3>
+<p>MapTR は、最適なインスタンスレベルおよび点レベルの割り当て（\( \hat{\pi} \) と \( \{\hat{\gamma}_i\} \)）に基づいて学習される。損失関数は 3 つの部分、すなわち分類損失、point2point 損失、エッジ方向損失から構成される。</p>
+<p>\[ \mathcal{L} = \lambda \mathcal{L}_{\text{cls}} + \alpha \mathcal{L}_{\text{p2p}} + \beta \mathcal{L}_{\text{dir}}, \tag{6} \]</p>
+<p>ここで \( \lambda \)、\( \alpha \)、\( \beta \) は異なる損失項のバランスをとるための重みである。</p>
+<p><strong>分類損失。</strong>インスタンスレベルの最適マッチング結果 \( \hat{\pi} \) により、各予測地図要素にはクラスラベルが割り当てられる。分類損失は Focal Loss 項として次のように定式化される。</p>
+<p>\[ \mathcal{L}_{\text{cls}} = \sum_{i=0}^{N-1} \mathcal{L}_{\text{Focal}}(\hat{p}_{\hat{\pi}(i)}, c_i). \tag{7} \]</p>
+<p><strong>Point2point 損失。</strong>Point2point 損失は、予測された各点の位置を教師付けする。インデックス \( i \) の各 GT インスタンスについて、点レベルの最適マッチング結果 \( \hat{\gamma}_i \) に従い、各予測点 \( \hat{v}_{\hat{\pi}(i),j} \) には GT 点 \( v_{i,\hat{\gamma}_i(j)} \) が割り当てられる。point2point 損失は、割り当てられた各点ペアの間で計算されるマンハッタン距離として定義される。</p>
+<p>\[ \mathcal{L}_{\text{p2p}} = \sum_{i=0}^{N-1} \mathbb{1}_{\{c_i \neq \varnothing\}} \sum_{j=0}^{N_v-1} D_{\text{Manhattan}}(\hat{v}_{\hat{\pi}(i),j}, v_{i,\hat{\gamma}_i(j)}). \tag{8} \]</p>
+<p><strong>エッジ方向損失。</strong>Point2point 損失はポリラインとポリゴンの節点のみを教師付けし、エッジ（隣接する点同士を結ぶ線分）を考慮しない。地図要素を正確に表現するためには、エッジの方向が重要である。そこで我々はさらに、より高いエッジレベルで幾何形状を教師付けするエッジ方向損失を設計する。具体的には、対になった予測エッジ \( \hat{\boldsymbol{e}}_{\hat{\pi}(i),j} \) と GT エッジ \( \boldsymbol{e}_{i,\hat{\gamma}_i(j)} \) のコサイン類似度を考える。</p>
+<p>\[ \begin{aligned} \mathcal{L}_{\text{dir}} &amp;= -\sum_{i=0}^{N-1} \mathbb{1}_{\{c_i \neq \varnothing\}} \sum_{j=0}^{N_v-1} \text{cosine\_similarity}(\hat{\boldsymbol{e}}_{\hat{\pi}(i),j}, \boldsymbol{e}_{i,\hat{\gamma}_i(j)}), \\ \hat{\boldsymbol{e}}_{\hat{\pi}(i),j} &amp;= \hat{v}_{\hat{\pi}(i),j} - \hat{v}_{\hat{\pi}(i),(j+1)\,\mathrm{mod}\,\mathrm{N_v}}, \\ \boldsymbol{e}_{i,\hat{\gamma}_i(j)} &amp;= v_{i,\hat{\gamma}_i(j)} - v_{i,\hat{\gamma}_i(j+1)\,\mathrm{mod}\,\mathrm{N_v}}. \end{aligned} \tag{9} \]</p>
+<a class="pg" data-page="7"></a>
+<figure><img src="figs/fig4.png" loading="lazy" alt="図4" /></figure>
+<p><strong>図4：</strong>MapTR の全体アーキテクチャ。MapTR はエンコーダ・デコーダのパラダイムを採用する。地図エンコーダはセンサー入力を統一的な BEV 表現に変換する。地図デコーダは階層的クエリ埋め込み方式を採用して地図要素を明示的に符号化し、置換等価モデリングに基づく階層的マッチングを行う。MapTR は完全にエンドツーエンドである。パイプラインは高度に構造化されており、コンパクトかつ効率的である。</p>
+<p class="yakuchu">図中ラベル：On-board sensor data＝車載センサーデータ、Map Encoder＝地図エンコーダ、Backbone＝バックボーン、2D to BEV＝2D から BEV への変換、BEV features＝BEV 特徴、Map Decoder＝地図デコーダ、Hierarchical bipartite matching＝階層的二部マッチング、Prediction＝予測、Ground-truth＝正解、l-th Transformer decoder layer＝第 l 層 Transformer デコーダ層、l-th head＝第 l 層ヘッド、Instance-level matching＝インスタンスレベルのマッチング、Point-level matching＝点レベルのマッチング、Matching results＝マッチング結果、no object＝物体なし、point query＝点クエリ、instance query＝インスタンスクエリ、forward＝順伝播、matching＝マッチング、prediction＝予測、ground-truth＝正解、ped. crossing＝横断歩道、divider＝車線区分線、boundary＝道路境界</p>
+
+<h3 id="3.4-アーキテクチャ">3.4　アーキテクチャ</h3>
+<p>MapTR はエンコーダ・デコーダのパラダイムを設計する。全体アーキテクチャを図4 に示す。</p>
+<p><strong>入力モダリティ。</strong>MapTR は車載カメラの周囲視点画像を入力とする。MapTR は他の車載センサー（<em>例えば</em> LiDAR や RADAR）とも互換性がある。MapTR をマルチモダリティデータへ拡張することは単純かつ容易である。そして合理的な置換等価モデリングのおかげで、カメラ入力のみであっても、MapTR はマルチモダリティ入力を用いる他の手法を大きく上回る。</p>
+<p><strong>地図エンコーダ。</strong>MapTR の地図エンコーダは、複数の車載カメラの画像から特徴を抽出し、それらの特徴を統一的な特徴表現、<em>すなわち</em> BEV 表現に変換する。多視点画像 \( \mathcal{I} = \{I_1, \ldots, I_K\} \) が与えられたとき、従来のバックボーンを用いて多視点特徴マップ \( \mathcal{F} = \{F_1, \ldots, F_K\} \) を生成する。次に 2D 画像特徴 \( \mathcal{F} \) を BEV 特徴 \( \mathcal{B} \in \mathbb{R}^{H \times W \times C} \) に変換する。デフォルトでは、展開の容易さと高い効率を考慮して、基本の 2D から BEV への変換モジュールとして GKT（Chen et al., 2022b）を採用する。MapTR は他の変換手法とも互換性があり、安定した性能を維持する。<em>例えば</em> CVT（Zhou &amp; Krähenbühl, 2022）、LSS（Philion &amp; Fidler, 2020; Liu et al., 2022c; Li et al., 2022b; Huang et al., 2021）、Deformable Attention（Li et al., 2022c; Zhu et al., 2021）、IPM（Mallot et al., 1991）である。アブレーション研究を表4 に示す。</p>
+<p><strong>地図デコーダ。</strong>各地図要素を明示的に符号化するための階層的クエリ埋め込み方式を提案する。具体的には、インスタンスレベルのクエリの集合 \( \{q_i^{\text{ins}}\}_{i=0}^{N-1} \) と、すべてのインスタンスで共有される点レベルのクエリの集合 \( \{q_j^{\text{pt}}\}_{j=0}^{N_v-1} \) を定義する。各地図要素（インデックス \( i \)）は階層的クエリの集合 \( \{q_{ij}^{\text{hie}}\}_{j=0}^{N_v-1} \) に対応する。\( i \) 番目の地図要素の \( j \) 番目の点の階層的クエリは次のように定式化される。</p>
+<p>\[ q_{ij}^{\text{hie}} = q_i^{\text{ins}} + q_j^{\text{pt}}. \tag{10} \]</p>
+<a class="pg" data-page="8"></a>
+<p>地図デコーダは、階層的クエリを反復的に更新する、カスケード接続された複数のデコーダ層を含む。各デコーダ層では、マルチヘッド自己注意（MHSA）を採用して、階層的クエリ同士で（インスタンス間とインスタンス内の両方で）情報を交換させる。次に BEVFormer（Li et al., 2022c）に着想を得て、Deformable Attention（Zhu et al., 2021）を採用し、階層的クエリを BEV 特徴と相互作用させる。各クエリ \( q_{ij}^{\text{hie}} \) は参照点 \( p_{ij} \) の 2 次元の正規化 BEV 座標 \( (x_{ij}, y_{ij}) \) を予測する。そして参照点の周囲の BEV 特徴をサンプリングし、クエリを更新する。</p>
+<p>地図要素は通常不規則な形状を持ち、長距離の文脈を必要とする。各地図要素は、柔軟かつ動的な分布を持つ参照点の集合 \( \{p_{ij}\}_{j=0}^{N_v-1} \) に対応する。参照点 \( \{p_{ij}\}_{j=0}^{N_v-1} \) は地図要素の任意の形状に適応でき、地図要素の学習のために有益な文脈を捉えることができる。</p>
+<p>MapTR の予測ヘッドは単純であり、分類ブランチと点回帰ブランチから構成される。分類ブランチはインスタンスのクラススコアを予測する。点回帰ブランチは点集合 \( \hat{V} \) の位置を予測する。各地図要素について、\( N_v \) 個の点の正規化 BEV 座標を表す \( 2N_v \) 次元のベクトルを出力する。</p>
+
+<h2 id="4-実験">4　実験</h2>
+<p><strong>データセットと評価指標。</strong>MapTR を、広く用いられている nuScenes（Caesar et al., 2020）データセットで評価する。このデータセットは、それぞれ約 20 秒の長さの 1000 シーンを含む。キーサンプルは 2Hz でアノテーションされている。各サンプルは 6 台のカメラからの RGB 画像を持ち、自車両の水平 360° の視野をカバーする。先行手法（Li et al., 2022a; Liu et al., 2022a）に従い、公平な評価のために 3 種類の地図要素、すなわち横断歩道、車線区分線、道路境界を選択する。知覚範囲は \( X \) 軸が \( [-15.0m, 15.0m] \)、\( Y \) 軸が \( [-30.0m, 30.0m] \) である。地図構築の品質の評価には平均適合率（AP）を採用する。予測と GT がマッチするか否かの判定には Chamfer 距離 \( D_{Chamfer} \) を用いる。いくつかの \( D_{Chamfer} \) の閾値（\( \tau \in T, T = \{0.5, 1.0, 1.5\} \)）のもとで \( \text{AP}_\tau \) を計算し、全閾値にわたって平均したものを最終的な AP 指標とする。</p>
+<p>\[ \text{AP} = \frac{1}{|\mathrm{T}|} \sum_{\tau \in \mathrm{T}} \text{AP}_\tau. \tag{11} \]</p>
+<p><strong>実装の詳細。</strong>MapTR は 8 基の NVIDIA GeForce RTX 3090 GPU で学習する。AdamW（Loshchilov &amp; Hutter, 2019）オプティマイザとコサインアニーリングのスケジュールを採用する。MapTR-tiny では、バックボーンとして ResNet50（He et al., 2016）を採用する。MapTR-tiny は合計バッチサイズ 32（6 視点の画像を含む）で学習する。すべてのアブレーション研究は、24 エポック学習した MapTR-tiny に基づく。MapTR-nano はリアルタイム用途向けに設計されている。バックボーンとして ResNet18 を採用する。詳細は付録 A に示す。</p>
+<h3 id="4.1-最先端手法との比較">4.1　最先端手法との比較</h3>
+<p>表1 では、MapTR を最先端手法と比較する。MapTR-nano は RTX 3090 上でリアルタイムの推論速度（25.1 FPS）で動作し、既存の最先端カメラベース手法（VectorMapNet-C）より 8 倍高速でありながら mAP が 5.0 高い。既存の最先端マルチモダリティ手法と比べても、MapTR-nano は mAP が 0.7 高く推論速度が 8 倍速く、MapTR-tiny は mAP が 13.5 高く推論速度が 3 倍速い。MapTR はまた収束の速い手法でもあり、24 エポックのスケジュールで高い性能を示す。</p>
+<h3 id="4.2-アブレーション研究">4.2　アブレーション研究</h3>
+<p>異なる設計の有効性を検証するために、nuScenes の <code>val</code> セットでアブレーション実験を行う。さらなるアブレーション研究は付録 B にある。</p>
+<p><strong>置換等価モデリングの有効性。</strong>表2 では、提案する置換等価モデリングの有効性を検証するためのアブレーション実験を示す。点集合に一意の置換を課す素朴な（vanilla）モデリング手法と比べて、置換等価モデリングは地図要素の曖昧さを解消し、5.9 mAP の改善をもたらす。横断歩道については改善が 11.9 AP にも達し、ポリゴン要素のモデリングにおける優位性を証明している。また、提案するモデリングによる安定化を示すために、図5 で学習過程を可視化する。</p>
+<a class="pg" data-page="9"></a>
+<table><thead><tr><th>手法</th><th>モダリティ</th><th>バックボーン</th><th>エポック数</th><th>AP<sub><em>ped</em></sub></th><th>AP<sub><em>divider</em></sub></th><th>AP<sub><em>boundary</em></sub></th><th>mAP</th><th>FPS</th></tr></thead>
+<tbody>
+<tr><td>HDMapNet</td><td>C</td><td>Effi-B0</td><td style="text-align:right">30</td><td style="text-align:right">14.4</td><td style="text-align:right">21.7</td><td style="text-align:right">33.0</td><td style="text-align:right">23.0</td><td style="text-align:right">0.8</td></tr>
+<tr><td>HDMapNet</td><td>L</td><td>PointPillars</td><td style="text-align:right">30</td><td style="text-align:right">10.4</td><td style="text-align:right">24.1</td><td style="text-align:right">37.9</td><td style="text-align:right">24.1</td><td style="text-align:right">1.0</td></tr>
+<tr><td>HDMapNet</td><td>C &amp; L</td><td>Effi-B0 &amp; PointPillars</td><td style="text-align:right">30</td><td style="text-align:right">16.3</td><td style="text-align:right">29.6</td><td style="text-align:right">46.7</td><td style="text-align:right">31.0</td><td style="text-align:right">0.5</td></tr>
+<tr><td>VectorMapNet</td><td>C</td><td>R50</td><td style="text-align:right">110</td><td style="text-align:right">36.1</td><td style="text-align:right">47.3</td><td style="text-align:right">39.3</td><td style="text-align:right">40.9</td><td style="text-align:right">2.9</td></tr>
+<tr><td>VectorMapNet</td><td>L</td><td>PointPillars</td><td style="text-align:right">110</td><td style="text-align:right">25.7</td><td style="text-align:right">37.6</td><td style="text-align:right">38.6</td><td style="text-align:right">34.0</td><td style="text-align:right">-</td></tr>
+<tr><td>VectorMapNet</td><td>C &amp; L</td><td>R50 &amp; PointPillars</td><td style="text-align:right">110</td><td style="text-align:right">37.6</td><td style="text-align:right">50.5</td><td style="text-align:right">47.5</td><td style="text-align:right">45.2</td><td style="text-align:right">-</td></tr>
+<tr><td>MapTR-nano</td><td>C</td><td>R18</td><td style="text-align:right">110</td><td style="text-align:right">39.6</td><td style="text-align:right">49.9</td><td style="text-align:right">48.2</td><td style="text-align:right">45.9</td><td style="text-align:right"><strong>25.1</strong></td></tr>
+<tr><td>MapTR-tiny</td><td>C</td><td>R50</td><td style="text-align:right"><strong>24</strong></td><td style="text-align:right">46.3</td><td style="text-align:right">51.5</td><td style="text-align:right">53.1</td><td style="text-align:right">50.3</td><td style="text-align:right">11.2</td></tr>
+<tr><td>MapTR-tiny</td><td>C</td><td>R50</td><td style="text-align:right">110</td><td style="text-align:right"><strong>56.2</strong></td><td style="text-align:right"><strong>59.8</strong></td><td style="text-align:right"><strong>60.1</strong></td><td style="text-align:right"><strong>58.7</strong></td><td style="text-align:right">11.2</td></tr>
+</tbody></table>
+<p><strong>表1：</strong>nuScenes <code>val</code> セットにおける最先端手法（Liu et al., 2022a; Li et al., 2022a）との比較。「C」と「L」はそれぞれカメラと LiDAR を表す。「Effi-B0」と「PointPillars」はそれぞれ Tan &amp; Le（2019）と Lang et al.（2019）に対応する。他の手法の AP は VectorMapNet の論文から引用した。VectorMapNet-C の FPS はその著者らから提供されたもので、RTX 3090 上で計測された。その他の FPS は、RTX 3090 を搭載した同一マシン上で計測した。「-」は対応する結果が得られないことを意味する。カメラ入力のみであっても、MapTR-tiny はマルチモダリティの対抗手法を大きく上回る（+13.5 mAP）。MapTR-nano はカメラベースで SOTA の性能を達成し、25.1 FPS で動作して、リアルタイムのベクトル化地図構築を初めて実現した。</p>
+
+<table><thead><tr><th>モデリング手法</th><th>AP<sub><em>ped</em></sub></th><th>AP<sub><em>divider</em></sub></th><th>AP<sub><em>boundary</em></sub></th><th>mAP</th></tr></thead>
+<tbody>
+<tr><td>固定順序 \( V^F \)（曖昧さあり）</td><td style="text-align:right">34.4</td><td style="text-align:right">48.1</td><td style="text-align:right">50.7</td><td style="text-align:right">44.4</td></tr>
+<tr><td>置換等価 \( (V, \Gamma) \)（曖昧さなし）</td><td style="text-align:right">46.3</td><td style="text-align:right">51.5</td><td style="text-align:right">53.1</td><td style="text-align:right">50.3</td></tr>
+</tbody></table>
+<p><strong>表2：</strong>モデリング手法に関するアブレーション。素朴なモデリング手法は点集合に一意の置換を課すため、曖昧さが生じる。MapTR は曖昧さを回避するために置換等価モデリングを導入し、これにより学習過程が安定化し、性能が大きく向上する（+5.9 mAP）。<span class="yakuchu">（訳注：原表では MapTR の採用設定の行が網掛けで強調されている。表3・表4 も同様。）</span></p>
+
+<table><thead><tr><th>\( \beta \)</th><th>AP<sub><em>ped</em></sub></th><th>AP<sub><em>divider</em></sub></th><th>AP<sub><em>boundary</em></sub></th><th>mAP</th></tr></thead>
+<tbody>
+<tr><td>0</td><td style="text-align:right">41.4</td><td style="text-align:right">51.3</td><td style="text-align:right">51.9</td><td style="text-align:right">48.2</td></tr>
+<tr><td>\( 3e^{-3} \)</td><td style="text-align:right">44.8</td><td style="text-align:right">50.4</td><td style="text-align:right">52.1</td><td style="text-align:right">49.1</td></tr>
+<tr><td>\( 5e^{-3} \)</td><td style="text-align:right">46.3</td><td style="text-align:right">51.5</td><td style="text-align:right">53.1</td><td style="text-align:right">50.3</td></tr>
+<tr><td>\( 1e^{-2} \)</td><td style="text-align:right">41.9</td><td style="text-align:right">50.9</td><td style="text-align:right">52.0</td><td style="text-align:right">48.3</td></tr>
+</tbody></table>
+<p><strong>表3：</strong>エッジ方向損失の重み \( \beta \) に関するアブレーション。</p>
+<p><strong>エッジ方向損失の有効性。</strong>エッジ方向損失の重みに関するアブレーションを表3 に示す。\( \beta = 0 \) はエッジ方向損失を用いないことを意味する。\( \beta = 5e^{-3} \) が適切な教師付けに相当し、デフォルト設定として採用している。</p>
+
+<table><thead><tr><th>手法</th><th>mAP</th><th>FPS</th><th>パラメータ数</th></tr></thead>
+<tbody>
+<tr><td>IPM</td><td style="text-align:right">46.2</td><td style="text-align:right">11.7</td><td style="text-align:right">35.7M</td></tr>
+<tr><td>LSS</td><td style="text-align:right">49.5</td><td style="text-align:right">10.0</td><td style="text-align:right">37.1M</td></tr>
+<tr><td>Deform. Atten.</td><td style="text-align:right">49.7</td><td style="text-align:right">11.2</td><td style="text-align:right">36.0M</td></tr>
+<tr><td>GKT</td><td style="text-align:right">50.3</td><td style="text-align:right">11.2</td><td style="text-align:right">35.9M</td></tr>
+</tbody></table>
+<p><strong>表4：</strong>2D から BEV への変換手法に関するアブレーション。MapTR はさまざまな 2D-BEV 変換手法と互換性があり、安定した性能を達成する。</p>
+<p><strong>2D から BEV への変換。</strong>表4 では、2D から BEV への変換手法（<em>例えば</em> IPM（Mallot et al., 1991）、LSS（Liu et al., 2022c; Philion &amp; Fidler, 2020）、Deformable Attention（Li et al., 2022c）、GKT（Chen et al., 2022b））についてアブレーションを行う。LSS には最適化された実装（Liu et al., 2022c）を用いる。また IPM および LSS との公平な比較のため、GKT と Deformable Attention はいずれも 1 層の構成を採用する。実験により、MapTR がさまざまな 2D-BEV 変換手法と互換性があり、安定した性能を達成することが示される。展開の容易さと高い効率を考慮して、MapTR のデフォルト構成として GKT を採用する。</p>
+
+<h3 id="4.3-定性的な可視化">4.3　定性的な可視化</h3>
+<p>複雑で多様な走行シーンにおける、予測されたベクトル化 HD 地図の結果を図1 に示す。MapTR は安定した優れた結果を維持している。さらなる定性的結果は付録 C に示す。頑健性を示すための動画も（補足資料として）提供している。</p>
+
+<h2 id="5-結論">5　結論</h2>
+<p>MapTR は、効率的なオンラインのベクトル化 HD マップ構築のための構造化されたエンドツーエンドフレームワークであり、単純なエンコーダ・デコーダ型 Transformer アーキテクチャと階層的二部マッチングを採用して、提案する置換等価モデリングに基づく地図要素の学習を行う。広範な実験により、提案手法が難易度の高い nuScenes データセットにおいて任意形状の地図要素を正確に知覚できることが示された。MapTR が自動運転システムの基本モジュールとして役立ち、下流タスク（<em>例えば</em>動き予測や計画）の発展を後押しすることを期待する。</p>
+<a class="pg" data-page="10"></a>
+<h2 id="謝辞">謝辞</h2>
+<p>本研究の一部は NSFC（No. 62276108）の支援を受けた。評価に関する指導と建設的な議論をいただいた Yicheng Liu 氏に感謝する。</p>
+
+<h2 id="参考文献">参考文献</h2>
+<p>参考文献は原文のまま掲載した。</p>
+<ul class="refs">
+<li>Holger Caesar, Varun Bankiti, Alex H Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous driving. In <em>CVPR</em>, 2020.</li>
+<li>Yigit Baran Can, Alexander Liniger, Danda Pani Paudel, and Luc Van Gool. Structured bird's-eye-view traffic scene understanding from onboard images. In <em>ICCV</em>, 2021.</li>
+<li>Nicolas Carion, Francisco Massa, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, and Sergey Zagoruyko. End-to-end object detection with transformers. In <em>ECCV</em>, 2020.</li>
+<li>Li Chen, Chonghao Sima, Yang Li, Zehan Zheng, Jiajie Xu, Xiangwei Geng, Hongyang Li, Conghui He, Jianping Shi, Yu Qiao, and Junchi Yan. Persformer: 3d lane detection via perspective transformer and the openlane benchmark. In <em>ECCV</em>, 2022a.</li>
+<li>Shaoyu Chen, Tianheng Cheng, Xinggang Wang, Wenming Meng, Qian Zhang, and Wenyu Liu. Efficient and robust 2d-to-bev representation learning via geometry-guided kernel transformer. <em>arXiv preprint arXiv:2206.04584</em>, 2022b.</li>
+<li>Yuxin Fang, Bencheng Liao, Xinggang Wang, Jiemin Fang, Jiyang Qi, Rui Wu, Jianwei Niu, and Wenyu Liu. You only look at one sequence: Rethinking transformer in vision through object detection. <em>Advances in Neural Information Processing Systems</em>, 34:26183–26197, 2021.</li>
+<li>Zhengyang Feng, Shaohua Guo, Xin Tan, Ke Xu, Min Wang, and Lizhuang Ma. Rethinking efficient lane detection via curve modeling. In <em>CVPR</em>, 2022.</li>
+<li>Noa Garnett, Rafi Cohen, Tomer Pe'er, Roee Lahav, and Dan Levi. 3d-lanenet: end-to-end 3d multiple lane detection. In <em>ICCV</em>, 2019.</li>
+<li>Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In <em>CVPR</em>, 2016.</li>
+<li>Anthony Hu, Zak Murez, Nikhil Mohan, Sofía Dudas, Jeffrey Hawke, Vijay Badrinarayanan, Roberto Cipolla, and Alex Kendall. FIERY: Future instance segmentation in bird's-eye view from surround monocular cameras. In <em>ICCV</em>, 2021.</li>
+<li>Junjie Huang, Guan Huang, Zheng Zhu, Ye Yun, and Dalong Du. Bevdet: High-performance multi-camera 3d object detection in bird-eye-view. <em>arXiv preprint arXiv:2112.11790</em>, 2021.</li>
+<li>Alex H. Lang, Sourabh Vora, Holger Caesar, Lubing Zhou, Jiong Yang, and Oscar Beijbom. Pointpillars: Fast encoders for object detection from point clouds. In <em>CVPR</em>, 2019.</li>
+<li>Justin Lazarow, Weijian Xu, and Zhuowen Tu. Instance segmentation with mask-supervised polygonal boundary transformers. In <em>CVPR</em>, 2022.</li>
+<li>Qi Li, Yue Wang, Yilun Wang, and Hang Zhao. Hdmapnet: An online hd map construction and evaluation framework. In <em>ICRA</em>, 2022a.</li>
+<li>Weijia Li, Wenqian Zhao, Huaping Zhong, Conghui He, and Dahua Lin. Joint semantic-geometric learning for polygonal building segmentation. In <em>AAAI</em>, 2021.</li>
+<li>Yinhao Li, Zheng Ge, Guanyi Yu, Jinrong Yang, Zengran Wang, Yukang Shi, Jianjian Sun, and Zeming Li. Bevdepth: Acquisition of reliable depth for multi-view 3d object detection. <em>arXiv preprint arXiv:2206.10092</em>, 2022b.</li>
+<li>Zhiqi Li, Wenhai Wang, Hongyang Li, Enze Xie, Chonghao Sima, Tong Lu, Yu Qiao, and Jifeng Dai. Bevformer: Learning bird's-eye-view representation from multi-camera images via spatiotemporal transformers. In <em>ECCV</em>, 2022c.</li>
+</ul>
+<a class="pg" data-page="11"></a>
+<ul class="refs">
+<li>Justin Liang, Namdar Homayounfar, Wei-Chiu Ma, Yuwen Xiong, Rui Hu, and Raquel Urtasun. Polytransform: Deep polygon transformer for instance segmentation. In <em>CVPR</em>, 2020.</li>
+<li>Tsung-Yi Lin, Priya Goyal, Ross B. Girshick, Kaiming He, and Piotr Dollár. Focal loss for dense object detection. In <em>ICCV</em>, 2017.</li>
+<li>Huan Ling, Jun Gao, Amlan Kar, Wenzheng Chen, and Sanja Fidler. Fast interactive object annotation with curve-gcn. In <em>CVPR</em>, 2019.</li>
+<li>Ruijin Liu, Zejian Yuan, Tie Liu, and Zhiliang Xiong. End-to-end lane shape prediction with transformers. In <em>WACV</em>, 2021a.</li>
+<li>Yicheng Liu, Yue Wang, Yilun Wang, and Hang Zhao. Vectormapnet: End-to-end vectorized hd map learning. <em>arXiv preprint arXiv:2206.08920</em>, 2022a.</li>
+<li>Ze Liu, Yutong Lin, Yue Cao, Han Hu, Yixuan Wei, Zheng Zhang, Stephen Lin, and Baining Guo. Swin transformer: Hierarchical vision transformer using shifted windows. In <em>Proceedings of the IEEE/CVF International Conference on Computer Vision</em>, pp. 10012–10022, 2021b.</li>
+<li>Zhi Liu, Shaoyu Chen, Xiaojie Guo, Xinggang Wang, Tianheng Cheng, Hongmei Zhu, Qian Zhang, Wenyu Liu, and Yi Zhang. Vision-based uneven bev representation learning with polar rasterization and surface estimation. <em>arXiv preprint arXiv:2207.01878</em>, 2022b.</li>
+<li>Zhijian Liu, Haotian Tang, Alexander Amini, Xingyu Yang, Huizi Mao, Daniela Rus, and Song Han. Bevfusion: Multi-task multi-sensor fusion with unified bird's-eye view representation. <em>arXiv preprint arXiv:2205.13542</em>, 2022c.</li>
+<li>Zichen Liu, Jun Hao Liew, Xiangyu Chen, and Jiashi Feng. Dance: A deep attentive contour model for efficient instance segmentation. In <em>WACVW</em>, 2021c.</li>
+<li>Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. In <em>ICLR</em>, 2019.</li>
+<li>Yuexin Ma, Tai Wang, Xuyang Bai, Huitong Yang, Yuenan Hou, Yaming Wang, Y. Qiao, Ruigang Yang, Dinesh Manocha, and Xinge Zhu. Vision-centric bev perception: A survey. <em>arXiv preprint arXiv:2208.02797</em>, 2022.</li>
+<li>Hanspeter A Mallot, Heinrich H Bülthoff, JJ Little, and Stefan Bohrer. Inverse perspective mapping simplifies optical flow computation and obstacle detection. <em>Biological cybernetics</em>, 1991.</li>
+<li>Sida Peng, Wen Jiang, Huaijin Pi, Xiuli Li, Hujun Bao, and Xiaowei Zhou. Deep snake for real-time instance segmentation. In <em>CVPR</em>, 2020.</li>
+<li>Jonah Philion and Sanja Fidler. Lift, splat, shoot: Encoding images from arbitrary camera rigs by implicitly unprojecting to 3d. In <em>ECCV</em>, 2020.</li>
+<li>Tixiao Shan and Brendan Englot. Lego-loam: Lightweight and ground-optimized lidar odometry and mapping on variable terrain. In <em>IROS</em>, 2018.</li>
+<li>Tixiao Shan, Brendan J. Englot, Drew Meyers, Wei Wang, Carlo Ratti, and Daniela Rus. LIO-SAM: tightly-coupled lidar inertial odometry via smoothing and mapping. In <em>IROS</em>, 2020.</li>
+<li>Lucas Tabelini, Rodrigo Berriel, Thiago M Paixao, Claudine Badue, Alberto F De Souza, and Thiago Oliveira-Santos. Keep your eyes on the lane: Real-time attention-guided lane detection. In <em>CVPR</em>, 2021.</li>
+<li>Mingxing Tan and Quoc V. Le. Efficientnet: Rethinking model scaling for convolutional neural networks. In <em>ICML</em>, 2019.</li>
+<li>Jinsheng Wang, Yinchao Ma, Shaofei Huang, Tianrui Hui, Fei Wang, Chen Qian, and Tianzhu Zhang. A keypoint-based global association network for lane detection. In <em>CVPR</em>, 2022.</li>
+<li>Enze Xie, Peize Sun, Xiaoge Song, Wenhai Wang, Xuebo Liu, Ding Liang, Chunhua Shen, and Ping Luo. Polarmask: Single shot instance segmentation with polar representation. In <em>CVPR</em>, 2020.</li>
+</ul>
+<a class="pg" data-page="12"></a>
+<ul class="refs">
+<li>Wenqiang Xu, Haiyang Wang, Fubo Qi, and Cewu Lu. Explicit shape encoding for real-time instance segmentation. In <em>ICCV</em>, 2019.</li>
+<li>Ji Zhang and Sanjiv Singh. LOAM: lidar odometry and mapping in real-time. In <em>Robotics: Science and Systems X, University of California</em>, 2014.</li>
+<li>Brady Zhou and Philipp Krähenbühl. Cross-view transformers for real-time map-view semantic segmentation. In <em>CVPR</em>, 2022.</li>
+<li>Chenming Zhu, Xuanye Zhang, Yanran Li, Liangdong Qiu, Kai Han, and Xiaoguang Han. Sharpcontour: A contour-based boundary refinement approach for efficient and accurate instance segmentation. In <em>CVPR</em>, 2022.</li>
+<li>Xizhou Zhu, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang, and Jifeng Dai. Deformable DETR: deformable transformers for end-to-end object detection. In <em>ICLR</em>, 2021.</li>
+</ul>
+
+<a class="pg" data-page="13"></a>
+<h2 id="付録">付録</h2>
+<h2 id="a-実装の詳細">A　実装の詳細</h2>
+<p>本節では、手法と実験に関するさらなる実装の詳細を示す。</p>
+<p><strong>データ拡張。</strong>元画像の解像度は \( 1600 \times 900 \) である。MapTR-nano では、元画像を 0.2 倍にリサイズする。MapTR-tiny では、元画像を 0.5 倍にリサイズする。デフォルトでカラージッターを用いる。</p>
+<p><strong>モデル設定。</strong>すべての実験において、学習時には \( \lambda \) を 2、\( \alpha \) を 5、\( \beta \) を \( 5e^{-3} \) に設定する。MapTR-tiny では、インスタンスレベルのクエリ数と点レベルのクエリ数をそれぞれ 50 と 20 に設定する。また各 BEV グリッドのサイズを \( 0.3m \) とし、6 層の Transformer デコーダ層を積み重ねる。MapTR-tiny は、合計バッチサイズ 32（6 視点の画像を含む）、学習率 \( 6e^{-4} \) で学習し、バックボーンの学習率乗数は 0.1 とする。すべてのアブレーション研究は、24 エポック学習した MapTR-tiny に基づく。MapTR-nano では、インスタンスレベルのクエリ数と点レベルのクエリ数をそれぞれ 100 と 20 に設定する。また各 BEV グリッドのサイズを \( 0.75m \) とし、2 層の Transformer デコーダ層を積み重ねる。MapTR-nano は、110 エポック、合計バッチサイズ 192、学習率 \( 4e^{-3} \) で学習し、バックボーンの学習率乗数は 0.1 とする。MapTR のデフォルトの 2D から BEV へのモジュールとして GKT（Chen et al., 2022b）を用いる。</p>
+<p><strong>データセットの前処理。</strong>地図アノテーションは Liu et al.（2022a）; Li et al.（2022a）に従って処理する。自車両の知覚範囲内にある地図要素を GT 地図要素として抽出する。デフォルトでは、知覚範囲は \( X \) 軸が \( [-15.0m, 15.0m] \)、\( Y \) 軸が \( [-30.0m, 30.0m] \) である。</p>
+
+<h2 id="b-アブレーション研究">B　アブレーション研究</h2>
+<figure><img src="figs/fig5.png" loading="lazy" alt="図5" /></figure>
+<p><strong>図5：</strong>置換のモデリング手法ごとの収束曲線。</p>
+<p class="yakuchu">図中ラベル：loss＝損失、steps＝ステップ数、epochs＝エポック数、Permutation-equivalent (V, Γ) w/o ambiguity＝置換等価 (V, Γ)（曖昧さなし）、Fixed-order V<sup>F</sup> w/ ambiguity＝固定順序 V<sup>F</sup>（曖昧さあり）</p>
+<p><strong>点の数。</strong>各地図要素をモデル化するための点の数に関するアブレーションを表5 に示す。点が少なすぎると、地図要素の複雑な幾何形状を記述できない。点が多すぎると効率に影響する。MapTR のデフォルト設定として 20 点を採用する。</p>
+<p><strong>要素の数。</strong>地図要素の数に関するアブレーションを表6 に示す。MapTR-tiny の地図要素のデフォルト数として 50 を採用する。</p>
+<a class="pg" data-page="14"></a>
+<table><thead><tr><th>点の数</th><th>AP<sub><em>ped</em></sub></th><th>AP<sub><em>divider</em></sub></th><th>AP<sub><em>boundary</em></sub></th><th>mAP</th><th>FPS</th></tr></thead>
+<tbody>
+<tr><td style="text-align:right">10</td><td style="text-align:right">42.5</td><td style="text-align:right">51.3</td><td style="text-align:right">50.1</td><td style="text-align:right">48.0</td><td style="text-align:right">12.3</td></tr>
+<tr><td style="text-align:right">20</td><td style="text-align:right">46.3</td><td style="text-align:right">51.5</td><td style="text-align:right">53.1</td><td style="text-align:right">50.3</td><td style="text-align:right">11.2</td></tr>
+<tr><td style="text-align:right">40</td><td style="text-align:right">44.7</td><td style="text-align:right">52.4</td><td style="text-align:right">52.9</td><td style="text-align:right">50.0</td><td style="text-align:right">10.8</td></tr>
+</tbody></table>
+<p><strong>表5：</strong>各地図要素をモデル化するための点の数に関するアブレーション。</p>
+
+<table><thead><tr><th>要素の数</th><th>AP<sub><em>ped</em></sub></th><th>AP<sub><em>divider</em></sub></th><th>AP<sub><em>boundary</em></sub></th><th>mAP</th><th>FPS</th></tr></thead>
+<tbody>
+<tr><td style="text-align:right">25</td><td style="text-align:right">36.3</td><td style="text-align:right">43.8</td><td style="text-align:right">44.7</td><td style="text-align:right">41.6</td><td style="text-align:right">11.4</td></tr>
+<tr><td style="text-align:right">50</td><td style="text-align:right">46.3</td><td style="text-align:right">51.5</td><td style="text-align:right">53.1</td><td style="text-align:right">50.3</td><td style="text-align:right">11.2</td></tr>
+<tr><td style="text-align:right">75</td><td style="text-align:right">48.2</td><td style="text-align:right">53.1</td><td style="text-align:right">55.3</td><td style="text-align:right">52.2</td><td style="text-align:right">11.1</td></tr>
+</tbody></table>
+<p><strong>表6：</strong>地図要素の数に関するアブレーション。</p>
+
+<p><strong>デコーダ層の数。</strong>地図デコーダの層数に関するアブレーションを表7 に示す。地図構築の性能は層数が増えるにつれて向上するが、層数が 6 に達すると飽和する。</p>
+<table><thead><tr><th>層の数</th><th>AP<sub><em>ped</em></sub></th><th>AP<sub><em>divider</em></sub></th><th>AP<sub><em>boundary</em></sub></th><th>mAP</th><th>FPS</th></tr></thead>
+<tbody>
+<tr><td style="text-align:right">1</td><td style="text-align:right">20.8</td><td style="text-align:right">30.2</td><td style="text-align:right">36.3</td><td style="text-align:right">29.1</td><td style="text-align:right">15.2</td></tr>
+<tr><td style="text-align:right">2</td><td style="text-align:right">36.0</td><td style="text-align:right">43.1</td><td style="text-align:right">48.0</td><td style="text-align:right">42.4</td><td style="text-align:right">14.2</td></tr>
+<tr><td style="text-align:right">3</td><td style="text-align:right">38.2</td><td style="text-align:right">44.1</td><td style="text-align:right">49.5</td><td style="text-align:right">44.0</td><td style="text-align:right">13.5</td></tr>
+<tr><td style="text-align:right">6</td><td style="text-align:right">46.3</td><td style="text-align:right">51.5</td><td style="text-align:right">53.1</td><td style="text-align:right">50.3</td><td style="text-align:right">11.2</td></tr>
+<tr><td style="text-align:right">8</td><td style="text-align:right">39.6</td><td style="text-align:right">51.9</td><td style="text-align:right">51.2</td><td style="text-align:right">47.6</td><td style="text-align:right">10.6</td></tr>
+</tbody></table>
+<p><strong>表7：</strong>デコーダの数に関するアブレーション。</p>
+
+<p><strong>位置マッチングコスト。</strong>3.2 節で述べたように、インスタンスレベルのマッチングでは、予測点集合 \( \hat{V}_{\pi(i)} \) と GT 点集合 \( V_i \) の間の位置の相関を反映するために、位置マッチングコスト項 \( \mathcal{L}_{\text{position}}(\hat{V}_{\pi(i)}, V_i) \) を採用する。表8 では 2 種類のコスト設計、<em>すなわち</em> Chamfer 距離コストと point2point コストを比較する。Point2point コストは点レベルのマッチングコストと類似している。具体的には、最良の point2point 割り当てを求め、すべての点ペアのマンハッタン距離の総和を 2 つの点集合の位置マッチングコストとする。実験により、point2point コストが Chamfer 距離コストより優れていることが示される。</p>
+<table><thead><tr><th>位置マッチングコスト</th><th>AP<sub><em>ped</em></sub></th><th>AP<sub><em>divider</em></sub></th><th>AP<sub><em>boundary</em></sub></th><th>mAP</th></tr></thead>
+<tbody>
+<tr><td>Chamfer 距離コスト</td><td style="text-align:right">40.3</td><td style="text-align:right">53.8</td><td style="text-align:right">48.5</td><td style="text-align:right">47.5</td></tr>
+<tr><td>Point2point コスト</td><td style="text-align:right">46.3</td><td style="text-align:right">51.5</td><td style="text-align:right">53.1</td><td style="text-align:right">50.3</td></tr>
+</tbody></table>
+<p><strong>表8：</strong>位置マッチングコスト項に関するアブレーション。</p>
+
+<p><strong>Swin Transformer バックボーン。</strong>Swin Transformer バックボーン（Liu et al., 2021b）に関するアブレーションを表9 に示す。</p>
+<table><thead><tr><th>手法</th><th>バックボーン</th><th>AP<sub><em>ped</em></sub></th><th>AP<sub><em>divider</em></sub></th><th>AP<sub><em>boundary</em></sub></th><th>mAP</th><th>FPS</th><th>パラメータ数</th></tr></thead>
+<tbody>
+<tr><td>MapTR-tiny</td><td>R50</td><td style="text-align:right">46.3</td><td style="text-align:right">51.5</td><td style="text-align:right">53.1</td><td style="text-align:right">50.3</td><td style="text-align:right">11.2</td><td style="text-align:right">35.9M</td></tr>
+<tr><td>MapTR-tiny</td><td>Swin-tiny</td><td style="text-align:right">45.2</td><td style="text-align:right">52.7</td><td style="text-align:right">52.3</td><td style="text-align:right">50.1</td><td style="text-align:right">9.1</td><td style="text-align:right">39.9M</td></tr>
+<tr><td>MapTR-small</td><td>Swin-small</td><td style="text-align:right">50.2</td><td style="text-align:right">55.4</td><td style="text-align:right">57.3</td><td style="text-align:right">54.3</td><td style="text-align:right">7.3</td><td style="text-align:right">61.2M</td></tr>
+<tr><td>MapTR-base</td><td>Swin-base</td><td style="text-align:right">50.6</td><td style="text-align:right">58.7</td><td style="text-align:right">58.4</td><td style="text-align:right">55.9</td><td style="text-align:right">6.1</td><td style="text-align:right">99.2M</td></tr>
+</tbody></table>
+<p><strong>表9：</strong>Swin Transformer バックボーンに関するアブレーション。</p>
+
+<p><strong>モダリティ。</strong>マルチセンサー知覚は自動運転車の安全性にとって極めて重要であり、MapTR は LiDAR のような他の車載センサーとも互換性がある。表10 に示すように、わずか 24 エポックのスケジュールで、マルチモダリティの MapTR は従来の最先端の結果を 17.3 mAP も大きく上回り、しかも 2 倍高速である。</p>
+
+<a class="pg" data-page="15"></a>
+<table><thead><tr><th>手法</th><th>モダリティ</th><th>エポック数</th><th>AP<sub><em>ped</em></sub></th><th>AP<sub><em>divider</em></sub></th><th>AP<sub><em>boundary</em></sub></th><th>mAP</th><th>FPS</th></tr></thead>
+<tbody>
+<tr><td>HDMapNet</td><td>C &amp; L</td><td style="text-align:right">30</td><td style="text-align:right">16.3</td><td style="text-align:right">29.6</td><td style="text-align:right">46.7</td><td style="text-align:right">31.0</td><td style="text-align:right">0.5</td></tr>
+<tr><td>VectorMapNet</td><td>C &amp; L</td><td style="text-align:right">110</td><td style="text-align:right">37.6</td><td style="text-align:right">50.5</td><td style="text-align:right">47.5</td><td style="text-align:right">45.2</td><td style="text-align:right">&lt;2.9</td></tr>
+<tr><td>MapTR-tiny</td><td>C</td><td style="text-align:right">24</td><td style="text-align:right">46.3</td><td style="text-align:right">51.5</td><td style="text-align:right">53.1</td><td style="text-align:right">50.3</td><td style="text-align:right">11.2</td></tr>
+<tr><td>MapTR-tiny</td><td>L</td><td style="text-align:right">24</td><td style="text-align:right">48.5</td><td style="text-align:right">53.7</td><td style="text-align:right">64.7</td><td style="text-align:right">55.6</td><td style="text-align:right">7.2</td></tr>
+<tr><td>MapTR-tiny</td><td>C &amp; L</td><td style="text-align:right">24</td><td style="text-align:right"><strong>55.9</strong></td><td style="text-align:right"><strong>62.3</strong></td><td style="text-align:right"><strong>69.3</strong></td><td style="text-align:right"><strong>62.5</strong></td><td style="text-align:right">5.8</td></tr>
+</tbody></table>
+<p><strong>表10：</strong>モダリティに関するアブレーション。</p>
+
+<p><strong>カメラのずれに対する頑健性。</strong>実際の応用では、カメラの内部パラメータは通常正確でほとんど変化しないが、カメラの外部パラメータはカメラ位置のずれやキャリブレーション誤差<em>など</em>によって不正確になる可能性がある。頑健性を検証するために、検証セットを走査し、各サンプルに対してランダムにノイズを生成する。異なる程度の並進のずれと回転のずれをそれぞれ加える。ノイズはすべてのカメラとすべての座標に加えることに注意されたい。また、ノイズは正規分布に従う。一部のサンプルには極端に大きなずれが存在し、それが性能に大きく影響する。表11 と表12 に示すように、\( \Delta_x, \Delta_y, \Delta_z \) の標準偏差が \( 0.1m \)、あるいは \( \theta_x, \theta_y, \theta_z \) の標準偏差が \( 0.02rad \) の場合でも、MapTR は同等の性能を維持する。</p>
+
+<table><thead><tr><th rowspan="2">手法</th><th colspan="5">\( \sigma_1(m) \)</th></tr>
+<tr><th>0</th><th>0.05</th><th>0.1</th><th>0.5</th><th>1.0</th></tr></thead>
+<tbody>
+<tr><td>MapTR-tiny</td><td style="text-align:right">50.3</td><td style="text-align:right">49.9</td><td style="text-align:right">49.0</td><td style="text-align:right">34.0</td><td style="text-align:right">17.0</td></tr>
+</tbody></table>
+<p><strong>表11：</strong>カメラの並進のずれに対する頑健性。評価指標は mAP。\( \sigma_1 \) は \( \Delta_x, \Delta_y, \Delta_z \) の標準偏差である。</p>
+
+<table><thead><tr><th rowspan="2">手法</th><th colspan="5">\( \sigma_2(rad) \)</th></tr>
+<tr><th>0</th><th>0.005</th><th>0.01</th><th>0.02</th><th>0.05</th></tr></thead>
+<tbody>
+<tr><td>MapTR-tiny</td><td style="text-align:right">50.3</td><td style="text-align:right">49.4</td><td style="text-align:right">47.5</td><td style="text-align:right">42.0</td><td style="text-align:right">24.7</td></tr>
+</tbody></table>
+<p><strong>表12：</strong>カメラの回転のずれに対する頑健性。評価指標は mAP。\( \sigma_2 \) は \( \theta_x, \theta_y, \theta_z \) の標準偏差である。</p>
+
+<p><strong>詳細な実行時間。</strong>MapTR の効率についてより深く理解するために、マルチカメラ入力のみを用いる MapTR-tiny における各構成要素の詳細な実行時間を表13 に示す。</p>
+<table><thead><tr><th>構成要素</th><th>実行時間 (ms)</th><th>割合</th></tr></thead>
+<tbody>
+<tr><td>バックボーン</td><td style="text-align:right">55.5</td><td style="text-align:right">62.1%</td></tr>
+<tr><td>2D から BEV へのモジュール（GKT）</td><td style="text-align:right">12.3</td><td style="text-align:right">13.8%</td></tr>
+<tr><td>地図デコーダ</td><td style="text-align:right">21.5</td><td style="text-align:right">24.1%</td></tr>
+<tr><td>合計</td><td style="text-align:right">89.3</td><td style="text-align:right">100 %</td></tr>
+</tbody></table>
+<p><strong>表13：</strong>RTX 3090 上での MapTR-tiny の各構成要素の詳細な実行時間。</p>
+
+<h2 id="c-定性的な可視化">C　定性的な可視化</h2>
+<p>nuScenes の <code>val</code> セットにおいて、さまざまな気象条件や困難な道路環境のもとでの MapTR の地図構築結果を可視化する。図6、図7、図8 に示すように、MapTR は安定した優れた結果を維持している。動画の結果は補足資料として提供している。</p>
+<a class="pg" data-page="16"></a>
+<figure><img src="figs/fig6.jpg" loading="lazy" alt="図6" /></figure>
+<p><strong>図6：</strong>晴天および曇天のもとでの可視化。</p>
+<p class="yakuchu">図中ラベル：FRONT_LEFT／FRONT／FRONT_RIGHT＝左前方／前方／右前方カメラ、BACK_LEFT／BACK／BACK_RIGHT＝左後方／後方／右後方カメラ。（訳注：図6〜図8 には列見出しがないが、図1 と同じ配置で、右側 2 列はそれぞれ予測と正解（GT）の地図、色は青＝横断歩道、橙＝車線区分線、緑＝道路境界を表すと考えられる。）</p>
+
+<a class="pg" data-page="17"></a>
+<figure><img src="figs/fig7.jpg" loading="lazy" alt="図7" /></figure>
+<p><strong>図7：</strong>雨天のもとでの可視化。</p>
+
+<a class="pg" data-page="18"></a>
+<figure><img src="figs/fig8.jpg" loading="lazy" alt="図8" /></figure>
+<p><strong>図8：</strong>夜間の可視化。</p>
+    </article>
+  </div>
+</div>
+<script>
+/* ===== 左: 原文 PDF を PDF.js で描画（見えている付近だけ描画し、離れたら破棄してメモリを節約） ===== */
+(function () {
+  var PDF_URL = document.body.querySelector('header a[title="原文PDFを開く"]').getAttribute('href');
+  var left = document.getElementById('left');
+  var pageDivs = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  if (!window.pdfjsLib) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文の表示ライブラリを読み込めませんでした（オフライン？）。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var pdfPromise = pdfjsLib.getDocument({ url: PDF_URL, rangeChunkSize: 1 << 20, disableAutoFetch: true }).promise;
+  pdfPromise.catch(function (e) {
+    left.insertAdjacentHTML('afterbegin', '<div class="msg">原文 PDF を読み込めませんでした。<a href="' + PDF_URL + '">PDF を直接開く</a></div>');
+  });
+  var MAX_PIXELS = 12e6; // iOS のキャンバス上限（約 16M 画素）より余裕をもたせる
+  var state = {}; // n -> {rendered:width, task}
+  function render(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var cssW = div.clientWidth; if (!cssW) return;
+    var st = state[n] || (state[n] = {});
+    if (st.rendered === cssW || st.busy) return;
+    st.busy = true;
+    pdfPromise.then(function (pdf) { return pdf.getPage(n); }).then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var scale = cssW * dpr / base.width;
+      if (base.width * base.height * scale * scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS / (base.width * base.height));
+      var vp = page.getViewport({ scale: scale });
+      var canvas = div.querySelector('canvas');
+      canvas.width = Math.floor(vp.width); canvas.height = Math.floor(vp.height);
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    }).then(function () { st.rendered = cssW; st.busy = false; if (st.again) { st.again = false; render(div); } },
+            function () { st.busy = false; });
+  }
+  function release(div) {
+    var n = parseInt(div.getAttribute('data-page'), 10);
+    var st = state[n]; if (!st || st.busy || !st.rendered) return;
+    var c = div.querySelector('canvas'); c.width = 0; c.height = 0; st.rendered = 0;
+  }
+  if ('IntersectionObserver' in window) {
+    var near = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) render(e.target); }); },
+      { root: left, rootMargin: '150% 0px' });
+    var far = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) release(e.target); }); },
+      { root: left, rootMargin: '500% 0px' });
+    pageDivs.forEach(function (d) { near.observe(d); far.observe(d); });
+  } else { pageDivs.forEach(render); }
+  // 幅が変わったら見えているページを描き直す
+  var rt = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () {
+      var top = left.getBoundingClientRect().top, bottom = top + left.clientHeight;
+      pageDivs.forEach(function (d) { var r = d.getBoundingClientRect(); if (r.bottom > top - 500 && r.top < bottom + 500) render(d); });
+    }, 250);
+  });
+  window.__rerenderVisible = function () { window.dispatchEvent(new Event('resize')); };
+})();
+
+/* ===== スクロール同期（ページ単位で対応付け、ページ内は比例配分） ===== */
+(function () {
+  var left = document.getElementById('left'), right = document.getElementById('right');
+  var syncBox = document.getElementById('sync'), pos = document.getElementById('pos');
+  var pages = Array.prototype.slice.call(left.querySelectorAll('.page'));
+  var N = pages.length;
+  var L = [], R = [];
+  function offsetIn(el, pane) { return el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop; }
+  var lastLH = -1, lastRH = -1;
+  function measure() {
+    lastLH = left.scrollHeight; lastRH = right.scrollHeight;
+    L = [0].concat(pages.map(function (p) { return offsetIn(p, left); }));
+    L[1] = 0;
+    L.push(left.scrollHeight);
+    var known = {};
+    Array.prototype.forEach.call(right.querySelectorAll('a.pg[data-page]'), function (a) {
+      var n = parseInt(a.getAttribute('data-page'), 10);
+      if (n >= 1 && n <= N && !(n in known)) known[n] = offsetIn(a, right);
+    });
+    var total = right.scrollHeight;
+    R = new Array(N + 2);
+    R[N + 1] = total;
+    if (!Object.keys(known).length) { for (var p = 1; p <= N; p++) R[p] = (p - 1) / N * total; return; }
+    known[1] = 0;
+    var ks = Object.keys(known).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < ks.length; i++) {
+      var a = ks[i], b = (i + 1 < ks.length) ? ks[i + 1] : N + 1;
+      var ya = known[a], yb = (b === N + 1) ? total : known[b];
+      for (var q = a; q < b; q++) R[q] = ya + (yb - ya) * (q - a) / (b - a);
+    }
+    for (var q2 = 1; q2 <= N; q2++) if (R[q2] === undefined) R[q2] = 0;
+    for (var q3 = 2; q3 <= N; q3++) if (R[q3] < R[q3 - 1]) R[q3] = R[q3 - 1];
+  }
+  function locate(st, A, count) {
+    var p = 1;
+    for (var i = 1; i <= count; i++) { if (A[i] <= st + 2) p = i; else break; }
+    var h = A[p + 1] - A[p]; var f = h > 0 ? (st - A[p]) / h : 0;
+    return { page: p, frac: Math.max(0, Math.min(1, f)) };
+  }
+  function toPos(loc, A) { return A[loc.page] + loc.frac * (A[loc.page + 1] - A[loc.page]); }
+  var lock = null, lockTimer = null;
+  function onScroll(src, dst) {
+    if (left.scrollHeight !== lastLH || right.scrollHeight !== lastRH) measure();
+    var SA = (src === left) ? L : R, DA = (src === left) ? R : L;
+    var loc = locate(src.scrollTop, SA, N);
+    pos.textContent = loc.page + ' / ' + N + ' ページ';
+    if (!syncBox.checked) return;
+    if (lock && lock !== src) return;
+    lock = src;
+    dst.scrollTop = toPos(loc, DA);
+    clearTimeout(lockTimer); lockTimer = setTimeout(function () { lock = null; }, 150);
+  }
+  left.addEventListener('scroll', function () { onScroll(left, right); }, { passive: true });
+  right.addEventListener('scroll', function () { onScroll(right, left); }, { passive: true });
+  measure();
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) {
+    var rt = null, ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(measure, 100); });
+    ro.observe(right.querySelector('article')); ro.observe(document.getElementById('pages'));
+  } else { setInterval(measure, 2000); }
+  pos.textContent = '1 / ' + N + ' ページ';
+
+  // 仕切りのドラッグ（マウス・タッチ両対応）。横並びなら幅、縦並びなら高さを変える
+  var div = document.getElementById('divider'), dragging = false;
+  function vertical() { return getComputedStyle(document.querySelector('.split')).flexDirection === 'column'; }
+  div.addEventListener('pointerdown', function (e) { dragging = true; div.setPointerCapture(e.pointerId); e.preventDefault(); });
+  div.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var box = document.querySelector('.split').getBoundingClientRect();
+    var pct = vertical() ? (e.clientY - box.top) / box.height * 100 : (e.clientX - box.left) / box.width * 100;
+    pct = Math.max(15, Math.min(85, pct));
+    left.style.flex = '0 0 ' + pct + '%'; measure();
+  });
+  function end() { if (dragging) { dragging = false; if (window.__rerenderVisible) window.__rerenderVisible(); } }
+  div.addEventListener('pointerup', end); div.addEventListener('pointercancel', end);
+})();
+</script>
+</body>
+</html>
